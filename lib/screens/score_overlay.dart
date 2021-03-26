@@ -1,11 +1,15 @@
 import 'dart:async';
-import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:simple_animations/simple_animations.dart';
+import 'package:sofia/application/states/store_user_score_state.dart';
+import 'package:sofia/providers.dart';
 import 'package:sofia/widgets/recognizer_screen/total_accuracy_painter.dart';
+import 'package:sofia/widgets/score_overlay_widgets/error_syncing_widget.dart';
+import 'package:sofia/widgets/score_overlay_widgets/score_syncing_widget.dart';
 import 'package:supercharged/supercharged.dart';
 
 import 'package:sofia/model/pose.dart';
@@ -54,6 +58,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
     _currentPose = widget.pose;
     _accuracy = widget.totalAccuracy;
     Duration duration = DateTime.now().difference(widget.startTime);
+    // Duration duration = Duration(seconds: 260);
 
     if (duration.inSeconds < 60) {
       durationString = '${duration.inSeconds}sec';
@@ -113,9 +118,15 @@ class _ScoreOverlayState extends State<ScoreOverlay>
         .parent
         .animatedBy(_animationController);
 
-    _animationController
-        .forward()
-        .whenComplete(() => startTimer(context: context));
+    _animationController.forward().whenComplete(() {
+      context.read(storeUserScoreNotifierProvider).storeScore(
+            poseName: _currentPose.title,
+            stars: 19,
+            accuracy: 0.95,
+            timeInMilliseconds: duration.inMilliseconds,
+          );
+      // startTimer(context: context);
+    });
   }
 
   @override
@@ -171,14 +182,40 @@ class _ScoreOverlayState extends State<ScoreOverlay>
       child: Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
-          child: AnimatedBuilder(
-            animation: _animationController,
-            builder: (context, child) => _buildAnimation(
-              context: context,
-              child: child,
-              height: height,
-              width: width,
-            ),
+          child: Stack(
+            children: [
+              AnimatedBuilder(
+                animation: _animationController,
+                builder: (context, child) => _buildAnimation(
+                  context: context,
+                  child: child,
+                  height: height,
+                  width: width,
+                ),
+              ),
+              ProviderListener<StoreUserScoreState>(
+                provider: storeUserScoreNotifierProvider.state,
+                onChange: (context, state) {
+                  if (state is StoredScoreData) {
+                    startTimer(context: context);
+                  }
+                },
+                child: Consumer(
+                  builder: (context, watch, child) {
+                    final state = watch(
+                      storeUserScoreNotifierProvider.state,
+                    );
+
+                    return state.when(
+                      () => Container(),
+                      storing: () => ScoreSyncingWidget(),
+                      stored: () => Container(),
+                      error: (_) => ErrorSyncingWidget(),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       ),
