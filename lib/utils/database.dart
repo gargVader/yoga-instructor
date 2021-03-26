@@ -567,7 +567,10 @@ class Database {
 
     scoreDocs.documents.forEach((doc) {
       totalStars += doc.data['stars'];
-      totalAcuracy += doc.data['accuracy'];
+      totalAcuracy = totalAcuracy == 0.0
+          ? doc.data['accuracy']
+          : (totalAcuracy + doc.data['accuracy']) / 2;
+      // totalAcuracy = doc.data['accuracy'];
       totalTimeInMilliseconds += doc.data['time'];
     });
 
