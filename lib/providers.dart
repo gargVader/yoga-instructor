@@ -4,10 +4,9 @@ import 'package:sofia/application/notifiers/auth_sign_in_notifier.dart';
 import 'package:sofia/application/notifiers/retrieve_poses_notifier.dart';
 import 'package:sofia/application/notifiers/retrieve_tracks_notifier.dart';
 import 'package:sofia/application/notifiers/store_user_data_notifier.dart';
+import 'package:sofia/application/notifiers/store_user_score_notifier.dart';
 import 'package:sofia/utils/authentication_client.dart';
 import 'package:sofia/utils/database.dart';
-
-import 'model/pose.dart';
 
 final authenticationClientProvider = Provider<AuthenticationClient>(
   (ref) => AuthenticationClient(),
@@ -30,6 +29,10 @@ final authCurrentUserNotifierProvider = StateNotifierProvider(
 
 final storeUserDataNotifierProvider = StateNotifierProvider(
   (ref) => StoreUserDataNotifier(ref.watch(databaseProvider)),
+);
+
+final storeUserScoreNotifierProvider = StateNotifierProvider(
+  (ref) => StoreUserScoreNotifier(ref.watch(databaseProvider)),
 );
 
 final retrievePosesNotifierProvider =
