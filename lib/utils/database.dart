@@ -544,14 +544,14 @@ class Database {
         .collection('score')
         .document(poseName);
 
-    Map<String, dynamic> data = <String, dynamic>{
+    Map<String, dynamic> scoreData = <String, dynamic>{
       "stars": stars,
-      "double": accuracy,
+      "accuracy": accuracy,
       "time": timeInMilliseconds,
     };
-    print('DATA:\n$data');
+    print('DATA:\n$scoreData');
 
-    await documentReferencer.setData(data).whenComplete(() {
+    await documentReferencer.setData(scoreData).whenComplete(() {
       print("Score added to the database!");
     }).catchError((e) => print(e));
 
@@ -574,7 +574,13 @@ class Database {
     DocumentReference userReferencer =
         documentReference.collection('user_info').document(currentUid);
 
-    await userReferencer.updateData(data).whenComplete(() {
+    Map<String, dynamic> totalScoreData = <String, dynamic>{
+      "stars": totalStars,
+      "accuracy": totalAcuracy,
+      "time": totalTimeInMilliseconds,
+    };
+
+    await userReferencer.updateData(totalScoreData).whenComplete(() {
       print('User total score updated!');
     }).catchError((e) => print(e));
   }
