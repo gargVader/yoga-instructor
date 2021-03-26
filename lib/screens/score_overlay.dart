@@ -48,15 +48,17 @@ class _ScoreOverlayState extends State<ScoreOverlay>
   double _accuracy;
   Pose _currentPose;
   String durationString;
+  int _stars;
 
   Timer _timer;
-  int _start = 10;
+  int _start = 5;
 
   @override
   void initState() {
     super.initState();
     _currentPose = widget.pose;
     _accuracy = widget.totalAccuracy;
+    _stars = (_accuracy * 20).round();
     Duration duration = DateTime.now().difference(widget.startTime);
     // Duration duration = Duration(seconds: 260);
 
@@ -121,8 +123,8 @@ class _ScoreOverlayState extends State<ScoreOverlay>
     _animationController.forward().whenComplete(() {
       context.read(storeUserScoreNotifierProvider).storeScore(
             poseName: _currentPose.title,
-            stars: 19,
-            accuracy: 0.95,
+            stars: _stars,
+            accuracy: double.parse(_accuracy.toStringAsFixed(3)),
             timeInMilliseconds: duration.inMilliseconds,
           );
       // startTimer(context: context);
@@ -367,7 +369,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
                             SizedBox(width: 16.0),
                             RichText(
                               text: TextSpan(
-                                text: '${(_accuracy * 20).toStringAsFixed(0)} ',
+                                text: '$_stars ',
                                 style: TextStyle(
                                   color: Palette.accentDarkPink,
                                   fontSize: 26.0,

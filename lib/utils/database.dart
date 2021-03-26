@@ -569,7 +569,8 @@ class Database {
       totalStars += doc.data['stars'];
       totalAcuracy = totalAcuracy == 0.0
           ? doc.data['accuracy']
-          : (totalAcuracy + doc.data['accuracy']) / 2;
+          : double.parse(
+              ((totalAcuracy + doc.data['accuracy']) / 2).toStringAsFixed(3));
       // totalAcuracy = doc.data['accuracy'];
       totalTimeInMilliseconds += doc.data['time'];
     });
