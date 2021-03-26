@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sofia/model/user.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -13,6 +14,8 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
 // String imageUrl;
 
 class AuthenticationClient {
+  static FirebaseUser presentUser;
+
   /// Checks if the user is already signed into the app using
   /// Google Sign In.
   Future<Set<dynamic>> checkForCurrentUser() async {
@@ -21,6 +24,8 @@ class AuthenticationClient {
     bool isDetailsUploaded = prefs.getBool('details_uploaded') ?? false;
 
     final FirebaseUser user = await _auth.currentUser();
+
+    presentUser = user;
 
     Set userDetailSet = {user, isDetailsUploaded};
 
@@ -72,6 +77,8 @@ class AuthenticationClient {
 
     final FirebaseUser currentUser = await _auth.currentUser();
 
+    presentUser = currentUser;
+
     if (currentUser != null) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setBool('auth', true);
@@ -102,5 +109,5 @@ Future<String> getUid() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String uid = prefs.getString('uid');
 
-  return 'Successfully retrieved uid: $uid';
+  return uid;
 }
