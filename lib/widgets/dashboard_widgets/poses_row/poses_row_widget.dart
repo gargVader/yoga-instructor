@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/res/palette.dart';
+import 'package:sofia/screens/each_pose_page.dart';
 
 class PosesRowWidget extends StatelessWidget {
   const PosesRowWidget({
@@ -42,109 +43,121 @@ class PosesRowWidget extends StatelessWidget {
               if (index == 0) SizedBox(width: 16.0),
               Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
-                child: Container(
-                  width: screeWidth * POSE_WIDTH_MULT,
-                  decoration: BoxDecoration(
-                    color: Palette.mediumShade,
-                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(8.0),
-                          topRight: Radius.circular(8.0),
-                        ),
-                        child: SizedBox(
-                          width: screeWidth * IMAGE_MULT,
-                          child: CachedNetworkImage(
-                            imageUrl: poseImageUrl,
-                            placeholder: (context, url) => Container(
-                              width: screeWidth * IMAGE_MULT,
-                              height: screeWidth * IMAGE_MULT * 9 / 25,
-                            ),
-                            errorWidget: (context, url, error) => Container(),
-                          ),
-                          // child: Image.asset(
-                          //   'assets/images/triangle.png',
-                          //   fit: BoxFit.cover,
-                          // ),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => EachPosePage(
+                          poses: poses,
+                          currentIndex: index,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 8.0,
-                          right: 8.0,
-                          top: 8.0,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Flexible(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    poseTitle[0].toUpperCase() +
-                                        poseTitle.substring(1) +
-                                        ' pose',
-                                    maxLines: 1,
-                                    softWrap: false,
-                                    overflow: TextOverflow.fade,
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Palette.black,
-                                    ),
-                                  ),
-                                  Text(
-                                    poseSubtitle[0].toUpperCase() +
-                                        poseSubtitle.substring(1),
-                                    maxLines: 1,
-                                    softWrap: false,
-                                    overflow: TextOverflow.fade,
-                                    style: TextStyle(
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.w400,
-                                      letterSpacing: 1,
-                                      color: Palette.black,
-                                    ),
-                                  ),
-                                ],
+                    );
+                  },
+                  child: Container(
+                    width: screeWidth * POSE_WIDTH_MULT,
+                    decoration: BoxDecoration(
+                      color: Palette.mediumShade,
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8.0),
+                            topRight: Radius.circular(8.0),
+                          ),
+                          child: SizedBox(
+                            width: screeWidth * IMAGE_MULT,
+                            child: CachedNetworkImage(
+                              imageUrl: poseImageUrl,
+                              placeholder: (context, url) => Container(
+                                width: screeWidth * IMAGE_MULT,
+                                height: screeWidth * IMAGE_MULT * 9 / 25,
                               ),
+                              errorWidget: (context, url, error) => Container(),
                             ),
-                            // Icon(
-                            //   Icons.favorite_border,
-                            //   size: 26,
-                            //   color: Palette.lightDarkShade,
+                            // child: Image.asset(
+                            //   'assets/images/triangle.png',
+                            //   fit: BoxFit.cover,
                             // ),
-                            ClipOval(
-                              child: Material(
-                                color: Palette.lightDarkShade,
-                                child: InkWell(
-                                  splashColor: Palette.lightDarkShade,
-                                  child: SizedBox(
-                                    width: 38,
-                                    height: 38,
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.favorite,
-                                        size: 20,
-                                        color: Palette
-                                            .lightShade, // TODO: Change color to white as clicked
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 8.0,
+                            right: 8.0,
+                            top: 8.0,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      poseTitle[0].toUpperCase() +
+                                          poseTitle.substring(1) +
+                                          ' pose',
+                                      maxLines: 1,
+                                      softWrap: false,
+                                      overflow: TextOverflow.fade,
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Palette.black,
                                       ),
                                     ),
-                                  ),
-                                  onTap: () {},
+                                    Text(
+                                      poseSubtitle[0].toUpperCase() +
+                                          poseSubtitle.substring(1),
+                                      maxLines: 1,
+                                      softWrap: false,
+                                      overflow: TextOverflow.fade,
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w400,
+                                        letterSpacing: 1,
+                                        color: Palette.black,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ),
-                          ],
+                              // Icon(
+                              //   Icons.favorite_border,
+                              //   size: 26,
+                              //   color: Palette.lightDarkShade,
+                              // ),
+                              ClipOval(
+                                child: Material(
+                                  color: Palette.lightDarkShade,
+                                  child: InkWell(
+                                    splashColor: Palette.lightDarkShade,
+                                    child: SizedBox(
+                                      width: 38,
+                                      height: 38,
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.favorite,
+                                          size: 20,
+                                          color: Palette
+                                              .lightShade, // TODO: Change color to white as clicked
+                                        ),
+                                      ),
+                                    ),
+                                    onTap: () {},
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
