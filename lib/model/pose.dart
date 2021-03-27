@@ -7,6 +7,7 @@ class Pose {
   String title;
   String sub;
   String benefits;
+  String image;
   @JsonKey(name: 'video_url')
   String videoUrl;
   @JsonKey(name: 'pause_points')
@@ -15,6 +16,7 @@ class Pose {
   Pose({
     this.title,
     this.sub,
+    this.image,
     this.benefits,
     this.videoUrl,
     this.pausePoints,
