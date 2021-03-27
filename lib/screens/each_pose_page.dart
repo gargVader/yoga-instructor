@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
@@ -28,6 +29,7 @@ class _EachPosePageState extends State<EachPosePage> {
   String poseName;
   String poseSubtitle;
   String poseNameDisplay;
+  String poseImageUrl;
   List<String> benefitList;
 
   List<Pose> poses;
@@ -45,6 +47,8 @@ class _EachPosePageState extends State<EachPosePage> {
         currentPose.sub[0].toUpperCase() + currentPose.sub.substring(1);
 
     benefitList = currentPose.benefits.split('. ');
+
+    poseImageUrl = currentPose.image;
   }
 
   @override
@@ -77,10 +81,24 @@ class _EachPosePageState extends State<EachPosePage> {
           children: [
             SizedBox(
               height: screenWidth * 0.8,
-              child: Image.asset(
-                'assets/images/triangle.png',
-                fit: BoxFit.fitHeight,
-              ),
+              // child: Image.asset(
+              //   'assets/images/triangle.png',
+              //   fit: BoxFit.fitHeight,
+              // ),
+              child: poseImageUrl != null
+                  ? CachedNetworkImage(
+                      imageUrl: poseImageUrl,
+                      placeholder: (context, url) => Container(
+                        width: double.maxFinite,
+                        height: screenWidth * 0.8,
+                      ),
+                      errorWidget: (context, url, error) => Container(),
+                      fit: BoxFit.fitHeight,
+                    )
+                  : Image.asset(
+                      'assets/images/triangle.png',
+                      fit: BoxFit.fitHeight,
+                    ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
