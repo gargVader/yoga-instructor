@@ -118,7 +118,7 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
     _cameraController = widget.cameraController;
     _videoController = VideoManager.videoController;
 
-    _pausePoints = [95, 194];
+    _pausePoints = widget.pose.pausePoints;
 
     _accuracyTween = Tween(
       begin: 0.0,
