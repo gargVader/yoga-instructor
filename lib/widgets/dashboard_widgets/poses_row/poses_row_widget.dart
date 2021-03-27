@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/res/palette.dart';
@@ -34,6 +35,7 @@ class PosesRowWidget extends StatelessWidget {
         itemBuilder: (_, index) {
           String poseTitle = poses[index].title;
           String poseSubtitle = poses[index].sub;
+          String poseImageUrl = poses[index].image;
 
           return Row(
             children: [
@@ -57,10 +59,18 @@ class PosesRowWidget extends StatelessWidget {
                         ),
                         child: SizedBox(
                           width: screeWidth * IMAGE_MULT,
-                          child: Image.asset(
-                            'assets/images/triangle.png',
-                            fit: BoxFit.cover,
+                          child: CachedNetworkImage(
+                            imageUrl: poseImageUrl,
+                            placeholder: (context, url) => Container(
+                              width: screeWidth * IMAGE_MULT,
+                              height: screeWidth * IMAGE_MULT * 9 / 25,
+                            ),
+                            errorWidget: (context, url, error) => Container(),
                           ),
+                          // child: Image.asset(
+                          //   'assets/images/triangle.png',
+                          //   fit: BoxFit.cover,
+                          // ),
                         ),
                       ),
                       Padding(
