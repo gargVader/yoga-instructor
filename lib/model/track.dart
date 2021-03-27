@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:sofia/model/pose.dart';
 
 part 'track.g.dart';
 
