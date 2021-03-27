@@ -183,7 +183,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
     ]);
 
     initializeCameraController();
-    VideoManager.initializeVideoController();
+    VideoManager.initializeVideoController(videoUrl: widget.pose.videoUrl);
     super.initState();
   }
 
