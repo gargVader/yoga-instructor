@@ -12,6 +12,7 @@ class Pose {
   String videoUrl;
   @JsonKey(name: 'pause_points')
   List<int> pausePoints;
+  List<int> index;
 
   Pose({
     this.title,
@@ -20,6 +21,7 @@ class Pose {
     this.benefits,
     this.videoUrl,
     this.pausePoints,
+    this.index,
   });
 
   factory Pose.fromJson(Map<String, dynamic> json) => _$PoseFromJson(json);
