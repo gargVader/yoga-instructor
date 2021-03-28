@@ -34,6 +34,8 @@ class OnboardingScreen extends StatelessWidget {
         provider: authCurrentUserNotifierProvider.state,
         onChange: (context, state) {
           if (state is SignedInUser) {
+            context.read(voiceListenNotifierProvider).speechInitialization();
+
             context.read(retrieveTracksNotifierProvider).retrieveTracks();
 
             context
