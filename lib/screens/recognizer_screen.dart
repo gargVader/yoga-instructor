@@ -40,8 +40,7 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
   Tween<double> _accuracyTween;
 
   DateTime _startTime;
-
-  final List<int> POSE_INDEX = [3, 4];
+  List<int> _poseIndex;
 
   // Future<void> initializeVideoController() async {
   //   _videoController = VideoPlayerController.network(
@@ -61,7 +60,7 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
       double confidence = recognitions[0]["confidence"];
       // print('RECOG: $label ($confidence)');
 
-      if (POSE_INDEX.contains(index)) {
+      if (_poseIndex.contains(index)) {
         _totalFramesPositive++;
 
         if (_totalFramesPositive == 20) {
@@ -119,6 +118,8 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
     _videoController = VideoManager.videoController;
 
     _pausePoints = widget.pose.pausePoints;
+
+    _poseIndex = widget.pose.index;
 
     _accuracyTween = Tween(
       begin: 0.0,
