@@ -5,6 +5,7 @@ import 'package:sofia/application/notifiers/retrieve_poses_notifier.dart';
 import 'package:sofia/application/notifiers/retrieve_tracks_notifier.dart';
 import 'package:sofia/application/notifiers/store_user_data_notifier.dart';
 import 'package:sofia/application/notifiers/store_user_score_notifier.dart';
+import 'package:sofia/application/notifiers/voice_listen_notifier.dart';
 import 'package:sofia/utils/authentication_client.dart';
 import 'package:sofia/utils/database.dart';
 
@@ -43,4 +44,8 @@ final retrievePosesNotifierProvider =
 
 final retrieveTracksNotifierProvider = StateNotifierProvider(
   (ref) => RetrieveTracksNotifier(ref.watch(databaseProvider)),
+);
+
+final voiceListenNotifierProvider = StateNotifierProvider(
+  (ref) => VoiceListenNotifier(),
 );
