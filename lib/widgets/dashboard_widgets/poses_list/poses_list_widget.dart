@@ -3,7 +3,7 @@ import 'package:sofia/model/pose.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/screens/each_pose_page.dart';
 import 'package:sofia/screens/preview_screen.dart';
-import 'package:sofia/screens/timer_overlay.dart';
+import 'package:sofia/widgets/common/custom_widgets.dart';
 
 class PosesListWidget extends StatelessWidget {
   final List<Pose> poses;
@@ -26,6 +26,7 @@ class PosesListWidget extends StatelessWidget {
         Pose pose = poses[index];
         String poseTitle = pose.title;
         String poseSubtitle = pose.sub;
+        String videoUrl = pose.videoUrl;
 
         return InkWell(
           onTap: () {
@@ -78,13 +79,22 @@ class PosesListWidget extends StatelessWidget {
                           //     pageBuilder: (context, _, __) => TimerOverlay(),
                           //   ),
                           // );
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => PreviewScreen(
-                                pose: pose,
+                          if (videoUrl.isNotEmpty) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => PreviewScreen(
+                                  pose: pose,
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          } else {
+                            Scaffold.of(context).showSnackBar(
+                              CustomWidget.customSnackBar(
+                                content:
+                                    'The $poseTitle pose is not yet available. Coming soon.',
+                              ),
+                            );
+                          }
                         },
                         child: Container(
                           decoration: BoxDecoration(
