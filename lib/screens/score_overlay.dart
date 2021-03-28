@@ -14,6 +14,7 @@ import 'package:supercharged/supercharged.dart';
 
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/res/palette.dart';
+import 'package:wakelock/wakelock.dart';
 
 enum AnimProps {
   accuracy,
@@ -135,6 +136,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
   void dispose() {
     _timer.cancel();
     _animationController.dispose();
+
     super.dispose();
   }
 
@@ -148,6 +150,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
             timer.cancel();
           });
 
+          Wakelock.disable();
           Navigator.of(context).pop();
 
           SystemChrome.setPreferredOrientations([
