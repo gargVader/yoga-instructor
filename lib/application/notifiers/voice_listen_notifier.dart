@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sofia/application/states/voice_listen_state.dart';
 import 'package:sofia/utils/dialogflow.dart';
-import 'package:sofia/widgets/dashboard_widgets/voice_widgets/voice_timer.dart';
 
 class VoiceListenNotifier extends StateNotifier<VoiceListenState> {
   VoiceListenNotifier() : super(VoiceListenState());
@@ -67,9 +66,11 @@ class VoiceListenNotifier extends StateNotifier<VoiceListenState> {
               Uint8List audioBytes = response.outputAudioBytes;
               Dialogflow.playSpeech(
                 audioBytes: audioBytes,
-                completionCallback: (isCompleted) {
+                completionCallback: (isCompleted) async {
                   if (isCompleted) {
-                    state = VoiceListenState.complete();
+                    state = VoiceListenState.complete(
+                      response: response,
+                    );
                   }
                 },
               );
