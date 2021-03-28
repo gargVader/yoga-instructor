@@ -57,6 +57,7 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
     if (mounted) {
       String label = recognitions[0]["label"];
       int index = recognitions[0]["index"];
+      print('RECOG INDEX: $index ($label)');
       double confidence = recognitions[0]["confidence"];
       // print('RECOG: $label ($confidence)');
 
@@ -67,14 +68,15 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
           _isPoseCorrectStatus = true;
           _myPoseAcuracy = confidence;
           setState(() {});
-        } else if (_totalFramesPositive > 100 && _myPoseAcuracy > 0.5) {
+        } else if (_totalFramesPositive > 100) {
+          print('HELLO');
           // await _cameraController?.stopImageStream();
           _myPoseAcuracy = (_myPoseAcuracy + confidence) / 2;
 
           setState(() {
             _isDetectionAllowed = false;
             _currentPauseIndex == _pausePoints.length - 1
-                ? _currentPauseIndex = 0
+                ? _currentPauseIndex = -1
                 : _currentPauseIndex++;
           });
 
@@ -120,6 +122,7 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
     _pausePoints = widget.pose.pausePoints;
 
     _poseIndex = widget.pose.index;
+    print('FIREBASE INDEX: $_poseIndex');
 
     _accuracyTween = Tween(
       begin: 0.0,
@@ -147,7 +150,10 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
         int currentPositionInSeconds =
             _videoController.value.position.inSeconds;
 
-        if (currentPositionInSeconds == _pausePoints[_currentPauseIndex] &&
+        if (currentPositionInSeconds ==
+                (_currentPauseIndex == -1
+                    ? 0
+                    : _pausePoints[_currentPauseIndex]) &&
             mounted) {
           _videoController.pause();
           setState(() {
@@ -156,8 +162,7 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
         }
       }
 
-      if (_videoController.value.duration.inSeconds ==
-              _videoController.value.position.inSeconds &&
+      if (_videoController.value.duration == _videoController.value.position &&
           !_videoController.value.isPlaying) {
         // Navigator.of(context).pop();
         Navigator.of(context).pushReplacement(
