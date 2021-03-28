@@ -46,6 +46,13 @@ class _$VoiceListenStateTearOff {
   }
 
 // ignore: unused_element
+  ResponseReceived response({@required String responseString}) {
+    return ResponseReceived(
+      responseString: responseString,
+    );
+  }
+
+// ignore: unused_element
   ListeningError error({String message}) {
     return ListeningError(
       message: message,
@@ -67,6 +74,7 @@ mixin _$VoiceListenState {
     @required TResult listening(),
     @required TResult recognized(String recognizedWords),
     @required TResult complete(),
+    @required TResult response(String responseString),
     @required TResult error(String message),
   });
   @optionalTypeArgs
@@ -77,6 +85,7 @@ mixin _$VoiceListenState {
     TResult listening(),
     TResult recognized(String recognizedWords),
     TResult complete(),
+    TResult response(String responseString),
     TResult error(String message),
     @required TResult orElse(),
   });
@@ -88,6 +97,7 @@ mixin _$VoiceListenState {
     @required TResult listening(Listening value),
     @required TResult recognized(Recognized value),
     @required TResult complete(ListeningComplete value),
+    @required TResult response(ResponseReceived value),
     @required TResult error(ListeningError value),
   });
   @optionalTypeArgs
@@ -98,6 +108,7 @@ mixin _$VoiceListenState {
     TResult listening(Listening value),
     TResult recognized(Recognized value),
     TResult complete(ListeningComplete value),
+    TResult response(ResponseReceived value),
     TResult error(ListeningError value),
     @required TResult orElse(),
   });
@@ -162,6 +173,7 @@ class _$Idle implements Idle {
     @required TResult listening(),
     @required TResult recognized(String recognizedWords),
     @required TResult complete(),
+    @required TResult response(String responseString),
     @required TResult error(String message),
   }) {
     assert($default != null);
@@ -170,6 +182,7 @@ class _$Idle implements Idle {
     assert(listening != null);
     assert(recognized != null);
     assert(complete != null);
+    assert(response != null);
     assert(error != null);
     return $default();
   }
@@ -183,6 +196,7 @@ class _$Idle implements Idle {
     TResult listening(),
     TResult recognized(String recognizedWords),
     TResult complete(),
+    TResult response(String responseString),
     TResult error(String message),
     @required TResult orElse(),
   }) {
@@ -202,6 +216,7 @@ class _$Idle implements Idle {
     @required TResult listening(Listening value),
     @required TResult recognized(Recognized value),
     @required TResult complete(ListeningComplete value),
+    @required TResult response(ResponseReceived value),
     @required TResult error(ListeningError value),
   }) {
     assert($default != null);
@@ -210,6 +225,7 @@ class _$Idle implements Idle {
     assert(listening != null);
     assert(recognized != null);
     assert(complete != null);
+    assert(response != null);
     assert(error != null);
     return $default(this);
   }
@@ -223,6 +239,7 @@ class _$Idle implements Idle {
     TResult listening(Listening value),
     TResult recognized(Recognized value),
     TResult complete(ListeningComplete value),
+    TResult response(ResponseReceived value),
     TResult error(ListeningError value),
     @required TResult orElse(),
   }) {
@@ -283,6 +300,7 @@ class _$ListeningInitializing implements ListeningInitializing {
     @required TResult listening(),
     @required TResult recognized(String recognizedWords),
     @required TResult complete(),
+    @required TResult response(String responseString),
     @required TResult error(String message),
   }) {
     assert($default != null);
@@ -291,6 +309,7 @@ class _$ListeningInitializing implements ListeningInitializing {
     assert(listening != null);
     assert(recognized != null);
     assert(complete != null);
+    assert(response != null);
     assert(error != null);
     return initializing();
   }
@@ -304,6 +323,7 @@ class _$ListeningInitializing implements ListeningInitializing {
     TResult listening(),
     TResult recognized(String recognizedWords),
     TResult complete(),
+    TResult response(String responseString),
     TResult error(String message),
     @required TResult orElse(),
   }) {
@@ -323,6 +343,7 @@ class _$ListeningInitializing implements ListeningInitializing {
     @required TResult listening(Listening value),
     @required TResult recognized(Recognized value),
     @required TResult complete(ListeningComplete value),
+    @required TResult response(ResponseReceived value),
     @required TResult error(ListeningError value),
   }) {
     assert($default != null);
@@ -331,6 +352,7 @@ class _$ListeningInitializing implements ListeningInitializing {
     assert(listening != null);
     assert(recognized != null);
     assert(complete != null);
+    assert(response != null);
     assert(error != null);
     return initializing(this);
   }
@@ -344,6 +366,7 @@ class _$ListeningInitializing implements ListeningInitializing {
     TResult listening(Listening value),
     TResult recognized(Recognized value),
     TResult complete(ListeningComplete value),
+    TResult response(ResponseReceived value),
     TResult error(ListeningError value),
     @required TResult orElse(),
   }) {
@@ -404,6 +427,7 @@ class _$ListeningInitialized implements ListeningInitialized {
     @required TResult listening(),
     @required TResult recognized(String recognizedWords),
     @required TResult complete(),
+    @required TResult response(String responseString),
     @required TResult error(String message),
   }) {
     assert($default != null);
@@ -412,6 +436,7 @@ class _$ListeningInitialized implements ListeningInitialized {
     assert(listening != null);
     assert(recognized != null);
     assert(complete != null);
+    assert(response != null);
     assert(error != null);
     return initialized();
   }
@@ -425,6 +450,7 @@ class _$ListeningInitialized implements ListeningInitialized {
     TResult listening(),
     TResult recognized(String recognizedWords),
     TResult complete(),
+    TResult response(String responseString),
     TResult error(String message),
     @required TResult orElse(),
   }) {
@@ -444,6 +470,7 @@ class _$ListeningInitialized implements ListeningInitialized {
     @required TResult listening(Listening value),
     @required TResult recognized(Recognized value),
     @required TResult complete(ListeningComplete value),
+    @required TResult response(ResponseReceived value),
     @required TResult error(ListeningError value),
   }) {
     assert($default != null);
@@ -452,6 +479,7 @@ class _$ListeningInitialized implements ListeningInitialized {
     assert(listening != null);
     assert(recognized != null);
     assert(complete != null);
+    assert(response != null);
     assert(error != null);
     return initialized(this);
   }
@@ -465,6 +493,7 @@ class _$ListeningInitialized implements ListeningInitialized {
     TResult listening(Listening value),
     TResult recognized(Recognized value),
     TResult complete(ListeningComplete value),
+    TResult response(ResponseReceived value),
     TResult error(ListeningError value),
     @required TResult orElse(),
   }) {
@@ -522,6 +551,7 @@ class _$Listening implements Listening {
     @required TResult listening(),
     @required TResult recognized(String recognizedWords),
     @required TResult complete(),
+    @required TResult response(String responseString),
     @required TResult error(String message),
   }) {
     assert($default != null);
@@ -530,6 +560,7 @@ class _$Listening implements Listening {
     assert(listening != null);
     assert(recognized != null);
     assert(complete != null);
+    assert(response != null);
     assert(error != null);
     return listening();
   }
@@ -543,6 +574,7 @@ class _$Listening implements Listening {
     TResult listening(),
     TResult recognized(String recognizedWords),
     TResult complete(),
+    TResult response(String responseString),
     TResult error(String message),
     @required TResult orElse(),
   }) {
@@ -562,6 +594,7 @@ class _$Listening implements Listening {
     @required TResult listening(Listening value),
     @required TResult recognized(Recognized value),
     @required TResult complete(ListeningComplete value),
+    @required TResult response(ResponseReceived value),
     @required TResult error(ListeningError value),
   }) {
     assert($default != null);
@@ -570,6 +603,7 @@ class _$Listening implements Listening {
     assert(listening != null);
     assert(recognized != null);
     assert(complete != null);
+    assert(response != null);
     assert(error != null);
     return listening(this);
   }
@@ -583,6 +617,7 @@ class _$Listening implements Listening {
     TResult listening(Listening value),
     TResult recognized(Recognized value),
     TResult complete(ListeningComplete value),
+    TResult response(ResponseReceived value),
     TResult error(ListeningError value),
     @required TResult orElse(),
   }) {
@@ -669,6 +704,7 @@ class _$Recognized implements Recognized {
     @required TResult listening(),
     @required TResult recognized(String recognizedWords),
     @required TResult complete(),
+    @required TResult response(String responseString),
     @required TResult error(String message),
   }) {
     assert($default != null);
@@ -677,6 +713,7 @@ class _$Recognized implements Recognized {
     assert(listening != null);
     assert(recognized != null);
     assert(complete != null);
+    assert(response != null);
     assert(error != null);
     return recognized(recognizedWords);
   }
@@ -690,6 +727,7 @@ class _$Recognized implements Recognized {
     TResult listening(),
     TResult recognized(String recognizedWords),
     TResult complete(),
+    TResult response(String responseString),
     TResult error(String message),
     @required TResult orElse(),
   }) {
@@ -709,6 +747,7 @@ class _$Recognized implements Recognized {
     @required TResult listening(Listening value),
     @required TResult recognized(Recognized value),
     @required TResult complete(ListeningComplete value),
+    @required TResult response(ResponseReceived value),
     @required TResult error(ListeningError value),
   }) {
     assert($default != null);
@@ -717,6 +756,7 @@ class _$Recognized implements Recognized {
     assert(listening != null);
     assert(recognized != null);
     assert(complete != null);
+    assert(response != null);
     assert(error != null);
     return recognized(this);
   }
@@ -730,6 +770,7 @@ class _$Recognized implements Recognized {
     TResult listening(Listening value),
     TResult recognized(Recognized value),
     TResult complete(ListeningComplete value),
+    TResult response(ResponseReceived value),
     TResult error(ListeningError value),
     @required TResult orElse(),
   }) {
@@ -794,6 +835,7 @@ class _$ListeningComplete implements ListeningComplete {
     @required TResult listening(),
     @required TResult recognized(String recognizedWords),
     @required TResult complete(),
+    @required TResult response(String responseString),
     @required TResult error(String message),
   }) {
     assert($default != null);
@@ -802,6 +844,7 @@ class _$ListeningComplete implements ListeningComplete {
     assert(listening != null);
     assert(recognized != null);
     assert(complete != null);
+    assert(response != null);
     assert(error != null);
     return complete();
   }
@@ -815,6 +858,7 @@ class _$ListeningComplete implements ListeningComplete {
     TResult listening(),
     TResult recognized(String recognizedWords),
     TResult complete(),
+    TResult response(String responseString),
     TResult error(String message),
     @required TResult orElse(),
   }) {
@@ -834,6 +878,7 @@ class _$ListeningComplete implements ListeningComplete {
     @required TResult listening(Listening value),
     @required TResult recognized(Recognized value),
     @required TResult complete(ListeningComplete value),
+    @required TResult response(ResponseReceived value),
     @required TResult error(ListeningError value),
   }) {
     assert($default != null);
@@ -842,6 +887,7 @@ class _$ListeningComplete implements ListeningComplete {
     assert(listening != null);
     assert(recognized != null);
     assert(complete != null);
+    assert(response != null);
     assert(error != null);
     return complete(this);
   }
@@ -855,6 +901,7 @@ class _$ListeningComplete implements ListeningComplete {
     TResult listening(Listening value),
     TResult recognized(Recognized value),
     TResult complete(ListeningComplete value),
+    TResult response(ResponseReceived value),
     TResult error(ListeningError value),
     @required TResult orElse(),
   }) {
@@ -868,6 +915,165 @@ class _$ListeningComplete implements ListeningComplete {
 
 abstract class ListeningComplete implements VoiceListenState {
   const factory ListeningComplete() = _$ListeningComplete;
+}
+
+/// @nodoc
+abstract class $ResponseReceivedCopyWith<$Res> {
+  factory $ResponseReceivedCopyWith(
+          ResponseReceived value, $Res Function(ResponseReceived) then) =
+      _$ResponseReceivedCopyWithImpl<$Res>;
+  $Res call({String responseString});
+}
+
+/// @nodoc
+class _$ResponseReceivedCopyWithImpl<$Res>
+    extends _$VoiceListenStateCopyWithImpl<$Res>
+    implements $ResponseReceivedCopyWith<$Res> {
+  _$ResponseReceivedCopyWithImpl(
+      ResponseReceived _value, $Res Function(ResponseReceived) _then)
+      : super(_value, (v) => _then(v as ResponseReceived));
+
+  @override
+  ResponseReceived get _value => super._value as ResponseReceived;
+
+  @override
+  $Res call({
+    Object responseString = freezed,
+  }) {
+    return _then(ResponseReceived(
+      responseString: responseString == freezed
+          ? _value.responseString
+          : responseString as String,
+    ));
+  }
+}
+
+/// @nodoc
+class _$ResponseReceived implements ResponseReceived {
+  const _$ResponseReceived({@required this.responseString})
+      : assert(responseString != null);
+
+  @override
+  final String responseString;
+
+  @override
+  String toString() {
+    return 'VoiceListenState.response(responseString: $responseString)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is ResponseReceived &&
+            (identical(other.responseString, responseString) ||
+                const DeepCollectionEquality()
+                    .equals(other.responseString, responseString)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(responseString);
+
+  @JsonKey(ignore: true)
+  @override
+  $ResponseReceivedCopyWith<ResponseReceived> get copyWith =>
+      _$ResponseReceivedCopyWithImpl<ResponseReceived>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>(
+    TResult $default(), {
+    @required TResult initializing(),
+    @required TResult initialized(),
+    @required TResult listening(),
+    @required TResult recognized(String recognizedWords),
+    @required TResult complete(),
+    @required TResult response(String responseString),
+    @required TResult error(String message),
+  }) {
+    assert($default != null);
+    assert(initializing != null);
+    assert(initialized != null);
+    assert(listening != null);
+    assert(recognized != null);
+    assert(complete != null);
+    assert(response != null);
+    assert(error != null);
+    return response(responseString);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>(
+    TResult $default(), {
+    TResult initializing(),
+    TResult initialized(),
+    TResult listening(),
+    TResult recognized(String recognizedWords),
+    TResult complete(),
+    TResult response(String responseString),
+    TResult error(String message),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (response != null) {
+      return response(responseString);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>(
+    TResult $default(Idle value), {
+    @required TResult initializing(ListeningInitializing value),
+    @required TResult initialized(ListeningInitialized value),
+    @required TResult listening(Listening value),
+    @required TResult recognized(Recognized value),
+    @required TResult complete(ListeningComplete value),
+    @required TResult response(ResponseReceived value),
+    @required TResult error(ListeningError value),
+  }) {
+    assert($default != null);
+    assert(initializing != null);
+    assert(initialized != null);
+    assert(listening != null);
+    assert(recognized != null);
+    assert(complete != null);
+    assert(response != null);
+    assert(error != null);
+    return response(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>(
+    TResult $default(Idle value), {
+    TResult initializing(ListeningInitializing value),
+    TResult initialized(ListeningInitialized value),
+    TResult listening(Listening value),
+    TResult recognized(Recognized value),
+    TResult complete(ListeningComplete value),
+    TResult response(ResponseReceived value),
+    TResult error(ListeningError value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (response != null) {
+      return response(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ResponseReceived implements VoiceListenState {
+  const factory ResponseReceived({@required String responseString}) =
+      _$ResponseReceived;
+
+  String get responseString;
+  @JsonKey(ignore: true)
+  $ResponseReceivedCopyWith<ResponseReceived> get copyWith;
 }
 
 /// @nodoc
@@ -937,6 +1143,7 @@ class _$ListeningError implements ListeningError {
     @required TResult listening(),
     @required TResult recognized(String recognizedWords),
     @required TResult complete(),
+    @required TResult response(String responseString),
     @required TResult error(String message),
   }) {
     assert($default != null);
@@ -945,6 +1152,7 @@ class _$ListeningError implements ListeningError {
     assert(listening != null);
     assert(recognized != null);
     assert(complete != null);
+    assert(response != null);
     assert(error != null);
     return error(message);
   }
@@ -958,6 +1166,7 @@ class _$ListeningError implements ListeningError {
     TResult listening(),
     TResult recognized(String recognizedWords),
     TResult complete(),
+    TResult response(String responseString),
     TResult error(String message),
     @required TResult orElse(),
   }) {
@@ -977,6 +1186,7 @@ class _$ListeningError implements ListeningError {
     @required TResult listening(Listening value),
     @required TResult recognized(Recognized value),
     @required TResult complete(ListeningComplete value),
+    @required TResult response(ResponseReceived value),
     @required TResult error(ListeningError value),
   }) {
     assert($default != null);
@@ -985,6 +1195,7 @@ class _$ListeningError implements ListeningError {
     assert(listening != null);
     assert(recognized != null);
     assert(complete != null);
+    assert(response != null);
     assert(error != null);
     return error(this);
   }
@@ -998,6 +1209,7 @@ class _$ListeningError implements ListeningError {
     TResult listening(Listening value),
     TResult recognized(Recognized value),
     TResult complete(ListeningComplete value),
+    TResult response(ResponseReceived value),
     TResult error(ListeningError value),
     @required TResult orElse(),
   }) {
