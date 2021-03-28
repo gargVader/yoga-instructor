@@ -24,6 +24,12 @@ class VoiceListenNotifier extends StateNotifier<VoiceListenState> {
     }
   }
 
+  stopListening() async {
+    await Dialogflow.speech.cancel();
+    await Dialogflow.speech.stop();
+    state = VoiceListenState.initialized();
+  }
+
   startListening() async {
     bool isSpeechAvailable = Dialogflow.isSpeechAvailable;
 
