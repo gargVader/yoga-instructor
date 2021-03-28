@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sofia/providers.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/widgets/dashboard_widgets/voice_widgets/voice_button_content.dart';
+import 'package:sofia/widgets/dashboard_widgets/voice_widgets/voice_button_response.dart';
 
 class SofiaAssistantButton extends StatelessWidget {
   const SofiaAssistantButton({
@@ -26,6 +27,11 @@ class SofiaAssistantButton extends StatelessWidget {
             blurColor: Colors.greenAccent[400],
             recognizedWords:
                 recognizedWords[0].toUpperCase() + recognizedWords.substring(1),
+          ),
+          response: (responseString) => VoiceButtonResponse(
+            blurColor: Palette.accentDarkPink,
+            responseString:
+                responseString[0].toUpperCase() + responseString.substring(1),
           ),
           complete: () => VoiceButtonContent(),
           error: (message) => Container(),
