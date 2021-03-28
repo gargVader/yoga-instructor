@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sofia/application/states/voice_listen_state.dart';
 import 'package:sofia/utils/dialogflow.dart';
@@ -29,9 +31,9 @@ class VoiceListenNotifier extends StateNotifier<VoiceListenState> {
       await Dialogflow.speech.cancel();
       await Dialogflow.speech.stop();
 
-      if (VoiceTimer.voiceTimer != null) {
-        VoiceTimer.voiceTimer.cancel();
-      }
+      // if (VoiceTimer.voiceTimer != null) {
+      //   VoiceTimer.voiceTimer.cancel();
+      // }
 
       state = VoiceListenState.listening();
       await Dialogflow.speech.listen(
@@ -49,13 +51,31 @@ class VoiceListenNotifier extends StateNotifier<VoiceListenState> {
               recognizedWords: recognizedVoiceInputString,
             );
 
-            VoiceTimer.startTimer(
-              (isDone) {
-                if (isDone) {
-                  state = VoiceListenState.complete();
-                }
-              },
-            );
+            await Dialogflow.getDialogflowResponse(
+              questionString: recognizedVoiceInputString,
+            ).then((response) {
+              state = VoiceListenState.response(
+                responseString: response.text,
+              );
+
+              Uint8List audioBytes = response.outputAudioBytes;
+              Dialogflow.playSpeech(
+                audioBytes: audioBytes,
+                completionCallback: (isCompleted) {
+                  if (isCompleted) {
+                    state = VoiceListenState.complete();
+                  }
+                },
+              );
+            });
+
+            // VoiceTimer.startTimer(
+            //   (isDone) {
+            //     if (isDone) {
+            //       state = VoiceListenState.complete();
+            //     }
+            //   },
+            // );
 
             // await Future.delayed(Duration(seconds: 5)).whenComplete(
             //   () => state = VoiceListenState.complete(),
