@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sofia/application/states/auth_current_user_state.dart';
 import 'package:sofia/providers.dart';
 import 'package:sofia/screens/dashboard_screen.dart';
+import 'package:sofia/utils/database.dart';
 import 'onboarding_screens/login_screen.dart';
 import 'onboarding_screens/name_screen.dart';
 import 'onboarding_screens/splash_screen.dart';
+import 'onboarding_screens/voice_assistant_screen.dart';
 
 class OnboardingScreen extends StatelessWidget {
   @override
@@ -27,32 +30,48 @@ class OnboardingScreen extends StatelessWidget {
         primaryColor: Colors.white,
         accentColor: Colors.white,
       ),
-      home: Consumer(
-        builder: (context, watch, child) {
-          final state = watch(
-            authCurrentUserNotifierProvider.state,
-          );
+      home: ProviderListener<AuthCurrentUserState>(
+        provider: authCurrentUserNotifierProvider.state,
+        onChange: (context, state) {
+          if (state is SignedInUser) {
+            context.read(retrieveTracksNotifierProvider).retrieveTracks();
 
-          return AnimatedSwitcher(
-            duration: Duration(milliseconds: 300),
-            child: state.when(
-              () {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  context
-                      .read(authCurrentUserNotifierProvider)
-                      .getCurrentUser();
-                });
-                return SplashScreen();
-              },
-              finding: () => SplashScreen(),
-              notSignedIn: () => LoginScreen(),
-              alreadySignedIn: (userData) => DashboardScreen(user: userData),
-              detailsNotUploaded: (user) => NameScreen(user: user),
-              error: (message) => LoginScreen(),
-            ),
-          );
+            context
+                .read(retrievePosesNotifierProvider('beginners'))
+                .retrievePoses();
+          }
         },
+        child: Consumer(
+          builder: (context, watch, child) {
+            final state = watch(
+              authCurrentUserNotifierProvider.state,
+            );
+
+            return AnimatedSwitcher(
+              duration: Duration(milliseconds: 300),
+              child: state.when(
+                () {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    context
+                        .read(authCurrentUserNotifierProvider)
+                        .getCurrentUser();
+                  });
+                  return SplashScreen();
+                },
+                finding: () => SplashScreen(),
+                notSignedIn: () => LoginScreen(),
+                alreadySignedIn: (userData) {
+                  Database.user = userData;
+                  return DashboardScreen();
+                },
+                detailsNotUploaded: (user) => NameScreen(user: user),
+                error: (message) => LoginScreen(),
+              ),
+            );
+          },
+        ),
       ),
+      // home: VoiceAssistantScreen(),
     );
   }
 }
