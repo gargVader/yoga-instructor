@@ -9,6 +9,7 @@ import 'package:sofia/application/states/store_user_data_state.dart';
 import 'package:sofia/providers.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/screens/dashboard_screen.dart';
+import 'package:sofia/screens/onboarding_screens/voice_assistant_screen.dart';
 import 'package:sofia/utils/database.dart';
 import 'package:sofia/widgets/age_widgets/user_info_error_widget.dart';
 import 'package:sofia/widgets/age_widgets/user_info_initial_widget.dart';
@@ -166,11 +167,12 @@ class _AgeScreenState extends State<AgeScreen> {
                 onChange: (context, state) async {
                   if (state is StoredUserData) {
                     await Future.delayed(Duration(seconds: 1));
+                    Database.user = state.userData;
 
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
                         builder: (context) {
-                          return DashboardScreen(user: state.userData);
+                          return VoiceAssistantScreen();
                         },
                       ),
                       (route) => false,
