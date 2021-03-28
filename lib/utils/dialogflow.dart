@@ -11,33 +11,33 @@ class Dialogflow {
   static stt.SpeechToText speech = stt.SpeechToText();
   static bool isSpeechAvailable;
 
-  static initializeSpeech() async {
+  static Future<bool> initializeSpeech() async {
     bool available = await speech.initialize(
       onStatus: (status) => print(status),
       onError: (error) => print(error.errorMsg),
     );
 
-    isSpeechAvailable = available;
+    return available;
   }
 
-  static Future<String> takeVoiceInput() async {
-    String recognizedVoiceInputString = '';
+  // static Future<String> takeVoiceInput() async {
+  //   String recognizedVoiceInputString = '';
 
-    if (isSpeechAvailable) {
-      await speech.listen(
-        listenFor: Duration(minutes: 2),
-        pauseFor: Duration(seconds: 5),
-        onResult: (result) {
-          double confidence = result.confidence;
+  //   if (isSpeechAvailable) {
+  //     await speech.listen(
+  //       // listenFor: Duration(minutes: 2),
+  //       // pauseFor: Duration(seconds: 5),
+  //       onResult: (result) {
+  //         double confidence = result.confidence;
 
-          if (confidence > 0.5) {
-            result.recognizedWords;
-            recognizedVoiceInputString = result.recognizedWords;
-          }
-        },
-      );
-    }
-  }
+  //         if (confidence > 0.5) {
+  //           result.recognizedWords;
+  //           recognizedVoiceInputString = result.recognizedWords;
+  //         }
+  //       },
+  //     );
+  //   }
+  // }
 
   static Future<df.DetectIntentResponse> initialize() async {
     final df.DialogFlowtter dialogFlowtter = await df.DialogFlowtter.fromFile(
