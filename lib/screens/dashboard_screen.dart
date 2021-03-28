@@ -6,7 +6,6 @@ import 'package:sofia/model/user.dart';
 import 'package:sofia/providers.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/utils/database.dart';
-import 'package:sofia/utils/dialogflow.dart';
 import 'package:sofia/widgets/dashboard_widgets/poses_row/poses_initial_widget.dart';
 import 'package:sofia/widgets/dashboard_widgets/poses_row/poses_row_widget.dart';
 import 'package:sofia/widgets/dashboard_widgets/tracks_list/tracks_initial_widget.dart';
@@ -29,7 +28,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     User userData = Database.user;
     imageUrl = userData.imageUrl;
     userName = userData.userName;
-    Dialogflow.initialize();
   }
 
   @override
