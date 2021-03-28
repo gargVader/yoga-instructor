@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:sofia/providers.dart';
 import 'package:sofia/res/palette.dart';
+import 'package:sofia/utils/dialogflow.dart';
 
 class VoiceButtonContent extends StatelessWidget {
   final String recognizedWords;
@@ -60,32 +61,31 @@ class VoiceButtonContent extends StatelessWidget {
             ),
           ),
           SizedBox(width: 16.0),
-          Hero(
-            tag: 'sofia_voice',
-            child: InkWell(
-              onTap: () {
-                context.read(voiceListenNotifierProvider).startListening();
-              },
-              child: Container(
-                width: 68,
-                height: 68,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(68.0),
-                  border: new Border.all(
+          InkWell(
+            onTap: () {
+              Dialogflow.speech.isListening
+                  ? context.read(voiceListenNotifierProvider).stopListening()
+                  : context.read(voiceListenNotifierProvider).startListening();
+            },
+            child: Container(
+              width: 68,
+              height: 68,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(68.0),
+                border: new Border.all(
+                  color: blurColor,
+                  width: 4.0,
+                ),
+                boxShadow: [
+                  BoxShadow(
                     color: blurColor,
-                    width: 4.0,
+                    blurRadius: 12,
+                    offset: Offset(0, 0), // Shadow position
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: blurColor,
-                      blurRadius: 12,
-                      offset: Offset(0, 0), // Shadow position
-                    ),
-                  ],
-                ),
-                child: Image.asset(
-                  'assets/images/sofia_voice_assistant.png',
-                ),
+                ],
+              ),
+              child: Image.asset(
+                'assets/images/sofia_voice_assistant.png',
               ),
             ),
           ),

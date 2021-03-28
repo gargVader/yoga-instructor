@@ -109,24 +109,21 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
                     glowColor: Palette.darkShade,
                     child: Material(
                       color: Colors.transparent,
-                      child: Hero(
-                        tag: 'sofia_voice',
-                        child: Container(
-                          width: 100,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Palette.darkShade,
-                                blurRadius: 10,
-                                offset: Offset(0, 0), // Shadow position
-                              ),
-                            ],
-                          ),
-                          child: Image.asset(
-                            'assets/images/sofia_assistant_2.png',
-                          ),
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Palette.darkShade,
+                              blurRadius: 10,
+                              offset: Offset(0, 0), // Shadow position
+                            ),
+                          ],
+                        ),
+                        child: Image.asset(
+                          'assets/images/sofia_assistant_2.png',
                         ),
                       ),
                     ),
