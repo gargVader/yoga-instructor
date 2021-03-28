@@ -27,6 +27,7 @@ class PosesListWidget extends StatelessWidget {
         String poseTitle = pose.title;
         String poseSubtitle = pose.sub;
         String videoUrl = pose.videoUrl;
+        String poseBenefits = pose.benefits;
 
         return InkWell(
           onTap: () {
@@ -140,7 +141,9 @@ class PosesListWidget extends StatelessWidget {
                       bottom: 24.0,
                     ),
                     child: Text(
-                      'There should be a description of each pose here in this place. Replace this text.',
+                      poseBenefits,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 14.0,
                         fontWeight: FontWeight.w400,
