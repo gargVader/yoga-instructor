@@ -6,11 +6,13 @@ import 'package:sofia/res/palette.dart';
 
 class VoiceButtonContent extends StatelessWidget {
   final String recognizedWords;
+  final String responseString;
   final Color blurColor;
 
   const VoiceButtonContent({
     Key key,
     this.recognizedWords = '',
+    this.responseString = '',
     this.blurColor = Palette.darkShade,
   }) : super(key: key);
 
@@ -24,7 +26,7 @@ class VoiceButtonContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Visibility(
-            visible: recognizedWords != '',
+            visible: recognizedWords != '' || responseString != '',
             child: Flexible(
               child: Card(
                 elevation: 8.0,
@@ -45,7 +47,7 @@ class VoiceButtonContent extends StatelessWidget {
                       bottom: 10.0,
                     ),
                     child: Text(
-                      recognizedWords,
+                      recognizedWords != '' ? recognizedWords : responseString,
                       style: TextStyle(
                         color: Colors.white,
                         letterSpacing: 0.5,
