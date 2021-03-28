@@ -8,6 +8,7 @@ import 'package:sofia/res/palette.dart';
 import 'package:sofia/utils/database.dart';
 import 'package:sofia/widgets/dashboard_widgets/poses_row/poses_initial_widget.dart';
 import 'package:sofia/widgets/dashboard_widgets/poses_row/poses_row_widget.dart';
+import 'package:sofia/widgets/dashboard_widgets/sofia_assistant_button.dart';
 import 'package:sofia/widgets/dashboard_widgets/tracks_list/tracks_initial_widget.dart';
 import 'package:sofia/widgets/dashboard_widgets/tracks_list/tracks_list_widget.dart';
 
@@ -41,60 +42,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
         backgroundColor: Colors.white,
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.only(left: 24.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Flexible(
-                child: Card(
-                  elevation: 8.0,
-                  color: Palette.darkShade,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Palette.darkShade,
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        'Starting with the triangle pose. Feel free to call me again.',
-                        style: TextStyle(
-                          color: Colors.white,
-                          letterSpacing: 0.5,
-                          fontSize: 16.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(width: 16.0),
-              Container(
-                width: 64,
-                height: 64,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(64.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Palette.darkShade,
-                      blurRadius: 10,
-                      offset: Offset(0, 4), // Shadow position
-                    ),
-                  ],
-                ),
-                child: Image.asset(
-                  'assets/images/sofia_assistant_2.png',
-                ),
-              ),
-            ],
-          ),
-        ),
+        floatingActionButton: SofiaAssistantButton(),
         body: SafeArea(
           child: CustomScrollView(
             physics: BouncingScrollPhysics(),
