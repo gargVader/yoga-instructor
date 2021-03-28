@@ -10,8 +10,7 @@ import 'package:sofia/utils/video_manager.dart';
 import 'package:sofia/widgets/preview_screen/camera_preview_widget.dart';
 import 'package:sofia/widgets/preview_screen/rotate_to_landspace_widget.dart';
 import 'package:tflite/tflite.dart';
-import 'package:video_player/video_player.dart';
-import 'dart:math' as math;
+import 'package:wakelock/wakelock.dart';
 
 class PreviewScreen extends StatefulWidget {
   final Pose pose;
@@ -181,6 +180,8 @@ class _PreviewScreenState extends State<PreviewScreen> {
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
+
+    Wakelock.enable();
 
     initializeCameraController();
     VideoManager.initializeVideoController(videoUrl: widget.pose.videoUrl);
