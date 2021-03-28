@@ -74,12 +74,6 @@ class PosesListWidget extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           print('Play button tapped !');
-                          // Navigator.of(context).push(
-                          //   PageRouteBuilder(
-                          //     opaque: false,
-                          //     pageBuilder: (context, _, __) => TimerOverlay(),
-                          //   ),
-                          // );
                           if (videoUrl.isNotEmpty) {
                             Navigator.of(context).push(
                               MaterialPageRoute(
@@ -130,9 +124,6 @@ class PosesListWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // SizedBox(height: 24.0),
-                  // TODO: Add the description when the descriptions
-                  // are updated to firebase.
                   SizedBox(height: 8.0),
                   Padding(
                     padding: const EdgeInsets.only(
