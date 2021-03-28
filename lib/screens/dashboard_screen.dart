@@ -5,6 +5,8 @@ import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:sofia/model/user.dart';
 import 'package:sofia/providers.dart';
 import 'package:sofia/res/palette.dart';
+import 'package:sofia/utils/database.dart';
+import 'package:sofia/utils/dialogflow.dart';
 import 'package:sofia/widgets/dashboard_widgets/poses_row/poses_initial_widget.dart';
 import 'package:sofia/widgets/dashboard_widgets/poses_row/poses_row_widget.dart';
 import 'package:sofia/widgets/dashboard_widgets/tracks_list/tracks_initial_widget.dart';
@@ -13,13 +15,6 @@ import 'package:sofia/widgets/dashboard_widgets/tracks_list/tracks_list_widget.d
 // TODO: Add caching of the data to prevent empty
 // screen during the intial load of the data from firebase
 class DashboardScreen extends StatefulWidget {
-  final User user;
-
-  const DashboardScreen({
-    Key key,
-    @required this.user,
-  }) : super(key: key);
-
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
 }
@@ -31,8 +26,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
-    imageUrl = widget.user.imageUrl;
-    userName = widget.user.userName;
+    User userData = Database.user;
+    imageUrl = userData.imageUrl;
+    userName = userData.userName;
+    Dialogflow.initialize();
   }
 
   @override
@@ -46,6 +43,60 @@ class _DashboardScreenState extends State<DashboardScreen> {
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
         backgroundColor: Colors.white,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(left: 24.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Flexible(
+                child: Card(
+                  elevation: 8.0,
+                  color: Palette.darkShade,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Palette.darkShade,
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        'Starting with the triangle pose. Feel free to call me again.',
+                        style: TextStyle(
+                          color: Colors.white,
+                          letterSpacing: 0.5,
+                          fontSize: 16.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 16.0),
+              Container(
+                width: 64,
+                height: 64,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(64.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Palette.darkShade,
+                      blurRadius: 10,
+                      offset: Offset(0, 4), // Shadow position
+                    ),
+                  ],
+                ),
+                child: Image.asset(
+                  'assets/images/sofia_assistant_2.png',
+                ),
+              ),
+            ],
+          ),
+        ),
         body: SafeArea(
           child: CustomScrollView(
             physics: BouncingScrollPhysics(),
@@ -132,17 +183,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       );
 
                       return state.when(
-                        () {
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            context
-                                .read(
-                                    retrievePosesNotifierProvider('beginners'))
-                                .retrievePoses();
-                          });
-                          return PosesInitialWidget(
-                            screeWidth: screeWidth,
-                          );
-                        },
+                        () => PosesInitialWidget(
+                          screeWidth: screeWidth,
+                        ),
                         retrieving: () => PosesInitialWidget(
                           screeWidth: screeWidth,
                         ),
@@ -179,14 +222,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         );
 
                         return state.when(
-                          () {
-                            WidgetsBinding.instance.addPostFrameCallback((_) {
-                              context
-                                  .read(retrieveTracksNotifierProvider)
-                                  .retrieveTracks();
-                            });
-                            return TracksInitialWidget();
-                          },
+                          () => TracksInitialWidget(),
                           retrieving: () => TracksInitialWidget(),
                           retrieved: (tracks) => TracksListWidget(
                             tracks: tracks,

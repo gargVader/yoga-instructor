@@ -17,6 +17,8 @@ final CollectionReference mainCollection =
 final DocumentReference documentReference = mainCollection.document('test');
 
 class Database {
+  static User user;
+
   List<String> tracks = [
     'beginners',
     'power yoga',
