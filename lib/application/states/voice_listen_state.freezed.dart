@@ -41,8 +41,10 @@ class _$VoiceListenStateTearOff {
   }
 
 // ignore: unused_element
-  ListeningComplete complete() {
-    return const ListeningComplete();
+  ResponseComplete complete({DetectIntentResponse response}) {
+    return ResponseComplete(
+      response: response,
+    );
   }
 
 // ignore: unused_element
@@ -73,7 +75,7 @@ mixin _$VoiceListenState {
     @required TResult initialized(),
     @required TResult listening(),
     @required TResult recognized(String recognizedWords),
-    @required TResult complete(),
+    @required TResult complete(DetectIntentResponse response),
     @required TResult response(String responseString),
     @required TResult error(String message),
   });
@@ -84,7 +86,7 @@ mixin _$VoiceListenState {
     TResult initialized(),
     TResult listening(),
     TResult recognized(String recognizedWords),
-    TResult complete(),
+    TResult complete(DetectIntentResponse response),
     TResult response(String responseString),
     TResult error(String message),
     @required TResult orElse(),
@@ -96,7 +98,7 @@ mixin _$VoiceListenState {
     @required TResult initialized(ListeningInitialized value),
     @required TResult listening(Listening value),
     @required TResult recognized(Recognized value),
-    @required TResult complete(ListeningComplete value),
+    @required TResult complete(ResponseComplete value),
     @required TResult response(ResponseReceived value),
     @required TResult error(ListeningError value),
   });
@@ -107,7 +109,7 @@ mixin _$VoiceListenState {
     TResult initialized(ListeningInitialized value),
     TResult listening(Listening value),
     TResult recognized(Recognized value),
-    TResult complete(ListeningComplete value),
+    TResult complete(ResponseComplete value),
     TResult response(ResponseReceived value),
     TResult error(ListeningError value),
     @required TResult orElse(),
@@ -172,7 +174,7 @@ class _$Idle implements Idle {
     @required TResult initialized(),
     @required TResult listening(),
     @required TResult recognized(String recognizedWords),
-    @required TResult complete(),
+    @required TResult complete(DetectIntentResponse response),
     @required TResult response(String responseString),
     @required TResult error(String message),
   }) {
@@ -195,7 +197,7 @@ class _$Idle implements Idle {
     TResult initialized(),
     TResult listening(),
     TResult recognized(String recognizedWords),
-    TResult complete(),
+    TResult complete(DetectIntentResponse response),
     TResult response(String responseString),
     TResult error(String message),
     @required TResult orElse(),
@@ -215,7 +217,7 @@ class _$Idle implements Idle {
     @required TResult initialized(ListeningInitialized value),
     @required TResult listening(Listening value),
     @required TResult recognized(Recognized value),
-    @required TResult complete(ListeningComplete value),
+    @required TResult complete(ResponseComplete value),
     @required TResult response(ResponseReceived value),
     @required TResult error(ListeningError value),
   }) {
@@ -238,7 +240,7 @@ class _$Idle implements Idle {
     TResult initialized(ListeningInitialized value),
     TResult listening(Listening value),
     TResult recognized(Recognized value),
-    TResult complete(ListeningComplete value),
+    TResult complete(ResponseComplete value),
     TResult response(ResponseReceived value),
     TResult error(ListeningError value),
     @required TResult orElse(),
@@ -299,7 +301,7 @@ class _$ListeningInitializing implements ListeningInitializing {
     @required TResult initialized(),
     @required TResult listening(),
     @required TResult recognized(String recognizedWords),
-    @required TResult complete(),
+    @required TResult complete(DetectIntentResponse response),
     @required TResult response(String responseString),
     @required TResult error(String message),
   }) {
@@ -322,7 +324,7 @@ class _$ListeningInitializing implements ListeningInitializing {
     TResult initialized(),
     TResult listening(),
     TResult recognized(String recognizedWords),
-    TResult complete(),
+    TResult complete(DetectIntentResponse response),
     TResult response(String responseString),
     TResult error(String message),
     @required TResult orElse(),
@@ -342,7 +344,7 @@ class _$ListeningInitializing implements ListeningInitializing {
     @required TResult initialized(ListeningInitialized value),
     @required TResult listening(Listening value),
     @required TResult recognized(Recognized value),
-    @required TResult complete(ListeningComplete value),
+    @required TResult complete(ResponseComplete value),
     @required TResult response(ResponseReceived value),
     @required TResult error(ListeningError value),
   }) {
@@ -365,7 +367,7 @@ class _$ListeningInitializing implements ListeningInitializing {
     TResult initialized(ListeningInitialized value),
     TResult listening(Listening value),
     TResult recognized(Recognized value),
-    TResult complete(ListeningComplete value),
+    TResult complete(ResponseComplete value),
     TResult response(ResponseReceived value),
     TResult error(ListeningError value),
     @required TResult orElse(),
@@ -426,7 +428,7 @@ class _$ListeningInitialized implements ListeningInitialized {
     @required TResult initialized(),
     @required TResult listening(),
     @required TResult recognized(String recognizedWords),
-    @required TResult complete(),
+    @required TResult complete(DetectIntentResponse response),
     @required TResult response(String responseString),
     @required TResult error(String message),
   }) {
@@ -449,7 +451,7 @@ class _$ListeningInitialized implements ListeningInitialized {
     TResult initialized(),
     TResult listening(),
     TResult recognized(String recognizedWords),
-    TResult complete(),
+    TResult complete(DetectIntentResponse response),
     TResult response(String responseString),
     TResult error(String message),
     @required TResult orElse(),
@@ -469,7 +471,7 @@ class _$ListeningInitialized implements ListeningInitialized {
     @required TResult initialized(ListeningInitialized value),
     @required TResult listening(Listening value),
     @required TResult recognized(Recognized value),
-    @required TResult complete(ListeningComplete value),
+    @required TResult complete(ResponseComplete value),
     @required TResult response(ResponseReceived value),
     @required TResult error(ListeningError value),
   }) {
@@ -492,7 +494,7 @@ class _$ListeningInitialized implements ListeningInitialized {
     TResult initialized(ListeningInitialized value),
     TResult listening(Listening value),
     TResult recognized(Recognized value),
-    TResult complete(ListeningComplete value),
+    TResult complete(ResponseComplete value),
     TResult response(ResponseReceived value),
     TResult error(ListeningError value),
     @required TResult orElse(),
@@ -550,7 +552,7 @@ class _$Listening implements Listening {
     @required TResult initialized(),
     @required TResult listening(),
     @required TResult recognized(String recognizedWords),
-    @required TResult complete(),
+    @required TResult complete(DetectIntentResponse response),
     @required TResult response(String responseString),
     @required TResult error(String message),
   }) {
@@ -573,7 +575,7 @@ class _$Listening implements Listening {
     TResult initialized(),
     TResult listening(),
     TResult recognized(String recognizedWords),
-    TResult complete(),
+    TResult complete(DetectIntentResponse response),
     TResult response(String responseString),
     TResult error(String message),
     @required TResult orElse(),
@@ -593,7 +595,7 @@ class _$Listening implements Listening {
     @required TResult initialized(ListeningInitialized value),
     @required TResult listening(Listening value),
     @required TResult recognized(Recognized value),
-    @required TResult complete(ListeningComplete value),
+    @required TResult complete(ResponseComplete value),
     @required TResult response(ResponseReceived value),
     @required TResult error(ListeningError value),
   }) {
@@ -616,7 +618,7 @@ class _$Listening implements Listening {
     TResult initialized(ListeningInitialized value),
     TResult listening(Listening value),
     TResult recognized(Recognized value),
-    TResult complete(ListeningComplete value),
+    TResult complete(ResponseComplete value),
     TResult response(ResponseReceived value),
     TResult error(ListeningError value),
     @required TResult orElse(),
@@ -703,7 +705,7 @@ class _$Recognized implements Recognized {
     @required TResult initialized(),
     @required TResult listening(),
     @required TResult recognized(String recognizedWords),
-    @required TResult complete(),
+    @required TResult complete(DetectIntentResponse response),
     @required TResult response(String responseString),
     @required TResult error(String message),
   }) {
@@ -726,7 +728,7 @@ class _$Recognized implements Recognized {
     TResult initialized(),
     TResult listening(),
     TResult recognized(String recognizedWords),
-    TResult complete(),
+    TResult complete(DetectIntentResponse response),
     TResult response(String responseString),
     TResult error(String message),
     @required TResult orElse(),
@@ -746,7 +748,7 @@ class _$Recognized implements Recognized {
     @required TResult initialized(ListeningInitialized value),
     @required TResult listening(Listening value),
     @required TResult recognized(Recognized value),
-    @required TResult complete(ListeningComplete value),
+    @required TResult complete(ResponseComplete value),
     @required TResult response(ResponseReceived value),
     @required TResult error(ListeningError value),
   }) {
@@ -769,7 +771,7 @@ class _$Recognized implements Recognized {
     TResult initialized(ListeningInitialized value),
     TResult listening(Listening value),
     TResult recognized(Recognized value),
-    TResult complete(ListeningComplete value),
+    TResult complete(ResponseComplete value),
     TResult response(ResponseReceived value),
     TResult error(ListeningError value),
     @required TResult orElse(),
@@ -791,40 +793,65 @@ abstract class Recognized implements VoiceListenState {
 }
 
 /// @nodoc
-abstract class $ListeningCompleteCopyWith<$Res> {
-  factory $ListeningCompleteCopyWith(
-          ListeningComplete value, $Res Function(ListeningComplete) then) =
-      _$ListeningCompleteCopyWithImpl<$Res>;
+abstract class $ResponseCompleteCopyWith<$Res> {
+  factory $ResponseCompleteCopyWith(
+          ResponseComplete value, $Res Function(ResponseComplete) then) =
+      _$ResponseCompleteCopyWithImpl<$Res>;
+  $Res call({DetectIntentResponse response});
 }
 
 /// @nodoc
-class _$ListeningCompleteCopyWithImpl<$Res>
+class _$ResponseCompleteCopyWithImpl<$Res>
     extends _$VoiceListenStateCopyWithImpl<$Res>
-    implements $ListeningCompleteCopyWith<$Res> {
-  _$ListeningCompleteCopyWithImpl(
-      ListeningComplete _value, $Res Function(ListeningComplete) _then)
-      : super(_value, (v) => _then(v as ListeningComplete));
+    implements $ResponseCompleteCopyWith<$Res> {
+  _$ResponseCompleteCopyWithImpl(
+      ResponseComplete _value, $Res Function(ResponseComplete) _then)
+      : super(_value, (v) => _then(v as ResponseComplete));
 
   @override
-  ListeningComplete get _value => super._value as ListeningComplete;
+  ResponseComplete get _value => super._value as ResponseComplete;
+
+  @override
+  $Res call({
+    Object response = freezed,
+  }) {
+    return _then(ResponseComplete(
+      response: response == freezed
+          ? _value.response
+          : response as DetectIntentResponse,
+    ));
+  }
 }
 
 /// @nodoc
-class _$ListeningComplete implements ListeningComplete {
-  const _$ListeningComplete();
+class _$ResponseComplete implements ResponseComplete {
+  const _$ResponseComplete({this.response});
+
+  @override
+  final DetectIntentResponse response;
 
   @override
   String toString() {
-    return 'VoiceListenState.complete()';
+    return 'VoiceListenState.complete(response: $response)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is ListeningComplete);
+    return identical(this, other) ||
+        (other is ResponseComplete &&
+            (identical(other.response, response) ||
+                const DeepCollectionEquality()
+                    .equals(other.response, response)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(response);
+
+  @JsonKey(ignore: true)
+  @override
+  $ResponseCompleteCopyWith<ResponseComplete> get copyWith =>
+      _$ResponseCompleteCopyWithImpl<ResponseComplete>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -834,7 +861,7 @@ class _$ListeningComplete implements ListeningComplete {
     @required TResult initialized(),
     @required TResult listening(),
     @required TResult recognized(String recognizedWords),
-    @required TResult complete(),
+    @required TResult complete(DetectIntentResponse response),
     @required TResult response(String responseString),
     @required TResult error(String message),
   }) {
@@ -846,7 +873,7 @@ class _$ListeningComplete implements ListeningComplete {
     assert(complete != null);
     assert(response != null);
     assert(error != null);
-    return complete();
+    return complete(this.response);
   }
 
   @override
@@ -857,14 +884,14 @@ class _$ListeningComplete implements ListeningComplete {
     TResult initialized(),
     TResult listening(),
     TResult recognized(String recognizedWords),
-    TResult complete(),
+    TResult complete(DetectIntentResponse response),
     TResult response(String responseString),
     TResult error(String message),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (complete != null) {
-      return complete();
+      return complete(this.response);
     }
     return orElse();
   }
@@ -877,7 +904,7 @@ class _$ListeningComplete implements ListeningComplete {
     @required TResult initialized(ListeningInitialized value),
     @required TResult listening(Listening value),
     @required TResult recognized(Recognized value),
-    @required TResult complete(ListeningComplete value),
+    @required TResult complete(ResponseComplete value),
     @required TResult response(ResponseReceived value),
     @required TResult error(ListeningError value),
   }) {
@@ -900,7 +927,7 @@ class _$ListeningComplete implements ListeningComplete {
     TResult initialized(ListeningInitialized value),
     TResult listening(Listening value),
     TResult recognized(Recognized value),
-    TResult complete(ListeningComplete value),
+    TResult complete(ResponseComplete value),
     TResult response(ResponseReceived value),
     TResult error(ListeningError value),
     @required TResult orElse(),
@@ -913,8 +940,13 @@ class _$ListeningComplete implements ListeningComplete {
   }
 }
 
-abstract class ListeningComplete implements VoiceListenState {
-  const factory ListeningComplete() = _$ListeningComplete;
+abstract class ResponseComplete implements VoiceListenState {
+  const factory ResponseComplete({DetectIntentResponse response}) =
+      _$ResponseComplete;
+
+  DetectIntentResponse get response;
+  @JsonKey(ignore: true)
+  $ResponseCompleteCopyWith<ResponseComplete> get copyWith;
 }
 
 /// @nodoc
@@ -988,7 +1020,7 @@ class _$ResponseReceived implements ResponseReceived {
     @required TResult initialized(),
     @required TResult listening(),
     @required TResult recognized(String recognizedWords),
-    @required TResult complete(),
+    @required TResult complete(DetectIntentResponse response),
     @required TResult response(String responseString),
     @required TResult error(String message),
   }) {
@@ -1011,7 +1043,7 @@ class _$ResponseReceived implements ResponseReceived {
     TResult initialized(),
     TResult listening(),
     TResult recognized(String recognizedWords),
-    TResult complete(),
+    TResult complete(DetectIntentResponse response),
     TResult response(String responseString),
     TResult error(String message),
     @required TResult orElse(),
@@ -1031,7 +1063,7 @@ class _$ResponseReceived implements ResponseReceived {
     @required TResult initialized(ListeningInitialized value),
     @required TResult listening(Listening value),
     @required TResult recognized(Recognized value),
-    @required TResult complete(ListeningComplete value),
+    @required TResult complete(ResponseComplete value),
     @required TResult response(ResponseReceived value),
     @required TResult error(ListeningError value),
   }) {
@@ -1054,7 +1086,7 @@ class _$ResponseReceived implements ResponseReceived {
     TResult initialized(ListeningInitialized value),
     TResult listening(Listening value),
     TResult recognized(Recognized value),
-    TResult complete(ListeningComplete value),
+    TResult complete(ResponseComplete value),
     TResult response(ResponseReceived value),
     TResult error(ListeningError value),
     @required TResult orElse(),
@@ -1142,7 +1174,7 @@ class _$ListeningError implements ListeningError {
     @required TResult initialized(),
     @required TResult listening(),
     @required TResult recognized(String recognizedWords),
-    @required TResult complete(),
+    @required TResult complete(DetectIntentResponse response),
     @required TResult response(String responseString),
     @required TResult error(String message),
   }) {
@@ -1165,7 +1197,7 @@ class _$ListeningError implements ListeningError {
     TResult initialized(),
     TResult listening(),
     TResult recognized(String recognizedWords),
-    TResult complete(),
+    TResult complete(DetectIntentResponse response),
     TResult response(String responseString),
     TResult error(String message),
     @required TResult orElse(),
@@ -1185,7 +1217,7 @@ class _$ListeningError implements ListeningError {
     @required TResult initialized(ListeningInitialized value),
     @required TResult listening(Listening value),
     @required TResult recognized(Recognized value),
-    @required TResult complete(ListeningComplete value),
+    @required TResult complete(ResponseComplete value),
     @required TResult response(ResponseReceived value),
     @required TResult error(ListeningError value),
   }) {
@@ -1208,7 +1240,7 @@ class _$ListeningError implements ListeningError {
     TResult initialized(ListeningInitialized value),
     TResult listening(Listening value),
     TResult recognized(Recognized value),
-    TResult complete(ListeningComplete value),
+    TResult complete(ResponseComplete value),
     TResult response(ResponseReceived value),
     TResult error(ListeningError value),
     @required TResult orElse(),
