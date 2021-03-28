@@ -67,8 +67,46 @@ class Dialogflow {
     return response;
   }
 
-  static Future<void> playSpeech({@required Uint8List audioBytes}) async {
+  static Future<df.DetectIntentResponse> getDialogflowResponse({
+    @required String questionString,
+  }) async {
+    final df.DialogFlowtter dialogFlowtter = await df.DialogFlowtter.fromFile(
+      path: 'assets/dialogflow/sofia_auth.json',
+      sessionId: DateTime.now().millisecondsSinceEpoch.toString(),
+    );
+
+    final df.QueryInput queryInput = df.QueryInput(
+      text: df.TextInput(
+        text: questionString,
+        languageCode: 'en',
+      ),
+    );
+
+    String rawJson =
+        await rootBundle.loadString('assets/dialogflow/config.json');
+
+    Map<String, dynamic> data = jsonDecode(rawJson);
+
+    df.DetectIntentResponse response = await dialogFlowtter.detectIntent(
+      queryInput: queryInput,
+      audioConfig: df.OutputAudioConfig(
+        synthesizeSpeechConfig: df.SynthesizeSpeechConfig.fromJson(data),
+      ),
+    );
+
+    return response;
+  }
+
+  static Future<void> playSpeech({
+    @required Uint8List audioBytes,
+    Function(bool) completionCallback,
+  }) async {
+    completionCallback(false);
     AudioPlayer audioPlayer = AudioPlayer();
     await audioPlayer.playBytes(audioBytes);
+
+    audioPlayer.onPlayerCompletion.listen((event) {
+      completionCallback(true);
+    });
   }
 }
