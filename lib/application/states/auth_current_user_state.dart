@@ -6,7 +6,7 @@ part 'auth_current_user_state.freezed.dart';
 
 @freezed
 abstract class AuthCurrentUserState with _$AuthCurrentUserState {
-  const factory AuthCurrentUserState() = Initial;
+  const factory AuthCurrentUserState() = InitialUser;
   const factory AuthCurrentUserState.finding() = Finding;
   const factory AuthCurrentUserState.alreadySignedIn(User user) = SignedInUser;
   const factory AuthCurrentUserState.detailsNotUploaded(FirebaseUser user) =
