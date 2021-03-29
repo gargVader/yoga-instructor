@@ -10,6 +10,9 @@ class User {
     this.userName,
     this.gender,
     this.age,
+    this.stars,
+    this.accuracy,
+    this.time,
   });
 
   String uid;
@@ -17,6 +20,9 @@ class User {
   String userName;
   String gender;
   String age;
+  int stars;
+  double accuracy;
+  int time;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
