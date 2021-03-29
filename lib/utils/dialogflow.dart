@@ -137,6 +137,35 @@ class Dialogflow {
       ..play();
   }
 
+  static Future<void> bodyVisible() async {
+    final df.DialogFlowtter dialogFlowtter = await df.DialogFlowtter.fromFile(
+      path: 'assets/dialogflow/sofia_auth.json',
+      sessionId: DateTime.now().millisecondsSinceEpoch.toString(),
+    );
+
+    final df.QueryInput queryInput = df.QueryInput(
+      text: df.TextInput(
+        text: 'Body visible camera',
+        languageCode: 'en',
+      ),
+    );
+
+    String rawJson =
+        await rootBundle.loadString('assets/dialogflow/config.json');
+
+    Map<String, dynamic> data = jsonDecode(rawJson);
+
+    df.DetectIntentResponse response = await dialogFlowtter.detectIntent(
+      queryInput: queryInput,
+      audioConfig: df.OutputAudioConfig(
+        synthesizeSpeechConfig: df.SynthesizeSpeechConfig.fromJson(data),
+      ),
+    );
+
+    Uint8List audioBytes = response.outputAudioBytes;
+    af.Audio.loadFromByteData(ByteData.view(audioBytes.buffer))..play();
+  }
+
   static Future<df.DetectIntentResponse> getDialogflowResponse({
     @required String questionString,
   }) async {

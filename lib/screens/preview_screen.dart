@@ -6,6 +6,7 @@ import 'package:sofia/main.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/screens/recognizer_screen.dart';
 import 'package:sofia/screens/timer_overlay.dart';
+import 'package:sofia/utils/dialogflow.dart';
 import 'package:sofia/utils/video_manager.dart';
 import 'package:sofia/widgets/preview_screen/camera_preview_widget.dart';
 import 'package:sofia/widgets/preview_screen/rotate_to_landspace_widget.dart';
@@ -185,6 +186,9 @@ class _PreviewScreenState extends State<PreviewScreen> {
 
     initializeCameraController();
     VideoManager.initializeVideoController(videoUrl: widget.pose.videoUrl);
+
+    Dialogflow.bodyVisible();
+
     super.initState();
   }
 
@@ -196,6 +200,11 @@ class _PreviewScreenState extends State<PreviewScreen> {
     return WillPopScope(
       onWillPop: () async {
         FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
+        // SystemChrome.setPreferredOrientations([
+        //   DeviceOrientation.portraitUp,
+        //   DeviceOrientation.portraitDown,
+        // ]);
+
         return true;
       },
       child: Scaffold(
@@ -209,9 +218,25 @@ class _PreviewScreenState extends State<PreviewScreen> {
 
               if (_cameraController != null) {
                 if (_cameraController.value.isInitialized) {
-                  return CameraPreviewWidget(
-                    isBodyVisible: _isBodyVisible,
-                    cameraController: _cameraController,
+                  return Stack(
+                    children: [
+                      CameraPreviewWidget(
+                        isBodyVisible: _isBodyVisible,
+                        cameraController: _cameraController,
+                      ),
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            top: 16.0,
+                            bottom: 8.0,
+                          ),
+                          child: Image.asset(
+                            'assets/images/human_outline.png',
+                            color: Colors.white54,
+                          ),
+                        ),
+                      ),
+                    ],
                   );
                 } else {
                   return Container(

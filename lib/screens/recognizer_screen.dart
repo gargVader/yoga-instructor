@@ -69,7 +69,7 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
           _isPoseCorrectStatus = true;
           _myPoseAcuracy = confidence;
           setState(() {});
-        } else if (_totalFramesPositive > 120) {
+        } else if (_totalFramesPositive > 100) {
           // await _cameraController?.stopImageStream();
           _myPoseAcuracy = (_myPoseAcuracy + confidence) / 2;
 
