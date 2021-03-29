@@ -41,6 +41,8 @@ class OnboardingScreen extends StatelessWidget {
             context
                 .read(retrievePosesNotifierProvider('beginners'))
                 .retrievePoses();
+
+            context.read(retrieveUserNotifierProvider).retrieveUser();
           }
         },
         child: Consumer(
