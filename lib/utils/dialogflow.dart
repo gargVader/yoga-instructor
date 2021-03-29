@@ -6,10 +6,12 @@ import 'package:dialog_flowtter/dialog_flowtter.dart' as df;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:audiofileplayer/audiofileplayer.dart' as af;
 
 class Dialogflow {
   static stt.SpeechToText speech = stt.SpeechToText();
   static bool isSpeechAvailable;
+  static AudioPlayer audioPlayer = AudioPlayer();
 
   static Future<bool> initializeSpeech() async {
     bool available = await speech.initialize(
@@ -67,6 +69,80 @@ class Dialogflow {
     return response;
   }
 
+  static Future<void> poseCompletion({
+    @required String poseName,
+    @required int accuracy,
+  }) async {
+    final df.DialogFlowtter dialogFlowtter = await df.DialogFlowtter.fromFile(
+      path: 'assets/dialogflow/sofia_auth.json',
+      sessionId: DateTime.now().millisecondsSinceEpoch.toString(),
+    );
+
+    final df.QueryInput queryInput = df.QueryInput(
+      text: df.TextInput(
+        text: 'Completed $poseName pose, accuracy $accuracy',
+        languageCode: 'en',
+      ),
+    );
+
+    String rawJson =
+        await rootBundle.loadString('assets/dialogflow/config.json');
+
+    Map<String, dynamic> data = jsonDecode(rawJson);
+
+    df.DetectIntentResponse response = await dialogFlowtter.detectIntent(
+      queryInput: queryInput,
+      audioConfig: df.OutputAudioConfig(
+        synthesizeSpeechConfig: df.SynthesizeSpeechConfig.fromJson(data),
+      ),
+    );
+
+    Uint8List audioBytes = response.outputAudioBytes;
+
+    af.Audio.loadFromByteData(ByteData.view(audioBytes.buffer))
+      ..play()
+      ..dispose();
+  }
+
+  static Future<void> poseRecognition() async {
+    final df.DialogFlowtter dialogFlowtter = await df.DialogFlowtter.fromFile(
+      path: 'assets/dialogflow/sofia_auth.json',
+      sessionId: DateTime.now().millisecondsSinceEpoch.toString(),
+    );
+
+    final df.QueryInput queryInput = df.QueryInput(
+      text: df.TextInput(
+        text: 'Recognize pose',
+        languageCode: 'en',
+      ),
+    );
+
+    String rawJson =
+        await rootBundle.loadString('assets/dialogflow/config.json');
+
+    Map<String, dynamic> data = jsonDecode(rawJson);
+
+    df.DetectIntentResponse response = await dialogFlowtter.detectIntent(
+      queryInput: queryInput,
+      audioConfig: df.OutputAudioConfig(
+        synthesizeSpeechConfig: df.SynthesizeSpeechConfig.fromJson(data),
+      ),
+    );
+
+    Uint8List audioBytes = response.outputAudioBytes;
+
+    af.Audio.loadFromByteData(ByteData.view(audioBytes.buffer))..play();
+
+    // AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
+
+    // await player.playBytes(audioBytes);
+
+    // Dialogflow.playSpeech(
+    //   audioBytes: audioBytes,
+    //   completionCallback: (isCompleted) => print('isCompleted: $isCompleted'),
+    // );
+  }
+
   static Future<df.DetectIntentResponse> getDialogflowResponse({
     @required String questionString,
   }) async {
@@ -99,10 +175,10 @@ class Dialogflow {
 
   static Future<void> playSpeech({
     @required Uint8List audioBytes,
-    Function(bool) completionCallback,
+    @required Function(bool) completionCallback,
   }) async {
     completionCallback(false);
-    AudioPlayer audioPlayer = AudioPlayer();
+
     await audioPlayer.playBytes(audioBytes);
 
     audioPlayer.onPlayerCompletion.listen((event) {

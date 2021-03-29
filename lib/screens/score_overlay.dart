@@ -7,6 +7,7 @@ import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:sofia/application/states/store_user_score_state.dart';
 import 'package:sofia/providers.dart';
+import 'package:sofia/utils/dialogflow.dart';
 import 'package:sofia/widgets/recognizer_screen/total_accuracy_painter.dart';
 import 'package:sofia/widgets/score_overlay_widgets/error_syncing_widget.dart';
 import 'package:sofia/widgets/score_overlay_widgets/score_syncing_widget.dart';
@@ -71,7 +72,9 @@ class _ScoreOverlayState extends State<ScoreOverlay>
       durationString =
           '${duration.inHours}hr ${duration.inMinutes % 60}min ${duration.inSeconds % 60}sec';
     }
-    // startTimer();
+
+    Dialogflow.poseCompletion(
+        poseName: widget.pose.title, accuracy: (_accuracy * 100).toInt());
 
     _animationController = AnimationController(
       duration: Duration(seconds: 5),
@@ -152,6 +155,8 @@ class _ScoreOverlayState extends State<ScoreOverlay>
 
           Wakelock.disable();
           Navigator.of(context).pop();
+
+          context.read(retrieveUserNotifierProvider).retrieveUser();
 
           SystemChrome.setPreferredOrientations([
             DeviceOrientation.portraitUp,

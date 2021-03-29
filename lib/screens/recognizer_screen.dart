@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:sofia/screens/score_overlay.dart';
+import 'package:sofia/utils/dialogflow.dart';
 import 'package:sofia/utils/video_manager.dart';
 import 'package:sofia/widgets/recognizer_screen/scrore_viewer_widget.dart';
 import 'package:tflite/tflite.dart';
@@ -159,6 +160,7 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
           setState(() {
             _isDetectionAllowed = true;
           });
+          Dialogflow.poseRecognition();
         }
       }
 

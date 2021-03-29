@@ -31,22 +31,26 @@ class SofiaAssistantButton extends StatelessWidget {
 
           print('PARAMS: ${response.queryResult.parameters}');
 
-          if (response.queryResult.parameters.containsKey('pose')) {
-            List<String> responsePoseList =
-                response.queryResult.parameters['pose'];
-            if (responsePoseList.length == 1) {
-              String resolvedPoseName =
-                  response.queryResult.parameters['pose'][0];
+          String intentName = response.queryResult.intent.displayName;
 
-              poses.forEach((pose) {
-                if (pose.title == resolvedPoseName) {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => PreviewScreen(pose: pose),
-                    ),
-                  );
-                }
-              });
+          if (intentName == 'Pose intent') {
+            if (response.queryResult.parameters.containsKey('pose')) {
+              List<dynamic> responsePoseList =
+                  response.queryResult.parameters['pose'];
+              if (responsePoseList.length == 1) {
+                String resolvedPoseName =
+                    response.queryResult.parameters['pose'][0];
+
+                poses.forEach((pose) {
+                  if (pose.title == resolvedPoseName) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => PreviewScreen(pose: pose),
+                      ),
+                    );
+                  }
+                });
+              }
             }
           }
         }

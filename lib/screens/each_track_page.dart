@@ -11,6 +11,7 @@ import 'package:sofia/widgets/dashboard_widgets/poses_list/poses_list_error_widg
 import 'package:sofia/widgets/dashboard_widgets/poses_list/poses_list_initial_widget.dart';
 import 'package:sofia/widgets/dashboard_widgets/poses_list/poses_list_loading_widget.dart';
 import 'package:sofia/widgets/dashboard_widgets/poses_list/poses_list_widget.dart';
+import 'package:sofia/widgets/dashboard_widgets/sofia_assistant_button.dart';
 
 class EachTrackPage extends StatefulWidget {
   final Track track;
@@ -47,6 +48,7 @@ class _EachTrackPageState extends State<EachTrackPage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      floatingActionButton: SofiaAssistantButton(),
       body: SafeArea(
         child: CustomScrollView(
           physics: BouncingScrollPhysics(),
@@ -119,11 +121,11 @@ class _EachTrackPageState extends State<EachTrackPage> {
                           //     pageBuilder: (context, _, __) => TimerOverlay(),
                           //   ),
                           // );
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => PreviewScreen(),
-                            ),
-                          );
+                          // Navigator.of(context).push(
+                          //   MaterialPageRoute(
+                          //     builder: (context) => PreviewScreen(),
+                          //   ),
+                          // );
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -222,7 +224,7 @@ class _EachTrackPageState extends State<EachTrackPage> {
                                 ),
                                 SizedBox(width: 8.0),
                                 Text(
-                                  '160',
+                                  '${totalNumberOfPoses * 20}',
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.w400,

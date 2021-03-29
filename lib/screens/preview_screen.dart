@@ -207,6 +207,23 @@ class _PreviewScreenState extends State<PreviewScreen> {
             } else {
               fixInLandscape();
 
+              if (_cameraController != null) {
+                if (_cameraController.value.isInitialized) {
+                  return CameraPreviewWidget(
+                    isBodyVisible: _isBodyVisible,
+                    cameraController: _cameraController,
+                  );
+                } else {
+                  return Container(
+                    color: Colors.white,
+                  );
+                }
+              } else {
+                return Container(
+                  color: Colors.white,
+                );
+              }
+
               if (_cameraController.value.isInitialized) {
                 return CameraPreviewWidget(
                   isBodyVisible: _isBodyVisible,

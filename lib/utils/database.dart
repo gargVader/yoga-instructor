@@ -461,6 +461,10 @@ class Database {
     DocumentReference documentReferencer =
         documentReference.collection('user_info').document(uid);
 
+    DocumentSnapshot userDocSnapshot = await documentReferencer.get();
+    bool doesDocumentExist = userDocSnapshot.exists;
+    print('User info exists: $doesDocumentExist');
+
     Map<String, dynamic> data = <String, dynamic>{
       "uid": uid,
       "imageUrl": imageUrl,
@@ -474,10 +478,17 @@ class Database {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    await documentReferencer.setData(data).whenComplete(() {
-      print("User Info added to the database");
-      prefs.setBool('details_uploaded', true);
-    }).catchError((e) => print(e));
+    if (doesDocumentExist) {
+      await documentReferencer.updateData(data).whenComplete(() {
+        print("User Info updated in the database");
+        prefs.setBool('details_uploaded', true);
+      }).catchError((e) => print(e));
+    } else {
+      await documentReferencer.setData(data).whenComplete(() {
+        print("User Info added to the database");
+        prefs.setBool('details_uploaded', true);
+      }).catchError((e) => print(e));
+    }
 
     return userData;
   }
@@ -584,7 +595,7 @@ class Database {
     Map<String, dynamic> totalScoreData = <String, dynamic>{
       "stars": totalStars,
       "accuracy": totalAcuracy,
-      "time": totalTimeInMilliseconds,
+      "time": FieldValue.increment(totalTimeInMilliseconds),
     };
 
     await userReferencer.updateData(totalScoreData).whenComplete(() {

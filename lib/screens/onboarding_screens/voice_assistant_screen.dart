@@ -83,7 +83,10 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
         _animText = buildAnimText;
       });
 
-      Dialogflow.playSpeech(audioBytes: audioBytes);
+      Dialogflow.playSpeech(
+        audioBytes: audioBytes,
+        completionCallback: (isCompleted) => print(isCompleted),
+      );
     });
   }
 
