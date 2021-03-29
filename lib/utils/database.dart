@@ -490,7 +490,8 @@ class Database {
   // }
 
   /// For retrieving the user info from the database
-  Future<User> retrieveUserInfo({@required String uid}) async {
+  Future<User> retrieveUserInfo() async {
+    String uid = AuthenticationClient.presentUser.uid;
     DocumentSnapshot userInfo =
         await documentReference.collection('user_info').document(uid).get();
 
