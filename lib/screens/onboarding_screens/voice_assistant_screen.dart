@@ -151,6 +151,10 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
                             .read(retrievePosesNotifierProvider('beginners'))
                             .retrievePoses();
 
+                        context
+                            .read(retrieveUserNotifierProvider)
+                            .retrieveUser();
+
                         startTimer(context: context);
                       },
                       animatedTexts: _animText.isEmpty
