@@ -14,8 +14,8 @@ class _$AuthCurrentUserStateTearOff {
   const _$AuthCurrentUserStateTearOff();
 
 // ignore: unused_element
-  Initial call() {
-    return const Initial();
+  InitialUser call() {
+    return const InitialUser();
   }
 
 // ignore: unused_element
@@ -77,7 +77,7 @@ mixin _$AuthCurrentUserState {
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>(
-    TResult $default(Initial value), {
+    TResult $default(InitialUser value), {
     @required TResult finding(Finding value),
     @required TResult alreadySignedIn(SignedInUser value),
     @required TResult detailsNotUploaded(DetailsNotUploaded value),
@@ -86,7 +86,7 @@ mixin _$AuthCurrentUserState {
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>(
-    TResult $default(Initial value), {
+    TResult $default(InitialUser value), {
     TResult finding(Finding value),
     TResult alreadySignedIn(SignedInUser value),
     TResult detailsNotUploaded(DetailsNotUploaded value),
@@ -114,25 +114,27 @@ class _$AuthCurrentUserStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $InitialCopyWith<$Res> {
-  factory $InitialCopyWith(Initial value, $Res Function(Initial) then) =
-      _$InitialCopyWithImpl<$Res>;
+abstract class $InitialUserCopyWith<$Res> {
+  factory $InitialUserCopyWith(
+          InitialUser value, $Res Function(InitialUser) then) =
+      _$InitialUserCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$InitialCopyWithImpl<$Res>
+class _$InitialUserCopyWithImpl<$Res>
     extends _$AuthCurrentUserStateCopyWithImpl<$Res>
-    implements $InitialCopyWith<$Res> {
-  _$InitialCopyWithImpl(Initial _value, $Res Function(Initial) _then)
-      : super(_value, (v) => _then(v as Initial));
+    implements $InitialUserCopyWith<$Res> {
+  _$InitialUserCopyWithImpl(
+      InitialUser _value, $Res Function(InitialUser) _then)
+      : super(_value, (v) => _then(v as InitialUser));
 
   @override
-  Initial get _value => super._value as Initial;
+  InitialUser get _value => super._value as InitialUser;
 }
 
 /// @nodoc
-class _$Initial implements Initial {
-  const _$Initial();
+class _$InitialUser implements InitialUser {
+  const _$InitialUser();
 
   @override
   String toString() {
@@ -141,7 +143,7 @@ class _$Initial implements Initial {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Initial);
+    return identical(this, other) || (other is InitialUser);
   }
 
   @override
@@ -187,7 +189,7 @@ class _$Initial implements Initial {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>(
-    TResult $default(Initial value), {
+    TResult $default(InitialUser value), {
     @required TResult finding(Finding value),
     @required TResult alreadySignedIn(SignedInUser value),
     @required TResult detailsNotUploaded(DetailsNotUploaded value),
@@ -206,7 +208,7 @@ class _$Initial implements Initial {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>(
-    TResult $default(Initial value), {
+    TResult $default(InitialUser value), {
     TResult finding(Finding value),
     TResult alreadySignedIn(SignedInUser value),
     TResult detailsNotUploaded(DetailsNotUploaded value),
@@ -222,8 +224,8 @@ class _$Initial implements Initial {
   }
 }
 
-abstract class Initial implements AuthCurrentUserState {
-  const factory Initial() = _$Initial;
+abstract class InitialUser implements AuthCurrentUserState {
+  const factory InitialUser() = _$InitialUser;
 }
 
 /// @nodoc
@@ -300,7 +302,7 @@ class _$Finding implements Finding {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>(
-    TResult $default(Initial value), {
+    TResult $default(InitialUser value), {
     @required TResult finding(Finding value),
     @required TResult alreadySignedIn(SignedInUser value),
     @required TResult detailsNotUploaded(DetailsNotUploaded value),
@@ -319,7 +321,7 @@ class _$Finding implements Finding {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>(
-    TResult $default(Initial value), {
+    TResult $default(InitialUser value), {
     TResult finding(Finding value),
     TResult alreadySignedIn(SignedInUser value),
     TResult detailsNotUploaded(DetailsNotUploaded value),
@@ -437,7 +439,7 @@ class _$SignedInUser implements SignedInUser {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>(
-    TResult $default(Initial value), {
+    TResult $default(InitialUser value), {
     @required TResult finding(Finding value),
     @required TResult alreadySignedIn(SignedInUser value),
     @required TResult detailsNotUploaded(DetailsNotUploaded value),
@@ -456,7 +458,7 @@ class _$SignedInUser implements SignedInUser {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>(
-    TResult $default(Initial value), {
+    TResult $default(InitialUser value), {
     TResult finding(Finding value),
     TResult alreadySignedIn(SignedInUser value),
     TResult detailsNotUploaded(DetailsNotUploaded value),
@@ -578,7 +580,7 @@ class _$DetailsNotUploaded implements DetailsNotUploaded {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>(
-    TResult $default(Initial value), {
+    TResult $default(InitialUser value), {
     @required TResult finding(Finding value),
     @required TResult alreadySignedIn(SignedInUser value),
     @required TResult detailsNotUploaded(DetailsNotUploaded value),
@@ -597,7 +599,7 @@ class _$DetailsNotUploaded implements DetailsNotUploaded {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>(
-    TResult $default(Initial value), {
+    TResult $default(InitialUser value), {
     TResult finding(Finding value),
     TResult alreadySignedIn(SignedInUser value),
     TResult detailsNotUploaded(DetailsNotUploaded value),
@@ -697,7 +699,7 @@ class _$NotSignedInUser implements NotSignedInUser {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>(
-    TResult $default(Initial value), {
+    TResult $default(InitialUser value), {
     @required TResult finding(Finding value),
     @required TResult alreadySignedIn(SignedInUser value),
     @required TResult detailsNotUploaded(DetailsNotUploaded value),
@@ -716,7 +718,7 @@ class _$NotSignedInUser implements NotSignedInUser {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>(
-    TResult $default(Initial value), {
+    TResult $default(InitialUser value), {
     TResult finding(Finding value),
     TResult alreadySignedIn(SignedInUser value),
     TResult detailsNotUploaded(DetailsNotUploaded value),
@@ -831,7 +833,7 @@ class _$Error implements Error {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>(
-    TResult $default(Initial value), {
+    TResult $default(InitialUser value), {
     @required TResult finding(Finding value),
     @required TResult alreadySignedIn(SignedInUser value),
     @required TResult detailsNotUploaded(DetailsNotUploaded value),
@@ -850,7 +852,7 @@ class _$Error implements Error {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>(
-    TResult $default(Initial value), {
+    TResult $default(InitialUser value), {
     TResult finding(Finding value),
     TResult alreadySignedIn(SignedInUser value),
     TResult detailsNotUploaded(DetailsNotUploaded value),
