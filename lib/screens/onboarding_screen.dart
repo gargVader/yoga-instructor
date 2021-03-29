@@ -8,7 +8,6 @@ import 'package:sofia/utils/database.dart';
 import 'onboarding_screens/login_screen.dart';
 import 'onboarding_screens/name_screen.dart';
 import 'onboarding_screens/splash_screen.dart';
-import 'onboarding_screens/voice_assistant_screen.dart';
 
 class OnboardingScreen extends StatelessWidget {
   @override

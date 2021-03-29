@@ -4,9 +4,6 @@ import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:sofia/model/track.dart';
 import 'package:sofia/providers.dart';
 import 'package:sofia/res/palette.dart';
-import 'package:sofia/screens/preview_screen.dart';
-import 'package:sofia/screens/timer_overlay.dart';
-import 'package:sofia/utils/database.dart';
 import 'package:sofia/widgets/dashboard_widgets/poses_list/poses_list_error_widget.dart';
 import 'package:sofia/widgets/dashboard_widgets/poses_list/poses_list_initial_widget.dart';
 import 'package:sofia/widgets/dashboard_widgets/poses_list/poses_list_loading_widget.dart';
@@ -25,8 +22,6 @@ class EachTrackPage extends StatefulWidget {
 }
 
 class _EachTrackPageState extends State<EachTrackPage> {
-  final Database _database = Database();
-
   String trackName;
   String trackDescription;
   int totalNumberOfPoses;

@@ -23,14 +23,13 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
 
   bool _hasCompletedSpeaking = false;
 
-  Timer _timer;
   int _start = 5;
 
   List<AnimatedText> _animText = [];
 
   startTimer({@required BuildContext context}) {
     const oneSec = const Duration(seconds: 1);
-    _timer = Timer.periodic(
+    Timer.periodic(
       oneSec,
       (Timer timer) {
         if (_start == 1) {
@@ -95,7 +94,7 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
     FlutterStatusbarcolor.setStatusBarColor(Colors.white);
     FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
 
-    double width = MediaQuery.of(context).size.width;
+    // double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: Colors.white,

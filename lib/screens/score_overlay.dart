@@ -187,48 +187,43 @@ class _ScoreOverlayState extends State<ScoreOverlay>
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).pop();
-      },
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: SafeArea(
-          child: Stack(
-            children: [
-              AnimatedBuilder(
-                animation: _animationController,
-                builder: (context, child) => _buildAnimation(
-                  context: context,
-                  child: child,
-                  height: height,
-                  width: width,
-                ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            AnimatedBuilder(
+              animation: _animationController,
+              builder: (context, child) => _buildAnimation(
+                context: context,
+                child: child,
+                height: height,
+                width: width,
               ),
-              ProviderListener<StoreUserScoreState>(
-                provider: storeUserScoreNotifierProvider.state,
-                onChange: (context, state) {
-                  if (state is StoredScoreData) {
-                    startTimer(context: context);
-                  }
-                },
-                child: Consumer(
-                  builder: (context, watch, child) {
-                    final state = watch(
-                      storeUserScoreNotifierProvider.state,
-                    );
+            ),
+            ProviderListener<StoreUserScoreState>(
+              provider: storeUserScoreNotifierProvider.state,
+              onChange: (context, state) {
+                if (state is StoredScoreData) {
+                  startTimer(context: context);
+                }
+              },
+              child: Consumer(
+                builder: (context, watch, child) {
+                  final state = watch(
+                    storeUserScoreNotifierProvider.state,
+                  );
 
-                    return state.when(
-                      () => Container(),
-                      storing: () => ScoreSyncingWidget(),
-                      stored: () => Container(),
-                      error: (_) => ErrorSyncingWidget(),
-                    );
-                  },
-                ),
+                  return state.when(
+                    () => Container(),
+                    storing: () => ScoreSyncingWidget(),
+                    stored: () => Container(),
+                    error: (_) => ErrorSyncingWidget(),
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

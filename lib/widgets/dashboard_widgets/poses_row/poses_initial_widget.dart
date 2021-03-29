@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sofia/model/pose.dart';
-import 'package:sofia/res/palette.dart';
 
 class PosesInitialWidget extends StatelessWidget {
   const PosesInitialWidget({

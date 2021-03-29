@@ -30,8 +30,8 @@ class _PreviewScreenState extends State<PreviewScreen> {
   CameraController _cameraController;
 
   List<dynamic> _recognitions;
-  int _imageHeight = 0;
-  int _imageWidth = 0;
+  // int _imageHeight = 0;
+  // int _imageWidth = 0;
 
   bool _isBodyVisible = false;
   bool isDetecting = false;
@@ -52,8 +52,8 @@ class _PreviewScreenState extends State<PreviewScreen> {
     if (mounted) {
       setState(() {
         _recognitions = recognitions;
-        _imageHeight = imageHeight;
-        _imageWidth = imageWidth;
+        // _imageHeight = imageHeight;
+        // _imageWidth = imageWidth;
       });
       // _recognitions.isNotEmpty
       //     ? print('RECOG: ${_recognitions[0]['keypoints']}')
@@ -218,17 +218,6 @@ class _PreviewScreenState extends State<PreviewScreen> {
                     color: Colors.white,
                   );
                 }
-              } else {
-                return Container(
-                  color: Colors.white,
-                );
-              }
-
-              if (_cameraController.value.isInitialized) {
-                return CameraPreviewWidget(
-                  isBodyVisible: _isBodyVisible,
-                  cameraController: _cameraController,
-                );
               } else {
                 return Container(
                   color: Colors.white,

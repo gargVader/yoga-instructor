@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/res/palette.dart';
-import 'package:sofia/screens/each_pose_page.dart';
 import 'package:sofia/widgets/each_pose_widgets/custom_navigator.dart';
 
 class PrevNextWidget extends StatelessWidget {

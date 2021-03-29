@@ -3,7 +3,7 @@ description: AI powered yoga instructor
 
 publish_to: "none"
 
-;version: 0.3.3+11
+;version: 0.3.4+12
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -80,8 +80,6 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/videos/
-    - assets/model/
     - assets/rive/
     - assets/tflite/
     - assets/dialogflow/

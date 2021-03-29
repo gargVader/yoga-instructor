@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:sofia/model/user.dart';
 
 part 'store_user_score_state.freezed.dart';
 

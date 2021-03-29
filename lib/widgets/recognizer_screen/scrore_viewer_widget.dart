@@ -1,9 +1,5 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
-
 import 'package:sofia/res/palette.dart';
-
 import 'acuracy_painter.dart';
 
 class ScroreViewerWidget extends StatefulWidget {

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sofia/providers.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/widgets/age_widgets/user_info_initial_widget.dart';
 
