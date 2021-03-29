@@ -11,6 +11,7 @@ import 'package:sofia/widgets/dashboard_widgets/poses_row/poses_row_widget.dart'
 import 'package:sofia/widgets/dashboard_widgets/sofia_assistant_button.dart';
 import 'package:sofia/widgets/dashboard_widgets/tracks_list/tracks_initial_widget.dart';
 import 'package:sofia/widgets/dashboard_widgets/tracks_list/tracks_list_widget.dart';
+import 'package:sofia/widgets/dashboard_widgets/user_performance/user_performance_widget.dart';
 
 // TODO: Add caching of the data to prevent empty
 // screen during the intial load of the data from firebase
@@ -96,158 +97,178 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ],
               ),
               SliverList(
-                delegate: SliverChildListDelegate([
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                    child: Text(
-                      'Inhale the future, exhale the past.', // Update the quote from backend
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                        color: Palette.black.withOpacity(0.5),
+                delegate: SliverChildListDelegate(
+                  [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                      child: Text(
+                        'Inhale the future, exhale the past.', // Update the quote from backend
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                          color: Palette.black.withOpacity(0.5),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 32.0),
-                  // Your favourites
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                    child: Text(
-                      'For beginners',
-                      style: TextStyle(
-                        fontSize: 32.0,
-                        fontWeight: FontWeight.bold,
-                        color: Palette.black,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 16.0),
-                  Consumer(
-                    builder: (context, watch, child) {
-                      final state = watch(
-                        retrievePosesNotifierProvider('beginners').state,
-                      );
-
-                      return state.when(
-                        () => PosesInitialWidget(
-                          screeWidth: screeWidth,
-                        ),
-                        retrieving: () => PosesInitialWidget(
-                          screeWidth: screeWidth,
-                        ),
-                        retrieved: (poses) => PosesRowWidget(
-                          screeWidth: screeWidth,
-                          poses: poses,
-                        ),
-                        error: (message) => PosesInitialWidget(
-                          screeWidth: screeWidth,
-                        ),
-                      );
-                    },
-                  ),
-                  SizedBox(height: 24.0),
-                  // Your favourites
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                    child: Text(
-                      'Explore tracks',
-                      style: TextStyle(
-                        fontSize: 32.0,
-                        fontWeight: FontWeight.bold,
-                        color: Palette.black,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 16.0),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                    child: Consumer(
+                    SizedBox(height: 16.0),
+                    // Your favourites
+                    Consumer(
                       builder: (context, watch, child) {
                         final state = watch(
-                          retrieveTracksNotifierProvider.state,
+                          retrieveUserNotifierProvider.state,
                         );
 
                         return state.when(
-                          () => TracksInitialWidget(),
-                          retrieving: () => TracksInitialWidget(),
-                          retrieved: (tracks) => TracksListWidget(
-                            tracks: tracks,
+                          () => Container(),
+                          retrieving: () => Container(),
+                          retrieved: (_) => Container(),
+                          hasAccuracyData: (user) => UserPerformanceWidget(
+                            user: user,
                           ),
-                          error: (message) => TracksInitialWidget(),
+                          error: (_) => Container(),
                         );
                       },
                     ),
-                  ),
-                  SizedBox(height: 16.0),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: double.maxFinite,
-                          height: 2,
-                          color: Palette.black.withOpacity(0.2),
+                    SizedBox(height: 16.0),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                      child: Text(
+                        'For beginners',
+                        style: TextStyle(
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.bold,
+                          color: Palette.black,
                         ),
-                        SizedBox(height: 16.0),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.privacy_tip,
-                              color: Palette.black.withOpacity(0.6),
-                            ),
-                            SizedBox(width: 8.0),
-                            Text(
-                              'Privacy policy', // Update the quote from backend
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold,
-                                color: Palette.black.withOpacity(0.6),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 8.0),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.email,
-                              color: Palette.black.withOpacity(0.6),
-                            ),
-                            SizedBox(width: 8.0),
-                            Text(
-                              'Contact us', // Update the quote from backend
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold,
-                                color: Palette.black.withOpacity(0.6),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 8.0),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.info,
-                              color: Palette.black.withOpacity(0.6),
-                            ),
-                            SizedBox(width: 8.0),
-                            Text(
-                              'About', // Update the quote from backend
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold,
-                                color: Palette.black.withOpacity(0.6),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                ]),
-              )
+                    SizedBox(height: 16.0),
+                    Consumer(
+                      builder: (context, watch, child) {
+                        final state = watch(
+                          retrievePosesNotifierProvider('beginners').state,
+                        );
+
+                        return state.when(
+                          () => PosesInitialWidget(
+                            screeWidth: screeWidth,
+                          ),
+                          retrieving: () => PosesInitialWidget(
+                            screeWidth: screeWidth,
+                          ),
+                          retrieved: (poses) => PosesRowWidget(
+                            screeWidth: screeWidth,
+                            poses: poses,
+                          ),
+                          error: (message) => PosesInitialWidget(
+                            screeWidth: screeWidth,
+                          ),
+                        );
+                      },
+                    ),
+                    SizedBox(height: 24.0),
+                    // Your favourites
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                      child: Text(
+                        'Explore tracks',
+                        style: TextStyle(
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.bold,
+                          color: Palette.black,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 16.0),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                      child: Consumer(
+                        builder: (context, watch, child) {
+                          final state = watch(
+                            retrieveTracksNotifierProvider.state,
+                          );
+
+                          return state.when(
+                            () => TracksInitialWidget(),
+                            retrieving: () => TracksInitialWidget(),
+                            retrieved: (tracks) => TracksListWidget(
+                              tracks: tracks,
+                            ),
+                            error: (message) => TracksInitialWidget(),
+                          );
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 16.0),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: double.maxFinite,
+                            height: 2,
+                            color: Palette.black.withOpacity(0.2),
+                          ),
+                          SizedBox(height: 16.0),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.privacy_tip,
+                                color: Palette.black.withOpacity(0.6),
+                              ),
+                              SizedBox(width: 8.0),
+                              Text(
+                                'Privacy policy', // Update the quote from backend
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Palette.black.withOpacity(0.6),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 8.0),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.email,
+                                color: Palette.black.withOpacity(0.6),
+                              ),
+                              SizedBox(width: 8.0),
+                              Text(
+                                'Contact us', // Update the quote from backend
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Palette.black.withOpacity(0.6),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 8.0),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.info,
+                                color: Palette.black.withOpacity(0.6),
+                              ),
+                              SizedBox(width: 8.0),
+                              Text(
+                                'About', // Update the quote from backend
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Palette.black.withOpacity(0.6),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
