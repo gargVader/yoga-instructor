@@ -71,7 +71,7 @@ class Dialogflow {
 
   static Future<void> poseCompletion({
     @required String poseName,
-    @required int accuracy,
+    @required String accuracy,
   }) async {
     final df.DialogFlowtter dialogFlowtter = await df.DialogFlowtter.fromFile(
       path: 'assets/dialogflow/sofia_auth.json',
@@ -104,7 +104,9 @@ class Dialogflow {
       ..dispose();
   }
 
-  static Future<void> poseRecognition() async {
+  static Future<void> poseRecognition({
+    @required Function(bool) onComplete,
+  }) async {
     final df.DialogFlowtter dialogFlowtter = await df.DialogFlowtter.fromFile(
       path: 'assets/dialogflow/sofia_auth.json',
       sessionId: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -130,17 +132,9 @@ class Dialogflow {
     );
 
     Uint8List audioBytes = response.outputAudioBytes;
-
-    af.Audio.loadFromByteData(ByteData.view(audioBytes.buffer))..play();
-
-    // AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
-
-    // await player.playBytes(audioBytes);
-
-    // Dialogflow.playSpeech(
-    //   audioBytes: audioBytes,
-    //   completionCallback: (isCompleted) => print('isCompleted: $isCompleted'),
-    // );
+    af.Audio.loadFromByteData(ByteData.view(audioBytes.buffer),
+        onComplete: () => onComplete(true))
+      ..play();
   }
 
   static Future<df.DetectIntentResponse> getDialogflowResponse({

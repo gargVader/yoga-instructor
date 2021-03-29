@@ -53,7 +53,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
   int _stars;
 
   Timer _timer;
-  int _start = 5;
+  int _start = 10;
 
   @override
   void initState() {
@@ -74,10 +74,12 @@ class _ScoreOverlayState extends State<ScoreOverlay>
     }
 
     Dialogflow.poseCompletion(
-        poseName: widget.pose.title, accuracy: (_accuracy * 100).toInt());
+      poseName: widget.pose.title,
+      accuracy: (_accuracy * 100).toStringAsFixed(1),
+    );
 
     _animationController = AnimationController(
-      duration: Duration(seconds: 5),
+      duration: Duration(seconds: 6),
       vsync: this,
     );
 

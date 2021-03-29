@@ -69,8 +69,7 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
           _isPoseCorrectStatus = true;
           _myPoseAcuracy = confidence;
           setState(() {});
-        } else if (_totalFramesPositive > 100) {
-          print('HELLO');
+        } else if (_totalFramesPositive > 120) {
           // await _cameraController?.stopImageStream();
           _myPoseAcuracy = (_myPoseAcuracy + confidence) / 2;
 
@@ -157,10 +156,15 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
                     : _pausePoints[_currentPauseIndex]) &&
             mounted) {
           _videoController.pause();
-          setState(() {
-            _isDetectionAllowed = true;
+          // setState(() {
+          //   _isDetectionAllowed = true;
+          // });
+          Dialogflow.poseRecognition(onComplete: (isComplete) {
+            if (isComplete)
+              setState(() {
+                _isDetectionAllowed = true;
+              });
           });
-          Dialogflow.poseRecognition();
         }
       }
 
