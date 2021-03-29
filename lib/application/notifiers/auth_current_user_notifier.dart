@@ -23,7 +23,7 @@ class AuthCurrentUserNotifier extends StateNotifier<AuthCurrentUserState> {
       if (currentUser == null) {
         state = AuthCurrentUserState.notSignedIn();
       } else if (isDetailsUploaded) {
-        User userData = await _database.retrieveUserInfo(uid: currentUser.uid);
+        User userData = await _database.retrieveUserInfo();
 
         state = AuthCurrentUserState.alreadySignedIn(userData);
       } else {
