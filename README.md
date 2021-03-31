@@ -29,8 +29,6 @@
 
 # Screenshots
 
-> The following screenshots are outdated, we are currently working on a new UI design :wink:
-
 <p align="center">
   <img src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/new_ui/sofia_layer_1.png" alt="Sofia Login" />
 </p>
@@ -41,24 +39,6 @@
 
 <p align="center">
   <img src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/new_ui/sofia_layer_3.png" alt="Sofia Login" />
-</p>
-
-<p align="center">
-  <img width="250" src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/sofia_auth.png" alt="Sofia Login" />
-  <img width="250" src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/sofia_name.png" alt="Sofia Name" />
-  <img width="250" src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/sofia_gender.png" alt="Sofia Gender" />
-</p>
-
-<p align="center">
-  <img width="250" src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/sofia_age.png" alt="Sofia Age" />
-  <img width="250" src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/sofia_home.png" alt="Sofia Home" />
-  <img width="250" src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/sofia_voice.png" alt="Sofia Voice" />
-</p>
-
-<p align="center">
-  <img width="250" src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/sofia_track.png" alt="Sofia Track" />
-  <img width="250" src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/tri_pose_1.png" alt="Sofia Pose 1" />
-  <img width="250" src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/tri_pose_2.png" alt="Sofia Pose 2" />
 </p>
 
 # About
@@ -161,22 +141,6 @@ Yoga can help increase breath and body awareness, slow your respiratory rate, an
 
 - On a larger scale, overall health of regular app users and non users can be judged.
 
-# Tech Stack
-
-Our tech stack consists of the following:
-
-* **Flutter** (cross-platform app development framework)
-  
-* **Auth0** (for user authentication)
-  
-* **Firebase Cloud Firestore** (for storing app data and user information)
-
-* **Firebase Storage** (for storing videos)
-
-* [Google TTS](https://cloud.google.com/text-to-speech) and [Google STT](https://cloud.google.com/speech-to-text) (for creating the voice assistant)
-
-* **Python**, **Tensorflow**, **Keras** and **TFLite** (for creating the yoga pose recognition model)
-
 # How to use the app
 
 Follow the steps below in order to get the app running from code:
@@ -207,6 +171,12 @@ Follow the steps below in order to get the app running from code:
   ```bash
   flutter run yoga-instructor
   ```
+
+# Tech Stack
+
+<p align="center">
+  <img src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/tech_stack.png" alt="Sofia Login" />
+</p>
 
 # License
 
