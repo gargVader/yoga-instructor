@@ -1,7 +1,7 @@
 ![Codemagic build status](https://api.codemagic.io/apps/6045bd26be2f9fe47542401b/default-workflow/status_badge.svg) ![MIT License](https://img.shields.io/github/license/sbis04/yoga-instructor) ![Total lines of code](https://img.shields.io/tokei/lines/github/sbis04/yoga-instructor)
 
 <p align="center">
-  <img src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/sofia_cover_art.png" alt="Sofia Cover" />
+  <img src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/sofia_cover_art_2.png" alt="Sofia Cover" />
 </p>
 
 <!-- <a href="https://www.youtube.com/watch?v=2jzVifKbhQE&feature=youtu.be"><h3 align="center">Video Demo of the app in action</h4></a> -->
