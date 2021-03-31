@@ -32,6 +32,10 @@
 > The following screenshots are outdated, we are currently working on a new UI design :wink:
 
 <p align="center">
+  <img src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/new_ui/sofia_layer_1.png" alt="Sofia Login" />
+</p>
+
+<p align="center">
   <img width="250" src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/sofia_auth.png" alt="Sofia Login" />
   <img width="250" src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/sofia_name.png" alt="Sofia Name" />
   <img width="250" src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/sofia_gender.png" alt="Sofia Gender" />
