@@ -110,7 +110,7 @@ Muscles are challenged as the mind and body have to work together simultaneously
 
 - **ASTHMA**: Yoga can help increase breath and body awareness, slow your respiratory rate, and promote calm and relieve stress — all of which are beneficial for people who have asthma.
 
-### How is Sofia different from all the applications out there? 
+## How is Sofia different from all the applications out there? 
 
 The first question that arises - why should should you choose Sofia?
 
