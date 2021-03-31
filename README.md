@@ -8,7 +8,19 @@
 
 <!-- <a href="https://drive.google.com/file/d/1udM3YbRlCG0A5WJ7hXSH6OqAYvxLBVGQ/view?usp=sharing"><h4 align="center">Download the APK here</h4></a> -->
 
-**Sofia** is your personal AI powered Yoga instructor, allowing you to harness the benefits of yoga from any place you want.
+Sofia is an AI powered personal yoga instructor integrated with a voice assistant for giving proper instructions to improve your posture.
+
+### Features
+
+- Interactive experience through **real-time pose recognition**. **Voice assistant** enables the user to engage in conversation.
+
+- Uses **computer vision** and **deep learning** Keras models to guide you through every step of the asana only when you complete the previous step of the asana successfully.
+
+- Specifically designed **yoga tracks/playlists** which are suited to the user's health issues, creating a more personalized experience.
+
+- Users are **awarded stars** based on how good the **accuracy of their pose** is once they complete and progress through each step in the track.
+
+<!-- **Sofia** is your personal AI powered Yoga instructor, allowing you to harness the benefits of yoga from any place you want.
 
 * The app is built using a cross-platform framework called **Flutter**, so it can run on both **iOS** and **Android**.
 
@@ -20,7 +32,7 @@
 
 * **Google TTS** API is used for speech output.
 
-* **TFLite** model is used for pose recognition.
+* **TFLite** model is used for pose recognition. -->
 
 <img src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/sofia_timeline.png" alt="Sofia timeline" />
 
