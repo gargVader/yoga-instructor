@@ -150,9 +150,11 @@ The first question that arises - why should should you choose Sofia?
 
 - Sofia will be a **global platform** for us to introduce and educate people on the benefits of Indian Vedic culture to the global community. This will make yoga a fun experience, hence people will **enjoy** exercising along with improving their physique, mental strength, and will power.
 
-# How to use the app
+# Usage (try it out)
 
-Follow the steps below in order to get the app running from code:
+> **You can try out the app [here](https://appdistribution.firebase.dev/i/e522634eaaf39b2f).**
+
+It is recommended for those who just want to try it out please use the above mentioned link. If you want to see the code, compile and run from the codebase follow the steps below:
 
 * **Clone** the project:
   
@@ -166,16 +168,11 @@ Follow the steps below in order to get the app running from code:
 
 * Include the Firebase secret files to the proper location in the project, `google-services.json` file for **Android** or `GoogleService-Info.plist` file for **iOS**.
 
-* Register a new **Native app** on **Auth0** by following this [guide](https://auth0.com/docs/dashboard/guides/applications/register-app-native).
+* Then you need to do the **Dialogflow** setup, create a new file inside the `assets/dialogflow` called `sofia_auth.json`, and put your Dialogflow credentials there.
 
-* Add the **Auth0** secrets by creating a new file under `lib` folder called `secrets.dart` in the following format:
-  
-  ```dart
-  final String authDomain = '<Add Auth0 Domain here>';
-  final String authClientID = '<Add Auth0 Client ID here>';
-  ```
+* You have successfully completed the setup. Start your emulator/Simulator, or connect your device.
 
-* Now, you have successfully completed the setup. Run it by using the following command:
+* Run it by using the following command:
   
   ```bash
   flutter run yoga-instructor
