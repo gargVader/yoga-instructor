@@ -205,7 +205,7 @@ It is recommended for those who just want to try it out please use the above men
 
 - [Souvik Biswas](https://github.com/sbis04) ([LinkedIn](https://www.linkedin.com/in/sbis04/), [Medium](https://medium.com/@sbis1999), [Website](https://www.souvikbiswas.com/))
 
-- [Soumi Bardhan](https://github.com/Soumi7) ([LinkedIn](https://www.linkedin.com/in/soumi-bardhan-8539b3191/), [Medium](https://soumibardhan10.medium.com/)
+- [Soumi Bardhan](https://github.com/Soumi7) ([LinkedIn](https://www.linkedin.com/in/soumi-bardhan-8539b3191/), [Medium](https://soumibardhan10.medium.com/))
 
 # License
 
