@@ -174,6 +174,16 @@ It is recommended for those who just want to try it out please use the above men
 
 * Then you need to do the **Dialogflow** setup, create a new file inside the `assets/dialogflow` called `sofia_auth.json`, and put your Dialogflow credentials there.
 
+* This repository doesn't contain the **TFLite models**, you can download them from [here](https://drive.google.com/drive/folders/1Hwv29bQdvS0c8NeAuvrFLTluNkbsQNni?usp=sharing). Place it in `assets/tflite` folder inside the root directory.
+
+  > If you don't have access to the Drive, you can ask for permission with a proper reason.
+
+* Run the following to get all packages:
+  
+  ```bash
+  flutter pub get
+  ```
+
 * You have successfully completed the setup. Start your emulator/Simulator, or connect your device.
 
 * Run it by using the following command:
