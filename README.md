@@ -53,6 +53,10 @@ Sofia is an AI powered personal yoga instructor integrated with a voice assistan
   <img src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/new_ui/sofia_layer_3_2.png" alt="Sofia Login" />
 </p>
 
+<p align="center">
+  <img src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/new_ui/sofia_layer_4_2.png" alt="Sofia Login" />
+</p>
+
 # About
 
 **Sofia** is built from ground up keeping user experience in mind, which is a key ingredient when we can concerned with improving users health. This is why Sofia has an integrated **voice assistant** which not only guides users until the starting of a yoga posture, but also while they perform the poses. It provides a nice hands free experience to the user, guiding them through each pose by giving proper voice feedback and showing their pose accuracy on the screen. At the end points in the form of stars are awarded to the user based on their accuracy of the pose.
