@@ -188,6 +188,12 @@ It is recommended for those who just want to try it out please use the above men
   <img src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/tech_stack.png" alt="Sofia Login" />
 </p>
 
+# Developers
+
+- [Souvik Biswas](https://github.com/sbis04) ([LinkedIn](https://www.linkedin.com/in/sbis04/), [Medium](https://medium.com/@sbis1999), [Website](https://www.souvikbiswas.com/))
+
+- [Soumi Bardhan](https://github.com/Soumi7)
+
 # License
 
 Copyright (c) 2020 Souvik Biswas and Soumi Bardhan
