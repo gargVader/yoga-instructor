@@ -96,7 +96,7 @@ class _EachTrackPageState extends State<EachTrackPage> {
                             ),
                             SizedBox(width: 8.0),
                             Text(
-                              '15 minutes',
+                              '24 minutes',
                               style: TextStyle(
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.w400,
