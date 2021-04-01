@@ -72,7 +72,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
 
         print('TOTAL PARTS: $totalPartsInFrame');
 
-        if (totalPartsInFrame > 15) {
+        if (totalPartsInFrame > 11) {
           setState(() {
             _isBodyVisible = true;
             totalNumOfTimesPositive++;
