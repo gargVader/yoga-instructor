@@ -50,7 +50,7 @@ Sofia is an AI powered personal yoga instructor integrated with a voice assistan
 </p>
 
 <p align="center">
-  <img src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/new_ui/sofia_layer_3.png" alt="Sofia Login" />
+  <img src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/new_ui/sofia_layer_3_2.png" alt="Sofia Login" />
 </p>
 
 # About
