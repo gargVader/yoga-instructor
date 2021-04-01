@@ -10,6 +10,9 @@
 
 Sofia is an AI powered personal yoga instructor integrated with a voice assistant for giving proper instructions to improve your posture.
 
+- [Demonstration video](https://youtu.be/rrOlxbKNf9I)
+- [Try the app](https://appdistribution.firebase.dev/i/e522634eaaf39b2f)
+
 ### Features
 
 - Interactive experience through **real-time pose recognition**. **Voice assistant** enables the user to engage in conversation.
