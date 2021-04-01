@@ -34,7 +34,7 @@ Sofia is an AI powered personal yoga instructor integrated with a voice assistan
 
 * **TFLite** model is used for pose recognition. -->
 
-<img src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/sofia_timeline_updated_march.png" alt="Sofia timeline" />
+<img src="https://github.com/sbis04/yoga-instructor/raw/master/screenshots/sofia_timeline_march.png" alt="Sofia timeline" />
 
 :construction: **WIP: Timeline updated on [February 2021]**
 
