@@ -207,6 +207,10 @@ It is recommended for those who just want to try it out please use the above men
 
 - [Soumi Bardhan](https://github.com/Soumi7) ([LinkedIn](https://www.linkedin.com/in/soumi-bardhan-8539b3191/), [Medium](https://soumibardhan10.medium.com/))
 
+# User feedbacks
+
+We collected some feedbacks from the people who had been given early access to try the app, they are on the [Wiki Feedbacks page](https://github.com/sbis04/yoga-instructor/wiki/Feedbacks).
+
 # License
 
 Copyright (c) 2020 Souvik Biswas and Soumi Bardhan
