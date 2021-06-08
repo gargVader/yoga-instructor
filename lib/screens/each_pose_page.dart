@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+import 'package:flutter/services.dart';
 
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/res/palette.dart';
@@ -53,8 +53,6 @@ class _EachPosePageState extends State<EachPosePage> {
 
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
-    FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -131,13 +129,27 @@ class _EachPosePageState extends State<EachPosePage> {
                     InkWell(
                       onTap: () {
                         print('Play button tapped !');
-                        Navigator.of(context).push(
+                        SystemChrome.setSystemUIOverlayStyle(
+                            SystemUiOverlayStyle(
+                          statusBarColor: Colors.white,
+                          statusBarIconBrightness: Brightness.dark,
+                        ));
+
+                        Navigator.of(context)
+                            .push(
                           MaterialPageRoute(
                             builder: (context) => PreviewScreen(
                               pose: currentPose,
                             ),
                           ),
-                        );
+                        )
+                            .then((_) {
+                          SystemChrome.setSystemUIOverlayStyle(
+                              SystemUiOverlayStyle(
+                            statusBarColor: Colors.transparent,
+                            statusBarIconBrightness: Brightness.dark,
+                          ));
+                        });
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -282,6 +294,10 @@ class _EachPosePageState extends State<EachPosePage> {
               child: IconButton(
                 icon: Icon(Icons.arrow_back_ios),
                 onPressed: () {
+                  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                    statusBarColor: Colors.white,
+                    statusBarIconBrightness: Brightness.dark,
+                  ));
                   Navigator.of(context).pop();
                 },
               ),
