@@ -294,6 +294,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
   void dispose() {
     _recognitionTimer.cancel();
     _videoController.dispose();
+    _dataStream.cancel();
     super.dispose();
   }
 
