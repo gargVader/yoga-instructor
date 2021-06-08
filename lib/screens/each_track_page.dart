@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:sofia/model/track.dart';
 import 'package:sofia/providers.dart';
 import 'package:sofia/res/palette.dart';
@@ -36,8 +36,13 @@ class _EachTrackPageState extends State<EachTrackPage> {
 
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(Colors.white);
-    FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+    // FlutterStatusbarcolor.setStatusBarColor(Colors.white);
+    // FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //   statusBarColor: Colors.white,
+    //   statusBarIconBrightness: Brightness.dark,
+    // ));
 
     double screenWidth = MediaQuery.of(context).size.width;
 
