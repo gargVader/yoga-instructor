@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/screens/each_pose_page.dart';
@@ -45,6 +46,11 @@ class PosesRowWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 16.0),
                 child: InkWell(
                   onTap: () {
+                    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                      statusBarColor: Colors.transparent,
+                      statusBarIconBrightness: Brightness.dark,
+                    ));
+
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => EachPosePage(
