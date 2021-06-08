@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/res/palette.dart';
+import 'package:sofia/screens/preview_oak_screen.dart';
 import 'package:sofia/screens/preview_screen.dart';
 import 'package:sofia/widgets/each_pose_widgets/next_widget.dart';
 import 'package:sofia/widgets/each_pose_widgets/prev_next_widget.dart';
@@ -137,8 +138,15 @@ class _EachPosePageState extends State<EachPosePage> {
 
                         Navigator.of(context)
                             .push(
+                          // route: Navigate to TFLite screen
+                          // MaterialPageRoute(
+                          //   builder: (context) => PreviewScreen(
+                          //     pose: currentPose,
+                          //   ),
+                          // ),
+                          // route: Navigate to OAK screen
                           MaterialPageRoute(
-                            builder: (context) => PreviewScreen(
+                            builder: (context) => PreviewOakScreen(
                               pose: currentPose,
                             ),
                           ),
