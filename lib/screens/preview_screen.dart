@@ -1,7 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:sofia/main.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/screens/recognizer_screen.dart';
@@ -194,16 +193,23 @@ class _PreviewScreenState extends State<PreviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(Colors.white);
-    FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //   statusBarColor: Colors.white,
+    //   statusBarIconBrightness: Brightness.dark,
+    // ));
 
     return WillPopScope(
       onWillPop: () async {
-        FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
+        // FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
         // SystemChrome.setPreferredOrientations([
         //   DeviceOrientation.portraitUp,
         //   DeviceOrientation.portraitDown,
         // ]);
+
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          // statusBarIconBrightness: Brightness.dark,
+        ));
 
         return true;
       },
