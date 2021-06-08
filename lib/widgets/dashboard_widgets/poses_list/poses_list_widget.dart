@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/screens/each_pose_page.dart';
+import 'package:sofia/screens/preview_oak_screen.dart';
 import 'package:sofia/screens/preview_screen.dart';
 import 'package:sofia/widgets/common/custom_widgets.dart';
 
@@ -82,8 +83,16 @@ class PosesListWidget extends StatelessWidget {
                           print('Play button tapped !');
                           if (videoUrl.isNotEmpty) {
                             Navigator.of(context).push(
+                              // route: Navigate to TFLite screen
+                              // MaterialPageRoute(
+                              //   builder: (context) => PreviewScreen(
+                              //     pose: pose,
+                              //   ),
+                              // ),
+
+                              // route: Navigate to OAK screen
                               MaterialPageRoute(
-                                builder: (context) => PreviewScreen(
+                                builder: (context) => PreviewOakScreen(
                                   pose: pose,
                                 ),
                               ),
