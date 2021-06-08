@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/widgets/each_pose_widgets/custom_navigator.dart';
@@ -20,6 +21,10 @@ class PrevNextWidget extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
+            SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              statusBarIconBrightness: Brightness.dark,
+            ));
             Navigator.of(context).pushReplacement(
               CustomNavigators.routeToPreviousScreen(
                 poses: poses,
