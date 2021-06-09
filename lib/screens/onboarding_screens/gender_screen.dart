@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sofia/res/palette.dart';
 
@@ -57,6 +56,11 @@ class _GenderScreenState extends State<GenderScreen> {
 
   @override
   void initState() {
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //   statusBarColor: Palette.genderBackground,
+    //   statusBarIconBrightness: Brightness.dark,
+    // ));
+
     super.initState();
 
     user = widget.currentUser;
@@ -71,13 +75,16 @@ class _GenderScreenState extends State<GenderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(Palette.genderBackground);
-    FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+    // FlutterStatusbarcolor.setStatusBarColor(Palette.genderBackground);
+    // FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
 
     var screenSize = MediaQuery.of(context).size;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.dark,
+      value: SystemUiOverlayStyle(
+        statusBarColor: Palette.genderBackground,
+        statusBarIconBrightness: Brightness.dark,
+      ),
       child: Scaffold(
         backgroundColor: Palette.genderBackground,
         appBar: appBar,
@@ -234,6 +241,12 @@ class _GenderScreenState extends State<GenderScreen> {
                                 userName = textController.text;
                                 print('DONE Selecting');
 
+                                SystemChrome.setSystemUIOverlayStyle(
+                                    SystemUiOverlayStyle(
+                                  statusBarColor: Palette.ageBackground,
+                                  statusBarIconBrightness: Brightness.dark,
+                                ));
+
                                 // Allows user to navigate to the AgePage
                                 // if any one gender is selected. Passes on the
                                 // name and gender to the next page.
@@ -250,10 +263,11 @@ class _GenderScreenState extends State<GenderScreen> {
                                 ).then((_) {
                                   // Sets the status bar color of the one set to this page
                                   // if an user comes back to this page.
-                                  FlutterStatusbarcolor.setStatusBarColor(
-                                      Palette.genderBackground);
-                                  FlutterStatusbarcolor
-                                      .setStatusBarWhiteForeground(false);
+                                  SystemChrome.setSystemUIOverlayStyle(
+                                      SystemUiOverlayStyle(
+                                    statusBarColor: Palette.genderBackground,
+                                    statusBarIconBrightness: Brightness.dark,
+                                  ));
                                 });
                               }
                             : null,

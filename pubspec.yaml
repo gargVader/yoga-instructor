@@ -25,7 +25,7 @@ dependencies:
   camera: ^0.6.2+1
   video_player: ^1.0.0
   google_fonts: ^1.1.1
-  flutter_statusbarcolor: ^0.2.3
+  # flutter_statusbarcolor: ^0.2.3
   flare_flutter: ^2.0.6
   flutter_riverpod: ^0.12.4
   json_annotation: ^3.1.1

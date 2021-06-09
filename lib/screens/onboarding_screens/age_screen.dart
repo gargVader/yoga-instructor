@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sofia/application/states/store_user_data_state.dart';
@@ -108,129 +107,130 @@ class _AgeScreenState extends State<AgeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(Palette.ageBackground);
-    FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
     var screenSize = MediaQuery.of(context).size;
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.dark,
-      child: Scaffold(
-        backgroundColor: Palette.ageBackground,
-        appBar: appBar,
-        body: Container(
-          // Color(0xFFffe6e1), --> color for the other cover
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(
-                  bottom: screenSize.height / 80,
-                ),
-                child: Text(
-                  'QUOTE',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.lexendTera(
-                    fontSize: screenSize.width / 30,
-                    color: Colors.black26,
-                  ),
+    return Scaffold(
+      backgroundColor: Palette.ageBackground,
+      appBar: appBar,
+      body: Container(
+        // Color(0xFFffe6e1), --> color for the other cover
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(
+                bottom: screenSize.height / 80,
+              ),
+              child: Text(
+                'QUOTE',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.lexendTera(
+                  fontSize: screenSize.width / 30,
+                  color: Colors.black26,
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: screenSize.width / 15,
-                  right: screenSize.width / 15,
-                  bottom: screenSize.height / 50,
-                ),
-                child: Text(
-                  'The yoga pose you avoid the most you need the most.',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.openSans(
-                    fontSize: screenSize.width / 25,
-                    color: Color(0xFF734435),
-                  ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                left: screenSize.width / 15,
+                right: screenSize.width / 15,
+                bottom: screenSize.height / 50,
+              ),
+              child: Text(
+                'The yoga pose you avoid the most you need the most.',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.openSans(
+                  fontSize: screenSize.width / 25,
+                  color: Color(0xFF734435),
                 ),
               ),
-              Flexible(
-                child: SvgPicture.asset(
-                  'assets/images/intro_3.svg',
-                  width: screenSize.width,
-                  semanticsLabel: 'Cover Image',
-                ),
+            ),
+            Flexible(
+              child: SvgPicture.asset(
+                'assets/images/intro_3.svg',
+                width: screenSize.width,
+                semanticsLabel: 'Cover Image',
               ),
-              SizedBox(height: screenSize.height / 50),
+            ),
+            SizedBox(height: screenSize.height / 50),
 
-              ProviderListener(
-                provider: storeUserDataNotifierProvider.state,
-                onChange: (context, state) async {
-                  if (state is StoredUserData) {
-                    await Future.delayed(Duration(seconds: 1));
-                    Database.user = state.userData;
+            ProviderListener(
+              provider: storeUserDataNotifierProvider.state,
+              onChange: (context, state) async {
+                if (state is StoredUserData) {
+                  await Future.delayed(Duration(seconds: 1));
+                  Database.user = state.userData;
 
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return VoiceAssistantScreen();
-                        },
-                      ),
-                      (route) => false,
-                    ).then((_) {
-                      FlutterStatusbarcolor.setStatusBarColor(
-                          Palette.ageBackground);
-                      FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
-                    });
-                  }
+                  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                    statusBarColor: Colors.white,
+                    statusBarIconBrightness: Brightness.dark,
+                  ));
+
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return VoiceAssistantScreen();
+                      },
+                    ),
+                    (route) => false,
+                  ).then((_) {
+                    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                      statusBarColor: Palette.ageBackground,
+                      statusBarIconBrightness: Brightness.dark,
+                    ));
+                  });
+                }
+              },
+              child: Consumer(
+                builder: (context, watch, child) {
+                  final state = watch(
+                    storeUserDataNotifierProvider.state,
+                  );
+
+                  return state.when(
+                    () => UserInfoInitialWidget(
+                      screenSize: screenSize,
+                      uid: widget.user.uid,
+                      imageUrl: widget.user.photoUrl,
+                      userName: widget.userName,
+                      gender: widget.gender,
+                    ),
+                    storing: () => UserInfoStoringWidget(),
+                    stored: (_) => UserInfoStoredWidget(),
+                    error: (message) => UserInfoErrorWidget(
+                      errorMessage: message,
+                      screenSize: screenSize,
+                      uid: widget.user.uid,
+                      imageUrl: widget.user.photoUrl,
+                      userName: widget.userName,
+                      gender: widget.gender,
+                    ),
+                  );
                 },
-                child: Consumer(
-                  builder: (context, watch, child) {
-                    final state = watch(
-                      storeUserDataNotifierProvider.state,
-                    );
-
-                    return state.when(
-                      () => UserInfoInitialWidget(
-                        screenSize: screenSize,
-                        uid: widget.user.uid,
-                        imageUrl: widget.user.photoUrl,
-                        userName: widget.userName,
-                        gender: widget.gender,
-                      ),
-                      storing: () => UserInfoStoringWidget(),
-                      stored: (_) => UserInfoStoredWidget(),
-                      error: (message) => UserInfoErrorWidget(
-                        errorMessage: message,
-                        screenSize: screenSize,
-                        uid: widget.user.uid,
-                        imageUrl: widget.user.photoUrl,
-                        userName: widget.userName,
-                        gender: widget.gender,
-                      ),
-                    );
-                  },
-                ),
               ),
-              // _isStoring
-              //     ? CircularProgressIndicator(
-              //         valueColor:
-              //             new AlwaysStoppedAnimation<Color>(Color(0xFFed576a)),
-              //       )
-              //     : IconButton(
-              //         icon: Icon(
-              //           Icons.check_circle,
-              //           size: screenSize.width / 10,
-              //           color: _selectedAgeGroup != null
-              //               ? Color(0xFFed576a)
-              //               : Colors.black12,
-              //         ),
-              //         onPressed: _selectedAgeGroup != null
-              //             ? () async {
-              //                 await _uploadData().catchError(
-              //                   (e) => print('UPLOAD ERROR: $e'),
-              //                 );
-              //               }
-              //             : null,
-              //       ),
-            ],
-          ),
+            ),
+            // _isStoring
+            //     ? CircularProgressIndicator(
+            //         valueColor:
+            //             new AlwaysStoppedAnimation<Color>(Color(0xFFed576a)),
+            //       )
+            //     : IconButton(
+            //         icon: Icon(
+            //           Icons.check_circle,
+            //           size: screenSize.width / 10,
+            //           color: _selectedAgeGroup != null
+            //               ? Color(0xFFed576a)
+            //               : Colors.black12,
+            //         ),
+            //         onPressed: _selectedAgeGroup != null
+            //             ? () async {
+            //                 await _uploadData().catchError(
+            //                   (e) => print('UPLOAD ERROR: $e'),
+            //                 );
+            //               }
+            //             : null,
+            //       ),
+          ],
         ),
       ),
     );

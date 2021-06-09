@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/widgets/each_pose_widgets/custom_navigator.dart';
@@ -17,6 +18,10 @@ class NextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+        ));
         Navigator.of(context).pushReplacement(
           CustomNavigators.routeToNextScreen(
             poses: poses,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+import 'package:flutter/services.dart';
 import 'package:sofia/utils/database.dart';
 
 class DebugScreen extends StatefulWidget {
@@ -13,8 +13,10 @@ class _DebugScreenState extends State<DebugScreen> {
 
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(Colors.black);
-    FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.black,
+      statusBarIconBrightness: Brightness.light,
+    ));
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,

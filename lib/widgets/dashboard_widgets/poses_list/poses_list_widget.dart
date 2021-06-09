@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/screens/each_pose_page.dart';
@@ -31,6 +32,11 @@ class PosesListWidget extends StatelessWidget {
 
         return InkWell(
           onTap: () {
+            SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              statusBarIconBrightness: Brightness.dark,
+            ));
+
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => EachPosePage(

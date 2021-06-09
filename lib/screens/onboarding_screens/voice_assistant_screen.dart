@@ -2,10 +2,11 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+// import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/screens/dashboard_screen.dart';
 import 'package:sofia/utils/dialogflow.dart';
@@ -36,6 +37,11 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
           setState(() {
             timer.cancel();
           });
+
+          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+            statusBarColor: Colors.white,
+            statusBarIconBrightness: Brightness.dark,
+          ));
 
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
@@ -91,9 +97,6 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
 
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(Colors.white);
-    FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
-
     // double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
