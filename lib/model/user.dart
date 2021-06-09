@@ -6,6 +6,7 @@ part 'user.g.dart';
 class User {
   User({
     this.uid,
+    this.email,
     this.imageUrl,
     this.userName,
     this.gender,
@@ -16,6 +17,7 @@ class User {
   });
 
   String uid;
+  String email;
   String imageUrl;
   String userName;
   String gender;
