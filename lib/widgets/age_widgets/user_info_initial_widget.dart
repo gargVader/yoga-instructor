@@ -5,6 +5,7 @@ import 'package:sofia/providers.dart';
 class UserInfoInitialWidget extends StatefulWidget {
   final Size screenSize;
   final String uid;
+  final String email;
   final String imageUrl;
   final String userName;
   final String gender;
@@ -13,6 +14,7 @@ class UserInfoInitialWidget extends StatefulWidget {
     Key key,
     @required this.screenSize,
     @required this.uid,
+    @required this.email,
     @required this.imageUrl,
     @required this.userName,
     @required this.gender,
@@ -31,6 +33,7 @@ class _UserInfoInitialWidgetState extends State<UserInfoInitialWidget> {
   _uploadData(BuildContext context) {
     context.read(storeUserDataNotifierProvider).storeData(
           uid: widget.uid,
+          email: widget.email,
           imageUrl: widget.imageUrl,
           userName: widget.userName,
           age: _ageGroupList[_selectedAgeGroup],

@@ -451,6 +451,7 @@ class Database {
   /// For storing user data on the database
   Future<User> storeUserData({
     @required String uid,
+    @required String email,
     @required String imageUrl,
     @required String userName,
     @required String gender,
@@ -467,6 +468,7 @@ class Database {
 
     Map<String, dynamic> data = <String, dynamic>{
       "uid": uid,
+      "email": email,
       "imageUrl": imageUrl,
       "userName": userName,
       "gender": gender,
