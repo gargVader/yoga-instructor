@@ -173,12 +173,7 @@ class _AgeScreenState extends State<AgeScreen> {
                       },
                     ),
                     (route) => false,
-                  ).then((_) {
-                    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-                      statusBarColor: Palette.ageBackground,
-                      statusBarIconBrightness: Brightness.dark,
-                    ));
-                  });
+                  );
                 }
               },
               child: Consumer(
@@ -191,6 +186,7 @@ class _AgeScreenState extends State<AgeScreen> {
                     () => UserInfoInitialWidget(
                       screenSize: screenSize,
                       uid: widget.user.uid,
+                      email: widget.user.email,
                       imageUrl: widget.user.photoUrl,
                       userName: widget.userName,
                       gender: widget.gender,
