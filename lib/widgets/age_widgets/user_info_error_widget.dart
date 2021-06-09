@@ -6,7 +6,9 @@ class UserInfoErrorWidget extends StatelessWidget {
   final String errorMessage;
   final Size screenSize;
   final String uid;
+  final String email;
   final String imageUrl;
+  final String accountName;
   final String userName;
   final String gender;
 
@@ -15,7 +17,9 @@ class UserInfoErrorWidget extends StatelessWidget {
     @required this.errorMessage,
     @required this.screenSize,
     @required this.uid,
+    @required this.email,
     @required this.imageUrl,
+    @required this.accountName,
     @required this.userName,
     @required this.gender,
   }) : super(key: key);
@@ -27,7 +31,9 @@ class UserInfoErrorWidget extends StatelessWidget {
         UserInfoInitialWidget(
           screenSize: screenSize,
           uid: uid,
+          email: email,
           imageUrl: imageUrl,
+          accountName: accountName,
           userName: userName,
           gender: gender,
         ),

@@ -7,6 +7,7 @@ class UserInfoInitialWidget extends StatefulWidget {
   final String uid;
   final String email;
   final String imageUrl;
+  final String accountName;
   final String userName;
   final String gender;
 
@@ -16,6 +17,7 @@ class UserInfoInitialWidget extends StatefulWidget {
     @required this.uid,
     @required this.email,
     @required this.imageUrl,
+    @required this.accountName,
     @required this.userName,
     @required this.gender,
   }) : super(key: key);
@@ -36,6 +38,7 @@ class _UserInfoInitialWidgetState extends State<UserInfoInitialWidget> {
           email: widget.email,
           imageUrl: widget.imageUrl,
           userName: widget.userName,
+          accountName: widget.accountName,
           age: _ageGroupList[_selectedAgeGroup],
           gender: widget.gender,
         );
