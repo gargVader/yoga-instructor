@@ -8,6 +8,7 @@ class User {
     this.uid,
     this.email,
     this.imageUrl,
+    this.accountName,
     this.userName,
     this.gender,
     this.age,
@@ -19,6 +20,7 @@ class User {
   String uid;
   String email;
   String imageUrl;
+  String accountName;
   String userName;
   String gender;
   String age;
