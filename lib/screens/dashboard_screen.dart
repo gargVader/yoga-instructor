@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sofia/model/user.dart';
 import 'package:sofia/providers.dart';
 import 'package:sofia/res/palette.dart';
+import 'package:sofia/screens/profile_screen.dart';
 import 'package:sofia/utils/database.dart';
 import 'package:sofia/widgets/dashboard_widgets/poses_row/poses_initial_widget.dart';
 import 'package:sofia/widgets/dashboard_widgets/poses_row/poses_row_widget.dart';
@@ -59,32 +60,39 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.only(right: 16.0),
-                    child: Stack(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(60),
-                          child: Container(
-                            color: Palette.lightDarkShade,
-                            child: Padding(
-                              padding: const EdgeInsets.all(6.0),
-                              child: Icon(
-                                Icons.person,
-                                color: Palette.lightShade,
-                                size: 26,
-                              ),
-                            ),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ProfileScreen(),
                           ),
-                        ),
-                        imageUrl != null
-                            ? ClipRRect(
+                        );
+                      },
+                      child: imageUrl != null
+                          ? Hero(
+                              tag: 'profile_pic',
+                              child: ClipRRect(
                                 borderRadius: BorderRadius.circular(60),
                                 child: SizedBox(
                                   width: 38.0,
                                   child: Image.network(imageUrl),
                                 ),
-                              )
-                            : Container(),
-                      ],
+                              ),
+                            )
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(60),
+                              child: Container(
+                                color: Palette.lightDarkShade,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: Icon(
+                                    Icons.person,
+                                    color: Palette.lightShade,
+                                    size: 26,
+                                  ),
+                                ),
+                              ),
+                            ),
                     ),
                   ),
                 )
