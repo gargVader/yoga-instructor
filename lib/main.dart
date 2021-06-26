@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sofia/screens/onboarding_screen.dart';
+import 'package:sofia/screens/onboarding_screens/oak_d_screen.dart';
 
 /// The list of camera types (mainly including: front and back)
 List<CameraDescription> cameras = [];
@@ -23,5 +24,15 @@ void main() async {
     // DebugScreen(),
     // Test painter
     // CustomPainterTest(),
+    // MaterialApp(
+    //   debugShowCheckedModeBanner: false,
+    //   title: 'Sofia: yoga trainer',
+    //   theme: ThemeData(
+    //     fontFamily: 'GoogleSans',
+    //     primaryColor: Colors.white,
+    //     accentColor: Colors.white,
+    //   ),
+    //   home: OAKDScreen(),
+    // ),
   );
 }
