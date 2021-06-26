@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sofia/application/states/store_user_data_state.dart';
 import 'package:sofia/providers.dart';
 import 'package:sofia/res/palette.dart';
+import 'package:sofia/screens/onboarding_screens/oak_d_screen.dart';
 import 'package:sofia/screens/onboarding_screens/voice_assistant_screen.dart';
 import 'package:sofia/utils/database.dart';
 import 'package:sofia/widgets/age_widgets/user_info_error_widget.dart';
@@ -169,7 +170,8 @@ class _AgeScreenState extends State<AgeScreen> {
                   Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
                       builder: (context) {
-                        return VoiceAssistantScreen();
+                        // return VoiceAssistantScreen();
+                        return OAKDScreen();
                       },
                     ),
                     (route) => false,
