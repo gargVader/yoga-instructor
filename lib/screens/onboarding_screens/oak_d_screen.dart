@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/screens/onboarding_screens/voice_assistant_screen.dart';
+import 'package:sofia/utils/ssh_connectivity.dart';
 import 'package:supercharged/supercharged.dart';
 
 enum AnimProps {
@@ -20,8 +21,61 @@ class OAKDScreen extends StatefulWidget {
 class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
   AnimationController _animationController;
   Animation<TimelineValue<AnimProps>> _animation;
+  SSHConnectivity _sshConnectivity = SSHConnectivity();
 
-  bool isYes;
+  AnimationController _pulseAnimationController;
+  Animation<double> _pulseAnimation;
+
+  bool _isYes;
+  String _status = "Initializing...";
+  Color _statusColor = Palette.black;
+
+  String _outputString = "";
+
+  processSSHOutput(String output) async {
+    if (output == "Start") {
+      setState(() {
+        _statusColor = Colors.amber.shade700;
+        _status = "Checking...";
+        _outputString = output;
+      });
+    } else if (output == "Success") {
+      setState(() {
+        _statusColor = Colors.green;
+        _status = "Successfully connect with OAK-D";
+        _outputString = output;
+      });
+      _pulseAnimationController.stop();
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setBool('isOakAvailable', true);
+
+      await Future.delayed(600.milliseconds);
+
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.dark,
+        ),
+      );
+
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) {
+            return VoiceAssistantScreen();
+          },
+        ),
+        (route) => false,
+      );
+    } else if (output == "Failed") {
+      setState(() {
+        _statusColor = Colors.red;
+        _status = "Failed to connect with OAK-D";
+        _outputString = output;
+      });
+      _pulseAnimationController.stop();
+    }
+  }
 
   @override
   void initState() {
@@ -31,11 +85,30 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
       duration: 1400.milliseconds,
       vsync: this,
     );
+
+    _pulseAnimationController = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    );
+
+    _pulseAnimation =
+        Tween<double>(begin: 1, end: 0).animate(_pulseAnimationController)
+          ..addListener(() {
+            setState(() {});
+          })
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _pulseAnimationController.reverse();
+            } else if (status == AnimationStatus.dismissed) {
+              _pulseAnimationController.forward();
+            }
+          });
   }
 
   @override
   void dispose() {
     _animationController.dispose();
+    _pulseAnimationController.dispose();
     super.dispose();
   }
 
@@ -114,35 +187,6 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Column(
-                    //   children: [
-                    //     Image.asset(
-                    //       'assets/images/oak_d.png',
-                    //       width: screenHeight / 4,
-                    //     ),
-                    //     Padding(
-                    //       padding: const EdgeInsets.only(
-                    //         top: 16.0,
-                    //         bottom: 16.0,
-                    //       ),
-                    //       child: RotatedBox(
-                    //         quarterTurns: 1,
-                    //         child: Image.asset(
-                    //           'assets/images/transfer.png',
-                    //           width: screenHeight / 20,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     Image.asset(
-                    //       'assets/images/mobile_mockup.png',
-                    //       width: screenHeight / 12,
-                    //     ),
-                    //   ],
-                    // ),
-
-                    // Image.asset(
-                    //   'assets/images/oak_d.png',
-                    // ),
                     AnimatedBuilder(
                       animation: _animationController,
                       builder: (context, child) => _buildAnimation(
@@ -151,144 +195,198 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
                         screenHeight: screenHeight,
                       ),
                     ),
-                    SizedBox(height: 24.0),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RichText(
-                          textAlign: TextAlign.start,
-                          text: TextSpan(
-                            text: 'Do you have access to an ',
-                            style: TextStyle(
-                              color: Palette.black,
-                              fontSize: 20.0,
-                              fontFamily: 'GoogleSans',
-                              letterSpacing: 1,
-                              height: 1.5,
-                            ),
+                    SizedBox(height: _isYes != null && _isYes ? 32.0 : 24.0),
+                    _isYes != null && _isYes
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              TextSpan(
-                                text: 'OAK-D ',
+                              Text(
+                                _status,
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Palette.black,
-                                  fontWeight: FontWeight.bold,
+                                  color: _statusColor,
                                   fontSize: 22.0,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'GoogleSans',
+                                  letterSpacing: 1,
+                                  height: 1.5,
                                 ),
                               ),
-                              TextSpan(
-                                text: 'device?',
+                              _outputString == "Failed"
+                                  ? Padding(
+                                      padding: const EdgeInsets.only(top: 16.0),
+                                      child: RaisedButton(
+                                        color: _statusColor,
+                                        onPressed: () {
+                                          setState(() {
+                                            _status = "Initializing...";
+                                            _statusColor = Palette.black;
+                                            _outputString = "";
+                                          });
+                                          _sshConnectivity.checkAvailability(
+                                            onReceive: (String output) {
+                                              output = output.trim();
+                                              processSSHOutput(output);
+                                            },
+                                          );
+                                        },
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                            16.0,
+                                            4.0,
+                                            16.0,
+                                            8.0,
+                                          ),
+                                          child: Text(
+                                            'Retry',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 22.0,
+                                              fontFamily: 'GoogleSans',
+                                              letterSpacing: 1,
+                                              height: 1.5,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : Container()
+                            ],
+                          )
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              RichText(
+                                textAlign: TextAlign.start,
+                                text: TextSpan(
+                                  text: 'Do you have access to an ',
+                                  style: TextStyle(
+                                    color: Palette.black,
+                                    fontSize: 20.0,
+                                    fontFamily: 'GoogleSans',
+                                    letterSpacing: 1,
+                                    height: 1.5,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: 'OAK-D ',
+                                      style: TextStyle(
+                                        color: Palette.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 22.0,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: 'device?',
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 24.0),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  InkWell(
+                                    borderRadius: BorderRadius.circular(30),
+                                    onTap: () async {
+                                      await Future.delayed(400.milliseconds);
+
+                                      setState(() {
+                                        _isYes = true;
+                                      });
+
+                                      _animationController
+                                          .forward()
+                                          .whenComplete(() {
+                                        _pulseAnimationController.forward();
+                                        _sshConnectivity.checkAvailability(
+                                          onReceive: (String output) {
+                                            output = output.trim();
+                                            processSSHOutput(output);
+                                          },
+                                        );
+                                      });
+                                    },
+                                    child: _isYes != null && _isYes
+                                        ? Icon(
+                                            Icons.check_circle,
+                                            color: Palette.accentGreen,
+                                          )
+                                        : Icon(
+                                            Icons.circle,
+                                            color: Colors.black12,
+                                          ),
+                                  ),
+                                  SizedBox(width: 8.0),
+                                  Text(
+                                    'Yes',
+                                    style: TextStyle(
+                                      color: Palette.black.withOpacity(0.6),
+                                      fontSize: 20.0,
+                                      letterSpacing: 1,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 16.0),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  InkWell(
+                                    borderRadius: BorderRadius.circular(30),
+                                    onTap: () async {
+                                      setState(() {
+                                        _isYes = false;
+                                      });
+
+                                      SystemChrome.setSystemUIOverlayStyle(
+                                        SystemUiOverlayStyle(
+                                          statusBarColor: Colors.white,
+                                          statusBarIconBrightness:
+                                              Brightness.dark,
+                                        ),
+                                      );
+
+                                      SharedPreferences prefs =
+                                          await SharedPreferences.getInstance();
+                                      prefs.setBool('isOakAvailable', false);
+
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return VoiceAssistantScreen();
+                                          },
+                                        ),
+                                        (route) => false,
+                                      );
+                                    },
+                                    child: _isYes != null && !_isYes
+                                        ? Icon(
+                                            Icons.check_circle,
+                                            color: Palette.accentGreen,
+                                          )
+                                        : Icon(
+                                            Icons.circle,
+                                            color: Colors.black12,
+                                          ),
+                                  ),
+                                  SizedBox(width: 8.0),
+                                  Text(
+                                    'No, continue with device camera',
+                                    style: TextStyle(
+                                      color: Palette.black.withOpacity(0.6),
+                                      fontSize: 20.0,
+                                      letterSpacing: 1,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ),
-                        SizedBox(height: 24.0),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            InkWell(
-                              borderRadius: BorderRadius.circular(30),
-                              onTap: () async {
-                                setState(() {
-                                  isYes = true;
-                                });
-
-                                _animationController.forward();
-
-                                SharedPreferences prefs =
-                                    await SharedPreferences.getInstance();
-                                prefs.setBool('isOakAvailable', true);
-
-                                // SystemChrome.setSystemUIOverlayStyle(
-                                //   SystemUiOverlayStyle(
-                                //     statusBarColor: Colors.white,
-                                //     statusBarIconBrightness: Brightness.dark,
-                                //   ),
-                                // );
-
-                                // Navigator.of(context).pushAndRemoveUntil(
-                                //   MaterialPageRoute(
-                                //     builder: (context) {
-                                //       return VoiceAssistantScreen();
-                                //     },
-                                //   ),
-                                //   (route) => false,
-                                // );
-                              },
-                              child: isYes != null && isYes
-                                  ? Icon(
-                                      Icons.check_circle,
-                                      color: Palette.accentGreen,
-                                    )
-                                  : Icon(
-                                      Icons.circle,
-                                      color: Colors.black12,
-                                    ),
-                            ),
-                            SizedBox(width: 8.0),
-                            Text(
-                              'Yes',
-                              style: TextStyle(
-                                color: Palette.black.withOpacity(0.6),
-                                fontSize: 20.0,
-                                letterSpacing: 1,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 16.0),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            InkWell(
-                              borderRadius: BorderRadius.circular(30),
-                              onTap: () async {
-                                setState(() {
-                                  isYes = false;
-                                });
-
-                                SystemChrome.setSystemUIOverlayStyle(
-                                  SystemUiOverlayStyle(
-                                    statusBarColor: Colors.white,
-                                    statusBarIconBrightness: Brightness.dark,
-                                  ),
-                                );
-
-                                SharedPreferences prefs =
-                                    await SharedPreferences.getInstance();
-                                prefs.setBool('isOakAvailable', false);
-
-                                Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return VoiceAssistantScreen();
-                                    },
-                                  ),
-                                  (route) => false,
-                                );
-                              },
-                              child: isYes != null && !isYes
-                                  ? Icon(
-                                      Icons.check_circle,
-                                      color: Palette.accentGreen,
-                                    )
-                                  : Icon(
-                                      Icons.circle,
-                                      color: Colors.black12,
-                                    ),
-                            ),
-                            SizedBox(width: 8.0),
-                            Text(
-                              'No, continue with device camera',
-                              style: TextStyle(
-                                color: Palette.black.withOpacity(0.6),
-                                fontSize: 20.0,
-                                letterSpacing: 1,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
                   ],
                 ),
               ),
@@ -345,17 +443,34 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
             top: 16.0,
             bottom: 16.0,
           ),
-          child: Opacity(
-            opacity: _animation.value.get(AnimProps.transfer),
-            child: RotatedBox(
-              quarterTurns: 1,
-              child: Image.asset(
-                'assets/images/transfer.png',
-                width: (screenHeight / 20) *
-                    _animation.value.get(AnimProps.transfer),
-              ),
-            ),
-          ),
+          child: _outputString == "Success"
+              ? Icon(
+                  Icons.check_circle,
+                  color: _statusColor,
+                  size: 40.0,
+                )
+              : _outputString == "Failed"
+                  ? Icon(
+                      Icons.close,
+                      color: _statusColor,
+                      size: 40.0,
+                    )
+                  : Opacity(
+                      opacity: _animation.isCompleted
+                          ? !_pulseAnimationController.isAnimating
+                              ? 1
+                              : _pulseAnimation.value
+                          : _animation.value.get(AnimProps.transfer),
+                      child: RotatedBox(
+                        quarterTurns: 1,
+                        child: Image.asset(
+                          'assets/images/transfer.png',
+                          color: _statusColor,
+                          width: (screenHeight / 20) *
+                              _animation.value.get(AnimProps.transfer),
+                        ),
+                      ),
+                    ),
         ),
         Opacity(
           opacity: _animation.value.get(AnimProps.mobile),
