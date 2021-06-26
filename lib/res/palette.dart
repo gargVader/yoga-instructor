@@ -12,4 +12,5 @@ class Palette {
   static const genderBackground = Color(0xFF5cb798);
   static const ageBackground = Color(0xFFfeafb6);
   static const accentDarkPink = Color(0xFFed576a);
+  static const accentGreen = Color(0xFF48df75);
 }
