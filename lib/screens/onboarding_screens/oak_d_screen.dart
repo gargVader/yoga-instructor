@@ -26,6 +26,8 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
   AnimationController _pulseAnimationController;
   Animation<double> _pulseAnimation;
 
+  bool _isQuestionVisible = true;
+
   bool _isYes;
   String _status = "Initializing...";
   Color _statusColor = Palette.black;
@@ -195,8 +197,8 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
                         screenHeight: screenHeight,
                       ),
                     ),
-                    SizedBox(height: _isYes != null && _isYes ? 32.0 : 24.0),
-                    _isYes != null && _isYes
+                    SizedBox(height: _isQuestionVisible ? 24.0 : 32.0),
+                    !_isQuestionVisible
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -293,10 +295,14 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
                                   InkWell(
                                     borderRadius: BorderRadius.circular(30),
                                     onTap: () async {
-                                      await Future.delayed(400.milliseconds);
-
                                       setState(() {
                                         _isYes = true;
+                                      });
+
+                                      await Future.delayed(500.milliseconds);
+
+                                      setState(() {
+                                        _isQuestionVisible = false;
                                       });
 
                                       _animationController
