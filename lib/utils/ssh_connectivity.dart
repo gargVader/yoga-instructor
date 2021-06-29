@@ -28,10 +28,10 @@ class SSHConnectivity {
         print("shell started!");
         await client.writeToShell("cd ~ && ./oak_check.sh\n");
       } catch (e) {
-        onReceive("Failed to connect to the device");
+        onReceive("ERROR(2)");
       }
     } catch (e) {
-      onReceive("Couldn't find the device");
+      onReceive("ERROR(1)");
     }
   }
 }
