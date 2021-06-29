@@ -35,7 +35,19 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
   String _outputString = "";
 
   processSSHOutput(String output) async {
-    if (output == "Start") {
+    if (output.contains("ERROR(1)")) {
+      setState(() {
+        _statusColor = Colors.red;
+        _status = "Couldn't find the device";
+        _outputString = "Failed";
+      });
+    } else if (output.contains("ERROR(2)")) {
+      setState(() {
+        _statusColor = Colors.red;
+        _status = "Failed to connect with the device";
+        _outputString = "Failed";
+      });
+    } else if (output == "Start") {
       setState(() {
         _statusColor = Colors.amber.shade700;
         _status = "Checking...";
@@ -265,7 +277,7 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
                               RichText(
                                 textAlign: TextAlign.start,
                                 text: TextSpan(
-                                  text: 'Do you have access to an ',
+                                  text: 'Do you want to connect with the ',
                                   style: TextStyle(
                                     color: Palette.black,
                                     fontSize: 20.0,
@@ -283,7 +295,7 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
                                       ),
                                     ),
                                     TextSpan(
-                                      text: 'device?',
+                                      text: 'now?',
                                     ),
                                   ],
                                 ),
@@ -382,7 +394,7 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
                                   ),
                                   SizedBox(width: 8.0),
                                   Text(
-                                    'No, continue with device camera',
+                                    'No, later',
                                     style: TextStyle(
                                       color: Palette.black.withOpacity(0.6),
                                       fontSize: 20.0,
