@@ -65,10 +65,6 @@ class _PreviewOakScreenState extends State<PreviewOakScreen> {
           setState(() {
             _isBodyVisible = true;
             totalNumOfTimesPositive++;
-
-            // Tflite?.close();
-
-            // _cameraController?.stopImageStream();
           });
         } else {
           setState(() {
@@ -77,7 +73,6 @@ class _PreviewOakScreenState extends State<PreviewOakScreen> {
         }
 
         if (totalNumOfTimesPositive > 5) {
-          // Tflite?.close();
           _cameraController?.stopImageStream();
           print('READY');
           await Navigator.of(context)
