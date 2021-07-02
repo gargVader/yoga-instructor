@@ -556,7 +556,33 @@ class Database {
   }) async {
     String currentUid = AuthenticationClient.presentUser.uid;
 
-    DocumentReference documentReferencer = documentReference
+    DateTime currentUploadTime = DateTime.now();
+    int currentUploadTimeInMilliseconds =
+        currentUploadTime.microsecondsSinceEpoch;
+
+    // Update attempts
+    DocumentReference attemptDocReferencer = documentReference
+        .collection('user_info')
+        .document(currentUid)
+        .collection('attempts')
+        .document(currentUploadTimeInMilliseconds.toString());
+
+    Map<String, dynamic> attemptData = <String, dynamic>{
+      "pose": poseName,
+      "accuracy": accuracy,
+      "stars": stars,
+      "duration": timeInMilliseconds,
+      "dateTime": currentUploadTimeInMilliseconds,
+      "weekday": currentUploadTime.weekday, // 1-> Mon to 7 -> Sun
+    };
+    print('DATA:\n$attemptData');
+
+    await attemptDocReferencer.setData(attemptData).whenComplete(() {
+      print("Attempt added to the database!");
+    }).catchError((e) => print(e));
+
+    // Update score
+    DocumentReference scoreDocReferencer = documentReference
         .collection('user_info')
         .document(currentUid)
         .collection('score')
@@ -569,10 +595,11 @@ class Database {
     };
     print('DATA:\n$scoreData');
 
-    await documentReferencer.setData(scoreData).whenComplete(() {
+    await scoreDocReferencer.setData(scoreData).whenComplete(() {
       print("Score added to the database!");
     }).catchError((e) => print(e));
 
+    // Update total stars and total duration
     QuerySnapshot scoreDocs = await documentReference
         .collection('user_info')
         .document(currentUid)
