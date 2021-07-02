@@ -12,11 +12,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String imageUrl;
   String displayName;
   String userEmail;
+  User userData;
 
   @override
   void initState() {
     super.initState();
-    User userData = Database.user;
+    userData = Database.user;
     imageUrl = userData.imageUrl;
     displayName = userData.accountName;
     userEmail = userData.email;
@@ -76,15 +77,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         imageUrl != null
                             ? Container(
-                                width: 100.0,
-                                height: 100.0,
+                                width: 80.0,
+                                height: 80.0,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(50.0)),
                                   border: Border.all(
                                     color: Palette.accentDarkPink,
-                                    width: 4.0,
+                                    width: 3.0,
                                   ),
                                 ),
                                 child: Hero(
@@ -125,16 +126,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 style: TextStyle(
                                   fontSize: 22.0,
                                   fontWeight: FontWeight.bold,
-                                  color: Palette.darkShade,
+                                  color: Palette.black,
                                 ),
                               ),
+                              SizedBox(height: 4.0),
                               Text(
                                 userEmail,
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.w500,
                                   letterSpacing: 1,
-                                  color: Palette.darkShade.withOpacity(0.6),
+                                  color: Palette.black.withOpacity(0.6),
                                 ),
                               ),
                             ],
@@ -142,7 +144,64 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         )
                       ],
                     ),
-                  )
+                  ),
+                  userData.accuracy != null
+                      ? Padding(
+                          padding: const EdgeInsets.only(
+                            top: 8.0,
+                            left: 16.0,
+                            right: 16.0,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: screenWidth / 2.2,
+                                child: Center(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        Icons.star_border,
+                                        color: Palette.black.withOpacity(0.8),
+                                      ),
+                                      SizedBox(width: 8.0),
+                                      Text(
+                                        '${userData.stars} stars',
+                                        style: TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.w400,
+                                          letterSpacing: 1,
+                                          color: Palette.black,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                color: Palette.black.withOpacity(0.4),
+                                height: 40,
+                                width: 2,
+                              ),
+                              Container(
+                                width: screenWidth / 2.2,
+                                child: Center(
+                                  child: Text(
+                                    '${(userData.accuracy * 100).toStringAsFixed(1)} % accuracy',
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w400,
+                                      letterSpacing: 1,
+                                      color: Palette.black,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : Container(),
                 ],
               ),
             )
