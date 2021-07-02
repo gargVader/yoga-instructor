@@ -1,12 +1,16 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:camera/camera.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sofia/res/palette.dart';
 import 'package:sofia/screens/score_overlay.dart';
 import 'package:sofia/utils/dialogflow.dart';
+import 'package:sofia/utils/ssh_connectivity.dart';
 import 'package:sofia/utils/video_manager.dart';
+import 'package:sofia/widgets/recognizer_oak_screen/record_indicator.dart';
 import 'package:sofia/widgets/recognizer_screen/scrore_viewer_widget.dart';
 import 'package:video_player/video_player.dart';
 
@@ -27,11 +31,13 @@ class RecognizerOakScreen extends StatefulWidget {
 }
 
 class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
-  Timer _recognitionTimer;
-  int _start = 5;
+  SSHConnectivity _sshConnectivity = SSHConnectivity();
 
-  StreamSubscription _dataStream;
-  final FirebaseDatabase _database = FirebaseDatabase();
+  Timer _recognitionTimer;
+  int _start = 3;
+
+  // StreamSubscription _dataStream;
+  // final FirebaseDatabase _database = FirebaseDatabase();
   String _currentPoseName;
   VideoPlayerController _videoController;
   CameraController _cameraController;
@@ -44,11 +50,15 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
   // bool _isDetecting = false;
   bool _isDetectionAllowed = false;
   bool _isPoseCorrectStatus = false;
+  bool _isSSHConnectionEstablished = false;
 
   Tween<double> _accuracyTween;
 
   DateTime _startTime;
   List<int> _poseIndex;
+
+  String _status = 'Initializing OAK-D';
+  String _processId;
 
   // Future<void> initializeVideoController() async {
   //   _videoController = VideoPlayerController.network(
@@ -71,6 +81,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
             timer.cancel();
             setState(() {
               _isDetectionAllowed = false;
+              _start = 3;
               _currentPauseIndex == _pausePoints.length - 1
                   ? _currentPauseIndex = -1
                   : _currentPauseIndex++;
@@ -95,16 +106,60 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
     );
   }
 
-  streamListener() {
-    _dataStream = _database.reference().child('123').onValue.listen((event) {
-      print('hello');
-      DataSnapshot oakDataSnapshot = event.snapshot;
-      String poseName = oakDataSnapshot.value['pose'];
-      double poseAccuracy = oakDataSnapshot.value['accuracy'];
+  processSSHOutput(String output) async {
+    if (output.contains("ERROR(1)")) {
+      setState(() {
+        _status = "Couldn't find device";
+      });
+    } else if (output.contains("ERROR(2)")) {
+      setState(() {
+        _status = "Failed to connect with device";
+      });
+    } else if (output.contains("PID:")) {
+      // print(output.substring(5));
+      setState(() {
+        _status = "Initialized";
+        _processId = output.substring(5).trim();
+        _isSSHConnectionEstablished = true;
+      });
+    } else if (output.contains("INFO:")) {
+      // print(output.substring(6));
+      setState(() {
+        _status = output.substring(6).trim();
+      });
+    } else if (output.contains("RECOGNIZED:")) {
+      // print(output.substring(12));
+      if (_isDetectionAllowed == true) {
+        var rawJSONData = output.substring(12).replaceAll("\'", "\"");
+        // print(rawJSONData);
 
-      setOakRecognitions(poseName, poseAccuracy);
-    });
+        Map<String, dynamic> parsedJSON = jsonDecode(rawJSONData);
+
+        String poseName = parsedJSON['pose'];
+        double poseAccuracy = parsedJSON['accuracy'];
+
+        setOakRecognitions(poseName, poseAccuracy);
+      }
+      // setState(() {
+      //   _status = output.substring(12).trim();
+      // });
+    } else if (output.contains("KILL:")) {
+      setState(() {
+        _status = "Not initizlized";
+      });
+    }
   }
+
+  // streamListener() {
+  //   _dataStream = _database.reference().child('123').onValue.listen((event) {
+  //     print('hello');
+  //     DataSnapshot oakDataSnapshot = event.snapshot;
+  //     String poseName = oakDataSnapshot.value['pose'];
+  //     double poseAccuracy = oakDataSnapshot.value['accuracy'];
+
+  //     setOakRecognitions(poseName, poseAccuracy);
+  //   });
+  // }
 
   setOakRecognitions(String name, double accuracy) async {
     if (_isDetectionAllowed) {
@@ -201,6 +256,14 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
     //   setOakRecognitions(poseName, poseAccuracy);
     // });
 
+    // Establishing the SSH connection
+    _sshConnectivity.startRecognitionScript(
+      onReceive: (String output) {
+        output = output.trim();
+        processSSHOutput(output);
+      },
+    );
+
     _cameraController = widget.cameraController;
     _videoController = VideoManager.videoController;
 
@@ -234,7 +297,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
           _videoController.pause();
           Dialogflow.poseRecognition(onComplete: (isComplete) {
             if (isComplete) {
-              streamListener();
+              // streamListener();
               startTimer();
               setState(() {
                 _isDetectionAllowed = true;
@@ -294,7 +357,8 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
   void dispose() {
     _recognitionTimer.cancel();
     _videoController.dispose();
-    _dataStream.cancel();
+    _sshConnectivity.stopRecognitionScript(_processId);
+    // _dataStream.cancel();
     super.dispose();
   }
 
@@ -382,6 +446,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
                     child: RotatedBox(
                       quarterTurns: 1,
                       child: SizedBox(
+                        // height: screenSize.height / 2,
                         width: screenSize.width * 0.16,
                         child: AspectRatio(
                           aspectRatio: _cameraController.value.aspectRatio,
@@ -390,6 +455,69 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
                       ),
                     ),
                   ),
+                ),
+              ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     color: Palette.darkShade,
+              //     borderRadius: BorderRadius.only(
+              //       bottomRight: Radius.circular(10.0),
+              //     ),
+              //   ),
+              //   child: Padding(
+              //     padding: const EdgeInsets.only(
+              //       left: 16.0,
+              //       right: 16.0,
+              //       top: 10.0,
+              //       bottom: 8.0,
+              //     ),
+              //     child: Text(
+              //       'Connecting to OAK-D',
+              //       style: TextStyle(
+              //         color: Colors.white,
+              //         fontSize: 16.0,
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              Container(
+                decoration: BoxDecoration(
+                  color: _isSSHConnectionEstablished
+                      ? Colors.transparent
+                      : Palette.darkShade,
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(10.0),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 16.0,
+                    right: 16.0,
+                    top: 10.0,
+                    bottom: 8.0,
+                  ),
+                  child: _isSSHConnectionEstablished
+                      ? Row(
+                          children: [
+                            RecordIndicator(),
+                            SizedBox(width: 8.0),
+                            Text(
+                              'OAK-D',
+                              style: TextStyle(
+                                color: Colors.red.shade800,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        )
+                      : Text(
+                          _status,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                          ),
+                        ),
                 ),
               ),
             ],
