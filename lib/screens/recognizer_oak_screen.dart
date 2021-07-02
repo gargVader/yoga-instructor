@@ -57,7 +57,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
   DateTime _startTime;
   List<int> _poseIndex;
 
-  String _status = 'Initializing OAK-D';
+  String _status = 'Initializing OAK-D...';
   String _processId;
 
   // Future<void> initializeVideoController() async {
@@ -120,12 +120,14 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
       setState(() {
         _status = "Initialized";
         _processId = output.substring(5).trim();
-        _isSSHConnectionEstablished = true;
       });
     } else if (output.contains("INFO:")) {
       // print(output.substring(6));
       setState(() {
         _status = output.substring(6).trim();
+        if (_status == "Ready") {
+          _isSSHConnectionEstablished = true;
+        }
       });
     } else if (output.contains("RECOGNIZED:")) {
       // print(output.substring(12));
