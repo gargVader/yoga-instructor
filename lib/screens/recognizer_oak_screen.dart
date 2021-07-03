@@ -297,13 +297,36 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
                     : _pausePoints[_currentPauseIndex]) &&
             mounted) {
           _videoController.pause();
+          setState(() {
+            _isDetectionAllowed = true;
+          });
           Dialogflow.poseRecognition(onComplete: (isComplete) {
             if (isComplete) {
-              // streamListener();
-              startTimer();
               setState(() {
-                _isDetectionAllowed = true;
+                _isDetectionAllowed = false;
+                _start = 3;
+                _currentPauseIndex == _pausePoints.length - 1
+                    ? _currentPauseIndex = -1
+                    : _currentPauseIndex++;
               });
+
+              _videoController.play();
+
+              if (_myPoseAcuracyTotal == 0.0) {
+                _myPoseAcuracyTotal = _myPoseAcuracy;
+              } else {
+                _myPoseAcuracyTotal =
+                    (_myPoseAcuracyTotal + _myPoseAcuracy) / 2;
+              }
+              _totalFramesPositive = 0;
+
+              setState(() {});
+
+              // streamListener();
+              // startTimer();
+              // setState(() {
+              //   _isDetectionAllowed = true;
+              // });
             }
           });
         }
@@ -357,7 +380,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
 
   @override
   void dispose() {
-    _recognitionTimer.cancel();
+    // _recognitionTimer.cancel();
     _videoController.dispose();
     _sshConnectivity.stopRecognitionScript(_processId);
     // _dataStream.cancel();
