@@ -62,6 +62,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     padding: const EdgeInsets.only(right: 16.0),
                     child: InkWell(
                       onTap: () {
+                        context
+                            .read(retrieveAttemptsNotifierProvider)
+                            .retrieveAttempts();
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => ProfileScreen(),
