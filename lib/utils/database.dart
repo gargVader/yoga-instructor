@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sofia/model/attempts.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/model/track.dart';
 import 'package:sofia/model/user.dart';
@@ -529,6 +531,41 @@ class Database {
     });
 
     return tracks;
+  }
+
+  Future<List<Attempt>> retrieveAttempts() async {
+    String uid = AuthenticationClient.presentUser.uid;
+
+    DateTime currentDateTime = DateTime.now();
+    int currentWeekDay = currentDateTime.weekday;
+    DateTime startOfWeek = currentDateTime.subtract(
+      Duration(
+        days: currentWeekDay,
+        hours: currentDateTime.hour,
+        minutes: currentDateTime.minute,
+      ),
+    );
+
+    print('CURRENT: ${DateFormat.yMd().add_jm().format(currentDateTime)}');
+    print('START_OF_WEEK: ${DateFormat.yMd().add_jm().format(startOfWeek)}');
+
+    int startOfWeekInMilliseconds = startOfWeek.millisecondsSinceEpoch;
+
+    QuerySnapshot attemptsDocQuery = await documentReference
+        .collection('user_info')
+        .document(uid)
+        .collection('attempts')
+        .orderBy('dateTime', descending: true)
+        .where('dateTime', isGreaterThan: startOfWeekInMilliseconds)
+        .getDocuments();
+
+    List<Attempt> attempts = [];
+
+    attemptsDocQuery.documents.forEach((doc) {
+      attempts.add(Attempt.fromJson(doc.data));
+    });
+
+    return attempts;
   }
 
   /// For retrieving the poses from the database
