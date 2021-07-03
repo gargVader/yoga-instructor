@@ -41,6 +41,7 @@ dependencies:
   avatar_glow: ^1.2.0
   audiofileplayer: ^1.3.3
   ssh: ^0.0.7
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:
