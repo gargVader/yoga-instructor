@@ -9,13 +9,21 @@ import 'package:hive_flutter/hive_flutter.dart';
 /// The list of camera types (mainly including: front and back)
 List<CameraDescription> cameras = [];
 void main() async {
+  /// Required because we use calling binding
+  /// before run app
+  WidgetsFlutterBinding.ensureInitialized();
+
   try {
     // Initialize Hive
     await Hive.initFlutter();
     // Opening the box
     await Hive.openBox('config');
+  } catch (e) {
+    print('Hive error: e');
+  }
+
+  try {
     // To load the cameras before the app is initialized
-    WidgetsFlutterBinding.ensureInitialized();
     cameras = await availableCameras();
   } on CameraException catch (e) {
     print('Error: ${e.code}\nError Message: ${e.description}');
