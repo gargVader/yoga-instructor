@@ -11,6 +11,24 @@ import 'onboarding_screens/login_screen.dart';
 import 'onboarding_screens/name_screen.dart';
 import 'onboarding_screens/splash_screen.dart';
 
+/// {@template sofia.onboarding}
+///
+/// This is basically the starting point of the app,
+/// loads up the [MaterialApp] here.
+///
+/// Contains the `dispose()` method for closing any Hive boxes.
+///
+/// The default orientation of the device is set to only:
+/// [portraitUp] & [portraitDown]
+///
+/// State calls:
+/// - `speechInitialization()`
+/// - `retrieveTracks()`
+/// - `retrievePoses()`
+/// - `retrieveUser()`
+///
+/// {@endtemplate}
+///
 class OnboardingScreen extends StatefulWidget {
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();
