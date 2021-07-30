@@ -10,6 +10,8 @@ class SSHConnectivity {
     passwordOrKey: PiConfig.password,
   );
 
+  final String rootPath = '~/yoga-instructor-oak-server';
+
   checkAvailability({Function onReceive}) async {
     try {
       await client.connect();
@@ -26,7 +28,7 @@ class SSHConnectivity {
           },
         );
         print("shell started!");
-        await client.writeToShell("cd ~ && ./oak_check.sh\n");
+        await client.writeToShell("cd $rootPath && ./oak_check.sh\n");
       } catch (e) {
         onReceive("ERROR(2)");
       }
@@ -80,7 +82,7 @@ class SSHConnectivity {
           },
         );
         print("shell started!");
-        await client.writeToShell("cd ~ && ./oak_starter.sh\n");
+        await client.writeToShell("cd $rootPath && ./oak_starter.sh\n");
       } catch (e) {
         onReceive("ERROR(2)");
       }
@@ -91,7 +93,7 @@ class SSHConnectivity {
 
   stopRecognitionScript(String processId) async {
     await client.writeToShell(
-      "cd ~ && ./oak_dispose.sh $processId\n",
+      "cd $rootPath && ./oak_dispose.sh $processId\n",
     );
     client.disconnect();
   }
