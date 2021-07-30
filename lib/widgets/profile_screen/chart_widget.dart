@@ -34,6 +34,7 @@ class _ChartWidgetState extends State<ChartWidget>
 
   int totalDurationThisWeekInEpoch = 0;
   int totalAttempts = 0;
+  List<Attempt> retrievedAttempts = [];
   List<int> durationList = [0, 0, 0, 0, 0, 0, 0];
   int maxDuration = 1;
 
@@ -41,7 +42,7 @@ class _ChartWidgetState extends State<ChartWidget>
   void initState() {
     super.initState();
 
-    List<Attempt> retrievedAttempts = widget.attempts;
+    retrievedAttempts = widget.attempts;
     totalAttempts = retrievedAttempts.length;
 
     int currentDurationInMilliseconds = 0;
@@ -237,7 +238,166 @@ class _ChartWidgetState extends State<ChartWidget>
             ),
           ],
         ),
-        SizedBox(width: 8.0),
+        SizedBox(height: 16.0),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10.0),
+          child: Theme(
+            data: Theme.of(context).copyWith(
+                dividerColor: Colors.transparent, accentColor: Colors.black),
+            child: ExpansionTile(
+              backgroundColor: Palette.lightShade.withOpacity(0.5),
+              title: Text(
+                'Asanas',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black,
+                ),
+              ),
+              subtitle: Text(
+                'Your yoga poses performed this week',
+                style: TextStyle(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black54,
+                ),
+              ),
+              initiallyExpanded: false,
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: retrievedAttempts.length,
+                  itemBuilder: (context, index) {
+                    var poseName =
+                        retrievedAttempts[index].pose[0].toUpperCase() +
+                            retrievedAttempts[index].pose.substring(1);
+
+                    var durationString = Helper.generateTimeString(
+                      duration: Duration(
+                        milliseconds: retrievedAttempts[index].duration,
+                      ),
+                    );
+
+                    var numberOfStars =
+                        retrievedAttempts[index].stars.toString();
+
+                    var accuracy =
+                        '${(retrievedAttempts[index].accuracy * 100).toStringAsFixed(0)}' +
+                            '%';
+
+                    return ListTile(
+                      title: Text(
+                        poseName,
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                      subtitle: Text(
+                        durationString,
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black54,
+                        ),
+                      ),
+                      trailing: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.star_border,
+                                color: Palette.black,
+                              ),
+                              SizedBox(width: 4.0),
+                              Text(
+                                numberOfStars,
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: 1,
+                                  color: Palette.black,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            accuracy,
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                // for (int i = 0; i < retrievedAttempts.length; i++)
+                //   ListTile(
+                //     title: Text(
+                //       retrievedAttempts[i].pose[0].toUpperCase() +
+                //           retrievedAttempts[i].pose.substring(1),
+                //       style: TextStyle(
+                //         fontSize: 18.0,
+                //         fontWeight: FontWeight.w400,
+                //         color: Colors.black,
+                //       ),
+                //     ),
+                //     subtitle: Text(
+                //       Helper.generateTimeString(
+                //         duration: Duration(
+                //           milliseconds: retrievedAttempts[i].duration,
+                //         ),
+                //       ),
+                //       style: TextStyle(
+                //         fontSize: 14.0,
+                //         fontWeight: FontWeight.w400,
+                //         color: Colors.black54,
+                //       ),
+                //     ),
+                //     trailing: Column(
+                //       mainAxisSize: MainAxisSize.min,
+                //       crossAxisAlignment: CrossAxisAlignment.end,
+                //       children: [
+                //         Row(
+                //           mainAxisSize: MainAxisSize.min,
+                //           children: [
+                //             Icon(
+                //               Icons.star_border,
+                //               color: Palette.black,
+                //             ),
+                //             SizedBox(width: 4.0),
+                //             Text(
+                //               retrievedAttempts[i].stars.toString(),
+                //               style: TextStyle(
+                //                 fontSize: 18.0,
+                //                 fontWeight: FontWeight.w400,
+                //                 letterSpacing: 1,
+                //                 color: Palette.black,
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //         Text(
+                //           style: TextStyle(
+                //             fontSize: 14.0,
+                //             fontWeight: FontWeight.w400,
+                //             color: Colors.black54,
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   )
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
