@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sofia/model/attempts.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/model/track.dart';
 import 'package:sofia/model/user.dart';
+import 'package:sofia/res/string.dart';
 import 'package:sofia/utils/authentication_client.dart';
 
 /// The main Firestore collection.
@@ -496,6 +498,18 @@ class Database {
       }).catchError((e) => print(e));
     }
 
+    // Hive default config
+    var configBox = Hive.box('config');
+    configBox.put(hiveDuration, 20);
+    configBox.put(hiveAsanas, 5);
+    configBox.put(hiveAccuracy, 80);
+    configBox.put(hiveHoldDuration, 5);
+    configBox.put(hiveCamera, cameraOAK);
+    configBox.put(hiveRaspiPath, raspiRootPath);
+    print('-------------------------------------------');
+    print('Hive config initialized with default values');
+    print('-------------------------------------------');
+
     return userData;
   }
 
@@ -595,7 +609,7 @@ class Database {
 
     DateTime currentUploadTime = DateTime.now();
     int currentUploadTimeInMilliseconds =
-        currentUploadTime.microsecondsSinceEpoch;
+        currentUploadTime.millisecondsSinceEpoch;
 
     // Update attempts
     DocumentReference attemptDocReferencer = documentReference
@@ -625,16 +639,34 @@ class Database {
         .collection('score')
         .document(poseName);
 
-    Map<String, dynamic> scoreData = <String, dynamic>{
-      "stars": stars,
-      "accuracy": accuracy,
-      "time": timeInMilliseconds,
-    };
-    print('DATA:\n$scoreData');
+    // Only update if the stats on database is low
+    DocumentSnapshot scoreSnapshot = await scoreDocReferencer.get();
+    if (scoreSnapshot.data != null) {
+      double accuracyOnDatabase = scoreSnapshot.data['accuracy'];
+      if (accuracy > accuracyOnDatabase) {
+        Map<String, dynamic> scoreData = <String, dynamic>{
+          "stars": stars,
+          "accuracy": accuracy,
+          "time": timeInMilliseconds,
+        };
+        print('DATA:\n$scoreData');
 
-    await scoreDocReferencer.setData(scoreData).whenComplete(() {
-      print("Score added to the database!");
-    }).catchError((e) => print(e));
+        await scoreDocReferencer.setData(scoreData).whenComplete(() {
+          print("Score added to the database!");
+        }).catchError((e) => print(e));
+      }
+    } else {
+      Map<String, dynamic> scoreData = <String, dynamic>{
+        "stars": stars,
+        "accuracy": accuracy,
+        "time": timeInMilliseconds,
+      };
+      print('DATA:\n$scoreData');
+
+      await scoreDocReferencer.setData(scoreData).whenComplete(() {
+        print("Score added to the database!");
+      }).catchError((e) => print(e));
+    }
 
     // Update total stars and total duration
     QuerySnapshot scoreDocs = await documentReference
