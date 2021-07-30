@@ -209,7 +209,7 @@ It is recommended for those who just want to try it out please use the above men
 
 # License
 
-Copyright (c) 2020 Souvik Biswas and Soumi Bardhan
+Copyright (c) 2021 Souvik Biswas and Soumi Bardhan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
