@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:sofia/model/user.dart';
 import 'package:sofia/providers.dart';
 import 'package:sofia/res/palette.dart';
+import 'package:sofia/res/string.dart';
 import 'package:sofia/utils/database.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sofia/widgets/profile_screen/chart_error_widget.dart';
 import 'package:sofia/widgets/profile_screen/chart_initial_widget.dart';
 import 'package:sofia/widgets/profile_screen/chart_retrieving_widget.dart';
 import 'package:sofia/widgets/profile_screen/chart_widget.dart';
+import 'package:sofia/widgets/profile_screen/settings_divider.dart';
+import 'package:sofia/widgets/profile_screen/settings_tile.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -20,6 +25,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String userEmail;
   User userData;
   // int index = 10;
+  Box _configBox;
 
   @override
   void initState() {
@@ -28,6 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     imageUrl = userData.imageUrl;
     displayName = userData.accountName;
     userEmail = userData.email;
+    _configBox = Hive.box('config');
   }
 
   @override
@@ -229,6 +236,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           )
                         : Container(),
                     SizedBox(height: 32.0),
+                    Center(
+                      child: Text(
+                        'This week',
+                        style: TextStyle(
+                          fontSize: 22.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black38,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 16.0),
                     Consumer(
                       builder: (context, watch, child) {
                         final state = watch(
@@ -245,6 +263,170 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         );
                       },
                     ),
+                    SizedBox(height: 32.0),
+                    ValueListenableBuilder(
+                      valueListenable: _configBox.listenable(),
+                      builder: (context, Box currentBox, widget) => Column(
+                        mainAxisSize: MainAxisSize.min,
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Targets',
+                            style: TextStyle(
+                              fontSize: 22.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black38,
+                            ),
+                          ),
+                          SizedBox(height: 16.0),
+                          SettingsTile(
+                            title: 'Duration',
+                            description:
+                                'You can set this daily target duration for the yoga sessions to remain consistent everyday.',
+                            hiveKey: hiveDuration,
+                            hiveValue: '${currentBox.get(hiveDuration)}',
+                            textFieldSuffixString: 'min',
+                          ),
+                          SettingsDivider(),
+                          SettingsTile(
+                            title: 'Number of asanas',
+                            description:
+                                'Set the number of yoga asanas you want to perform each day.',
+                            hiveKey: hiveAsanas,
+                            hiveValue: '${currentBox.get(hiveAsanas)}',
+                          ),
+                          SettingsDivider(),
+                          SettingsTile(
+                            title: 'Accuracy',
+                            description:
+                                'Set the average accuracy of the yoga postures that you want to achieve each day',
+                            hiveKey: hiveAccuracy,
+                            hiveValue: '${currentBox.get(hiveAccuracy)}',
+                            textFieldSuffixString: '%',
+                          ),
+                          SizedBox(height: 32.0),
+                          Text(
+                            'Settings',
+                            style: TextStyle(
+                              fontSize: 22.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black38,
+                            ),
+                          ),
+                          SizedBox(height: 16.0),
+                          SettingsTile(
+                            title: 'Hold duration',
+                            description:
+                                'Set the duration for which the virtual yoga instructor will check your posture accuracy.',
+                            hiveKey: hiveHoldDuration,
+                            hiveValue: '${currentBox.get(hiveHoldDuration)}',
+                            textFieldSuffixString: 'secs',
+                          ),
+                          SettingsDivider(),
+                          SettingsTile(
+                            title: 'Camera',
+                            description:
+                                'Set which camera to use for the detection of posture accuracy. For increased precission you can use the OAK-D camera.',
+                            hiveKey: hiveCamera,
+                            hiveValue: '${currentBox.get(hiveCamera)}',
+                          ),
+                          // SettingsDivider(),
+                          // SettingsTile(
+                          //   title: 'RasPi root path',
+                          //   description:
+                          //       'Set the root path of the Raspberry Pi where the scripts are stored.\nDisclaimer: Default is already set to correct path.',
+                          //   hiveKey: hiveRaspiPath,
+                          //   hiveValue: '${currentBox.get(hiveRaspiPath)}',
+                          // ),
+                          SettingsDivider(),
+                        ],
+                      ),
+                    ),
+                    ListTile(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      onTap: () {},
+                      title: Text(
+                        'Privacy Policy',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    SettingsDivider(),
+                    ListTile(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      onTap: () {},
+                      title: Text(
+                        'Terms & conditions',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    SettingsDivider(),
+                    ListTile(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      onTap: () {},
+                      title: Text(
+                        'Feedback',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    SettingsDivider(),
+                    ListTile(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      onTap: () {},
+                      title: Text(
+                        'Contact us',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    Container(
+                      width: double.maxFinite,
+                      child: RaisedButton(
+                        onPressed: () {},
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        color: Colors.red,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            top: 10.0,
+                            bottom: 10.0,
+                          ),
+                          child: Text(
+                            'Log out',
+                            style: TextStyle(
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 30.0),
                   ],
                 ),
               ),
@@ -255,3 +437,174 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
+
+// class SettingsTile extends StatefulWidget {
+//   final String title;
+//   final String description;
+//   final String hiveKey;
+//   final String textFieldSuffixString;
+
+//   const SettingsTile({
+//     @required this.title,
+//     @required this.description,
+//     @required this.hiveKey,
+//     @required this.textFieldSuffixString,
+//   });
+
+//   @override
+//   _SettingsTileState createState() => _SettingsTileState();
+// }
+
+// class _SettingsTileState extends State<SettingsTile> {
+//   TextEditingController _textController = TextEditingController();
+
+//   Box _configBox;
+//   String _value;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _configBox = Hive.box('config');
+//     _value = _configBox.get(widget.hiveKey);
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return ListTile(
+//       shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(10.0),
+//       ),
+//       onTap: () {
+//         showModalBottomSheet(
+//           context: context,
+//           barrierColor: Colors.transparent,
+//           backgroundColor: Colors.black,
+//           isScrollControlled: true,
+//           builder: (context) {
+//             return Padding(
+//               padding: MediaQuery.of(context).viewInsets,
+//               child: Column(
+//                 mainAxisSize: MainAxisSize.min,
+//                 children: [
+//                   Container(
+//                     color: Colors.white24,
+//                     child: Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                       children: [
+//                         SizedBox(),
+//                         FlatButton(
+//                           onPressed: () {
+//                             if (_textController.text != null &&
+//                                 _textController.text != '') {
+//                               _configBox.put(
+//                                   widget.hiveKey, _textController.text);
+//                             }
+//                           },
+//                           child: Text(
+//                             'SAVE',
+//                             style: TextStyle(
+//                               fontSize: 18.0,
+//                               fontWeight: FontWeight.bold,
+//                               color: Colors.white,
+//                             ),
+//                           ),
+//                         )
+//                       ],
+//                     ),
+//                   ),
+//                   Padding(
+//                     padding: const EdgeInsets.all(16.0),
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       mainAxisSize: MainAxisSize.min,
+//                       children: <Widget>[
+//                         Text(
+//                           'Set ${widget.title.toLowerCase()}',
+//                           style: TextStyle(
+//                             fontSize: 24.0,
+//                             fontWeight: FontWeight.bold,
+//                             color: Colors.white,
+//                           ),
+//                         ),
+//                         SizedBox(height: 24.0),
+//                         Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//                             Text(
+//                               widget.title,
+//                               style: TextStyle(
+//                                 fontSize: 18.0,
+//                                 fontWeight: FontWeight.w400,
+//                                 color: Colors.white70,
+//                               ),
+//                             ),
+//                             Container(
+//                               width: 80,
+//                               child: TextField(
+//                                 controller: _textController,
+//                                 autofocus: true,
+//                                 style: TextStyle(
+//                                   fontSize: 18.0,
+//                                   fontWeight: FontWeight.bold,
+//                                   color: Colors.white,
+//                                 ),
+//                                 decoration: InputDecoration(
+//                                   suffix: Text(
+//                                     widget.textFieldSuffixString, // hour
+//                                     style: TextStyle(
+//                                       fontSize: 18.0,
+//                                       fontWeight: FontWeight.bold,
+//                                       color: Colors.white,
+//                                     ),
+//                                   ),
+//                                   enabledBorder: UnderlineInputBorder(
+//                                     borderSide: BorderSide(
+//                                       color: Colors.white,
+//                                     ),
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                         SizedBox(height: 24.0),
+//                         Text(
+//                           widget
+//                               .description, //'You can set this daily target duration for the yoga sessions to remain consistent everyday.',
+//                           style: TextStyle(
+//                             fontSize: 16.0,
+//                             fontWeight: FontWeight.w300,
+//                             color: Colors.white70,
+//                           ),
+//                         ),
+//                         SizedBox(height: 16.0),
+//                       ],
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             );
+//           },
+//         );
+//       },
+//       title: Text(
+//         widget.title,
+//         style: TextStyle(
+//           fontSize: 18.0,
+//           fontWeight: FontWeight.w400,
+//           color: Colors.black,
+//         ),
+//       ),
+//       trailing: Text(
+//         _value == null
+//             ? 'not set'
+//             : '$_value ${widget.textFieldSuffixString}', // '1 hour', // Retrieved from hive
+//         style: TextStyle(
+//           fontSize: 18.0,
+//           fontWeight: FontWeight.bold,
+//           color: Colors.black,
+//         ),
+//       ),
+//     );
+//   }
+// }
