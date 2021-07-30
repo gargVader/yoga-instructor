@@ -5,6 +5,8 @@ import 'package:supercharged/supercharged.dart';
 import 'package:sofia/model/attempts.dart';
 import 'package:sofia/res/palette.dart';
 
+import 'package:intl/intl.dart';
+
 enum AnimProps {
   bar1,
   bar2,
@@ -41,6 +43,8 @@ class _ChartWidgetState extends State<ChartWidget>
     int currentDurationInMilliseconds = 0;
 
     for (int i = 0; i < retrievedAttempts.length; i++) {
+      print(
+          'RETRIEVED: ${DateFormat.yMd().add_jm().format(DateTime.fromMillisecondsSinceEpoch(retrievedAttempts[i].dateTime))}');
       currentDurationInMilliseconds = retrievedAttempts[i].duration;
       int currentWeekday = retrievedAttempts[i].weekday;
       print(currentWeekday);
