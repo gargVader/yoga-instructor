@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
+import 'package:sofia/utils/helper.dart';
 import 'package:supercharged/supercharged.dart';
 
 import 'package:sofia/model/attempts.dart';
@@ -31,6 +32,8 @@ class _ChartWidgetState extends State<ChartWidget>
   AnimationController _animationController;
   Animation<TimelineValue<AnimProps>> _animation;
 
+  int totalDurationThisWeekInEpoch = 0;
+  int totalAttempts = 0;
   List<int> durationList = [0, 0, 0, 0, 0, 0, 0];
   int maxDuration = 1;
 
@@ -39,6 +42,7 @@ class _ChartWidgetState extends State<ChartWidget>
     super.initState();
 
     List<Attempt> retrievedAttempts = widget.attempts;
+    totalAttempts = retrievedAttempts.length;
 
     int currentDurationInMilliseconds = 0;
 
@@ -46,6 +50,7 @@ class _ChartWidgetState extends State<ChartWidget>
       print(
           'RETRIEVED: ${DateFormat.yMd().add_jm().format(DateTime.fromMillisecondsSinceEpoch(retrievedAttempts[i].dateTime))}');
       currentDurationInMilliseconds = retrievedAttempts[i].duration;
+      totalDurationThisWeekInEpoch += currentDurationInMilliseconds;
       int currentWeekday = retrievedAttempts[i].weekday;
       print(currentWeekday);
 
@@ -203,7 +208,36 @@ class _ChartWidgetState extends State<ChartWidget>
                 )
                 .toList(),
           ),
-        )
+        ),
+        SizedBox(height: 16.0),
+        Row(
+          children: [
+            Icon(
+              Icons.access_time,
+              color: Colors.black,
+            ),
+            SizedBox(width: 8.0),
+            Text(
+              'Total time: ',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.w400,
+                color: Colors.black,
+              ),
+            ),
+            Text(
+              Helper.generateTimeString(
+                duration: Duration(milliseconds: totalDurationThisWeekInEpoch),
+              ),
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(width: 8.0),
       ],
     );
   }
