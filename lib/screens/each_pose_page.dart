@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:sofia/model/pose.dart';
+import 'package:sofia/model/track.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/screens/preview_oak_screen.dart';
 import 'package:sofia/screens/preview_screen.dart';
@@ -12,12 +13,14 @@ import 'package:sofia/widgets/each_pose_widgets/prev_widget.dart';
 
 class EachPosePage extends StatefulWidget {
   final List<Pose> poses;
+  final String trackName;
   final int currentIndex;
 
   const EachPosePage({
     Key key,
     @required this.poses,
     @required this.currentIndex,
+    @required this.trackName,
   }) : super(key: key);
 
   @override
@@ -34,11 +37,13 @@ class _EachPosePageState extends State<EachPosePage> {
   List<String> benefitList;
 
   List<Pose> poses;
+  String _trackName;
 
   @override
   void initState() {
     super.initState();
     poses = widget.poses;
+    _trackName = widget.trackName;
     currentIndex = widget.currentIndex;
     currentPose = widget.poses[currentIndex];
     poseName = currentPose.title;
@@ -61,16 +66,19 @@ class _EachPosePageState extends State<EachPosePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: currentIndex == 0
           ? NextWidget(
+              trackName: widget.trackName,
               poses: poses,
               currentIndex: currentIndex,
             )
           : currentIndex == poses.length - 1
               ? PrevWidget(
                   poses: poses,
+                  trackName: widget.trackName,
                   currentIndex: currentIndex,
                 )
               : PrevNextWidget(
                   poses: poses,
+                  trackName: widget.trackName,
                   currentIndex: currentIndex,
                 ),
       body: Stack(
@@ -148,6 +156,7 @@ class _EachPosePageState extends State<EachPosePage> {
                           MaterialPageRoute(
                             builder: (context) => PreviewOakScreen(
                               pose: currentPose,
+                              trackName: _trackName,
                             ),
                           ),
                         )

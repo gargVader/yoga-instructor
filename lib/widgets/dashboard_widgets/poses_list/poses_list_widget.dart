@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sofia/model/pose.dart';
+import 'package:sofia/model/track.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/screens/each_pose_page.dart';
 import 'package:sofia/screens/preview_oak_screen.dart';
@@ -9,10 +10,12 @@ import 'package:sofia/widgets/common/custom_widgets.dart';
 
 class PosesListWidget extends StatelessWidget {
   final List<Pose> poses;
+  final String trackName;
 
   const PosesListWidget({
     Key key,
     @required this.poses,
+    @required this.trackName,
   }) : super(key: key);
 
   @override
@@ -42,6 +45,7 @@ class PosesListWidget extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) => EachPosePage(
                   poses: poses,
+                  trackName: trackName,
                   currentIndex: index,
                 ),
               ),
@@ -94,6 +98,7 @@ class PosesListWidget extends StatelessWidget {
                               MaterialPageRoute(
                                 builder: (context) => PreviewOakScreen(
                                   pose: pose,
+                                  trackName: trackName,
                                 ),
                               ),
                             );

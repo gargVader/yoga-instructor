@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sofia/main.dart';
 import 'package:sofia/model/pose.dart';
+import 'package:sofia/model/track.dart';
 import 'package:sofia/screens/recognizer_oak_screen.dart';
 import 'package:sofia/screens/recognizer_screen.dart';
 import 'package:sofia/screens/timer_overlay.dart';
@@ -15,10 +16,12 @@ import 'package:wakelock/wakelock.dart';
 
 class PreviewOakScreen extends StatefulWidget {
   final Pose pose;
+  final String trackName;
 
   const PreviewOakScreen({
     Key key,
     @required this.pose,
+    @required this.trackName,
   }) : super(key: key);
 
   @override
@@ -29,6 +32,7 @@ class _PreviewOakScreenState extends State<PreviewOakScreen> {
   // VideoPlayerController _videoController;
 
   CameraController _cameraController;
+  String _trackName;
 
   List<dynamic> _recognitions;
   // int _imageHeight = 0;
@@ -91,6 +95,7 @@ class _PreviewOakScreenState extends State<PreviewOakScreen> {
               MaterialPageRoute(
                 builder: (context) => RecognizerOakScreen(
                   pose: widget.pose,
+                  trackName: _trackName,
                   cameraController: _cameraController,
                 ),
               ),
@@ -169,6 +174,8 @@ class _PreviewOakScreenState extends State<PreviewOakScreen> {
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
+
+    _trackName = widget.trackName;
 
     Wakelock.enable();
 
