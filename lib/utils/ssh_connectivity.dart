@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:ssh/ssh.dart';
 
 import '../secrets.dart';
@@ -37,10 +38,16 @@ class SSHConnectivity {
     }
   }
 
-  startRecognitionScript({Function onReceive}) async {
+  startRecognitionScript({
+    @required String poseName,
+    @required String trackName,
+    Function onReceive,
+  }) async {
     try {
       await client.connect();
       print("shell connected!");
+
+      print("SSH Send --> POSE: $poseName, TRACK: $trackName");
 
       try {
         await client.startShell(
@@ -82,7 +89,9 @@ class SSHConnectivity {
           },
         );
         print("shell started!");
-        await client.writeToShell("cd $rootPath && ./oak_starter.sh\n");
+        await client.writeToShell(
+          "cd $rootPath && ./oak_starter.sh $poseName $trackName\n",
+        );
       } catch (e) {
         onReceive("ERROR(2)");
       }
