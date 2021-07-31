@@ -9,10 +9,12 @@ class PrevNextWidget extends StatelessWidget {
     Key key,
     @required this.poses,
     @required this.currentIndex,
+    @required this.trackName,
   }) : super(key: key);
 
   final List<Pose> poses;
   final int currentIndex;
+  final String trackName;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class PrevNextWidget extends StatelessWidget {
             ));
             Navigator.of(context).pushReplacement(
               CustomNavigators.routeToPreviousScreen(
+                trackName: trackName,
                 poses: poses,
                 prevIndex: currentIndex - 1,
               ),
@@ -74,6 +77,7 @@ class PrevNextWidget extends StatelessWidget {
             Navigator.of(context).pushReplacement(
               CustomNavigators.routeToNextScreen(
                 poses: poses,
+                trackName: trackName,
                 nextIndex: currentIndex + 1,
               ),
             );
