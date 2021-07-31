@@ -5,6 +5,7 @@ import 'package:camera/camera.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sofia/model/track.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/screens/score_overlay.dart';
 import 'package:sofia/utils/dialogflow.dart';
@@ -18,12 +19,14 @@ import 'package:sofia/model/pose.dart';
 
 class RecognizerOakScreen extends StatefulWidget {
   final Pose pose;
+  final String trackName;
   final CameraController cameraController;
 
   const RecognizerOakScreen({
     Key key,
     @required this.pose,
     @required this.cameraController,
+    @required this.trackName,
   }) : super(key: key);
 
   @override
@@ -34,11 +37,12 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
   SSHConnectivity _sshConnectivity = SSHConnectivity();
 
   Timer _recognitionTimer;
-  int _start = 3;
+  int _start = 10;
 
   // StreamSubscription _dataStream;
   // final FirebaseDatabase _database = FirebaseDatabase();
   String _currentPoseName;
+  String _trackName;
   VideoPlayerController _videoController;
   CameraController _cameraController;
   List<int> _pausePoints;
@@ -55,7 +59,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
   Tween<double> _accuracyTween;
 
   DateTime _startTime;
-  List<int> _poseIndex;
+  int _poseIndex;
 
   String _status = 'Initializing OAK-D...';
   String _processId;
@@ -81,7 +85,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
             timer.cancel();
             setState(() {
               _isDetectionAllowed = false;
-              _start = 3;
+              _start = 10;
               _currentPauseIndex == _pausePoints.length - 1
                   ? _currentPauseIndex = -1
                   : _currentPauseIndex++;
@@ -132,10 +136,13 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
     } else if (output.contains("RECOGNIZED:")) {
       // print(output.substring(12));
       if (_isDetectionAllowed == true) {
-        var rawJSONData = output.substring(12).replaceAll("\'", "\"");
-        // print(rawJSONData);
+        var rawJSONData =
+            output.substring(12).replaceAll("\"", "").replaceAll("\'", "\"");
+        print('RAW: $rawJSONData');
 
         Map<String, dynamic> parsedJSON = jsonDecode(rawJSONData);
+
+        print('PARSED: ${parsedJSON['pose']}');
 
         String poseName = parsedJSON['pose'];
         double poseAccuracy = parsedJSON['accuracy'];
@@ -258,21 +265,31 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
     //   setOakRecognitions(poseName, poseAccuracy);
     // });
 
+    _cameraController = widget.cameraController;
+    _videoController = VideoManager.videoController;
+
+    _pausePoints = widget.pose.pausePoints;
+    _currentPoseName = widget.pose.title;
+    _trackName = widget.trackName;
+    _poseIndex = 1;
+
+    bool _shouldSendIndex = false;
+
+    if (_pausePoints.length > 1) _shouldSendIndex = true;
+
+    _currentPoseName += _shouldSendIndex ? '$_poseIndex' : '';
+
     // Establishing the SSH connection
     _sshConnectivity.startRecognitionScript(
+      poseName: _currentPoseName,
+      trackName: _trackName,
       onReceive: (String output) {
         output = output.trim();
         processSSHOutput(output);
       },
     );
 
-    _cameraController = widget.cameraController;
-    _videoController = VideoManager.videoController;
-
-    _pausePoints = widget.pose.pausePoints;
-    _currentPoseName = widget.pose.title;
-
-    _poseIndex = widget.pose.index;
+    // _poseIndex = widget.pose.index;
     print('FIREBASE NAME: $_currentPoseName, INDEX: $_poseIndex');
 
     _accuracyTween = Tween(
