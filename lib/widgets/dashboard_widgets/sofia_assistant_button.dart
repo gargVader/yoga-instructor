@@ -55,6 +55,7 @@ class SofiaAssistantButton extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) => PreviewOakScreen(
                           pose: pose,
+                          trackName: 'beginners',
                         ),
                       ),
                     );
