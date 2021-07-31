@@ -165,6 +165,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ),
                         retrieved: (poses) => PosesRowWidget(
                           screeWidth: screeWidth,
+                          trackName: 'beginners',
                           poses: poses,
                         ),
                         error: (message) => PosesInitialWidget(
