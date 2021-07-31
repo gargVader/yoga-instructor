@@ -266,6 +266,7 @@ class _ChartWidgetState extends State<ChartWidget>
               children: [
                 ListView.builder(
                   shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
                   itemCount: retrievedAttempts.length,
                   itemBuilder: (context, index) {
                     var poseName =
