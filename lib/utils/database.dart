@@ -513,6 +513,27 @@ class Database {
     return userData;
   }
 
+  updateUserData({
+    @required String name,
+    @required email,
+  }) async {
+    String uid = AuthenticationClient.presentUser.uid;
+
+    DocumentReference documentReferencer =
+        documentReference.collection('user_info').document(uid);
+
+    Map<String, dynamic> data = <String, dynamic>{
+      "accountName": name,
+      "email": email,
+      // "imageUrl": imageUrl,
+    };
+    print('DATA:\n$data');
+
+    await documentReferencer.updateData(data).whenComplete(() {
+      print("User Info updated in the database");
+    }).catchError((e) => print(e));
+  }
+
   // Future getProducts() async {
   //   QuerySnapshot productQuery =
   //       await documentReference.collection('departments').getDocuments();
