@@ -8,6 +8,8 @@ import 'package:sofia/res/palette.dart';
 
 import 'package:intl/intl.dart';
 
+import 'chart_widget/asanas_info_widget.dart';
+
 enum AnimProps {
   bar1,
   bar2,
@@ -239,165 +241,8 @@ class _ChartWidgetState extends State<ChartWidget>
           ],
         ),
         SizedBox(height: 16.0),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10.0),
-          child: Theme(
-            data: Theme.of(context).copyWith(
-                dividerColor: Colors.transparent, accentColor: Colors.black),
-            child: ExpansionTile(
-              backgroundColor: Palette.lightShade.withOpacity(0.5),
-              title: Text(
-                'Asanas',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                ),
-              ),
-              subtitle: Text(
-                'Your yoga poses performed this week',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black54,
-                ),
-              ),
-              initiallyExpanded: false,
-              children: [
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: retrievedAttempts.length,
-                  itemBuilder: (context, index) {
-                    var poseName =
-                        retrievedAttempts[index].pose[0].toUpperCase() +
-                            retrievedAttempts[index].pose.substring(1);
-
-                    var durationString = Helper.generateTimeString(
-                      duration: Duration(
-                        milliseconds: retrievedAttempts[index].duration,
-                      ),
-                    );
-
-                    var numberOfStars =
-                        retrievedAttempts[index].stars.toString();
-
-                    var accuracy =
-                        '${(retrievedAttempts[index].accuracy * 100).toStringAsFixed(0)}' +
-                            '%';
-
-                    return ListTile(
-                      title: Text(
-                        poseName,
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        ),
-                      ),
-                      subtitle: Text(
-                        durationString,
-                        style: TextStyle(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black54,
-                        ),
-                      ),
-                      trailing: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.star_border,
-                                color: Palette.black,
-                              ),
-                              SizedBox(width: 4.0),
-                              Text(
-                                numberOfStars,
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w400,
-                                  letterSpacing: 1,
-                                  color: Palette.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            accuracy,
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black54,
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-                // for (int i = 0; i < retrievedAttempts.length; i++)
-                //   ListTile(
-                //     title: Text(
-                //       retrievedAttempts[i].pose[0].toUpperCase() +
-                //           retrievedAttempts[i].pose.substring(1),
-                //       style: TextStyle(
-                //         fontSize: 18.0,
-                //         fontWeight: FontWeight.w400,
-                //         color: Colors.black,
-                //       ),
-                //     ),
-                //     subtitle: Text(
-                //       Helper.generateTimeString(
-                //         duration: Duration(
-                //           milliseconds: retrievedAttempts[i].duration,
-                //         ),
-                //       ),
-                //       style: TextStyle(
-                //         fontSize: 14.0,
-                //         fontWeight: FontWeight.w400,
-                //         color: Colors.black54,
-                //       ),
-                //     ),
-                //     trailing: Column(
-                //       mainAxisSize: MainAxisSize.min,
-                //       crossAxisAlignment: CrossAxisAlignment.end,
-                //       children: [
-                //         Row(
-                //           mainAxisSize: MainAxisSize.min,
-                //           children: [
-                //             Icon(
-                //               Icons.star_border,
-                //               color: Palette.black,
-                //             ),
-                //             SizedBox(width: 4.0),
-                //             Text(
-                //               retrievedAttempts[i].stars.toString(),
-                //               style: TextStyle(
-                //                 fontSize: 18.0,
-                //                 fontWeight: FontWeight.w400,
-                //                 letterSpacing: 1,
-                //                 color: Palette.black,
-                //               ),
-                //             ),
-                //           ],
-                //         ),
-                //         Text(
-                //           style: TextStyle(
-                //             fontSize: 14.0,
-                //             fontWeight: FontWeight.w400,
-                //             color: Colors.black54,
-                //           ),
-                //         ),
-                //       ],
-                //     ),
-                //   )
-              ],
-            ),
-          ),
+        AsanasInfoWidget(
+          attempts: retrievedAttempts,
         ),
       ],
     );
@@ -411,21 +256,24 @@ class _ChartWidgetState extends State<ChartWidget>
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.end,
-      children: durationList.asMap().entries.map((entry) {
-        return Container(
-          decoration: BoxDecoration(
-            color: Palette.accentDarkPink,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
+      children: durationList.asMap().entries.map(
+        (entry) {
+          return Container(
+            decoration: BoxDecoration(
+              color: Palette.accentDarkPink,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.0),
+                topRight: Radius.circular(20.0),
+              ),
             ),
-          ),
-          // height: chartHeight * (bar / maxDuration),
-          height: chartHeight *
-              (_animation.value.get(AnimProps.values[entry.key]) / maxDuration),
-          width: 20,
-        );
-      }).toList(),
+            // height: chartHeight * (bar / maxDuration),
+            height: chartHeight *
+                (_animation.value.get(AnimProps.values[entry.key]) /
+                    maxDuration),
+            width: 20,
+          );
+        },
+      ).toList(),
     );
   }
 }
