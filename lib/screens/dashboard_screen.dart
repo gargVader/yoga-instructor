@@ -126,11 +126,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       return state.when(
                         () => Container(),
                         retrieving: () => Container(),
-                        retrieved: (_) => Container(),
-                        hasAccuracyData: (user) {
+                        retrieved: (_, __) => Container(),
+                        hasAccuracyData: (user, attempts) {
                           Database.user = user;
                           return UserPerformanceWidget(
                             user: user,
+                            attempts: attempts,
                           );
                         },
                         error: (_) => Container(),
