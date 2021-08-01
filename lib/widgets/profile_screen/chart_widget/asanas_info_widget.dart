@@ -9,6 +9,7 @@ class AsanasInfoWidget extends StatelessWidget {
     @required this.attempts,
     this.textColor = Colors.black,
     this.subtitleColor = Colors.black54,
+    this.countColor = Colors.white,
     this.backgroundColorExpanded = Palette.lightShade,
     this.enableSubtitle = true,
   }) : super(key: key);
@@ -16,6 +17,7 @@ class AsanasInfoWidget extends StatelessWidget {
   final List<Attempt> attempts;
   final Color textColor;
   final Color subtitleColor;
+  final Color countColor;
   final Color backgroundColorExpanded;
   final bool enableSubtitle;
 
@@ -31,17 +33,41 @@ class AsanasInfoWidget extends StatelessWidget {
         ),
         child: ExpansionTile(
           backgroundColor: backgroundColorExpanded.withOpacity(0.5),
-          title: Text(
-            'Asanas',
-            style: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.w400,
-              color: textColor,
-            ),
+          title: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Asanas',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w400,
+                  color: textColor,
+                ),
+              ),
+              Container(
+                width: 28,
+                height: 28,
+                decoration: BoxDecoration(
+                  color: textColor,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Center(
+                  child: Text(
+                    '${attempts.length}',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w600,
+                      color: countColor,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           subtitle: enableSubtitle
               ? Text(
-                  'Your yoga poses performed this week',
+                  'Yoga poses performed this week',
                   style: TextStyle(
                     fontSize: 14.0,
                     fontWeight: FontWeight.w400,
