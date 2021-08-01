@@ -73,6 +73,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 .retrievePoses();
 
             context.read(retrieveUserNotifierProvider).retrieveUser();
+
+            context.read(retrieveAttemptsNotifierProvider).retrieveAttempts();
           }
         },
         child: Consumer(
