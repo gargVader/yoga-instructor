@@ -27,6 +27,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
   // int index = 10;
   Box _configBox;
 
+  TextEditingController _nameController;
+  TextEditingController _emailController;
+  final FocusNode _nameFocusNode = FocusNode();
+  final FocusNode _emailFocusNode = FocusNode();
+  final _profileFormKey = GlobalKey<FormState>();
+  final _database = Database();
+  bool _isUpdating = false;
+
+  String _nameValidator(value) {
+    if (value == null || value.isEmpty) {
+      return 'Name can\'t be empty';
+    }
+    return null;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -34,6 +49,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     imageUrl = userData.imageUrl;
     displayName = userData.accountName;
     userEmail = userData.email;
+
+    _nameController = TextEditingController(text: displayName);
+    _emailController = TextEditingController(text: userEmail);
+
     _configBox = Hive.box('config');
   }
 
@@ -100,6 +119,210 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   color: Palette.black,
                 ),
               ),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: IconButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        barrierColor: Colors.transparent,
+                        backgroundColor: Colors.black,
+                        isScrollControlled: true,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10.0),
+                            topRight: Radius.circular(10.0),
+                          ),
+                        ),
+                        builder: (context) {
+                          return GestureDetector(
+                            onTap: () {
+                              _nameFocusNode.unfocus();
+                              _emailFocusNode.unfocus();
+                            },
+                            child: Padding(
+                              padding: MediaQuery.of(context).viewInsets,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    color: Colors.white24,
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 16.0),
+                                          child: Container(
+                                            height: 5,
+                                            width: 60,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(),
+                                            _isUpdating
+                                                ? CircularProgressIndicator()
+                                                : FlatButton(
+                                                    onPressed: () async {
+                                                      if (_profileFormKey
+                                                          .currentState
+                                                          .validate()) {
+                                                        if (_nameController
+                                                                    .text !=
+                                                                displayName ||
+                                                            _emailController
+                                                                    .text !=
+                                                                userEmail) {
+                                                          _nameFocusNode
+                                                              .unfocus();
+                                                          _emailFocusNode
+                                                              .unfocus();
+
+                                                          setState(() {
+                                                            _isUpdating = true;
+                                                          });
+
+                                                          await _database
+                                                              .updateUserData(
+                                                            name:
+                                                                _nameController
+                                                                    .text,
+                                                            email:
+                                                                _emailController
+                                                                    .text,
+                                                          );
+
+                                                          setState(() {
+                                                            _isUpdating = false;
+                                                          });
+
+                                                          context
+                                                              .read(
+                                                                  retrieveUserNotifierProvider)
+                                                              .retrieveUser();
+                                                        }
+
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      }
+                                                    },
+                                                    child: Text(
+                                                      'SAVE',
+                                                      style: TextStyle(
+                                                        fontSize: 18.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Form(
+                                      key: _profileFormKey,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Text(
+                                            'Update profile',
+                                            style: TextStyle(
+                                              fontSize: 24.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          SizedBox(height: 24.0),
+                                          Text(
+                                            'Name',
+                                            style: TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.white70,
+                                            ),
+                                          ),
+                                          TextFormField(
+                                            controller: _nameController,
+                                            focusNode: _nameFocusNode,
+                                            validator: _nameValidator,
+                                            textInputAction:
+                                                TextInputAction.next,
+                                            onFieldSubmitted: (value) {
+                                              _nameFocusNode.unfocus();
+                                              _emailFocusNode.requestFocus();
+                                            },
+                                            style: TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.white,
+                                            ),
+                                            decoration: InputDecoration(
+                                              enabledBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height: 8.0),
+                                          Text(
+                                            'Email',
+                                            style: TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.white70,
+                                            ),
+                                          ),
+                                          TextField(
+                                            controller: _emailController,
+                                            focusNode: _emailFocusNode,
+                                            style: TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.white,
+                                            ),
+                                            decoration: InputDecoration(
+                                              enabledBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height: 16.0),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    splashColor: Colors.white,
+                    highlightColor: Colors.white,
+                    icon: Icon(Icons.edit),
+                  ),
+                )
+              ],
             ),
             SliverPadding(
               padding: const EdgeInsets.only(left: 16.0, right: 16.0),
