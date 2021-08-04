@@ -51,7 +51,6 @@ android/.settings/org.eclipse.buildship.core.prefs
 .vscode
 .VSCodeCounter
 
-
 # Secrets
 lib/secrets.dart
 
@@ -62,4 +61,6 @@ assets/dialogflow/sofia_auth.json
 # FVM
 .fvm/flutter_sdk
 .fvm/fvm_config.json
+
+# Android key properties
 android/key.properties
