@@ -1,7 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:sofia/screens/score_overlay.dart';
 import 'package:sofia/utils/dialogflow.dart';
 import 'package:sofia/utils/video_manager.dart';
@@ -238,7 +237,10 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
 
     return WillPopScope(
       onWillPop: () async {
-        FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+        ));
+        // FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
         return true;
       },
       child: Scaffold(

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sofia/application/notifiers/auth_current_user_notifier.dart';
 import 'package:sofia/application/notifiers/auth_sign_in_notifier.dart';
+import 'package:sofia/application/notifiers/retrieve_attempts_notifier.dart';
 import 'package:sofia/application/notifiers/retrieve_poses_notifier.dart';
 import 'package:sofia/application/notifiers/retrieve_tracks_notifier.dart';
 import 'package:sofia/application/notifiers/retrieve_user_notifier.dart';
@@ -35,6 +36,10 @@ final storeUserDataNotifierProvider = StateNotifierProvider(
 
 final storeUserScoreNotifierProvider = StateNotifierProvider(
   (ref) => StoreUserScoreNotifier(ref.watch(databaseProvider)),
+);
+
+final retrieveAttemptsNotifierProvider = StateNotifierProvider(
+  (ref) => RetrieveAttemptsNotifier(ref.watch(databaseProvider)),
 );
 
 final retrievePosesNotifierProvider =

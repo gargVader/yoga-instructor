@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sofia/model/attempts.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/model/track.dart';
 import 'package:sofia/model/user.dart';
+import 'package:sofia/res/string.dart';
 import 'package:sofia/utils/authentication_client.dart';
 
 /// The main Firestore collection.
@@ -451,7 +455,9 @@ class Database {
   /// For storing user data on the database
   Future<User> storeUserData({
     @required String uid,
+    @required String email,
     @required String imageUrl,
+    @required String accountName,
     @required String userName,
     @required String gender,
     @required String age,
@@ -467,7 +473,9 @@ class Database {
 
     Map<String, dynamic> data = <String, dynamic>{
       "uid": uid,
+      "email": email,
       "imageUrl": imageUrl,
+      "accountName": accountName,
       "userName": userName,
       "gender": gender,
       "age": age,
@@ -490,7 +498,40 @@ class Database {
       }).catchError((e) => print(e));
     }
 
+    // Hive default config
+    var configBox = Hive.box('config');
+    configBox.put(hiveDuration, 20);
+    configBox.put(hiveAsanas, 5);
+    configBox.put(hiveAccuracy, 80);
+    configBox.put(hiveHoldDuration, 5);
+    configBox.put(hiveCamera, cameraOAK);
+    configBox.put(hiveRaspiPath, raspiRootPath);
+    print('-------------------------------------------');
+    print('Hive config initialized with default values');
+    print('-------------------------------------------');
+
     return userData;
+  }
+
+  updateUserData({
+    @required String name,
+    @required email,
+  }) async {
+    String uid = AuthenticationClient.presentUser.uid;
+
+    DocumentReference documentReferencer =
+        documentReference.collection('user_info').document(uid);
+
+    Map<String, dynamic> data = <String, dynamic>{
+      "accountName": name,
+      "email": email,
+      // "imageUrl": imageUrl,
+    };
+    print('DATA:\n$data');
+
+    await documentReferencer.updateData(data).whenComplete(() {
+      print("User Info updated in the database");
+    }).catchError((e) => print(e));
   }
 
   // Future getProducts() async {
@@ -527,6 +568,41 @@ class Database {
     return tracks;
   }
 
+  Future<List<Attempt>> retrieveAttempts() async {
+    String uid = AuthenticationClient.presentUser.uid;
+
+    DateTime currentDateTime = DateTime.now();
+    int currentWeekDay = currentDateTime.weekday;
+    DateTime startOfWeek = currentDateTime.subtract(
+      Duration(
+        days: currentWeekDay,
+        hours: currentDateTime.hour,
+        minutes: currentDateTime.minute,
+      ),
+    );
+
+    print('CURRENT: ${DateFormat.yMd().add_jm().format(currentDateTime)}');
+    print('START_OF_WEEK: ${DateFormat.yMd().add_jm().format(startOfWeek)}');
+
+    int startOfWeekInMilliseconds = startOfWeek.millisecondsSinceEpoch;
+
+    QuerySnapshot attemptsDocQuery = await documentReference
+        .collection('user_info')
+        .document(uid)
+        .collection('attempts')
+        .orderBy('dateTime', descending: true)
+        .where('dateTime', isGreaterThan: startOfWeekInMilliseconds)
+        .getDocuments();
+
+    List<Attempt> attempts = [];
+
+    attemptsDocQuery.documents.forEach((doc) {
+      attempts.add(Attempt.fromJson(doc.data));
+    });
+
+    return attempts;
+  }
+
   /// For retrieving the poses from the database
   Future<List<Pose>> retrievePoses({@required String trackName}) async {
     QuerySnapshot posesQuery = await documentReference
@@ -552,23 +628,68 @@ class Database {
   }) async {
     String currentUid = AuthenticationClient.presentUser.uid;
 
-    DocumentReference documentReferencer = documentReference
+    DateTime currentUploadTime = DateTime.now();
+    int currentUploadTimeInMilliseconds =
+        currentUploadTime.millisecondsSinceEpoch;
+
+    // Update attempts
+    DocumentReference attemptDocReferencer = documentReference
+        .collection('user_info')
+        .document(currentUid)
+        .collection('attempts')
+        .document(currentUploadTimeInMilliseconds.toString());
+
+    Map<String, dynamic> attemptData = <String, dynamic>{
+      "pose": poseName,
+      "accuracy": accuracy,
+      "stars": stars,
+      "duration": timeInMilliseconds,
+      "dateTime": currentUploadTimeInMilliseconds,
+      "weekday": currentUploadTime.weekday, // 1-> Mon to 7 -> Sun
+    };
+    print('DATA:\n$attemptData');
+
+    await attemptDocReferencer.setData(attemptData).whenComplete(() {
+      print("Attempt added to the database!");
+    }).catchError((e) => print(e));
+
+    // Update score
+    DocumentReference scoreDocReferencer = documentReference
         .collection('user_info')
         .document(currentUid)
         .collection('score')
         .document(poseName);
 
-    Map<String, dynamic> scoreData = <String, dynamic>{
-      "stars": stars,
-      "accuracy": accuracy,
-      "time": timeInMilliseconds,
-    };
-    print('DATA:\n$scoreData');
+    // Only update if the stats on database is low
+    DocumentSnapshot scoreSnapshot = await scoreDocReferencer.get();
+    if (scoreSnapshot.data != null) {
+      double accuracyOnDatabase = scoreSnapshot.data['accuracy'];
+      if (accuracy > accuracyOnDatabase) {
+        Map<String, dynamic> scoreData = <String, dynamic>{
+          "stars": stars,
+          "accuracy": accuracy,
+          "time": timeInMilliseconds,
+        };
+        print('DATA:\n$scoreData');
 
-    await documentReferencer.setData(scoreData).whenComplete(() {
-      print("Score added to the database!");
-    }).catchError((e) => print(e));
+        await scoreDocReferencer.setData(scoreData).whenComplete(() {
+          print("Score added to the database!");
+        }).catchError((e) => print(e));
+      }
+    } else {
+      Map<String, dynamic> scoreData = <String, dynamic>{
+        "stars": stars,
+        "accuracy": accuracy,
+        "time": timeInMilliseconds,
+      };
+      print('DATA:\n$scoreData');
 
+      await scoreDocReferencer.setData(scoreData).whenComplete(() {
+        print("Score added to the database!");
+      }).catchError((e) => print(e));
+    }
+
+    // Update total stars and total duration
     QuerySnapshot scoreDocs = await documentReference
         .collection('user_info')
         .document(currentUid)

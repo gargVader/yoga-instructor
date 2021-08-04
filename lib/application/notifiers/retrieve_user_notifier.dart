@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sofia/application/states/retrieve_user_state.dart';
+import 'package:sofia/model/attempts.dart';
 import 'package:sofia/model/user.dart';
 import 'package:sofia/utils/database.dart';
 
@@ -12,9 +13,10 @@ class RetrieveUserNotifier extends StateNotifier<RetrieveUserState> {
     try {
       state = RetrieveUserState.retrieving();
       User user = await _database.retrieveUserInfo();
-      state = RetrieveUserState.retrieved(user);
+      List<Attempt> attempts = await _database.retrieveAttempts();
+      state = RetrieveUserState.retrieved(user, attempts);
       if (user.accuracy != null) {
-        state = RetrieveUserState.hasAccuracyData(user);
+        state = RetrieveUserState.hasAccuracyData(user, attempts);
       }
     } catch (error) {
       state = RetrieveUserState.error(message: 'Error retrieveing user info');

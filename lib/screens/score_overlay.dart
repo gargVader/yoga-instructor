@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:sofia/application/states/store_user_score_state.dart';
 import 'package:sofia/providers.dart';
@@ -166,7 +165,10 @@ class _ScoreOverlayState extends State<ScoreOverlay>
           ]);
 
           SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
-          FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
+          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+          ));
+          // FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
         } else {
           setState(() {
             _start--;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:sofia/application/states/auth_current_user_state.dart';
 import 'package:sofia/providers.dart';
 import 'package:sofia/res/palette.dart';
@@ -10,7 +11,36 @@ import 'onboarding_screens/login_screen.dart';
 import 'onboarding_screens/name_screen.dart';
 import 'onboarding_screens/splash_screen.dart';
 
-class OnboardingScreen extends StatelessWidget {
+/// {@template sofia.onboarding}
+///
+/// This is basically the starting point of the app,
+/// loads up the [MaterialApp] here.
+///
+/// Contains the `dispose()` method for closing any Hive boxes.
+///
+/// The default orientation of the device is set to only:
+/// [portraitUp] & [portraitDown]
+///
+/// State calls:
+/// - `speechInitialization()`
+/// - `retrieveTracks()`
+/// - `retrievePoses()`
+/// - `retrieveUser()`
+///
+/// {@endtemplate}
+///
+class OnboardingScreen extends StatefulWidget {
+  @override
+  _OnboardingScreenState createState() => _OnboardingScreenState();
+}
+
+class _OnboardingScreenState extends State<OnboardingScreen> {
+  @override
+  void dispose() {
+    Hive.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -43,6 +73,8 @@ class OnboardingScreen extends StatelessWidget {
                 .retrievePoses();
 
             context.read(retrieveUserNotifierProvider).retrieveUser();
+
+            context.read(retrieveAttemptsNotifierProvider).retrieveAttempts();
           }
         },
         child: Consumer(

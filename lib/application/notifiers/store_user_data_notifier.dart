@@ -11,7 +11,9 @@ class StoreUserDataNotifier extends StateNotifier<StoreUserDataState> {
 
   Future<void> storeData({
     @required String uid,
+    @required String email,
     @required String imageUrl,
+    @required String accountName,
     @required String userName,
     @required String gender,
     @required String age,
@@ -20,7 +22,9 @@ class StoreUserDataNotifier extends StateNotifier<StoreUserDataState> {
       state = StoreUserDataState.storing();
       User userData = await _database.storeUserData(
         uid: uid,
+        email: email,
         imageUrl: imageUrl,
+        accountName: accountName,
         userName: userName,
         gender: gender,
         age: age,

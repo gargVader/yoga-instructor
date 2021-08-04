@@ -10,10 +10,12 @@ class PosesRowWidget extends StatelessWidget {
     Key key,
     @required this.screeWidth,
     @required this.poses,
+    @required this.trackName,
   }) : super(key: key);
 
   final double screeWidth;
   final List<Pose> poses;
+  final String trackName;
 
   final double POSE_WIDTH_MULT = 0.6;
   final double POSE_HEIGHT_MULT = 0.53;
@@ -55,6 +57,7 @@ class PosesRowWidget extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) => EachPosePage(
                           poses: poses,
+                          trackName: trackName,
                           currentIndex: index,
                         ),
                       ),

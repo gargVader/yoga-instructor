@@ -265,6 +265,7 @@ class _EachTrackPageState extends State<EachTrackPage> {
                           retrieving: () => PosesListLoadingWidget(),
                           retrieved: (poses) => PosesListWidget(
                             poses: poses,
+                            trackName: trackName,
                           ),
                           error: (message) => PosesListErrorWidget(),
                         );

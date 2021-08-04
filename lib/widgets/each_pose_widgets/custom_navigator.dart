@@ -6,10 +6,12 @@ class CustomNavigators {
   static Route routeToNextScreen({
     @required List<Pose> poses,
     @required int nextIndex,
+    @required String trackName,
   }) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => EachPosePage(
         poses: poses,
+        trackName: trackName,
         currentIndex: nextIndex,
       ),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -31,9 +33,11 @@ class CustomNavigators {
   static Route routeToPreviousScreen({
     @required List<Pose> poses,
     @required int prevIndex,
+    @required String trackName,
   }) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => EachPosePage(
+        trackName: trackName,
         poses: poses,
         currentIndex: prevIndex,
       ),

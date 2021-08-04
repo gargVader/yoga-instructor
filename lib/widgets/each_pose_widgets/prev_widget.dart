@@ -9,15 +9,18 @@ class PrevWidget extends StatelessWidget {
     Key key,
     @required this.poses,
     @required this.currentIndex,
+    @required this.trackName,
   }) : super(key: key);
 
   final List<Pose> poses;
   final int currentIndex;
+  final String trackName;
 
   Route _routeToPreviousScreen() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => EachPosePage(
         poses: poses,
+        trackName: trackName,
         currentIndex: currentIndex - 1,
       ),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {

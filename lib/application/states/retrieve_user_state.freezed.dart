@@ -24,16 +24,18 @@ class _$RetrieveUserStateTearOff {
   }
 
 // ignore: unused_element
-  RetrievedUser retrieved(User user) {
+  RetrievedUser retrieved(User user, List<Attempt> attempts) {
     return RetrievedUser(
       user,
+      attempts,
     );
   }
 
 // ignore: unused_element
-  RetrievedUserAccuracy hasAccuracyData(User user) {
+  RetrievedUserAccuracy hasAccuracyData(User user, List<Attempt> attempts) {
     return RetrievedUserAccuracy(
       user,
+      attempts,
     );
   }
 
@@ -55,16 +57,16 @@ mixin _$RetrieveUserState {
   TResult when<TResult extends Object>(
     TResult $default(), {
     @required TResult retrieving(),
-    @required TResult retrieved(User user),
-    @required TResult hasAccuracyData(User user),
+    @required TResult retrieved(User user, List<Attempt> attempts),
+    @required TResult hasAccuracyData(User user, List<Attempt> attempts),
     @required TResult error(String message),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>(
     TResult $default(), {
     TResult retrieving(),
-    TResult retrieved(User user),
-    TResult hasAccuracyData(User user),
+    TResult retrieved(User user, List<Attempt> attempts),
+    TResult hasAccuracyData(User user, List<Attempt> attempts),
     TResult error(String message),
     @required TResult orElse(),
   });
@@ -145,8 +147,8 @@ class _$InitialUserData implements InitialUserData {
   TResult when<TResult extends Object>(
     TResult $default(), {
     @required TResult retrieving(),
-    @required TResult retrieved(User user),
-    @required TResult hasAccuracyData(User user),
+    @required TResult retrieved(User user, List<Attempt> attempts),
+    @required TResult hasAccuracyData(User user, List<Attempt> attempts),
     @required TResult error(String message),
   }) {
     assert($default != null);
@@ -162,8 +164,8 @@ class _$InitialUserData implements InitialUserData {
   TResult maybeWhen<TResult extends Object>(
     TResult $default(), {
     TResult retrieving(),
-    TResult retrieved(User user),
-    TResult hasAccuracyData(User user),
+    TResult retrieved(User user, List<Attempt> attempts),
+    TResult hasAccuracyData(User user, List<Attempt> attempts),
     TResult error(String message),
     @required TResult orElse(),
   }) {
@@ -254,8 +256,8 @@ class _$RetrievingUser implements RetrievingUser {
   TResult when<TResult extends Object>(
     TResult $default(), {
     @required TResult retrieving(),
-    @required TResult retrieved(User user),
-    @required TResult hasAccuracyData(User user),
+    @required TResult retrieved(User user, List<Attempt> attempts),
+    @required TResult hasAccuracyData(User user, List<Attempt> attempts),
     @required TResult error(String message),
   }) {
     assert($default != null);
@@ -271,8 +273,8 @@ class _$RetrievingUser implements RetrievingUser {
   TResult maybeWhen<TResult extends Object>(
     TResult $default(), {
     TResult retrieving(),
-    TResult retrieved(User user),
-    TResult hasAccuracyData(User user),
+    TResult retrieved(User user, List<Attempt> attempts),
+    TResult hasAccuracyData(User user, List<Attempt> attempts),
     TResult error(String message),
     @required TResult orElse(),
   }) {
@@ -327,7 +329,7 @@ abstract class $RetrievedUserCopyWith<$Res> {
   factory $RetrievedUserCopyWith(
           RetrievedUser value, $Res Function(RetrievedUser) then) =
       _$RetrievedUserCopyWithImpl<$Res>;
-  $Res call({User user});
+  $Res call({User user, List<Attempt> attempts});
 }
 
 /// @nodoc
@@ -344,23 +346,29 @@ class _$RetrievedUserCopyWithImpl<$Res>
   @override
   $Res call({
     Object user = freezed,
+    Object attempts = freezed,
   }) {
     return _then(RetrievedUser(
       user == freezed ? _value.user : user as User,
+      attempts == freezed ? _value.attempts : attempts as List<Attempt>,
     ));
   }
 }
 
 /// @nodoc
 class _$RetrievedUser implements RetrievedUser {
-  const _$RetrievedUser(this.user) : assert(user != null);
+  const _$RetrievedUser(this.user, this.attempts)
+      : assert(user != null),
+        assert(attempts != null);
 
   @override
   final User user;
+  @override
+  final List<Attempt> attempts;
 
   @override
   String toString() {
-    return 'RetrieveUserState.retrieved(user: $user)';
+    return 'RetrieveUserState.retrieved(user: $user, attempts: $attempts)';
   }
 
   @override
@@ -368,12 +376,17 @@ class _$RetrievedUser implements RetrievedUser {
     return identical(this, other) ||
         (other is RetrievedUser &&
             (identical(other.user, user) ||
-                const DeepCollectionEquality().equals(other.user, user)));
+                const DeepCollectionEquality().equals(other.user, user)) &&
+            (identical(other.attempts, attempts) ||
+                const DeepCollectionEquality()
+                    .equals(other.attempts, attempts)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(user);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(user) ^
+      const DeepCollectionEquality().hash(attempts);
 
   @JsonKey(ignore: true)
   @override
@@ -385,8 +398,8 @@ class _$RetrievedUser implements RetrievedUser {
   TResult when<TResult extends Object>(
     TResult $default(), {
     @required TResult retrieving(),
-    @required TResult retrieved(User user),
-    @required TResult hasAccuracyData(User user),
+    @required TResult retrieved(User user, List<Attempt> attempts),
+    @required TResult hasAccuracyData(User user, List<Attempt> attempts),
     @required TResult error(String message),
   }) {
     assert($default != null);
@@ -394,7 +407,7 @@ class _$RetrievedUser implements RetrievedUser {
     assert(retrieved != null);
     assert(hasAccuracyData != null);
     assert(error != null);
-    return retrieved(user);
+    return retrieved(user, attempts);
   }
 
   @override
@@ -402,14 +415,14 @@ class _$RetrievedUser implements RetrievedUser {
   TResult maybeWhen<TResult extends Object>(
     TResult $default(), {
     TResult retrieving(),
-    TResult retrieved(User user),
-    TResult hasAccuracyData(User user),
+    TResult retrieved(User user, List<Attempt> attempts),
+    TResult hasAccuracyData(User user, List<Attempt> attempts),
     TResult error(String message),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (retrieved != null) {
-      return retrieved(user);
+      return retrieved(user, attempts);
     }
     return orElse();
   }
@@ -450,9 +463,11 @@ class _$RetrievedUser implements RetrievedUser {
 }
 
 abstract class RetrievedUser implements RetrieveUserState {
-  const factory RetrievedUser(User user) = _$RetrievedUser;
+  const factory RetrievedUser(User user, List<Attempt> attempts) =
+      _$RetrievedUser;
 
   User get user;
+  List<Attempt> get attempts;
   @JsonKey(ignore: true)
   $RetrievedUserCopyWith<RetrievedUser> get copyWith;
 }
@@ -462,7 +477,7 @@ abstract class $RetrievedUserAccuracyCopyWith<$Res> {
   factory $RetrievedUserAccuracyCopyWith(RetrievedUserAccuracy value,
           $Res Function(RetrievedUserAccuracy) then) =
       _$RetrievedUserAccuracyCopyWithImpl<$Res>;
-  $Res call({User user});
+  $Res call({User user, List<Attempt> attempts});
 }
 
 /// @nodoc
@@ -479,23 +494,29 @@ class _$RetrievedUserAccuracyCopyWithImpl<$Res>
   @override
   $Res call({
     Object user = freezed,
+    Object attempts = freezed,
   }) {
     return _then(RetrievedUserAccuracy(
       user == freezed ? _value.user : user as User,
+      attempts == freezed ? _value.attempts : attempts as List<Attempt>,
     ));
   }
 }
 
 /// @nodoc
 class _$RetrievedUserAccuracy implements RetrievedUserAccuracy {
-  const _$RetrievedUserAccuracy(this.user) : assert(user != null);
+  const _$RetrievedUserAccuracy(this.user, this.attempts)
+      : assert(user != null),
+        assert(attempts != null);
 
   @override
   final User user;
+  @override
+  final List<Attempt> attempts;
 
   @override
   String toString() {
-    return 'RetrieveUserState.hasAccuracyData(user: $user)';
+    return 'RetrieveUserState.hasAccuracyData(user: $user, attempts: $attempts)';
   }
 
   @override
@@ -503,12 +524,17 @@ class _$RetrievedUserAccuracy implements RetrievedUserAccuracy {
     return identical(this, other) ||
         (other is RetrievedUserAccuracy &&
             (identical(other.user, user) ||
-                const DeepCollectionEquality().equals(other.user, user)));
+                const DeepCollectionEquality().equals(other.user, user)) &&
+            (identical(other.attempts, attempts) ||
+                const DeepCollectionEquality()
+                    .equals(other.attempts, attempts)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(user);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(user) ^
+      const DeepCollectionEquality().hash(attempts);
 
   @JsonKey(ignore: true)
   @override
@@ -521,8 +547,8 @@ class _$RetrievedUserAccuracy implements RetrievedUserAccuracy {
   TResult when<TResult extends Object>(
     TResult $default(), {
     @required TResult retrieving(),
-    @required TResult retrieved(User user),
-    @required TResult hasAccuracyData(User user),
+    @required TResult retrieved(User user, List<Attempt> attempts),
+    @required TResult hasAccuracyData(User user, List<Attempt> attempts),
     @required TResult error(String message),
   }) {
     assert($default != null);
@@ -530,7 +556,7 @@ class _$RetrievedUserAccuracy implements RetrievedUserAccuracy {
     assert(retrieved != null);
     assert(hasAccuracyData != null);
     assert(error != null);
-    return hasAccuracyData(user);
+    return hasAccuracyData(user, attempts);
   }
 
   @override
@@ -538,14 +564,14 @@ class _$RetrievedUserAccuracy implements RetrievedUserAccuracy {
   TResult maybeWhen<TResult extends Object>(
     TResult $default(), {
     TResult retrieving(),
-    TResult retrieved(User user),
-    TResult hasAccuracyData(User user),
+    TResult retrieved(User user, List<Attempt> attempts),
+    TResult hasAccuracyData(User user, List<Attempt> attempts),
     TResult error(String message),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (hasAccuracyData != null) {
-      return hasAccuracyData(user);
+      return hasAccuracyData(user, attempts);
     }
     return orElse();
   }
@@ -586,9 +612,11 @@ class _$RetrievedUserAccuracy implements RetrievedUserAccuracy {
 }
 
 abstract class RetrievedUserAccuracy implements RetrieveUserState {
-  const factory RetrievedUserAccuracy(User user) = _$RetrievedUserAccuracy;
+  const factory RetrievedUserAccuracy(User user, List<Attempt> attempts) =
+      _$RetrievedUserAccuracy;
 
   User get user;
+  List<Attempt> get attempts;
   @JsonKey(ignore: true)
   $RetrievedUserAccuracyCopyWith<RetrievedUserAccuracy> get copyWith;
 }
@@ -656,8 +684,8 @@ class _$ErrorRetrievingUser implements ErrorRetrievingUser {
   TResult when<TResult extends Object>(
     TResult $default(), {
     @required TResult retrieving(),
-    @required TResult retrieved(User user),
-    @required TResult hasAccuracyData(User user),
+    @required TResult retrieved(User user, List<Attempt> attempts),
+    @required TResult hasAccuracyData(User user, List<Attempt> attempts),
     @required TResult error(String message),
   }) {
     assert($default != null);
@@ -673,8 +701,8 @@ class _$ErrorRetrievingUser implements ErrorRetrievingUser {
   TResult maybeWhen<TResult extends Object>(
     TResult $default(), {
     TResult retrieving(),
-    TResult retrieved(User user),
-    TResult hasAccuracyData(User user),
+    TResult retrieved(User user, List<Attempt> attempts),
+    TResult hasAccuracyData(User user, List<Attempt> attempts),
     TResult error(String message),
     @required TResult orElse(),
   }) {

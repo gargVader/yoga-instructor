@@ -8,11 +8,13 @@ class NextWidget extends StatelessWidget {
   const NextWidget({
     Key key,
     @required this.poses,
+    @required this.trackName,
     @required this.currentIndex,
   }) : super(key: key);
 
   final List<Pose> poses;
   final int currentIndex;
+  final String trackName;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class NextWidget extends StatelessWidget {
         Navigator.of(context).pushReplacement(
           CustomNavigators.routeToNextScreen(
             poses: poses,
+            trackName: trackName,
             nextIndex: currentIndex + 1,
           ),
         );

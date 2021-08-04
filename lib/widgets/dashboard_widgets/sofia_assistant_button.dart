@@ -5,6 +5,7 @@ import 'package:sofia/application/states/voice_listen_state.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/providers.dart';
 import 'package:sofia/res/palette.dart';
+import 'package:sofia/screens/preview_oak_screen.dart';
 import 'package:sofia/screens/preview_screen.dart';
 import 'package:sofia/utils/database.dart';
 import 'package:sofia/widgets/dashboard_widgets/voice_widgets/voice_button_content.dart';
@@ -44,8 +45,18 @@ class SofiaAssistantButton extends StatelessWidget {
                 poses.forEach((pose) {
                   if (pose.title == resolvedPoseName) {
                     Navigator.of(context).push(
+                      // route: Navigate to TFLite screen
+                      // MaterialPageRoute(
+                      //   builder: (context) => PreviewScreen(
+                      //     pose: pose,
+                      //   ),
+                      // ),
+                      // route: Navigate to OAK screen
                       MaterialPageRoute(
-                        builder: (context) => PreviewScreen(pose: pose),
+                        builder: (context) => PreviewOakScreen(
+                          pose: pose,
+                          trackName: 'beginners',
+                        ),
                       ),
                     );
                   }
