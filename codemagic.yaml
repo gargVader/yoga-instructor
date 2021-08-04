@@ -70,7 +70,7 @@ workflows:
       - name: Build for Android
         script: |
           echo $FCI_KEYSTORE | base64 --decode > $FCI_KEYSTORE_PATH
-          cd . && flutter build appbundle --target-platform android-arm,android-arm64,android-x64
+          cd . && flutter build apk --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi
 
     artifacts:
       - build/**/outputs/**/*.apk
