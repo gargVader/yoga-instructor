@@ -33,6 +33,17 @@ workflows:
         - pattern: 'oak-d'
           include: true
           source: true
+      branch_patterns:
+        - pattern: 'master'
+          include: true
+          source: true
+    when:
+      changeset:
+        includes:
+          - '.'
+        excludes:
+          - '**/codemagic.yaml'
+          - '**/*.md'
       cancel_previous_builds: false
     scripts:
       - name: Set up local properties
