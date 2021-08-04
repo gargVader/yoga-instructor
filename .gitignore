@@ -48,17 +48,12 @@ android/.project
 .metadata
 ios/Flutter/.last_build_id
 android/.settings/org.eclipse.buildship.core.prefs
-.vscode/settings.json
+.vscode
 .VSCodeCounter
 
 
 # Secrets
 lib/secrets.dart
-.vscode/launch.json
-
-
-# TFLite models
-assets/tflite/
 
 # Dialogflow credentials
 assets/dialogflow/sofia-8d800-bfd15c661d08.json
@@ -67,3 +62,4 @@ assets/dialogflow/sofia_auth.json
 # FVM
 .fvm/flutter_sdk
 .fvm/fvm_config.json
+android/key.properties
