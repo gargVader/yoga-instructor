@@ -20,12 +20,12 @@ import 'package:sofia/model/pose.dart';
 class RecognizerOakScreen extends StatefulWidget {
   final Pose pose;
   final String trackName;
-  final CameraController cameraController;
+  // final CameraController cameraController;
 
   const RecognizerOakScreen({
     Key key,
     @required this.pose,
-    @required this.cameraController,
+    // @required this.cameraController,
     @required this.trackName,
   }) : super(key: key);
 
@@ -44,7 +44,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
   String _currentPoseName;
   String _trackName;
   VideoPlayerController _videoController;
-  CameraController _cameraController;
+  // CameraController _cameraController;
   List<int> _pausePoints;
   int _currentPauseIndex = 0;
   int _totalFramesPositive = 0;
@@ -180,7 +180,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
 
       print('RECOG: $label (current: $confidence, total avg: $_myPoseAcuracy)');
 
-      if (_currentPoseName == label) {
+      if (_currentPoseName.replaceAll(' ', '_') == label) {
         _totalFramesPositive++;
 
         if (_totalFramesPositive == 1) {
@@ -268,7 +268,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
     //   setOakRecognitions(poseName, poseAccuracy);
     // });
 
-    _cameraController = widget.cameraController;
+    // _cameraController = widget.cameraController;
     _videoController = VideoManager.videoController;
 
     _pausePoints = widget.pose.pausePoints;
@@ -402,7 +402,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
   void dispose() {
     // _recognitionTimer.cancel();
     _videoController.dispose();
-    _cameraController.dispose();
+    // _cameraController.dispose();
     if (_isOAKAvailable) _sshConnectivity.stopRecognitionScript(_processId);
     // _dataStream.cancel();
     super.dispose();
@@ -482,27 +482,27 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
               //     ),
               //   ),
               // ),
-              Hero(
-                tag: 'camera_view',
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: ClipRRect(
-                    borderRadius:
-                        BorderRadius.only(bottomLeft: Radius.circular(20)),
-                    child: RotatedBox(
-                      quarterTurns: 1,
-                      child: SizedBox(
-                        // height: screenSize.height / 2,
-                        width: screenSize.width * 0.16,
-                        child: AspectRatio(
-                          aspectRatio: _cameraController.value.aspectRatio,
-                          child: CameraPreview(_cameraController),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              // Hero(
+              //   tag: 'camera_view',
+              //   child: Align(
+              //     alignment: Alignment.topRight,
+              //     child: ClipRRect(
+              //       borderRadius:
+              //           BorderRadius.only(bottomLeft: Radius.circular(20)),
+              //       child: RotatedBox(
+              //         quarterTurns: 1,
+              //         child: SizedBox(
+              //           // height: screenSize.height / 2,
+              //           width: screenSize.width * 0.16,
+              //           child: AspectRatio(
+              //             aspectRatio: _cameraController.value.aspectRatio,
+              //             child: CameraPreview(_cameraController),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               // Container(
               //   decoration: BoxDecoration(
               //     color: Palette.darkShade,
