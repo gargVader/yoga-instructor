@@ -1,3 +1,5 @@
 Changes:
 
-* Fix back bug when the video & recognition started
+* Add landmark screen
+* Fix memory leaks
+* UI improvements
