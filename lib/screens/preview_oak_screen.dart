@@ -97,7 +97,7 @@ class _PreviewOakScreenState extends State<PreviewOakScreen> {
                 builder: (context) => RecognizerOakScreen(
                   pose: widget.pose,
                   trackName: _trackName,
-                  cameraController: _cameraController,
+                  // cameraController: _cameraController,
                 ),
               ),
             )
