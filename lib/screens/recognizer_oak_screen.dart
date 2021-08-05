@@ -62,6 +62,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
   int _poseIndex;
 
   String _status = 'Initializing OAK-D...';
+  bool _isOAKAvailable = true;
   String _processId;
 
   // Future<void> initializeVideoController() async {
@@ -114,10 +115,12 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
     if (output.contains("ERROR(1)")) {
       setState(() {
         _status = "Couldn't find device";
+        _isOAKAvailable = false;
       });
     } else if (output.contains("ERROR(2)")) {
       setState(() {
         _status = "Failed to connect with device";
+        _isOAKAvailable = false;
       });
     } else if (output.contains("PID:")) {
       // print(output.substring(5));
@@ -399,7 +402,8 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
   void dispose() {
     // _recognitionTimer.cancel();
     _videoController.dispose();
-    _sshConnectivity.stopRecognitionScript(_processId);
+    _cameraController.dispose();
+    if (_isOAKAvailable) _sshConnectivity.stopRecognitionScript(_processId);
     // _dataStream.cancel();
     super.dispose();
   }

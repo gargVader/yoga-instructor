@@ -91,7 +91,8 @@ class _PreviewOakScreenState extends State<PreviewOakScreen> {
               .whenComplete(() {
             Tflite?.close();
 
-            Navigator.of(context).pushReplacement(
+            Navigator.of(context)
+                .pushReplacement(
               MaterialPageRoute(
                 builder: (context) => RecognizerOakScreen(
                   pose: widget.pose,
@@ -99,7 +100,19 @@ class _PreviewOakScreenState extends State<PreviewOakScreen> {
                   cameraController: _cameraController,
                 ),
               ),
-            );
+            )
+                .whenComplete(() {
+              Wakelock.disable();
+              SystemChrome.setPreferredOrientations([
+                DeviceOrientation.portraitUp,
+                DeviceOrientation.portraitDown,
+              ]);
+
+              SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+              SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+              ));
+            });
           });
         }
       }

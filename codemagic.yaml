@@ -44,7 +44,6 @@ workflows:
         excludes:
           - '**/codemagic.yaml'
           - '**/*.md'
-      cancel_previous_builds: false
     scripts:
       - name: Set up local properties
         script: |
