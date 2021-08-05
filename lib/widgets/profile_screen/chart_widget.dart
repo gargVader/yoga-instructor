@@ -59,6 +59,9 @@ class _ChartWidgetState extends State<ChartWidget>
 
       durationList[currentWeekday - 1] += currentDurationInMilliseconds;
     }
+
+    print(durationList);
+
     // Finding the max value from the list to measure the realative bar heights
     maxDuration =
         durationList.reduce((curr, next) => curr > next ? curr : next);
@@ -171,14 +174,16 @@ class _ChartWidgetState extends State<ChartWidget>
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              AnimatedBuilder(
-                animation: _animationController,
-                builder: (context, child) => _buildAnimation(
-                  context: context,
-                  child: child,
-                  chartHeight: chartHeight,
-                ),
-              ),
+              maxDuration != 0
+                  ? AnimatedBuilder(
+                      animation: _animationController,
+                      builder: (context, child) => _buildAnimation(
+                        context: context,
+                        child: child,
+                        chartHeight: chartHeight,
+                      ),
+                    )
+                  : Container(),
               Container(
                 height: 2,
                 width: chartWidth,
