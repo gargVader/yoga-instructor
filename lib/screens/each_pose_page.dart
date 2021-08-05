@@ -5,11 +5,13 @@ import 'package:flutter/services.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/model/track.dart';
 import 'package:sofia/res/palette.dart';
+import 'package:sofia/screens/landmark_oak_screen.dart';
 import 'package:sofia/screens/preview_oak_screen.dart';
 import 'package:sofia/screens/preview_screen.dart';
 import 'package:sofia/widgets/each_pose_widgets/next_widget.dart';
 import 'package:sofia/widgets/each_pose_widgets/prev_next_widget.dart';
 import 'package:sofia/widgets/each_pose_widgets/prev_widget.dart';
+import 'package:wakelock/wakelock.dart';
 
 class EachPosePage extends StatefulWidget {
   final List<Pose> poses;
@@ -144,8 +146,7 @@ class _EachPosePageState extends State<EachPosePage> {
                           statusBarIconBrightness: Brightness.dark,
                         ));
 
-                        Navigator.of(context)
-                            .push(
+                        Navigator.of(context).push(
                           // route: Navigate to TFLite screen
                           // MaterialPageRoute(
                           //   builder: (context) => PreviewScreen(
@@ -154,19 +155,35 @@ class _EachPosePageState extends State<EachPosePage> {
                           // ),
                           // route: Navigate to OAK screen
                           MaterialPageRoute(
-                            builder: (context) => PreviewOakScreen(
+                            // builder: (context) => PreviewOakScreen(
+                            //   pose: currentPose,
+                            //   trackName: _trackName,
+                            // ),
+                            builder: (context) => LandmarkOakScreen(
                               pose: currentPose,
                               trackName: _trackName,
                             ),
                           ),
-                        )
-                            .then((_) {
-                          SystemChrome.setSystemUIOverlayStyle(
-                              SystemUiOverlayStyle(
-                            statusBarColor: Colors.transparent,
-                            statusBarIconBrightness: Brightness.dark,
-                          ));
-                        });
+                        );
+                        //     .then((result) {
+                        //   String returnedString = result as String;
+
+                        //   if (returnedString != 'navigated') {
+                        //     Wakelock.disable();
+                        //     SystemChrome.setPreferredOrientations([
+                        //       DeviceOrientation.portraitUp,
+                        //       DeviceOrientation.portraitDown,
+                        //     ]);
+
+                        //     SystemChrome.setEnabledSystemUIOverlays(
+                        //         SystemUiOverlay.values);
+                        //     SystemChrome.setSystemUIOverlayStyle(
+                        //         SystemUiOverlayStyle(
+                        //       statusBarColor: Colors.transparent,
+                        //       statusBarIconBrightness: Brightness.dark,
+                        //     ));
+                        //   }
+                        // });
                       },
                       child: Container(
                         decoration: BoxDecoration(
