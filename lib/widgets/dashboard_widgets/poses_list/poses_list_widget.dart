@@ -4,9 +4,11 @@ import 'package:sofia/model/pose.dart';
 import 'package:sofia/model/track.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/screens/each_pose_page.dart';
+import 'package:sofia/screens/landmark_oak_screen.dart';
 import 'package:sofia/screens/preview_oak_screen.dart';
 import 'package:sofia/screens/preview_screen.dart';
 import 'package:sofia/widgets/common/custom_widgets.dart';
+import 'package:wakelock/wakelock.dart';
 
 class PosesListWidget extends StatelessWidget {
   final List<Pose> poses;
@@ -96,12 +98,35 @@ class PosesListWidget extends StatelessWidget {
 
                               // route: Navigate to OAK screen
                               MaterialPageRoute(
-                                builder: (context) => PreviewOakScreen(
+                                // builder: (context) => PreviewOakScreen(
+                                //   pose: pose,
+                                //   trackName: trackName,
+                                // ),
+                                builder: (context) => LandmarkOakScreen(
                                   pose: pose,
                                   trackName: trackName,
                                 ),
                               ),
                             );
+                            //     .then((result) {
+                            //   String returnedString = result as String;
+
+                            //   if (returnedString != 'navigated') {
+                            //     Wakelock.disable();
+                            //     SystemChrome.setPreferredOrientations([
+                            //       DeviceOrientation.portraitUp,
+                            //       DeviceOrientation.portraitDown,
+                            //     ]);
+
+                            //     SystemChrome.setEnabledSystemUIOverlays(
+                            //         SystemUiOverlay.values);
+                            //     SystemChrome.setSystemUIOverlayStyle(
+                            //         SystemUiOverlayStyle(
+                            //       statusBarColor: Colors.transparent,
+                            //       statusBarIconBrightness: Brightness.dark,
+                            //     ));
+                            //   }
+                            // });
                           } else {
                             Scaffold.of(context).showSnackBar(
                               CustomWidget.customSnackBar(

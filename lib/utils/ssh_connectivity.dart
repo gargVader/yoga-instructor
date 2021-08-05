@@ -38,6 +38,34 @@ class SSHConnectivity {
     }
   }
 
+  startLandmarkScript({Function onReceive}) async {
+    try {
+      await client.connect();
+      print("shell connected!");
+
+      try {
+        await client.startShell(
+          ptyType: "vanilla",
+          callback: (dynamic res) async {
+            String output = res;
+            print('SSH: $output');
+            if (!output.contains("pi@raspberrypi:")) {
+              onReceive(output);
+            }
+          },
+        );
+        print("shell started!");
+        await client.writeToShell(
+          "cd $rootPath && ./oak_landmark.sh\n",
+        );
+      } catch (e) {
+        onReceive("ERROR(2)");
+      }
+    } catch (e) {
+      onReceive("ERROR(1)");
+    }
+  }
+
   startRecognitionScript({
     @required String poseName,
     @required String trackName,
@@ -47,7 +75,10 @@ class SSHConnectivity {
       await client.connect();
       print("shell connected!");
 
-      print("SSH Send --> POSE: $poseName, TRACK: $trackName");
+      poseName = poseName.replaceAll(' ', '_');
+      trackName = trackName.replaceAll(' ', '_');
+
+      print("SSH Send --> POSE: $poseName, TRACK: $trackName)");
 
       try {
         await client.startShell(
@@ -60,31 +91,6 @@ class SSHConnectivity {
             // });
             if (!output.contains("pi@raspberrypi:")) {
               onReceive(output);
-              // if (output.contains("PID:")) {
-              //   // print(output.substring(5));
-              //   setState(() {
-              //     outputDetails = "initialized";
-              //     processId = output.substring(5).trim();
-              //   });
-              // } else if (output.contains("INFO:")) {
-              //   // print(output.substring(6));
-              //   setState(() {
-              //     outputDetails = output.substring(6).trim();
-              //   });
-              // } else if (output.contains("RECOGNIZED:")) {
-              //   // print(output.substring(12));
-              //   setState(() {
-              //     outputDetails = output.substring(12).trim();
-              //   });
-              // } else if (output.contains("KILL:")) {
-              //   setState(() {
-              //     outputDetails = "not initizlized";
-              //   });
-              //   await client.closeShell();
-              //   print("shell closed!");
-              //   await client.disconnect();
-              //   print("shell disconnected!");
-              // }
             }
           },
         );

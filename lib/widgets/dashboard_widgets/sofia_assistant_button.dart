@@ -1,15 +1,18 @@
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sofia/application/states/voice_listen_state.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/providers.dart';
 import 'package:sofia/res/palette.dart';
+import 'package:sofia/screens/landmark_oak_screen.dart';
 import 'package:sofia/screens/preview_oak_screen.dart';
 import 'package:sofia/screens/preview_screen.dart';
 import 'package:sofia/utils/database.dart';
 import 'package:sofia/widgets/dashboard_widgets/voice_widgets/voice_button_content.dart';
 import 'package:sofia/widgets/dashboard_widgets/voice_widgets/voice_button_response.dart';
+import 'package:wakelock/wakelock.dart';
 
 class SofiaAssistantButton extends StatelessWidget {
   final Database _database = Database();
@@ -53,12 +56,35 @@ class SofiaAssistantButton extends StatelessWidget {
                       // ),
                       // route: Navigate to OAK screen
                       MaterialPageRoute(
-                        builder: (context) => PreviewOakScreen(
+                        // builder: (context) => PreviewOakScreen(
+                        //   pose: pose,
+                        //   trackName: 'beginners',
+                        // ),
+                        builder: (context) => LandmarkOakScreen(
                           pose: pose,
                           trackName: 'beginners',
                         ),
                       ),
                     );
+                    //     .then((result) {
+                    //   String returnedString = result as String;
+
+                    //   if (returnedString != 'navigated') {
+                    //     Wakelock.disable();
+                    //     SystemChrome.setPreferredOrientations([
+                    //       DeviceOrientation.portraitUp,
+                    //       DeviceOrientation.portraitDown,
+                    //     ]);
+
+                    //     SystemChrome.setEnabledSystemUIOverlays(
+                    //         SystemUiOverlay.values);
+                    //     SystemChrome.setSystemUIOverlayStyle(
+                    //         SystemUiOverlayStyle(
+                    //       statusBarColor: Colors.transparent,
+                    //       statusBarIconBrightness: Brightness.dark,
+                    //     ));
+                    //   }
+                    // });
                   }
                 });
               }
