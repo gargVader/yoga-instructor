@@ -94,7 +94,7 @@ class _LandmarkOakScreenState extends State<LandmarkOakScreen> {
         _landmarks = data.landmarks;
       });
 
-      if (_insideFrameCount > 60) {
+      if (_insideFrameCount > 100) {
         if (_isOAKAvailable) _sshConnectivity.stopRecognitionScript(_processId);
         await Navigator.of(context).pushReplacement(
           PageRouteBuilder(
