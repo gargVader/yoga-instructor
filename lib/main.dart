@@ -48,5 +48,15 @@ void main() async {
     //   ),
     //   home: OAKDScreen(),
     // ),
+    // MaterialApp(
+    //   debugShowCheckedModeBanner: false,
+    //   title: 'Sofia: yoga trainer',
+    //   theme: ThemeData(
+    //     fontFamily: 'GoogleSans',
+    //     primaryColor: Colors.white,
+    //     accentColor: Colors.white,
+    //   ),
+    //   home: LandmarkScreen(),
+    // ),
   );
 }
