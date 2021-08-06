@@ -103,20 +103,20 @@ class _LandmarkOakScreenState extends State<LandmarkOakScreen> {
       });
 
       if (_insideFrameCount > 100) {
-        // if (_isOAKAvailable)
-        //   _sshConnectivity.stopRecognitionScript(
-        //     client: _client,
-        //     processId: _processId,
-        //   );
-        // await Navigator.of(context).pushReplacement(
-        //   PageRouteBuilder(
-        //     opaque: false,
-        //     pageBuilder: (context, _, __) => TimerScreen(
-        //       pose: widget.pose,
-        //       track: _trackName,
-        //     ),
-        //   ),
-        // );
+        if (_isOAKAvailable)
+          _sshConnectivity.stopRecognitionScript(
+            client: _client,
+            processId: _processId,
+          );
+        await Navigator.of(context).pushReplacement(
+          PageRouteBuilder(
+            opaque: false,
+            pageBuilder: (context, _, __) => TimerScreen(
+              pose: widget.pose,
+              track: _trackName,
+            ),
+          ),
+        );
         //     .whenComplete(() {
         //   Navigator.of(context)
         //       .pushReplacement(
