@@ -5,17 +5,22 @@ import 'package:camera/camera.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
 import 'package:sofia/model/track.dart';
 import 'package:sofia/res/palette.dart';
+import 'package:sofia/res/string.dart';
 import 'package:sofia/screens/score_overlay.dart';
 import 'package:sofia/utils/dialogflow.dart';
 import 'package:sofia/utils/ssh_connectivity.dart';
 import 'package:sofia/utils/video_manager.dart';
 import 'package:sofia/widgets/recognizer_oak_screen/record_indicator.dart';
 import 'package:sofia/widgets/recognizer_screen/scrore_viewer_widget.dart';
+import 'package:ssh/ssh.dart';
 import 'package:video_player/video_player.dart';
 
 import 'package:sofia/model/pose.dart';
+
+import '../secrets.dart';
 
 class RecognizerOakScreen extends StatefulWidget {
   final Pose pose;
@@ -38,6 +43,9 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
 
   Timer _recognitionTimer;
   int _start = 10;
+
+  SSHClient _client;
+  final configBox = Hive.box('config');
 
   // StreamSubscription _dataStream;
   // final FirebaseDatabase _database = FirebaseDatabase();
@@ -257,6 +265,13 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
 
     SystemChrome.setEnabledSystemUIOverlays([]);
 
+    _client = SSHClient(
+      host: configBox.get(hiveHostName) ?? PiConfig.hostname,
+      username: configBox.get(hiveUsername) ?? PiConfig.username,
+      port: configBox.get(hivePort) ?? PiConfig.port,
+      passwordOrKey: configBox.get(hivePassword) ?? PiConfig.password,
+    );
+
     // streamListener();
 
     // _database.reference().child('123').onValue.listen((event) {
@@ -284,6 +299,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
 
     // Establishing the SSH connection
     _sshConnectivity.startRecognitionScript(
+      client: _client,
       poseName: _currentPoseName,
       trackName: _trackName,
       onReceive: (String output) {
@@ -403,7 +419,11 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
     // _recognitionTimer.cancel();
     _videoController.dispose();
     // _cameraController.dispose();
-    if (_isOAKAvailable) _sshConnectivity.stopRecognitionScript(_processId);
+    if (_isOAKAvailable)
+      _sshConnectivity.stopRecognitionScript(
+        client: _client,
+        processId: _processId,
+      );
     // _dataStream.cancel();
     super.dispose();
   }

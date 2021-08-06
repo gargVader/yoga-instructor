@@ -6,6 +6,7 @@ import 'package:sofia/res/palette.dart';
 import 'package:sofia/res/string.dart';
 import 'package:sofia/utils/database.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sofia/widgets/oak_d_widgets/ssh_config_button.dart';
 import 'package:sofia/widgets/profile_screen/chart_error_widget.dart';
 import 'package:sofia/widgets/profile_screen/chart_initial_widget.dart';
 import 'package:sofia/widgets/profile_screen/chart_retrieving_widget.dart';
@@ -33,7 +34,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final FocusNode _emailFocusNode = FocusNode();
   final _profileFormKey = GlobalKey<FormState>();
   final _database = Database();
+
   bool _isUpdating = false;
+  bool _isDevModeEnabled;
 
   String _nameValidator(value) {
     if (value == null || value.isEmpty) {
@@ -54,6 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _emailController = TextEditingController(text: userEmail);
 
     _configBox = Hive.box('config');
+    _isDevModeEnabled = _configBox.get(hiveDevMode) ?? false;
   }
 
   @override
@@ -537,6 +541,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                           SizedBox(height: 16.0),
+                          Container(
+                            // height: 100,
+                            decoration: BoxDecoration(
+                              color: Colors.black,
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                      16.0,
+                                      8.0,
+                                      0.0,
+                                      8.0,
+                                    ),
+                                    child: Text(
+                                      'Turn on Dev mode to configure the external device SSH settings',
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Switch(
+                                  activeTrackColor: Colors.green,
+                                  inactiveTrackColor: Colors.red,
+                                  value: _isDevModeEnabled,
+                                  onChanged: (newValve) {
+                                    _configBox.put(hiveDevMode, newValve);
+                                    setState(() {
+                                      _isDevModeEnabled = newValve;
+                                    });
+                                  },
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 16),
                           SettingsTile(
                             title: 'Hold duration',
                             description:
@@ -565,6 +609,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ],
                       ),
                     ),
+                    _isDevModeEnabled
+                        ? Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ListTile(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                onTap: null,
+                                title: Text(
+                                  'External device',
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                trailing: SSHConfigButton(),
+                              ),
+                              SettingsDivider(),
+                            ],
+                          )
+                        : Container(),
                     ListTile(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),

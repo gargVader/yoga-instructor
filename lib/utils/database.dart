@@ -506,6 +506,7 @@ class Database {
     configBox.put(hiveHoldDuration, 5);
     configBox.put(hiveCamera, cameraOAK);
     configBox.put(hiveRaspiPath, raspiRootPath);
+    configBox.put(hiveDevMode, false);
     print('-------------------------------------------');
     print('Hive config initialized with default values');
     print('-------------------------------------------');

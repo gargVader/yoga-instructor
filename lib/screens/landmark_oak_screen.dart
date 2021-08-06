@@ -2,14 +2,19 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
 import 'package:sofia/model/landmarks.dart';
 import 'package:sofia/model/pose.dart';
+import 'package:sofia/res/string.dart';
 import 'package:sofia/screens/recognizer_oak_screen.dart';
 import 'package:sofia/screens/timer_overlay.dart';
 import 'package:sofia/screens/timer_screen.dart';
 import 'package:sofia/utils/ssh_connectivity.dart';
 import 'package:sofia/utils/video_manager.dart';
+import 'package:ssh/ssh.dart';
 import 'package:wakelock/wakelock.dart';
+
+import '../secrets.dart';
 
 class LandmarkOakScreen extends StatefulWidget {
   final Pose pose;
@@ -38,8 +43,10 @@ class _LandmarkOakScreenState extends State<LandmarkOakScreen> {
 
   bool _isSSHConnectionEstablished = false;
   List<Landmark> _landmarks;
+  final configBox = Hive.box('config');
 
   String _trackName;
+  SSHClient _client;
 
   processSSHOutput(String output) async {
     if (output.contains("ERROR(1)")) {
@@ -95,7 +102,11 @@ class _LandmarkOakScreenState extends State<LandmarkOakScreen> {
       });
 
       if (_insideFrameCount > 100) {
-        if (_isOAKAvailable) _sshConnectivity.stopRecognitionScript(_processId);
+        if (_isOAKAvailable)
+          _sshConnectivity.stopRecognitionScript(
+            client: _client,
+            processId: _processId,
+          );
         await Navigator.of(context).pushReplacement(
           PageRouteBuilder(
             opaque: false,
@@ -162,6 +173,13 @@ class _LandmarkOakScreenState extends State<LandmarkOakScreen> {
       statusBarColor: Colors.transparent,
     ));
 
+    _client = SSHClient(
+      host: configBox.get(hiveHostName) ?? PiConfig.hostname,
+      username: configBox.get(hiveUsername) ?? PiConfig.username,
+      port: configBox.get(hivePort) ?? PiConfig.port,
+      passwordOrKey: configBox.get(hivePassword) ?? PiConfig.password,
+    );
+
     Wakelock.enable();
     _trackName = widget.trackName;
 
@@ -172,6 +190,7 @@ class _LandmarkOakScreenState extends State<LandmarkOakScreen> {
 
     // Establishing the SSH connection
     _sshConnectivity.startLandmarkScript(
+      client: _client,
       onReceive: (String output) {
         output = output.trim();
         processSSHOutput(output);
