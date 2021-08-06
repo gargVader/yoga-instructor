@@ -1,19 +1,16 @@
 import 'package:flutter/foundation.dart';
+import 'package:hive/hive.dart';
+import 'package:sofia/res/string.dart';
 import 'package:ssh/ssh.dart';
 
 import '../secrets.dart';
 
 class SSHConnectivity {
-  SSHClient client = SSHClient(
-    host: PiConfig.hostname,
-    username: PiConfig.username,
-    port: PiConfig.port,
-    passwordOrKey: PiConfig.password,
-  );
+  final configBox = Hive.box('config');
 
   final String rootPath = '~/yoga-instructor-oak-server';
 
-  checkAvailability({Function onReceive}) async {
+  checkAvailability({Function onReceive, @required SSHClient client}) async {
     try {
       await client.connect();
       print("shell connected!");
@@ -38,7 +35,7 @@ class SSHConnectivity {
     }
   }
 
-  startLandmarkScript({Function onReceive}) async {
+  startLandmarkScript({Function onReceive, @required SSHClient client}) async {
     try {
       await client.connect();
       print("shell connected!");
@@ -48,7 +45,7 @@ class SSHConnectivity {
           ptyType: "vanilla",
           callback: (dynamic res) async {
             String output = res;
-            print('SSH: $output');
+            // print('SSH: $output');
             if (!output.contains("pi@raspberrypi:")) {
               onReceive(output);
             }
@@ -70,6 +67,7 @@ class SSHConnectivity {
     @required String poseName,
     @required String trackName,
     Function onReceive,
+    @required SSHClient client,
   }) async {
     try {
       await client.connect();
@@ -106,7 +104,7 @@ class SSHConnectivity {
     }
   }
 
-  stopRecognitionScript(String processId) async {
+  stopRecognitionScript({String processId, @required SSHClient client}) async {
     await client.writeToShell(
       "cd $rootPath && ./oak_dispose.sh $processId\n",
     );
