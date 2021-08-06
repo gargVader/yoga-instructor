@@ -2,6 +2,6 @@ Changes:
 
 * Introduced Dev Mode
 * SSH config can be set in Dev Mode
-* Improved SSH Connectiong
+* Improved SSH Connection
 * Separate the client to each class
 * Added configuration buttons to profile screen & OAK-D startup screen
