@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:sofia/res/palette.dart';
+import 'package:sofia/res/string.dart';
 import 'package:sofia/screens/onboarding_screens/voice_assistant_screen.dart';
 import 'package:sofia/utils/ssh_connectivity.dart';
+import 'package:sofia/widgets/oak_d_widgets/ssh_config_button.dart';
+import 'package:ssh/ssh.dart';
 import 'package:supercharged/supercharged.dart';
+
+import '../../secrets.dart';
 
 enum AnimProps {
   oak,
@@ -23,6 +29,8 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
   Animation<TimelineValue<AnimProps>> _animation;
   SSHConnectivity _sshConnectivity = SSHConnectivity();
 
+  SSHClient client;
+
   AnimationController _pulseAnimationController;
   Animation<double> _pulseAnimation;
 
@@ -33,6 +41,10 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
   Color _statusColor = Palette.black;
 
   String _outputString = "";
+
+  final configBox = Hive.box('config');
+
+  bool _isDevModeEnabled;
 
   processSSHOutput(String output) async {
     if (output.contains("ERROR(1)")) {
@@ -94,6 +106,24 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+
+    _isDevModeEnabled = configBox.get(hiveDevMode) ?? false;
+    String currentHostname = configBox.get(hiveHostName) ?? PiConfig.hostname;
+    String currentUsername = configBox.get(hiveUsername) ?? PiConfig.username;
+    int currentPort = configBox.get(hivePort) ?? PiConfig.port;
+    String currentPassword = configBox.get(hivePassword) ?? PiConfig.password;
+
+    client = SSHClient(
+      host: currentHostname,
+      username: currentUsername,
+      port: currentPort,
+      passwordOrKey: currentPassword,
+    );
+
+    // _sshHostname = TextEditingController(text: currentHostname);
+    // _sshUsername = TextEditingController(text: currentUsername);
+    // _sshPort = TextEditingController(text: currentPort.toString());
+    // _sshPassword = TextEditingController(text: currentPassword);
 
     _animationController = AnimationController(
       duration: 1400.milliseconds,
@@ -163,6 +193,7 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
         .animatedBy(_animationController);
 
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
@@ -238,6 +269,7 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
                                             _outputString = "";
                                           });
                                           _sshConnectivity.checkAvailability(
+                                            client: client,
                                             onReceive: (String output) {
                                               output = output.trim();
                                               processSSHOutput(output);
@@ -322,6 +354,7 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
                                           .whenComplete(() {
                                         _pulseAnimationController.forward();
                                         _sshConnectivity.checkAvailability(
+                                          client: client,
                                           onReceive: (String output) {
                                             output = output.trim();
                                             processSSHOutput(output);
@@ -403,6 +436,55 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
                                   ),
                                 ],
                               ),
+                              SizedBox(height: 16.0),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                          16.0,
+                                          8.0,
+                                          0.0,
+                                          8.0,
+                                        ),
+                                        child: Text(
+                                          'Turn on Dev mode to configure the external device SSH settings',
+                                          style: TextStyle(
+                                            fontSize: 14.0,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Switch(
+                                      activeTrackColor: Colors.green,
+                                      inactiveTrackColor: Colors.red,
+                                      value: _isDevModeEnabled,
+                                      onChanged: (newValve) {
+                                        configBox.put(hiveDevMode, newValve);
+                                        setState(() {
+                                          _isDevModeEnabled = newValve;
+                                        });
+                                      },
+                                    )
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 8.0),
+                              _isDevModeEnabled
+                                  ? Center(child: SSHConfigButton(
+                                      onReceive: (updatedClient) {
+                                        setState(() {
+                                          client = updatedClient;
+                                        });
+                                      },
+                                    ))
+                                  : Container(),
                             ],
                           ),
                   ],
