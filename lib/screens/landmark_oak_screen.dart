@@ -11,6 +11,7 @@ import 'package:sofia/screens/timer_overlay.dart';
 import 'package:sofia/screens/timer_screen.dart';
 import 'package:sofia/utils/ssh_connectivity.dart';
 import 'package:sofia/utils/video_manager.dart';
+import 'package:sofia/widgets/landmark_oak_widgets/landmark_painter.dart';
 import 'package:ssh/ssh.dart';
 import 'package:wakelock/wakelock.dart';
 
@@ -102,20 +103,20 @@ class _LandmarkOakScreenState extends State<LandmarkOakScreen> {
       });
 
       if (_insideFrameCount > 100) {
-        if (_isOAKAvailable)
-          _sshConnectivity.stopRecognitionScript(
-            client: _client,
-            processId: _processId,
-          );
-        await Navigator.of(context).pushReplacement(
-          PageRouteBuilder(
-            opaque: false,
-            pageBuilder: (context, _, __) => TimerScreen(
-              pose: widget.pose,
-              track: _trackName,
-            ),
-          ),
-        );
+        // if (_isOAKAvailable)
+        //   _sshConnectivity.stopRecognitionScript(
+        //     client: _client,
+        //     processId: _processId,
+        //   );
+        // await Navigator.of(context).pushReplacement(
+        //   PageRouteBuilder(
+        //     opaque: false,
+        //     pageBuilder: (context, _, __) => TimerScreen(
+        //       pose: widget.pose,
+        //       track: _trackName,
+        //     ),
+        //   ),
+        // );
         //     .whenComplete(() {
         //   Navigator.of(context)
         //       .pushReplacement(
@@ -294,37 +295,5 @@ class _LandmarkOakScreenState extends State<LandmarkOakScreen> {
       // ),
       // ---------------------------------------------------------------------
     );
-  }
-}
-
-class LandmarkPainter extends CustomPainter {
-  final List<Landmark> landmarks;
-  final double fraction;
-  final Color color;
-
-  LandmarkPainter({
-    @required this.landmarks,
-    @required this.fraction,
-    @required this.color,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    var circlePaint = Paint()
-      ..color = color
-      ..strokeWidth = 2
-      ..strokeCap = StrokeCap.round;
-
-    if (landmarks != null && landmarks.isNotEmpty) {
-      landmarks.forEach((landmark) {
-        Offset point = Offset(landmark.x * fraction, landmark.y * fraction);
-        canvas.drawCircle(point, 5, circlePaint);
-      });
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
   }
 }
