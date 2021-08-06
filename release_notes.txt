@@ -1,5 +1,7 @@
 Changes:
 
-* Add landmark screen
-* Fix memory leaks
-* UI improvements
+* Introduced Dev Mode
+* SSH config can be set in Dev Mode
+* Improved SSH Connectiong
+* Separate the client to each class
+* Added configuration buttons to profile screen & OAK-D startup screen
