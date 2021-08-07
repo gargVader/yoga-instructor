@@ -108,6 +108,7 @@ class _LandmarkOakScreenState extends State<LandmarkOakScreen> {
             client: _client,
             processId: _processId,
           );
+
         await Navigator.of(context).pushReplacement(
           PageRouteBuilder(
             opaque: false,
@@ -116,6 +117,7 @@ class _LandmarkOakScreenState extends State<LandmarkOakScreen> {
               track: _trackName,
             ),
           ),
+          result: 'navigated',
         );
         //     .whenComplete(() {
         //   Navigator.of(context)
@@ -194,17 +196,11 @@ class _LandmarkOakScreenState extends State<LandmarkOakScreen> {
       client: _client,
       onReceive: (String output) {
         output = output.trim();
-        processSSHOutput(output);
+        if (this.mounted) processSSHOutput(output);
       },
     );
 
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    // if (_isOAKAvailable) _sshConnectivity.stopRecognitionScript(_processId);
-    super.dispose();
   }
 
   @override
@@ -223,77 +219,87 @@ class _LandmarkOakScreenState extends State<LandmarkOakScreen> {
     double containerWidth = camWidth * frac;
     double containerHeight = height;
 
-    return Scaffold(
-      backgroundColor: _statusColor,
-      body: Stack(
-        children: [
-          Center(
-            child: CustomPaint(
-              foregroundPainter: LandmarkPainter(
-                landmarks: _landmarks,
-                fraction: frac,
-                color: _statusColor,
-              ),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  // border: Border.all(
-                  //   color: Colors.red,
-                  //   width: 5,
-                  // ),
+    return WillPopScope(
+      onWillPop: () async {
+        if (_isOAKAvailable)
+          _sshConnectivity.stopRecognitionScript(
+            processId: _processId,
+            client: _client,
+          );
+        return true;
+      },
+      child: Scaffold(
+        backgroundColor: _statusColor,
+        body: Stack(
+          children: [
+            Center(
+              child: CustomPaint(
+                foregroundPainter: LandmarkPainter(
+                  landmarks: _landmarks,
+                  fraction: frac,
+                  color: _statusColor,
                 ),
-                height: containerHeight,
-                width: containerWidth,
-              ),
-            ),
-          ),
-          Container(
-            color: _statusColor.withOpacity(0.6),
-            width: double.maxFinite,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(24.0, 8.0, 24.0, 8.0),
-              child: Text(
-                // 'You are not within the frame of the OAK-D camera. Please stay in frame while it starts.',
-                _status,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    // border: Border.all(
+                    //   color: Colors.red,
+                    //   width: 5,
+                    // ),
+                  ),
+                  height: containerHeight,
+                  width: containerWidth,
                 ),
               ),
             ),
-          ),
-        ],
+            Container(
+              color: _statusColor.withOpacity(0.6),
+              width: double.maxFinite,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(24.0, 8.0, 24.0, 8.0),
+                child: Text(
+                  // 'You are not within the frame of the OAK-D camera. Please stay in frame while it starts.',
+                  _status,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        // ---------------------------------------------------------------------
+        // Test buttons for the script
+        // ---------------------------------------------------------------------
+        // body: Center(
+        //   child: Column(
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: [
+        //       Text(landmarks),
+        //       RaisedButton(
+        //         onPressed: () {
+        //           // Establishing the SSH connection
+        //           _sshConnectivity.startLandmarkScript(
+        //             onReceive: (String output) {
+        //               output = output.trim();
+        //               processSSHOutput(output);
+        //             },
+        //           );
+        //         },
+        //         child: Text('Start script'),
+        //       ),
+        //       RaisedButton(
+        //         onPressed: () =>
+        //             _sshConnectivity.stopRecognitionScript(_processId),
+        //         child: Text('Stop script'),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        // ---------------------------------------------------------------------
       ),
-      // ---------------------------------------------------------------------
-      // Test buttons for the script
-      // ---------------------------------------------------------------------
-      // body: Center(
-      //   child: Column(
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     children: [
-      //       Text(landmarks),
-      //       RaisedButton(
-      //         onPressed: () {
-      //           // Establishing the SSH connection
-      //           _sshConnectivity.startLandmarkScript(
-      //             onReceive: (String output) {
-      //               output = output.trim();
-      //               processSSHOutput(output);
-      //             },
-      //           );
-      //         },
-      //         child: Text('Start script'),
-      //       ),
-      //       RaisedButton(
-      //         onPressed: () =>
-      //             _sshConnectivity.stopRecognitionScript(_processId),
-      //         child: Text('Stop script'),
-      //       ),
-      //     ],
-      //   ),
-      // ),
-      // ---------------------------------------------------------------------
     );
   }
 }

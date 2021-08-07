@@ -88,7 +88,8 @@ class PosesListWidget extends StatelessWidget {
                         onTap: () {
                           print('Play button tapped !');
                           if (videoUrl.isNotEmpty) {
-                            Navigator.of(context).push(
+                            Navigator.of(context)
+                                .push(
                               // route: Navigate to TFLite screen
                               // MaterialPageRoute(
                               //   builder: (context) => PreviewScreen(
@@ -107,26 +108,26 @@ class PosesListWidget extends StatelessWidget {
                                   trackName: trackName,
                                 ),
                               ),
-                            );
-                            //     .then((result) {
-                            //   String returnedString = result as String;
+                            )
+                                .then((result) {
+                              String returnedString = result as String;
 
-                            //   if (returnedString != 'navigated') {
-                            //     Wakelock.disable();
-                            //     SystemChrome.setPreferredOrientations([
-                            //       DeviceOrientation.portraitUp,
-                            //       DeviceOrientation.portraitDown,
-                            //     ]);
+                              if (returnedString != 'navigated') {
+                                Wakelock.disable();
+                                SystemChrome.setPreferredOrientations([
+                                  DeviceOrientation.portraitUp,
+                                  DeviceOrientation.portraitDown,
+                                ]);
 
-                            //     SystemChrome.setEnabledSystemUIOverlays(
-                            //         SystemUiOverlay.values);
-                            //     SystemChrome.setSystemUIOverlayStyle(
-                            //         SystemUiOverlayStyle(
-                            //       statusBarColor: Colors.transparent,
-                            //       statusBarIconBrightness: Brightness.dark,
-                            //     ));
-                            //   }
-                            // });
+                                SystemChrome.setEnabledSystemUIOverlays(
+                                    SystemUiOverlay.values);
+                                SystemChrome.setSystemUIOverlayStyle(
+                                    SystemUiOverlayStyle(
+                                  statusBarColor: Colors.transparent,
+                                  statusBarIconBrightness: Brightness.dark,
+                                ));
+                              }
+                            });
                           } else {
                             Scaffold.of(context).showSnackBar(
                               CustomWidget.customSnackBar(

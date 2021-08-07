@@ -320,7 +320,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
 
     _startTime = DateTime.now();
 
-    _videoController.addListener(() {
+    _videoController.addListener(() async {
       final bool isPlaying = _videoController.value.isPlaying;
 
       if (isPlaying) {
@@ -370,7 +370,12 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
 
       if (_videoController.value.duration == _videoController.value.position &&
           !_videoController.value.isPlaying) {
-        Navigator.of(context).pushReplacement(
+        if (_isOAKAvailable)
+          _sshConnectivity.stopRecognitionScript(
+            processId: _processId,
+            client: _client,
+          );
+        await Navigator.of(context).pushReplacement(
           PageRouteBuilder(
             opaque: false,
             pageBuilder: (context, _, __) => ScoreOverlay(
@@ -379,6 +384,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
               pose: widget.pose,
             ),
           ),
+          result: 'navigated',
         );
         print('Accuracy each: $_myPoseAcuracy, total: $_myPoseAcuracyTotal');
       }
@@ -416,15 +422,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
 
   @override
   void dispose() {
-    // _recognitionTimer.cancel();
     _videoController.dispose();
-    // _cameraController.dispose();
-    if (_isOAKAvailable)
-      _sshConnectivity.stopRecognitionScript(
-        client: _client,
-        processId: _processId,
-      );
-    // _dataStream.cancel();
     super.dispose();
   }
 

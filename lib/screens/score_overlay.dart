@@ -167,6 +167,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
           SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
           SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
+            statusBarIconBrightness: Brightness.dark,
           ));
           // FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
         } else {
@@ -189,43 +190,48 @@ class _ScoreOverlayState extends State<ScoreOverlay>
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            AnimatedBuilder(
-              animation: _animationController,
-              builder: (context, child) => _buildAnimation(
-                context: context,
-                child: child,
-                height: height,
-                width: width,
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: Stack(
+            children: [
+              AnimatedBuilder(
+                animation: _animationController,
+                builder: (context, child) => _buildAnimation(
+                  context: context,
+                  child: child,
+                  height: height,
+                  width: width,
+                ),
               ),
-            ),
-            ProviderListener<StoreUserScoreState>(
-              provider: storeUserScoreNotifierProvider.state,
-              onChange: (context, state) {
-                if (state is StoredScoreData) {
-                  startTimer(context: context);
-                }
-              },
-              child: Consumer(
-                builder: (context, watch, child) {
-                  final state = watch(
-                    storeUserScoreNotifierProvider.state,
-                  );
-
-                  return state.when(
-                    () => Container(),
-                    storing: () => ScoreSyncingWidget(),
-                    stored: () => Container(),
-                    error: (_) => ErrorSyncingWidget(),
-                  );
+              ProviderListener<StoreUserScoreState>(
+                provider: storeUserScoreNotifierProvider.state,
+                onChange: (context, state) {
+                  if (state is StoredScoreData) {
+                    startTimer(context: context);
+                  }
                 },
+                child: Consumer(
+                  builder: (context, watch, child) {
+                    final state = watch(
+                      storeUserScoreNotifierProvider.state,
+                    );
+
+                    return state.when(
+                      () => Container(),
+                      storing: () => ScoreSyncingWidget(),
+                      stored: () => Container(),
+                      error: (_) => ErrorSyncingWidget(),
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

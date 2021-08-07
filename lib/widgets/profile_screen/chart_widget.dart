@@ -50,17 +50,17 @@ class _ChartWidgetState extends State<ChartWidget>
     int currentDurationInMilliseconds = 0;
 
     for (int i = 0; i < retrievedAttempts.length; i++) {
-      print(
-          'RETRIEVED: ${DateFormat.yMd().add_jm().format(DateTime.fromMillisecondsSinceEpoch(retrievedAttempts[i].dateTime))}');
+      // print(
+      //     'RETRIEVED: ${DateFormat.yMd().add_jm().format(DateTime.fromMillisecondsSinceEpoch(retrievedAttempts[i].dateTime))}');
       currentDurationInMilliseconds = retrievedAttempts[i].duration;
       totalDurationThisWeekInEpoch += currentDurationInMilliseconds;
       int currentWeekday = retrievedAttempts[i].weekday;
-      print(currentWeekday);
+      // print(currentWeekday);
 
       durationList[currentWeekday - 1] += currentDurationInMilliseconds;
     }
 
-    print(durationList);
+    // print(durationList);
 
     // Finding the max value from the list to measure the realative bar heights
     maxDuration =

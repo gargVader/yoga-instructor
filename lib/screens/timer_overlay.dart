@@ -67,74 +67,79 @@ class _TimerOverlayState extends State<TimerOverlay> {
         Navigator.of(context).pop();
       });
     }
-    return Scaffold(
-      backgroundColor: Colors.white.withOpacity(0.8),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            left: 16.0,
-            right: 16.0,
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Expanded(
-                child: Stack(
-                  children: [
-                    SizedBox(
-                      height: screenSize.height,
-                      width: screenSize.height,
-                      child: FlareActor(
-                        "assets/rive/loading_1.flr",
-                        // alignment: Alignment.center,
-                        fit: BoxFit.fitWidth,
-                        animation: "run",
-                      ),
-                    ),
-                    Positioned(
-                      top: screenSize.height * 0.35,
-                      left: screenSize.height / 2 - 20,
-                      child: Text(
-                        '$_start',
-                        style: TextStyle(
-                          fontSize: 100.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white.withOpacity(0.8),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(
+              left: 16.0,
+              right: 16.0,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  child: Stack(
                     children: [
-                      Text(
-                        'Starting',
-                        style: TextStyle(
-                          fontSize: 36.0,
-                          fontWeight: FontWeight.bold,
+                      SizedBox(
+                        height: screenSize.height,
+                        width: screenSize.height,
+                        child: FlareActor(
+                          "assets/rive/loading_1.flr",
+                          // alignment: Alignment.center,
+                          fit: BoxFit.fitWidth,
+                          animation: "run",
                         ),
                       ),
-                      SizedBox(height: 16.0),
-                      Text(
-                        _currentPose.title[0].toUpperCase() +
-                            _currentPose.title.substring(1) +
-                            ' pose',
-                        style: TextStyle(
-                          fontSize: 40.0,
-                          fontWeight: FontWeight.bold,
-                          color: Palette.lightDarkShade,
+                      Positioned(
+                        top: screenSize.height * 0.35,
+                        left: screenSize.height / 2 - 20,
+                        child: Text(
+                          '$_start',
+                          style: TextStyle(
+                            fontSize: 100.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
+                      )
                     ],
                   ),
                 ),
-              )
-            ],
+                Expanded(
+                  child: Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Starting',
+                          style: TextStyle(
+                            fontSize: 36.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 16.0),
+                        Text(
+                          _currentPose.title[0].toUpperCase() +
+                              _currentPose.title.substring(1) +
+                              ' pose',
+                          style: TextStyle(
+                            fontSize: 40.0,
+                            fontWeight: FontWeight.bold,
+                            color: Palette.lightDarkShade,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

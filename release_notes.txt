@@ -1,3 +1,4 @@
 Changes:
 
-* Fix Voice Assistant falied initialization
+1. Fix navigation crashes
+2. Fix memory leak issues with SSH
