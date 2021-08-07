@@ -22,12 +22,12 @@ void main() async {
     print('Hive error: e');
   }
 
-  try {
-    // To load the cameras before the app is initialized
-    cameras = await availableCameras();
-  } on CameraException catch (e) {
-    print('Error: ${e.code}\nError Message: ${e.description}');
-  }
+  // try {
+  //   // To load the cameras before the app is initialized
+  //   cameras = await availableCameras();
+  // } on CameraException catch (e) {
+  //   print('Error: ${e.code}\nError Message: ${e.description}');
+  // }
 
   // Starting point of the app
   runApp(
