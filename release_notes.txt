@@ -1,4 +1,3 @@
 Changes:
 
-1. Fix navigation crashes
-2. Fix memory leak issues with SSH
+* Enable Dialogflow in landmarks page
