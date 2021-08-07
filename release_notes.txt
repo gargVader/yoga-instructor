@@ -1,3 +1,5 @@
 Changes:
 
-* Enable Dialogflow in landmarks page
+* Fix changeover in SSH
+* Fix bugs and UI improvement
+* Add landmark preview on the recognition screen

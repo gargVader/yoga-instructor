@@ -6,6 +6,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
+import 'package:sofia/model/landmarks.dart';
 import 'package:sofia/model/track.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/res/string.dart';
@@ -13,6 +14,7 @@ import 'package:sofia/screens/score_overlay.dart';
 import 'package:sofia/utils/dialogflow.dart';
 import 'package:sofia/utils/ssh_connectivity.dart';
 import 'package:sofia/utils/video_manager.dart';
+import 'package:sofia/widgets/landmark_oak_widgets/landmark_painter.dart';
 import 'package:sofia/widgets/recognizer_oak_screen/record_indicator.dart';
 import 'package:sofia/widgets/recognizer_screen/scrore_viewer_widget.dart';
 import 'package:ssh/ssh.dart';
@@ -47,9 +49,12 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
   SSHClient _client;
   final configBox = Hive.box('config');
 
+  List<Landmark> _landmarks;
+
   // StreamSubscription _dataStream;
   // final FirebaseDatabase _database = FirebaseDatabase();
   String _currentPoseName;
+  String _indexedPoseName;
   String _trackName;
   VideoPlayerController _videoController;
   // CameraController _cameraController;
@@ -63,6 +68,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
   bool _isDetectionAllowed = false;
   bool _isPoseCorrectStatus = false;
   bool _isSSHConnectionEstablished = false;
+  bool _shouldSendIndex = false;
 
   Tween<double> _accuracyTween;
 
@@ -144,16 +150,30 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
           _isSSHConnectionEstablished = true;
         }
       });
+    } else if (output.contains("LANDMARKS:")) {
+      // print(output.substring(12));
+
+      var rawJSONData = output.substring(11).replaceAll("\'", "\"");
+      // print('RAW: $rawJSONData');
+
+      Map<String, dynamic> parsedJSON = jsonDecode(rawJSONData);
+
+      final data = Landmarks.fromJson(parsedJSON);
+      // print('PARSED: ${data.landmarks[0].x}');
+
+      setState(() {
+        _landmarks = data.landmarks;
+      });
     } else if (output.contains("RECOGNIZED:")) {
       // print(output.substring(12));
       if (_isDetectionAllowed == true) {
         var rawJSONData =
             output.substring(12).replaceAll("\"", "").replaceAll("\'", "\"");
-        print('RAW: $rawJSONData');
+        // print('RAW: $rawJSONData');
 
         Map<String, dynamic> parsedJSON = jsonDecode(rawJSONData);
 
-        print('PARSED: ${parsedJSON['pose']}');
+        // print('PARSED: ${parsedJSON['pose']}');
 
         String poseName = parsedJSON['pose'];
         double poseAccuracy = parsedJSON['accuracy'];
@@ -188,7 +208,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
 
       print('RECOG: $label (current: $confidence, total avg: $_myPoseAcuracy)');
 
-      if (_currentPoseName.replaceAll(' ', '_') == label) {
+      if (_indexedPoseName.replaceAll(' ', '_') == label) {
         _totalFramesPositive++;
 
         if (_totalFramesPositive == 1) {
@@ -291,20 +311,22 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
     _trackName = widget.trackName;
     _poseIndex = 1;
 
-    bool _shouldSendIndex = false;
-
     if (_pausePoints.length > 1) _shouldSendIndex = true;
 
-    _currentPoseName += _shouldSendIndex ? '$_poseIndex' : '';
+    _indexedPoseName = _currentPoseName;
+
+    if (_shouldSendIndex) {
+      _indexedPoseName += '$_poseIndex';
+    }
 
     // Establishing the SSH connection
     _sshConnectivity.startRecognitionScript(
       client: _client,
-      poseName: _currentPoseName,
+      poseName: _indexedPoseName,
       trackName: _trackName,
       onReceive: (String output) {
         output = output.trim();
-        processSSHOutput(output);
+        if (this.mounted) processSSHOutput(output);
       },
     );
 
@@ -335,6 +357,9 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
           _videoController.pause();
           setState(() {
             _isDetectionAllowed = true;
+            if (_shouldSendIndex) {
+              _poseIndex++;
+            }
           });
           Dialogflow.poseRecognition(onComplete: (isComplete) {
             if (isComplete) {
@@ -344,9 +369,33 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
                 _currentPauseIndex == _pausePoints.length - 1
                     ? _currentPauseIndex = -1
                     : _currentPauseIndex++;
+
+                if (_shouldSendIndex) {
+                  _indexedPoseName = _currentPoseName + '$_poseIndex';
+                }
+                _indexedPoseName = _currentPoseName + '$_poseIndex';
               });
 
               _videoController.play();
+              //HERE
+              // _sshConnectivity.stopRecognitionScript(
+              //   processId: _processId,
+              //   client: _client,
+              // );
+
+              if (_poseIndex <= _pausePoints.length) {
+                // Changing the SSH script
+                _sshConnectivity.changeRecognizationScript(
+                  client: _client,
+                  poseName: _indexedPoseName,
+                  trackName: _trackName,
+                  processId: _processId,
+                  // onReceive: (String output) {
+                  //   output = output.trim();
+                  //   if (this.mounted) processSSHOutput(output);
+                  // },
+                );
+              }
 
               if (_myPoseAcuracyTotal == 0.0) {
                 _myPoseAcuracyTotal = _myPoseAcuracy;
@@ -357,12 +406,6 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
               _totalFramesPositive = 0;
 
               setState(() {});
-
-              // streamListener();
-              // startTimer();
-              // setState(() {
-              //   _isDetectionAllowed = true;
-              // });
             }
           });
         }
@@ -430,11 +473,24 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
 
+    // print('SCREEN: w: $width x h: $height');
+    double height = screenSize.height * 0.35;
+
+    double frac = height / camHeight;
+
+    double containerWidth = camWidth * frac;
+    double containerHeight = height;
+
     return WillPopScope(
       onWillPop: () async {
         SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
         ));
+        if (_isOAKAvailable)
+          _sshConnectivity.stopRecognitionScript(
+            processId: _processId,
+            client: _client,
+          );
         // FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
         return true;
       },
@@ -453,7 +509,6 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
                       ),
                     )
                   : Container(),
-
               Align(
                 alignment: Alignment.bottomRight,
                 child: Opacity(
@@ -464,86 +519,6 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
                   ),
                 ),
               ),
-              // Align(
-              //   alignment: Alignment.bottomRight,
-              //   child: Container(
-              //     // height: screenSize.height * 0.7,
-              //     width: screenSize.width * 0.215,
-              //     color: Colors.white38,
-              //     child: Column(
-              //       mainAxisAlignment: MainAxisAlignment.center,
-              //       children: [
-              //         SizedBox(
-              //           height: screenSize.height * 0.3,
-              //         ),
-              //         Padding(
-              //           padding: const EdgeInsets.all(16.0),
-              //           child: Text(
-              //             'Score: ${_confidence.toStringAsFixed(2)}',
-              //             style: TextStyle(
-              //               fontSize: 40.0,
-              //               color: Colors.black,
-              //             ),
-              //           ),
-              //         ),
-              //         Padding(
-              //           padding: const EdgeInsets.all(16.0),
-              //           child: Icon(
-              //             Icons.circle,
-              //             size: 32,
-              //             color: _isPoseCorrectStatus
-              //                 ? Colors.greenAccent
-              //                 : Colors.redAccent,
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              // Hero(
-              //   tag: 'camera_view',
-              //   child: Align(
-              //     alignment: Alignment.topRight,
-              //     child: ClipRRect(
-              //       borderRadius:
-              //           BorderRadius.only(bottomLeft: Radius.circular(20)),
-              //       child: RotatedBox(
-              //         quarterTurns: 1,
-              //         child: SizedBox(
-              //           // height: screenSize.height / 2,
-              //           width: screenSize.width * 0.16,
-              //           child: AspectRatio(
-              //             aspectRatio: _cameraController.value.aspectRatio,
-              //             child: CameraPreview(_cameraController),
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              // Container(
-              //   decoration: BoxDecoration(
-              //     color: Palette.darkShade,
-              //     borderRadius: BorderRadius.only(
-              //       bottomRight: Radius.circular(10.0),
-              //     ),
-              //   ),
-              //   child: Padding(
-              //     padding: const EdgeInsets.only(
-              //       left: 16.0,
-              //       right: 16.0,
-              //       top: 10.0,
-              //       bottom: 8.0,
-              //     ),
-              //     child: Text(
-              //       'Connecting to OAK-D',
-              //       style: TextStyle(
-              //         color: Colors.white,
-              //         fontSize: 16.0,
-              //       ),
-              //     ),
-              //   ),
-              // ),
               Container(
                 decoration: BoxDecoration(
                   color: _isSSHConnectionEstablished
@@ -584,6 +559,23 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
                         ),
                 ),
               ),
+              Align(
+                alignment: Alignment.topRight,
+                child: ClipRRect(
+                  child: CustomPaint(
+                    foregroundPainter: LandmarkPainter(
+                      landmarks: _landmarks,
+                      fraction: frac,
+                      color: Colors.white,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(color: Colors.black),
+                      height: containerHeight,
+                      width: containerWidth,
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
           // child: Column(

@@ -73,8 +73,8 @@ class SSHConnectivity {
       await client.connect();
       print("shell connected!");
 
-      poseName = poseName.replaceAll(' ', '_');
-      trackName = trackName.replaceAll(' ', '_');
+      poseName = poseName.replaceAll(' ', '_').trim();
+      trackName = trackName.replaceAll(' ', '_').trim();
 
       print("SSH Send --> POSE: $poseName, TRACK: $trackName)");
 
@@ -83,7 +83,7 @@ class SSHConnectivity {
           ptyType: "vanilla",
           callback: (dynamic res) async {
             String output = res;
-            print('SSH: $output');
+            // print('SSH: $output');
             // setState(() {
             //   verboseOutputDetails = output;
             // });
@@ -109,5 +109,21 @@ class SSHConnectivity {
       "cd $rootPath && ./oak_dispose.sh $processId\n",
     );
     client.disconnect();
+  }
+
+  changeRecognizationScript({
+    @required SSHClient client,
+    @required String poseName,
+    @required String trackName,
+    String processId,
+  }) async {
+    poseName = poseName.replaceAll(' ', '_').trim();
+    trackName = trackName.replaceAll(' ', '_').trim();
+
+    print("SSH Send --> POSE: $poseName, TRACK: $trackName)");
+
+    await client.writeToShell(
+      "cd $rootPath && ./oak_changeover.sh $processId $poseName $trackName\n",
+    );
   }
 }
