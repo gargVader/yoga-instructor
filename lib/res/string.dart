@@ -31,3 +31,8 @@ const String cameraMobile = 'mobile';
 
 // Raspberry Pi root path of scripts
 const String raspiRootPath = '~/yoga-instructor-oak-server';
+
+// OAK-D cam view
+// frame size: 1792 x 1008
+const double camHeight = 1008.0;
+const double camWidth = 1792.0;

@@ -9,6 +9,7 @@ import 'package:sofia/res/string.dart';
 import 'package:sofia/screens/recognizer_oak_screen.dart';
 import 'package:sofia/screens/timer_overlay.dart';
 import 'package:sofia/screens/timer_screen.dart';
+import 'package:sofia/utils/dialogflow.dart';
 import 'package:sofia/utils/ssh_connectivity.dart';
 import 'package:sofia/utils/video_manager.dart';
 import 'package:sofia/widgets/landmark_oak_widgets/landmark_painter.dart';
@@ -186,10 +187,9 @@ class _LandmarkOakScreenState extends State<LandmarkOakScreen> {
     Wakelock.enable();
     _trackName = widget.trackName;
 
-    // initializeCameraController();
     VideoManager.initializeVideoController(videoUrl: widget.pose.videoUrl);
 
-    // Dialogflow.bodyVisible();
+    Dialogflow.bodyVisible();
 
     // Establishing the SSH connection
     _sshConnectivity.startLandmarkScript(
@@ -209,10 +209,6 @@ class _LandmarkOakScreenState extends State<LandmarkOakScreen> {
     double width = MediaQuery.of(context).size.width;
 
     // print('SCREEN: w: $width x h: $height');
-
-    // frame size: 1792 x 1008
-    double camHeight = 1008.0;
-    double camWidth = 1792.0;
 
     double frac = height / camHeight;
 
