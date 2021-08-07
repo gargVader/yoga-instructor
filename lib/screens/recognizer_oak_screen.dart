@@ -50,6 +50,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
   final configBox = Hive.box('config');
 
   List<Landmark> _landmarks;
+  Color _landmarkColor = Colors.white;
 
   // StreamSubscription _dataStream;
   // final FirebaseDatabase _database = FirebaseDatabase();
@@ -211,6 +212,10 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
       if (_indexedPoseName.replaceAll(' ', '_') == label) {
         _totalFramesPositive++;
 
+        setState(() {
+          _landmarkColor = Colors.green;
+        });
+
         if (_totalFramesPositive == 1) {
           _isPoseCorrectStatus = true;
           _myPoseAcuracy = confidence;
@@ -228,6 +233,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
 
         setState(() {
           _isPoseCorrectStatus = false;
+          _landmarkColor = Colors.red;
         });
       }
 
@@ -357,6 +363,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
           _videoController.pause();
           setState(() {
             _isDetectionAllowed = true;
+            _landmarkColor = Colors.red;
             if (_shouldSendIndex) {
               _poseIndex++;
             }
@@ -369,6 +376,8 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
                 _currentPauseIndex == _pausePoints.length - 1
                     ? _currentPauseIndex = -1
                     : _currentPauseIndex++;
+
+                _landmarkColor = Colors.white;
 
                 if (_shouldSendIndex) {
                   _indexedPoseName = _currentPoseName + '$_poseIndex';
@@ -383,7 +392,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
               //   client: _client,
               // );
 
-              if (_poseIndex <= _pausePoints.length) {
+              if (_poseIndex <= _pausePoints.length && _shouldSendIndex) {
                 // Changing the SSH script
                 _sshConnectivity.changeRecognizationScript(
                   client: _client,
@@ -562,11 +571,14 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
               Align(
                 alignment: Alignment.topRight,
                 child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(8.0),
+                  ),
                   child: CustomPaint(
                     foregroundPainter: LandmarkPainter(
                       landmarks: _landmarks,
                       fraction: frac,
-                      color: Colors.white,
+                      color: _landmarkColor,
                     ),
                     child: Container(
                       decoration: BoxDecoration(color: Colors.black),
