@@ -81,7 +81,7 @@ workflows:
       - name: Build for Android
         script: |
           echo $FCI_KEYSTORE | base64 --decode > $FCI_KEYSTORE_PATH
-          cd . && flutter build apk --release
+          cd . && flutter build apk --release --no-shrink
 
     artifacts:
       - build/**/outputs/**/*.apk
