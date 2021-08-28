@@ -153,7 +153,7 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
                             .retrieveTracks();
 
                         context
-                            .read(retrievePosesNotifierProvider!('beginners'))
+                            .read(retrievePosesNotifierProvider!('beginners').notifier)
                             .retrievePoses();
 
                         context
