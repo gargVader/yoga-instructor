@@ -24,7 +24,7 @@ class SofiaAssistantButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderListener(
-      provider: voiceListenNotifierProvider.notifier,
+      provider: voiceListenNotifierProvider,
       onChange: (context, dynamic state) async {
         if (state is ResponseComplete) {
           DetectIntentResponse response = state.response!;
