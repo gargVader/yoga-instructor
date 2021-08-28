@@ -156,7 +156,7 @@ class _AgeScreenState extends State<AgeScreen> {
             SizedBox(height: screenSize.height / 50),
 
             ProviderListener(
-              provider: storeUserDataNotifierProvider.notifier,
+              provider: storeUserDataNotifierProvider,
               onChange: (context, dynamic state) async {
                 if (state is StoredUserData) {
                   await Future.delayed(Duration(seconds: 1));
