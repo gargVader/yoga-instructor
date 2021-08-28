@@ -74,7 +74,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 .retrieveTracks();
 
             context
-                .read(retrievePosesNotifierProvider!('beginners'))
+                .read(retrievePosesNotifierProvider!('beginners').notifier)
                 .retrievePoses();
 
             context.read(retrieveUserNotifierProvider.notifier).retrieveUser();

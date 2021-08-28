@@ -23,13 +23,13 @@ class AuthenticationClient {
     bool authSignedIn = prefs.getBool('auth') ?? false;
     bool isDetailsUploaded = prefs.getBool('details_uploaded') ?? false;
 
+    await Firebase.initializeApp();
+
     final User? user = _auth.currentUser;
 
     presentUser = user;
 
     Set userDetailSet = {user, isDetailsUploaded};
-
-    await Firebase.initializeApp();
 
     if (authSignedIn == true && user != null) {
       return userDetailSet;
