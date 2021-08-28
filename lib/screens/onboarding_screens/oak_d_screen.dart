@@ -193,7 +193,7 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
         .animatedBy(_animationController);
 
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
