@@ -49,6 +49,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     ]);
 
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Sofia: yoga trainer',
@@ -62,11 +63,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       ),
       home: ProviderListener(
         provider: authCurrentUserNotifierProvider,
-        onChange: (context, dynamic state) {
+        onChange: (context, state) {
           if (state is SignedInUser) {
-            context.read(voiceListenNotifierProvider.notifier).speechInitialization();
+            context
+                .read(voiceListenNotifierProvider.notifier)
+                .speechInitialization();
 
-            context.read(retrieveTracksNotifierProvider.notifier).retrieveTracks();
+            context
+                .read(retrieveTracksNotifierProvider.notifier)
+                .retrieveTracks();
 
             context
                 .read(retrievePosesNotifierProvider!('beginners'))
@@ -74,7 +79,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
             context.read(retrieveUserNotifierProvider.notifier).retrieveUser();
 
-            context.read(retrieveAttemptsNotifierProvider.notifier).retrieveAttempts();
+            context
+                .read(retrieveAttemptsNotifierProvider.notifier)
+                .retrieveAttempts();
           }
         },
         child: Consumer(
