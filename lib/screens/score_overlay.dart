@@ -208,8 +208,8 @@ class _ScoreOverlayState extends State<ScoreOverlay>
                   width: width,
                 ),
               ),
-              ProviderListener<StateNotifier<StoreUserScoreState>>(
-                provider: storeUserScoreNotifierProvider.notifier,
+              ProviderListener(
+                provider: storeUserScoreNotifierProvider,
                 onChange: (context, state) {
                   if (state is StoredScoreData) {
                     startTimer(context: context);
