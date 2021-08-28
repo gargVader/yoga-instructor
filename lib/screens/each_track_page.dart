@@ -255,7 +255,7 @@ class _EachTrackPageState extends State<EachTrackPage> {
                         () {
                           WidgetsBinding.instance!.addPostFrameCallback((_) {
                             context
-                                .read(retrievePosesNotifierProvider!(trackName))
+                                .read(retrievePosesNotifierProvider!(trackName).notifier)
                                 .retrievePoses();
                           });
                           return PosesListInitialWidget();
