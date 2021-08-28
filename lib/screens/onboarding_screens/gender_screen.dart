@@ -6,7 +6,7 @@ import 'package:sofia/res/palette.dart';
 
 import 'age_screen.dart';
 
-String userName;
+String? userName;
 
 /// Displays the `GenderPage`.
 ///
@@ -22,12 +22,12 @@ String userName;
 /// - [userName]
 ///
 class GenderScreen extends StatefulWidget {
-  final FirebaseUser currentUser;
-  final String userName;
+  final User? currentUser;
+  final String? userName;
 
   GenderScreen({
-    @required this.currentUser,
-    @required this.userName,
+    required this.currentUser,
+    required this.userName,
   });
 
   @override
@@ -35,14 +35,14 @@ class GenderScreen extends StatefulWidget {
 }
 
 class _GenderScreenState extends State<GenderScreen> {
-  TextEditingController textController;
-  FirebaseUser user;
+  late TextEditingController textController;
+  User? user;
 
-  FocusNode textFocusNode;
+  late FocusNode textFocusNode;
   List<bool> isSelected = [false, false, false];
   List<String> genderList = ['Male', 'Female', 'Non Binary'];
 
-  String selectedGender;
+  String? selectedGender;
 
   AppBar appBar = AppBar(
     centerTitle: true,
@@ -65,7 +65,7 @@ class _GenderScreenState extends State<GenderScreen> {
 
     user = widget.currentUser;
 
-    String name = user.displayName;
+    String? name = user!.displayName;
     textController = name != null
         ? TextEditingController(text: name.split(' ')[0])
         : TextEditingController(text: '');

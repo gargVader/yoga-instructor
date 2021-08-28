@@ -6,12 +6,12 @@ import 'package:sofia/res/palette.dart';
 import 'package:sofia/utils/dialogflow.dart';
 
 class VoiceButtonContent extends StatelessWidget {
-  final String recognizedWords;
+  final String? recognizedWords;
   final String responseString;
-  final Color blurColor;
+  final Color? blurColor;
 
   const VoiceButtonContent({
-    Key key,
+    Key? key,
     this.recognizedWords = '',
     this.responseString = '',
     this.blurColor = Palette.darkShade,
@@ -48,7 +48,7 @@ class VoiceButtonContent extends StatelessWidget {
                       bottom: 10.0,
                     ),
                     child: Text(
-                      recognizedWords != '' ? recognizedWords : responseString,
+                      recognizedWords != '' ? recognizedWords! : responseString,
                       style: TextStyle(
                         color: Colors.white,
                         letterSpacing: 0.5,
@@ -64,8 +64,8 @@ class VoiceButtonContent extends StatelessWidget {
           InkWell(
             onTap: () {
               Dialogflow.speech.isListening
-                  ? context.read(voiceListenNotifierProvider).stopListening()
-                  : context.read(voiceListenNotifierProvider).startListening();
+                  ? context.read(voiceListenNotifierProvider.notifier).stopListening()
+                  : context.read(voiceListenNotifierProvider.notifier).startListening();
             },
             child: Container(
               width: 68,
@@ -73,12 +73,12 @@ class VoiceButtonContent extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(68.0),
                 border: new Border.all(
-                  color: blurColor,
+                  color: blurColor!,
                   width: 4.0,
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: blurColor,
+                    color: blurColor!,
                     blurRadius: 12,
                     offset: Offset(0, 0), // Shadow position
                   ),

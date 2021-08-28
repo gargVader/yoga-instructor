@@ -6,22 +6,22 @@ part of 'user.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-User _$UserFromJson(Map<String, dynamic> json) {
-  return User(
-    uid: json['uid'] as String,
-    email: json['email'] as String,
-    imageUrl: json['imageUrl'] as String,
-    accountName: json['accountName'] as String,
-    userName: json['userName'] as String,
-    gender: json['gender'] as String,
-    age: json['age'] as String,
-    stars: json['stars'] as int,
-    accuracy: (json['accuracy'] as num)?.toDouble(),
-    time: json['time'] as int,
+MyUser _$MyUserFromJson(Map<String, dynamic> json) {
+  return MyUser(
+    uid: json['uid'] as String?,
+    email: json['email'] as String?,
+    imageUrl: json['imageUrl'] as String?,
+    accountName: json['accountName'] as String?,
+    userName: json['userName'] as String?,
+    gender: json['gender'] as String?,
+    age: json['age'] as String?,
+    stars: json['stars'] as int?,
+    accuracy: (json['accuracy'] as num?)?.toDouble(),
+    time: json['time'] as int?,
   );
 }
 
-Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+Map<String, dynamic> _$MyUserToJson(MyUser instance) => <String, dynamic>{
       'uid': instance.uid,
       'email': instance.email,
       'imageUrl': instance.imageUrl,

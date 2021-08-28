@@ -14,15 +14,15 @@ import 'package:sofia/widgets/each_pose_widgets/prev_widget.dart';
 import 'package:wakelock/wakelock.dart';
 
 class EachPosePage extends StatefulWidget {
-  final List<Pose> poses;
-  final String trackName;
+  final List<Pose>? poses;
+  final String? trackName;
   final int currentIndex;
 
   const EachPosePage({
-    Key key,
-    @required this.poses,
-    @required this.currentIndex,
-    @required this.trackName,
+    Key? key,
+    required this.poses,
+    required this.currentIndex,
+    required this.trackName,
   }) : super(key: key);
 
   @override
@@ -30,16 +30,16 @@ class EachPosePage extends StatefulWidget {
 }
 
 class _EachPosePageState extends State<EachPosePage> {
-  int currentIndex;
-  Pose currentPose;
-  String poseName;
-  String poseSubtitle;
-  String poseNameDisplay;
-  String poseImageUrl;
-  List<String> benefitList;
+  int? currentIndex;
+  Pose? currentPose;
+  String? poseName;
+  late String poseSubtitle;
+  late String poseNameDisplay;
+  String? poseImageUrl;
+  late List<String> benefitList;
 
-  List<Pose> poses;
-  String _trackName;
+  List<Pose>? poses;
+  String? _trackName;
 
   @override
   void initState() {
@@ -47,16 +47,16 @@ class _EachPosePageState extends State<EachPosePage> {
     poses = widget.poses;
     _trackName = widget.trackName;
     currentIndex = widget.currentIndex;
-    currentPose = widget.poses[currentIndex];
-    poseName = currentPose.title;
-    poseNameDisplay = poseName[0].toUpperCase() + poseName.substring(1);
+    currentPose = widget.poses![currentIndex!];
+    poseName = currentPose!.title;
+    poseNameDisplay = poseName![0].toUpperCase() + poseName!.substring(1);
 
     poseSubtitle =
-        currentPose.sub[0].toUpperCase() + currentPose.sub.substring(1);
+        currentPose!.sub![0].toUpperCase() + currentPose!.sub!.substring(1);
 
-    benefitList = currentPose.benefits.split('. ');
+    benefitList = currentPose!.benefits!.split('. ');
 
-    poseImageUrl = currentPose.image;
+    poseImageUrl = currentPose!.image;
   }
 
   @override
@@ -72,7 +72,7 @@ class _EachPosePageState extends State<EachPosePage> {
               poses: poses,
               currentIndex: currentIndex,
             )
-          : currentIndex == poses.length - 1
+          : currentIndex == poses!.length - 1
               ? PrevWidget(
                   poses: poses,
                   trackName: widget.trackName,
@@ -98,7 +98,7 @@ class _EachPosePageState extends State<EachPosePage> {
                   // ),
                   child: poseImageUrl != null
                       ? CachedNetworkImage(
-                          imageUrl: poseImageUrl,
+                          imageUrl: poseImageUrl!,
                           placeholder: (context, url) => Container(
                             width: double.maxFinite,
                             height: screenWidth * 0.8,
@@ -167,7 +167,7 @@ class _EachPosePageState extends State<EachPosePage> {
                           ),
                         )
                             .then((result) {
-                          String returnedString = result as String;
+                          String? returnedString = result as String?;
 
                           if (returnedString != 'navigated') {
                             Wakelock.disable();

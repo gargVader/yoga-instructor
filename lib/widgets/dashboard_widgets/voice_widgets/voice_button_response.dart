@@ -6,11 +6,11 @@ import 'package:sofia/providers.dart';
 import 'package:sofia/res/palette.dart';
 
 class VoiceButtonResponse extends StatelessWidget {
-  final String responseString;
+  final String? responseString;
   final Color blurColor;
 
   const VoiceButtonResponse({
-    Key key,
+    Key? key,
     this.responseString = '',
     this.blurColor = Palette.darkShade,
   }) : super(key: key);
@@ -46,7 +46,7 @@ class VoiceButtonResponse extends StatelessWidget {
                       bottom: 10.0,
                     ),
                     child: Text(
-                      responseString,
+                      responseString!,
                       style: TextStyle(
                         color: Colors.white,
                         letterSpacing: 0.5,
@@ -61,7 +61,7 @@ class VoiceButtonResponse extends StatelessWidget {
           SizedBox(width: 16.0),
           InkWell(
             onTap: () {
-              context.read(voiceListenNotifierProvider).startListening();
+              context.read(voiceListenNotifierProvider.notifier).startListening();
             },
             child: Container(
               width: 68,

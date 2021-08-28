@@ -18,32 +18,32 @@ class SofiaAssistantButton extends StatelessWidget {
   final Database _database = Database();
 
   SofiaAssistantButton({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ProviderListener<VoiceListenState>(
-      provider: voiceListenNotifierProvider.state,
-      onChange: (context, state) async {
+    return ProviderListener(
+      provider: voiceListenNotifierProvider.notifier,
+      onChange: (context, dynamic state) async {
         if (state is ResponseComplete) {
-          DetectIntentResponse response = state.response;
+          DetectIntentResponse response = state.response!;
 
           List<Pose> poses = await _database.retrievePoses(
             trackName: 'beginners',
           );
 
-          print('PARAMS: ${response.queryResult.parameters}');
+          print('PARAMS: ${response.queryResult!.parameters}');
 
-          String intentName = response.queryResult.intent.displayName;
+          String? intentName = response.queryResult!.intent!.displayName;
 
           if (intentName == 'Pose intent') {
-            if (response.queryResult.parameters.containsKey('pose')) {
+            if (response.queryResult!.parameters!.containsKey('pose')) {
               List<dynamic> responsePoseList =
-                  response.queryResult.parameters['pose'];
+                  response.queryResult!.parameters!['pose'];
               if (responsePoseList.length == 1) {
-                String resolvedPoseName =
-                    response.queryResult.parameters['pose'][0];
+                String? resolvedPoseName =
+                    response.queryResult!.parameters!['pose'][0];
 
                 poses.forEach((pose) {
                   if (pose.title == resolvedPoseName) {
@@ -68,7 +68,7 @@ class SofiaAssistantButton extends StatelessWidget {
                       ),
                     )
                         .then((result) {
-                      String returnedString = result as String;
+                      String? returnedString = result as String?;
 
                       if (returnedString != 'navigated') {
                         Wakelock.disable();
@@ -95,7 +95,7 @@ class SofiaAssistantButton extends StatelessWidget {
       },
       child: Consumer(
         builder: (context, watch, child) {
-          final state = watch(voiceListenNotifierProvider.state);
+          final state = watch(voiceListenNotifierProvider);
 
           return state.when(
             () => Container(),

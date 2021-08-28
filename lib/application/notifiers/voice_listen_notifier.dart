@@ -60,10 +60,10 @@ class VoiceListenNotifier extends StateNotifier<VoiceListenState> {
               questionString: recognizedVoiceInputString,
             ).then((response) {
               state = VoiceListenState.response(
-                responseString: response.text,
+                responseString: response.text!,
               );
 
-              Uint8List audioBytes = response.outputAudioBytes;
+              Uint8List audioBytes = response.outputAudioBytes!;
               Dialogflow.playSpeech(
                 audioBytes: audioBytes,
                 completionCallback: (isCompleted) async {

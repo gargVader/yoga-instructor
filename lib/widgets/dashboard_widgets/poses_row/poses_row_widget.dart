@@ -7,10 +7,10 @@ import 'package:sofia/screens/each_pose_page.dart';
 
 class PosesRowWidget extends StatelessWidget {
   const PosesRowWidget({
-    Key key,
-    @required this.screeWidth,
-    @required this.poses,
-    @required this.trackName,
+    Key? key,
+    required this.screeWidth,
+    required this.poses,
+    required this.trackName,
   }) : super(key: key);
 
   final double screeWidth;
@@ -37,9 +37,9 @@ class PosesRowWidget extends StatelessWidget {
           width: 24.0,
         ),
         itemBuilder: (_, index) {
-          String poseTitle = poses[index].title;
-          String poseSubtitle = poses[index].sub;
-          String poseImageUrl = poses[index].image;
+          String poseTitle = poses[index].title!;
+          String poseSubtitle = poses[index].sub!;
+          String poseImageUrl = poses[index].image!;
 
           return Row(
             children: [

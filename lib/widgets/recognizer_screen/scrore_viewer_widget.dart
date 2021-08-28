@@ -4,13 +4,13 @@ import 'acuracy_painter.dart';
 
 class ScroreViewerWidget extends StatefulWidget {
   const ScroreViewerWidget({
-    Key key,
-    @required this.accuracy,
-    @required this.accuracyTween,
+    Key? key,
+    required this.accuracy,
+    required this.accuracyTween,
   }) : super(key: key);
 
   final double accuracy;
-  final Tween<double> accuracyTween;
+  final Tween<double>? accuracyTween;
 
   @override
   _ScroreViewerWidgetState createState() => _ScroreViewerWidgetState();
@@ -18,13 +18,13 @@ class ScroreViewerWidget extends StatefulWidget {
 
 class _ScroreViewerWidgetState extends State<ScroreViewerWidget>
     with SingleTickerProviderStateMixin {
-  Animation<double> _animation;
-  AnimationController _animationController;
+  late Animation<double> _animation;
+  late AnimationController _animationController;
 
   void setNewPosition() {
-    widget.accuracyTween.begin = widget.accuracyTween.end;
+    widget.accuracyTween!.begin = widget.accuracyTween!.end;
     _animationController.reset();
-    widget.accuracyTween.end = widget.accuracy;
+    widget.accuracyTween!.end = widget.accuracy;
     _animationController.forward();
   }
 
@@ -36,7 +36,7 @@ class _ScroreViewerWidgetState extends State<ScroreViewerWidget>
       duration: Duration(milliseconds: 20),
     );
 
-    _animation = widget.accuracyTween.animate(_animationController)
+    _animation = widget.accuracyTween!.animate(_animationController)
       ..addListener(() {
         setState(() {});
       });

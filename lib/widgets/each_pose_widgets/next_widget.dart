@@ -6,15 +6,15 @@ import 'package:sofia/widgets/each_pose_widgets/custom_navigator.dart';
 
 class NextWidget extends StatelessWidget {
   const NextWidget({
-    Key key,
-    @required this.poses,
-    @required this.trackName,
-    @required this.currentIndex,
+    Key? key,
+    required this.poses,
+    required this.trackName,
+    required this.currentIndex,
   }) : super(key: key);
 
-  final List<Pose> poses;
-  final int currentIndex;
-  final String trackName;
+  final List<Pose>? poses;
+  final int? currentIndex;
+  final String? trackName;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class NextWidget extends StatelessWidget {
           CustomNavigators.routeToNextScreen(
             poses: poses,
             trackName: trackName,
-            nextIndex: currentIndex + 1,
+            nextIndex: currentIndex! + 1,
           ),
         );
       },

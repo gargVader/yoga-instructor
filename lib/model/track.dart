@@ -4,10 +4,10 @@ part 'track.g.dart';
 
 @JsonSerializable()
 class Track {
-  int id;
-  String name;
-  String desc;
-  int count;
+  int? id;
+  String? name;
+  String? desc;
+  int? count;
 
   Track({
     this.id,

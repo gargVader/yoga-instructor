@@ -7,13 +7,13 @@ import 'package:sofia/utils/helper.dart';
 import 'package:sofia/widgets/profile_screen/chart_widget/asanas_info_widget.dart';
 
 class UserPerformanceWidget extends StatelessWidget {
-  final User user;
+  final MyUser user;
   final List<Attempt> attempts;
 
   const UserPerformanceWidget({
-    Key key,
-    @required this.user,
-    @required this.attempts,
+    Key? key,
+    required this.user,
+    required this.attempts,
   }) : super(key: key);
 
   @override
@@ -87,7 +87,7 @@ class UserPerformanceWidget extends StatelessWidget {
                       ),
                       SizedBox(width: 8.0),
                       Text(
-                        '${(user.accuracy * 100).toStringAsFixed(1)} %',
+                        '${(user.accuracy! * 100).toStringAsFixed(1)} %',
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.w400,
@@ -122,7 +122,7 @@ class UserPerformanceWidget extends StatelessWidget {
                       SizedBox(width: 8.0),
                       Text(
                         Helper.generateTimeString(
-                          duration: Duration(milliseconds: user.time),
+                          duration: Duration(milliseconds: user.time!),
                         ),
                         style: TextStyle(
                           fontSize: 20.0,

@@ -9,13 +9,13 @@ import 'package:sofia/screens/recognizer_oak_screen.dart';
 import 'package:wakelock/wakelock.dart';
 
 class TimerScreen extends StatefulWidget {
-  final Pose pose;
-  final String track;
+  final Pose? pose;
+  final String? track;
 
   const TimerScreen({
-    Key key,
-    @required this.pose,
-    @required this.track,
+    Key? key,
+    required this.pose,
+    required this.track,
   }) : super(key: key);
 
   @override
@@ -23,9 +23,9 @@ class TimerScreen extends StatefulWidget {
 }
 
 class _TimerScreenState extends State<TimerScreen> {
-  Timer _timer;
+  late Timer _timer;
   int _start = 5;
-  Pose _currentPose;
+  Pose? _currentPose;
 
   @override
   void initState() {
@@ -63,7 +63,7 @@ class _TimerScreenState extends State<TimerScreen> {
     Size screenSize = MediaQuery.of(context).size;
 
     if (_start == 1) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
         Navigator.of(context)
             .pushReplacement(
           MaterialPageRoute(
@@ -74,7 +74,7 @@ class _TimerScreenState extends State<TimerScreen> {
           ),
         )
             .then((result) {
-          String returnedString = result as String;
+          String? returnedString = result as String?;
 
           if (returnedString != 'navigated') {
             Wakelock.disable();
@@ -150,8 +150,8 @@ class _TimerScreenState extends State<TimerScreen> {
                         ),
                         SizedBox(height: 16.0),
                         Text(
-                          _currentPose.title[0].toUpperCase() +
-                              _currentPose.title.substring(1) +
+                          _currentPose!.title![0].toUpperCase() +
+                              _currentPose!.title!.substring(1) +
                               ' pose',
                           style: TextStyle(
                             fontSize: 40.0,

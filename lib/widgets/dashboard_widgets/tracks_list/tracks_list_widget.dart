@@ -8,8 +8,8 @@ class TracksListWidget extends StatelessWidget {
   final List<Track> tracks;
 
   const TracksListWidget({
-    Key key,
-    @required this.tracks,
+    Key? key,
+    required this.tracks,
   }) : super(key: key);
 
   @override
@@ -21,8 +21,8 @@ class TracksListWidget extends StatelessWidget {
       separatorBuilder: (context, index) => SizedBox(height: 32.0),
       itemBuilder: (_, index) {
         Track track = tracks[index];
-        String trackName = track.name;
-        String trackDescription = track.desc;
+        String trackName = track.name!;
+        String trackDescription = track.desc!;
 
         return InkWell(
           onTap: () {

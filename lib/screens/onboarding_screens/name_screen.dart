@@ -16,11 +16,11 @@ import 'gender_screen.dart';
 /// - `GenderPage` (forward)
 ///
 class NameScreen extends StatefulWidget {
-  final FirebaseUser user;
+  final User user;
 
   const NameScreen({
-    Key key,
-    @required this.user,
+    Key? key,
+    required this.user,
   }) : super(key: key);
 
   @override
@@ -32,11 +32,11 @@ class _NameScreenState extends State<NameScreen> {
   //     ? TextEditingController(text: name.split(' ')[0])
   //     : TextEditingController();
 
-  TextEditingController textController;
-  FocusNode textFocusNode;
-  FirebaseUser user;
+  TextEditingController? textController;
+  FocusNode? textFocusNode;
+  User? user;
 
-  String _userName;
+  String? _userName;
   bool _isEditing = false;
 
   @override
@@ -45,13 +45,13 @@ class _NameScreenState extends State<NameScreen> {
 
     user = widget.user;
 
-    textController = user.displayName != null
-        ? TextEditingController(text: user.displayName.split(' ')[0])
+    textController = user!.displayName != null
+        ? TextEditingController(text: user!.displayName!.split(' ')[0])
         : TextEditingController();
     textFocusNode = FocusNode();
   }
 
-  String _validateString(String value) {
+  String? _validateString(String value) {
     if (value.isEmpty) {
       return 'Name Can\'t Be Empty';
     }
@@ -69,7 +69,7 @@ class _NameScreenState extends State<NameScreen> {
 
     return GestureDetector(
       onTap: () {
-        textFocusNode.unfocus();
+        textFocusNode!.unfocus();
       },
       child: Scaffold(
         backgroundColor: Palette.nameBackground,
@@ -142,11 +142,11 @@ class _NameScreenState extends State<NameScreen> {
                             controller: textController,
                             cursorColor: Colors.deepOrange,
                             onSubmitted: (value) {
-                              textFocusNode.unfocus();
+                              textFocusNode!.unfocus();
                               setState(() {
                                 _isEditing = true;
                               });
-                              _userName = textController.text;
+                              _userName = textController!.text;
                               print('DONE EDITING');
                             },
                             decoration: InputDecoration(
@@ -156,7 +156,7 @@ class _NameScreenState extends State<NameScreen> {
                               ),
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.deepOrangeAccent[700]),
+                                    color: Colors.deepOrangeAccent[700]!),
                               ),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.blueGrey),
@@ -169,7 +169,7 @@ class _NameScreenState extends State<NameScreen> {
                               hintStyle:
                                   TextStyle(color: Colors.grey, fontSize: 16),
                               errorText: _isEditing
-                                  ? _validateString(textController.text)
+                                  ? _validateString(textController!.text)
                                   : null,
                               errorStyle: TextStyle(
                                   fontSize: 15, color: Colors.redAccent),
@@ -183,8 +183,8 @@ class _NameScreenState extends State<NameScreen> {
                             color: Colors.deepOrangeAccent[700],
                           ),
                           onPressed: () {
-                            textFocusNode.unfocus();
-                            _userName = textController.text;
+                            textFocusNode!.unfocus();
+                            _userName = textController!.text;
                             // Naviagtes to the GenderPage, and passes
                             // on the name.
                             SystemChrome.setSystemUIOverlayStyle(

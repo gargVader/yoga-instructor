@@ -8,10 +8,9 @@ part of 'landmarks.dart';
 
 Landmarks _$LandmarksFromJson(Map<String, dynamic> json) {
   return Landmarks(
-    landmarks: (json['landmarks'] as List)
-        ?.map((e) =>
-            e == null ? null : Landmark.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    landmarks: (json['landmarks'] as List<dynamic>?)
+        ?.map((e) => Landmark.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 
@@ -21,9 +20,9 @@ Map<String, dynamic> _$LandmarksToJson(Landmarks instance) => <String, dynamic>{
 
 Landmark _$LandmarkFromJson(Map<String, dynamic> json) {
   return Landmark(
-    name: json['name'] as String,
-    x: (json['x'] as num)?.toDouble(),
-    y: (json['y'] as num)?.toDouble(),
+    name: json['name'] as String?,
+    x: (json['x'] as num?)?.toDouble(),
+    y: (json['y'] as num?)?.toDouble(),
   );
 }
 

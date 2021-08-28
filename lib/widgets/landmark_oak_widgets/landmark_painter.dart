@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:sofia/model/landmarks.dart';
 
 class LandmarkPainter extends CustomPainter {
-  final List<Landmark> landmarks;
+  final List<Landmark>? landmarks;
   final double fraction;
   final Color color;
 
   LandmarkPainter({
-    @required this.landmarks,
-    @required this.fraction,
-    @required this.color,
+    required this.landmarks,
+    required this.fraction,
+    required this.color,
   });
 
   @override
@@ -91,25 +91,25 @@ class LandmarkPainter extends CustomPainter {
       ..strokeWidth = 2
       ..strokeCap = StrokeCap.round;
 
-    if (landmarks != null && landmarks.isNotEmpty) {
-      landmarks.asMap().forEach((index, landmark) {
+    if (landmarks != null && landmarks!.isNotEmpty) {
+      landmarks!.asMap().forEach((index, landmark) {
         if (shouldDrawPointList[index]) {
-          Offset point = Offset(landmark.x * fraction, landmark.y * fraction);
+          Offset point = Offset(landmark.x! * fraction, landmark.y! * fraction);
           canvas.drawCircle(point, 4, paint);
         }
       });
 
       shouldDrawLineList.forEach((points) {
-        Landmark firstLandmark = landmarks[points.first];
-        Landmark secondLandmark = landmarks[points.last];
+        Landmark firstLandmark = landmarks![points.first];
+        Landmark secondLandmark = landmarks![points.last];
 
         Offset firstPoint = Offset(
-          firstLandmark.x * fraction,
-          firstLandmark.y * fraction,
+          firstLandmark.x! * fraction,
+          firstLandmark.y! * fraction,
         );
         Offset secondPoint = Offset(
-          secondLandmark.x * fraction,
-          secondLandmark.y * fraction,
+          secondLandmark.x! * fraction,
+          secondLandmark.y! * fraction,
         );
 
         canvas.drawLine(firstPoint, secondPoint, paint);

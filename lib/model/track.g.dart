@@ -8,10 +8,10 @@ part of 'track.dart';
 
 Track _$TrackFromJson(Map<String, dynamic> json) {
   return Track(
-    id: json['id'] as int,
-    name: json['name'] as String,
-    desc: json['desc'] as String,
-    count: json['count'] as int,
+    id: json['id'] as int?,
+    name: json['name'] as String?,
+    desc: json['desc'] as String?,
+    count: json['count'] as int?,
   );
 }
 

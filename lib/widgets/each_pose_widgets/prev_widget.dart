@@ -6,22 +6,22 @@ import 'package:sofia/screens/each_pose_page.dart';
 
 class PrevWidget extends StatelessWidget {
   const PrevWidget({
-    Key key,
-    @required this.poses,
-    @required this.currentIndex,
-    @required this.trackName,
+    Key? key,
+    required this.poses,
+    required this.currentIndex,
+    required this.trackName,
   }) : super(key: key);
 
-  final List<Pose> poses;
-  final int currentIndex;
-  final String trackName;
+  final List<Pose>? poses;
+  final int? currentIndex;
+  final String? trackName;
 
   Route _routeToPreviousScreen() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => EachPosePage(
         poses: poses,
         trackName: trackName,
-        currentIndex: currentIndex - 1,
+        currentIndex: currentIndex! - 1,
       ),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var begin = Offset(-1.0, 0.0);

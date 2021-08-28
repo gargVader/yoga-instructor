@@ -21,24 +21,24 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  String imageUrl;
-  String displayName;
-  String userEmail;
-  User userData;
+  String? imageUrl;
+  String? displayName;
+  String? userEmail;
+  MyUser? userData;
   // int index = 10;
-  Box _configBox;
+  late Box _configBox;
 
-  TextEditingController _nameController;
-  TextEditingController _emailController;
+  TextEditingController? _nameController;
+  TextEditingController? _emailController;
   final FocusNode _nameFocusNode = FocusNode();
   final FocusNode _emailFocusNode = FocusNode();
   final _profileFormKey = GlobalKey<FormState>();
   final _database = Database();
 
   bool _isUpdating = false;
-  bool _isDevModeEnabled;
+  late bool _isDevModeEnabled;
 
-  String _nameValidator(value) {
+  String? _nameValidator(value) {
     if (value == null || value.isEmpty) {
       return 'Name can\'t be empty';
     }
@@ -49,9 +49,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     super.initState();
     userData = Database.user;
-    imageUrl = userData.imageUrl;
-    displayName = userData.accountName;
-    userEmail = userData.email;
+    imageUrl = userData!.imageUrl;
+    displayName = userData!.accountName;
+    userEmail = userData!.email;
 
     _nameController = TextEditingController(text: displayName);
     _emailController = TextEditingController(text: userEmail);
@@ -177,12 +177,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 : FlatButton(
                                                     onPressed: () async {
                                                       if (_profileFormKey
-                                                          .currentState
+                                                          .currentState!
                                                           .validate()) {
-                                                        if (_nameController
+                                                        if (_nameController!
                                                                     .text !=
                                                                 displayName ||
-                                                            _emailController
+                                                            _emailController!
                                                                     .text !=
                                                                 userEmail) {
                                                           _nameFocusNode
@@ -197,10 +197,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                           await _database
                                                               .updateUserData(
                                                             name:
-                                                                _nameController
+                                                                _nameController!
                                                                     .text,
                                                             email:
-                                                                _emailController
+                                                                _emailController!
                                                                     .text,
                                                           );
 
@@ -210,7 +210,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                                                           context
                                                               .read(
-                                                                  retrieveUserNotifierProvider)
+                                                                  retrieveUserNotifierProvider
+                                                                      .notifier)
                                                               .retrieveUser();
                                                         }
 
@@ -356,7 +357,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       borderRadius: BorderRadius.circular(60),
                                       child: SizedBox(
                                         width: 38.0,
-                                        child: Image.network(imageUrl),
+                                        child: Image.network(imageUrl!),
                                       ),
                                     ),
                                   ),
@@ -381,7 +382,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  displayName,
+                                  displayName!,
                                   maxLines: 1,
                                   softWrap: false,
                                   overflow: TextOverflow.fade,
@@ -393,7 +394,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                                 SizedBox(height: 4.0),
                                 Text(
-                                  userEmail,
+                                  userEmail!,
                                   style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.w500,
@@ -407,7 +408,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ],
                       ),
                     ),
-                    userData.accuracy != null
+                    userData!.accuracy != null
                         ? Padding(
                             padding: const EdgeInsets.only(
                               top: 8.0,
@@ -427,7 +428,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                         SizedBox(width: 8.0),
                                         Text(
-                                          '${userData.stars} stars',
+                                          '${userData!.stars} stars',
                                           style: TextStyle(
                                             fontSize: 18.0,
                                             fontWeight: FontWeight.w400,
@@ -448,7 +449,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   width: screenWidth / 2.2,
                                   child: Center(
                                     child: Text(
-                                      '${(userData.accuracy * 100).toStringAsFixed(1)} % accuracy',
+                                      '${(userData!.accuracy! * 100).toStringAsFixed(1)} % accuracy',
                                       style: TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.w400,
@@ -474,22 +475,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     SizedBox(height: 16.0),
-                    Consumer(
-                      builder: (context, watch, child) {
-                        final state = watch(
-                          retrieveAttemptsNotifierProvider.state,
-                        );
+                    Consumer(builder: (context, watch, child) {
+                      final state = watch(
+                        retrieveAttemptsNotifierProvider,
+                      );
 
-                        return state.when(
-                          () => ChartInitialWidget(),
-                          retrieving: () => ChartRetrievingWidget(),
-                          retrieved: (attempts) => ChartWidget(
-                            attempts: attempts,
-                          ),
-                          error: (message) => ChartErrorWidget(),
-                        );
-                      },
-                    ),
+                      return state.when(
+                        () => ChartInitialWidget(),
+                        retrieving: () => ChartRetrievingWidget(),
+                        retrieved: (attempts) => ChartWidget(
+                          attempts: attempts,
+                        ),
+                        error: (message) => ChartErrorWidget(),
+                      );
+                    }),
                     SizedBox(height: 32.0),
                     ValueListenableBuilder(
                       valueListenable: _configBox.listenable(),

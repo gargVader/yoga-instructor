@@ -8,7 +8,8 @@ import 'package:sofia/res/string.dart';
 import 'package:sofia/screens/onboarding_screens/voice_assistant_screen.dart';
 import 'package:sofia/utils/ssh_connectivity.dart';
 import 'package:sofia/widgets/oak_d_widgets/ssh_config_button.dart';
-import 'package:ssh/ssh.dart';
+import 'package:ssh2/ssh2.dart';
+// import 'package:ssh/ssh.dart';
 import 'package:supercharged/supercharged.dart';
 
 import '../../secrets.dart';
@@ -25,18 +26,18 @@ class OAKDScreen extends StatefulWidget {
 }
 
 class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<TimelineValue<AnimProps>> _animation;
+  late AnimationController _animationController;
+  late Animation<TimelineValue<AnimProps>> _animation;
   SSHConnectivity _sshConnectivity = SSHConnectivity();
 
-  SSHClient client;
+  late SSHClient client;
 
-  AnimationController _pulseAnimationController;
-  Animation<double> _pulseAnimation;
+  late AnimationController _pulseAnimationController;
+  late Animation<double> _pulseAnimation;
 
   bool _isQuestionVisible = true;
 
-  bool _isYes;
+  bool? _isYes;
   String _status = "Initializing...";
   Color _statusColor = Palette.black;
 
@@ -44,7 +45,7 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
 
   final configBox = Hive.box('config');
 
-  bool _isDevModeEnabled;
+  late bool _isDevModeEnabled;
 
   processSSHOutput(String output) async {
     if (output.contains("ERROR(1)")) {
@@ -362,7 +363,7 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
                                         );
                                       });
                                     },
-                                    child: _isYes != null && _isYes
+                                    child: _isYes != null && _isYes!
                                         ? Icon(
                                             Icons.check_circle,
                                             color: Palette.accentGreen,
@@ -415,7 +416,7 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
                                         (route) => false,
                                       );
                                     },
-                                    child: _isYes != null && !_isYes
+                                    child: _isYes != null && !_isYes!
                                         ? Icon(
                                             Icons.check_circle,
                                             color: Palette.accentGreen,
@@ -528,9 +529,9 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
   }
 
   Widget _buildAnimation({
-    @required BuildContext context,
-    @required Widget child,
-    @required double screenHeight,
+    required BuildContext context,
+    required Widget? child,
+    required double screenHeight,
   }) {
     return Column(
       children: [

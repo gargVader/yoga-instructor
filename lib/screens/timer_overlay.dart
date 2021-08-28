@@ -9,8 +9,8 @@ class TimerOverlay extends StatefulWidget {
   final Pose pose;
 
   const TimerOverlay({
-    Key key,
-    @required this.pose,
+    Key? key,
+    required this.pose,
   }) : super(key: key);
 
   @override
@@ -18,9 +18,9 @@ class TimerOverlay extends StatefulWidget {
 }
 
 class _TimerOverlayState extends State<TimerOverlay> {
-  Timer _timer;
+  late Timer _timer;
   int _start = 5;
-  Pose _currentPose;
+  late Pose _currentPose;
 
   @override
   void initState() {
@@ -58,7 +58,7 @@ class _TimerOverlayState extends State<TimerOverlay> {
     Size screenSize = MediaQuery.of(context).size;
 
     if (_start == 1) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
         // Navigator.of(context).pushReplacement(
         //   MaterialPageRoute(
         //     builder: (context) => PreviewScreen(),
@@ -125,8 +125,8 @@ class _TimerOverlayState extends State<TimerOverlay> {
                         ),
                         SizedBox(height: 16.0),
                         Text(
-                          _currentPose.title[0].toUpperCase() +
-                              _currentPose.title.substring(1) +
+                          _currentPose.title![0].toUpperCase() +
+                              _currentPose.title!.substring(1) +
                               ' pose',
                           style: TextStyle(
                             fontSize: 40.0,

@@ -61,10 +61,10 @@ class _LoginScreenState extends State<LoginScreen> {
               semanticsLabel: 'Cover Image',
             ),
             ProviderListener(
-              provider: authSignInNotifierProvider.state,
-              onChange: (context, state) async {
+              provider: authSignInNotifierProvider.notifier,
+              onChange: (context, dynamic state) async {
                 if (state is SignedIn) {
-                  FirebaseUser signedInUser = state.user;
+                  User signedInUser = state.user;
 
                   await Future.delayed(Duration(seconds: 1));
 
@@ -93,16 +93,16 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Consumer(
                 builder: (context, watch, child) {
                   final state = watch(
-                    authSignInNotifierProvider.state,
+                    authSignInNotifierProvider,
                   );
 
                   return state.when(
                     () => LoginInitialWidget(),
                     signingIn: () => LoginSignningInWidget(),
                     signedIn: (_) => LoginSignedInWidget(),
-                    error: (message) => LoginError(errorMessage: message),
+                    error: (message) => LoginError(errorMessage: message!),
                   );
-                },
+                } 
               ),
             )
             // _googleSignInButton(),

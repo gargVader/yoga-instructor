@@ -5,8 +5,8 @@ import 'package:sofia/utils/helper.dart';
 
 class AsanasInfoWidget extends StatelessWidget {
   const AsanasInfoWidget({
-    Key key,
-    @required this.attempts,
+    Key? key,
+    required this.attempts,
     this.textColor = Colors.black,
     this.subtitleColor = Colors.black54,
     this.countColor = Colors.white,
@@ -82,19 +82,19 @@ class AsanasInfoWidget extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               itemCount: attempts.length,
               itemBuilder: (context, index) {
-                var poseName = attempts[index].pose[0].toUpperCase() +
-                    attempts[index].pose.substring(1);
+                var poseName = attempts[index].pose![0].toUpperCase() +
+                    attempts[index].pose!.substring(1);
 
                 var durationString = Helper.generateTimeString(
                   duration: Duration(
-                    milliseconds: attempts[index].duration,
+                    milliseconds: attempts[index].duration!,
                   ),
                 );
 
                 var numberOfStars = attempts[index].stars.toString();
 
                 var accuracy =
-                    '${(attempts[index].accuracy * 100).toStringAsFixed(0)}' +
+                    '${(attempts[index].accuracy! * 100).toStringAsFixed(0)}' +
                         '%';
 
                 return ListTile(

@@ -8,13 +8,14 @@ part of 'pose.dart';
 
 Pose _$PoseFromJson(Map<String, dynamic> json) {
   return Pose(
-    title: json['title'] as String,
-    sub: json['sub'] as String,
-    image: json['image'] as String,
-    benefits: json['benefits'] as String,
-    videoUrl: json['video_url'] as String,
-    pausePoints: (json['pause_points'] as List)?.map((e) => e as int)?.toList(),
-    index: (json['index'] as List)?.map((e) => e as int)?.toList(),
+    title: json['title'] as String?,
+    sub: json['sub'] as String?,
+    image: json['image'] as String?,
+    benefits: json['benefits'] as String?,
+    videoUrl: json['video_url'] as String?,
+    pausePoints:
+        (json['pause_points'] as List<dynamic>?)?.map((e) => e as int).toList(),
+    index: (json['index'] as List<dynamic>?)?.map((e) => e as int).toList(),
   );
 }
 

@@ -14,7 +14,7 @@ class EachTrackPage extends StatefulWidget {
   final Track track;
 
   const EachTrackPage({
-    @required this.track,
+    required this.track,
   });
 
   @override
@@ -22,9 +22,9 @@ class EachTrackPage extends StatefulWidget {
 }
 
 class _EachTrackPageState extends State<EachTrackPage> {
-  String trackName;
-  String trackDescription;
-  int totalNumberOfPoses;
+  String? trackName;
+  String? trackDescription;
+  int? totalNumberOfPoses;
 
   @override
   void initState() {
@@ -72,7 +72,7 @@ class _EachTrackPageState extends State<EachTrackPage> {
                 ),
               ),
               title: Text(
-                trackName[0].toUpperCase() + trackName.substring(1),
+                trackName![0].toUpperCase() + trackName!.substring(1),
                 style: TextStyle(
                   fontSize: 28.0,
                   fontWeight: FontWeight.bold,
@@ -84,7 +84,7 @@ class _EachTrackPageState extends State<EachTrackPage> {
               delegate: SliverChildListDelegate(
                 [
                   Image.asset(
-                    'assets/images/${trackName[0].toUpperCase() + trackName.substring(1)}.jpg',
+                    'assets/images/${trackName![0].toUpperCase() + trackName!.substring(1)}.jpg',
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -175,7 +175,7 @@ class _EachTrackPageState extends State<EachTrackPage> {
                       right: 16.0,
                     ),
                     child: Text(
-                      trackDescription,
+                      trackDescription!,
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w600,
@@ -224,7 +224,7 @@ class _EachTrackPageState extends State<EachTrackPage> {
                                 ),
                                 SizedBox(width: 8.0),
                                 Text(
-                                  '${totalNumberOfPoses * 20}',
+                                  '${totalNumberOfPoses! * 20}',
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.w400,
@@ -246,31 +246,28 @@ class _EachTrackPageState extends State<EachTrackPage> {
                       right: 16.0,
                       bottom: 30.0,
                     ),
-                    child: Consumer(
-                      builder: (context, watch, child) {
-                        final state = watch(
-                          retrievePosesNotifierProvider(trackName).state,
-                        );
+                    child: Consumer(builder: (context, watch, child) {
+                      final state = watch(
+                        retrievePosesNotifierProvider!(trackName),
+                      );
 
-                        return state.when(
-                          () {
-                            WidgetsBinding.instance.addPostFrameCallback((_) {
-                              context
-                                  .read(
-                                      retrievePosesNotifierProvider(trackName))
-                                  .retrievePoses();
-                            });
-                            return PosesListInitialWidget();
-                          },
-                          retrieving: () => PosesListLoadingWidget(),
-                          retrieved: (poses) => PosesListWidget(
-                            poses: poses,
-                            trackName: trackName,
-                          ),
-                          error: (message) => PosesListErrorWidget(),
-                        );
-                      },
-                    ),
+                      return state.when(
+                        () {
+                          WidgetsBinding.instance!.addPostFrameCallback((_) {
+                            context
+                                .read(retrievePosesNotifierProvider!(trackName))
+                                .retrievePoses();
+                          });
+                          return PosesListInitialWidget();
+                        },
+                        retrieving: () => PosesListLoadingWidget(),
+                        retrieved: (poses) => PosesListWidget(
+                          poses: poses,
+                          trackName: trackName,
+                        ),
+                        error: (message) => PosesListErrorWidget(),
+                      );
+                    }),
                   ),
                 ],
               ),

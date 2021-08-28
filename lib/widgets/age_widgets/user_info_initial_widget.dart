@@ -5,21 +5,21 @@ import 'package:sofia/providers.dart';
 class UserInfoInitialWidget extends StatefulWidget {
   final Size screenSize;
   final String uid;
-  final String email;
-  final String imageUrl;
-  final String accountName;
-  final String userName;
-  final String gender;
+  final String? email;
+  final String? imageUrl;
+  final String? accountName;
+  final String? userName;
+  final String? gender;
 
   const UserInfoInitialWidget({
-    Key key,
-    @required this.screenSize,
-    @required this.uid,
-    @required this.email,
-    @required this.imageUrl,
-    @required this.accountName,
-    @required this.userName,
-    @required this.gender,
+    Key? key,
+    required this.screenSize,
+    required this.uid,
+    required this.email,
+    required this.imageUrl,
+    required this.accountName,
+    required this.userName,
+    required this.gender,
   }) : super(key: key);
 
   @override
@@ -27,20 +27,20 @@ class UserInfoInitialWidget extends StatefulWidget {
 }
 
 class _UserInfoInitialWidgetState extends State<UserInfoInitialWidget> {
-  int _selectedAgeGroup;
+  int? _selectedAgeGroup;
 
   List<String> _ageGroupList = ['< 20', '20 - 34', '35+'];
   List<bool> _selectedList = [false, false, false];
 
   _uploadData(BuildContext context) {
-    context.read(storeUserDataNotifierProvider).storeData(
+    context.read(storeUserDataNotifierProvider.notifier).storeData(
           uid: widget.uid,
-          email: widget.email,
-          imageUrl: widget.imageUrl,
-          userName: widget.userName,
-          accountName: widget.accountName,
-          age: _ageGroupList[_selectedAgeGroup],
-          gender: widget.gender,
+          email: widget.email!,
+          imageUrl: widget.imageUrl!,
+          userName: widget.userName!,
+          accountName: widget.accountName!,
+          age: _ageGroupList[_selectedAgeGroup!],
+          gender: widget.gender!,
         );
   }
 

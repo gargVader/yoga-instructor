@@ -23,7 +23,7 @@ enum AnimProps {
 class ChartWidget extends StatefulWidget {
   final List<Attempt> attempts;
 
-  const ChartWidget({@required this.attempts});
+  const ChartWidget({required this.attempts});
 
   @override
   _ChartWidgetState createState() => _ChartWidgetState();
@@ -31,8 +31,8 @@ class ChartWidget extends StatefulWidget {
 
 class _ChartWidgetState extends State<ChartWidget>
     with TickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<TimelineValue<AnimProps>> _animation;
+  late AnimationController _animationController;
+  late Animation<TimelineValue<AnimProps>> _animation;
 
   int totalDurationThisWeekInEpoch = 0;
   int totalAttempts = 0;
@@ -47,14 +47,14 @@ class _ChartWidgetState extends State<ChartWidget>
     retrievedAttempts = widget.attempts;
     totalAttempts = retrievedAttempts.length;
 
-    int currentDurationInMilliseconds = 0;
+    int? currentDurationInMilliseconds = 0;
 
     for (int i = 0; i < retrievedAttempts.length; i++) {
       // print(
       //     'RETRIEVED: ${DateFormat.yMd().add_jm().format(DateTime.fromMillisecondsSinceEpoch(retrievedAttempts[i].dateTime))}');
       currentDurationInMilliseconds = retrievedAttempts[i].duration;
-      totalDurationThisWeekInEpoch += currentDurationInMilliseconds;
-      int currentWeekday = retrievedAttempts[i].weekday;
+      totalDurationThisWeekInEpoch += currentDurationInMilliseconds!;
+      int currentWeekday = retrievedAttempts[i].weekday!;
       // print(currentWeekday);
 
       durationList[currentWeekday - 1] += currentDurationInMilliseconds;
@@ -254,9 +254,9 @@ class _ChartWidgetState extends State<ChartWidget>
   }
 
   Widget _buildAnimation({
-    @required BuildContext context,
-    @required Widget child,
-    @required double chartHeight,
+    required BuildContext context,
+    required Widget? child,
+    required double chartHeight,
   }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,

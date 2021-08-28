@@ -4,15 +4,15 @@ part 'pose.g.dart';
 
 @JsonSerializable()
 class Pose {
-  String title;
-  String sub;
-  String benefits;
-  String image;
+  String? title;
+  String? sub;
+  String? benefits;
+  String? image;
   @JsonKey(name: 'video_url')
-  String videoUrl;
+  String? videoUrl;
   @JsonKey(name: 'pause_points')
-  List<int> pausePoints;
-  List<int> index;
+  List<int>? pausePoints;
+  List<int>? index;
 
   Pose({
     this.title,

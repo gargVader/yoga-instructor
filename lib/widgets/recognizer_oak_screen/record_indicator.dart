@@ -7,8 +7,8 @@ class RecordIndicator extends StatefulWidget {
 
 class _RecordIndicatorState extends State<RecordIndicator>
     with TickerProviderStateMixin {
-  AnimationController _pulseAnimationController;
-  Animation<double> _pulseAnimation;
+  late AnimationController _pulseAnimationController;
+  late Animation<double> _pulseAnimation;
 
   @override
   void initState() {

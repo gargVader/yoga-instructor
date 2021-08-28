@@ -23,7 +23,7 @@ class CustomPainterTest extends StatelessWidget {
 
 class CanvasArea extends StatelessWidget {
   const CanvasArea({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -52,7 +52,7 @@ class ShapePainter extends CustomPainter {
   final double width;
   final double height;
 
-  ShapePainter({@required this.width, @required this.height});
+  ShapePainter({required this.width, required this.height});
 
   @override
   void paint(Canvas canvas, Size size) {

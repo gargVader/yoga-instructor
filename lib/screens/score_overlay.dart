@@ -26,15 +26,15 @@ enum AnimProps {
 }
 
 class ScoreOverlay extends StatefulWidget {
-  final Pose pose;
-  final double totalAccuracy;
-  final DateTime startTime;
+  final Pose? pose;
+  final double? totalAccuracy;
+  final DateTime? startTime;
 
   const ScoreOverlay({
-    Key key,
-    @required this.pose,
-    @required this.totalAccuracy,
-    @required this.startTime,
+    Key? key,
+    required this.pose,
+    required this.totalAccuracy,
+    required this.startTime,
   }) : super(key: key);
 
   @override
@@ -43,15 +43,15 @@ class ScoreOverlay extends StatefulWidget {
 
 class _ScoreOverlayState extends State<ScoreOverlay>
     with TickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<TimelineValue<AnimProps>> _animation;
+  late AnimationController _animationController;
+  late Animation<TimelineValue<AnimProps>> _animation;
 
-  double _accuracy;
-  Pose _currentPose;
-  String durationString;
-  int _stars;
+  double? _accuracy;
+  Pose? _currentPose;
+  late String durationString;
+  int? _stars;
 
-  Timer _timer;
+  late Timer _timer;
   int _start = 10;
 
   @override
@@ -59,8 +59,8 @@ class _ScoreOverlayState extends State<ScoreOverlay>
     super.initState();
     _currentPose = widget.pose;
     _accuracy = widget.totalAccuracy;
-    _stars = (_accuracy * 20).round();
-    Duration duration = DateTime.now().difference(widget.startTime);
+    _stars = (_accuracy! * 20).round();
+    Duration duration = DateTime.now().difference(widget.startTime!);
     // Duration duration = Duration(seconds: 260);
 
     if (duration.inSeconds < 60) {
@@ -73,8 +73,8 @@ class _ScoreOverlayState extends State<ScoreOverlay>
     }
 
     Dialogflow.poseCompletion(
-      poseName: widget.pose.title,
-      accuracy: (_accuracy * 100).toStringAsFixed(1),
+      poseName: widget.pose!.title,
+      accuracy: (_accuracy! * 100).toStringAsFixed(1),
     );
 
     _animationController = AnimationController(
@@ -126,10 +126,10 @@ class _ScoreOverlayState extends State<ScoreOverlay>
         .animatedBy(_animationController);
 
     _animationController.forward().whenComplete(() {
-      context.read(storeUserScoreNotifierProvider).storeScore(
-            poseName: _currentPose.title,
-            stars: _stars,
-            accuracy: double.parse(_accuracy.toStringAsFixed(3)),
+      context.read(storeUserScoreNotifierProvider.notifier).storeScore(
+            poseName: _currentPose!.title!,
+            stars: _stars!,
+            accuracy: double.parse(_accuracy!.toStringAsFixed(3)),
             timeInMilliseconds: duration.inMilliseconds,
           );
       // startTimer(context: context);
@@ -144,7 +144,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
     super.dispose();
   }
 
-  startTimer({@required BuildContext context}) {
+  startTimer({required BuildContext context}) {
     const oneSec = const Duration(seconds: 1);
     _timer = Timer.periodic(
       oneSec,
@@ -157,7 +157,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
           Wakelock.disable();
           Navigator.of(context).pop();
 
-          context.read(retrieveUserNotifierProvider).retrieveUser();
+          context.read(retrieveUserNotifierProvider.notifier).retrieveUser();
 
           SystemChrome.setPreferredOrientations([
             DeviceOrientation.portraitUp,
@@ -208,8 +208,8 @@ class _ScoreOverlayState extends State<ScoreOverlay>
                   width: width,
                 ),
               ),
-              ProviderListener<StoreUserScoreState>(
-                provider: storeUserScoreNotifierProvider.state,
+              ProviderListener<StateNotifier<StoreUserScoreState>>(
+                provider: storeUserScoreNotifierProvider.notifier,
                 onChange: (context, state) {
                   if (state is StoredScoreData) {
                     startTimer(context: context);
@@ -218,7 +218,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
                 child: Consumer(
                   builder: (context, watch, child) {
                     final state = watch(
-                      storeUserScoreNotifierProvider.state,
+                      storeUserScoreNotifierProvider,
                     );
 
                     return state.when(
@@ -238,10 +238,10 @@ class _ScoreOverlayState extends State<ScoreOverlay>
   }
 
   Widget _buildAnimation({
-    @required BuildContext context,
-    @required Widget child,
-    @required height,
-    @required width,
+    required BuildContext context,
+    required Widget? child,
+    required height,
+    required width,
   }) {
     return SingleChildScrollView(
       child: Column(
@@ -360,7 +360,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
                       Opacity(
                         opacity: _animation.value.get(AnimProps.subtitle),
                         child: Text(
-                          'you have successfully completed the ${_currentPose.title} pose',
+                          'you have successfully completed the ${_currentPose!.title} pose',
                           style: TextStyle(
                             color: Palette.black,
                             fontSize: 24.0,

@@ -31,14 +31,14 @@ import 'package:sofia/widgets/age_widgets/user_info_storing_widget.dart';
 /// - [gender]
 ///
 class AgeScreen extends StatefulWidget {
-  final FirebaseUser user;
-  final String userName;
-  final String gender;
+  final User? user;
+  final String? userName;
+  final String? gender;
 
   AgeScreen({
-    @required this.user,
-    @required this.userName,
-    @required this.gender,
+    required this.user,
+    required this.userName,
+    required this.gender,
   });
 
   @override
@@ -46,7 +46,7 @@ class AgeScreen extends StatefulWidget {
 }
 
 class _AgeScreenState extends State<AgeScreen> {
-  String errorString;
+  String? errorString;
   // bool _isStoring = false;
   // int _selectedAgeGroup;
 
@@ -156,8 +156,8 @@ class _AgeScreenState extends State<AgeScreen> {
             SizedBox(height: screenSize.height / 50),
 
             ProviderListener(
-              provider: storeUserDataNotifierProvider.state,
-              onChange: (context, state) async {
+              provider: storeUserDataNotifierProvider.notifier,
+              onChange: (context, dynamic state) async {
                 if (state is StoredUserData) {
                   await Future.delayed(Duration(seconds: 1));
                   Database.user = state.userData;
@@ -181,33 +181,33 @@ class _AgeScreenState extends State<AgeScreen> {
               child: Consumer(
                 builder: (context, watch, child) {
                   final state = watch(
-                    storeUserDataNotifierProvider.state,
+                    storeUserDataNotifierProvider,
                   );
 
                   return state.when(
                     () => UserInfoInitialWidget(
                       screenSize: screenSize,
-                      uid: widget.user.uid,
-                      email: widget.user.email,
-                      imageUrl: widget.user.photoUrl,
-                      accountName: widget.user.displayName,
+                      uid: widget.user!.uid,
+                      email: widget.user!.email,
+                      imageUrl: widget.user!.photoURL,
+                      accountName: widget.user!.displayName,
                       userName: widget.userName,
                       gender: widget.gender,
                     ),
                     storing: () => UserInfoStoringWidget(),
                     stored: (_) => UserInfoStoredWidget(),
                     error: (message) => UserInfoErrorWidget(
-                      errorMessage: message,
+                      errorMessage: message!,
                       screenSize: screenSize,
-                      uid: widget.user.uid,
-                      email: widget.user.email,
-                      imageUrl: widget.user.photoUrl,
-                      accountName: widget.user.displayName,
+                      uid: widget.user!.uid,
+                      email: widget.user!.email,
+                      imageUrl: widget.user!.photoURL,
+                      accountName: widget.user!.displayName,
                       userName: widget.userName,
                       gender: widget.gender,
                     ),
                   );
-                },
+                }
               ),
             ),
             // _isStoring

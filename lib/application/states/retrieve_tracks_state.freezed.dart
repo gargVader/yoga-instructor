@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'retrieve_tracks_state.dart';
 
@@ -9,29 +9,28 @@ part of 'retrieve_tracks_state.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$RetrieveTracksStateTearOff {
   const _$RetrieveTracksStateTearOff();
 
-// ignore: unused_element
   InitialTrackData call() {
     return const InitialTrackData();
   }
 
-// ignore: unused_element
   RetrievingTracks retrieving() {
     return const RetrievingTracks();
   }
 
-// ignore: unused_element
   RetrievedTracks retrieved(List<Track> tracks) {
     return RetrievedTracks(
       tracks,
     );
   }
 
-// ignore: unused_element
-  ErrorRetrievingTracks error({String message}) {
+  ErrorRetrievingTracks error({String? message}) {
     return ErrorRetrievingTracks(
       message: message,
     );
@@ -39,41 +38,44 @@ class _$RetrieveTracksStateTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $RetrieveTracksState = _$RetrieveTracksStateTearOff();
 
 /// @nodoc
 mixin _$RetrieveTracksState {
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(List<Track> tracks),
-    @required TResult error(String message),
-  });
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(List<Track> tracks) retrieved,
+    required TResult Function(String? message) error,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(List<Track> tracks),
-    TResult error(String message),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(List<Track> tracks)? retrieved,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialTrackData value), {
-    @required TResult retrieving(RetrievingTracks value),
-    @required TResult retrieved(RetrievedTracks value),
-    @required TResult error(ErrorRetrievingTracks value),
-  });
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialTrackData value) $default, {
+    required TResult Function(RetrievingTracks value) retrieving,
+    required TResult Function(RetrievedTracks value) retrieved,
+    required TResult Function(ErrorRetrievingTracks value) error,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialTrackData value), {
-    TResult retrieving(RetrievingTracks value),
-    TResult retrieved(RetrievedTracks value),
-    TResult error(ErrorRetrievingTracks value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialTrackData value)? $default, {
+    TResult Function(RetrievingTracks value)? retrieving,
+    TResult Function(RetrievedTracks value)? retrieved,
+    TResult Function(ErrorRetrievingTracks value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -113,6 +115,7 @@ class _$InitialTrackDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$InitialTrackData implements InitialTrackData {
   const _$InitialTrackData();
 
@@ -131,29 +134,24 @@ class _$InitialTrackData implements InitialTrackData {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(List<Track> tracks),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(List<Track> tracks) retrieved,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return $default();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(List<Track> tracks),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(List<Track> tracks)? retrieved,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if ($default != null) {
       return $default();
     }
@@ -162,29 +160,24 @@ class _$InitialTrackData implements InitialTrackData {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialTrackData value), {
-    @required TResult retrieving(RetrievingTracks value),
-    @required TResult retrieved(RetrievedTracks value),
-    @required TResult error(ErrorRetrievingTracks value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialTrackData value) $default, {
+    required TResult Function(RetrievingTracks value) retrieving,
+    required TResult Function(RetrievedTracks value) retrieved,
+    required TResult Function(ErrorRetrievingTracks value) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return $default(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialTrackData value), {
-    TResult retrieving(RetrievingTracks value),
-    TResult retrieved(RetrievedTracks value),
-    TResult error(ErrorRetrievingTracks value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialTrackData value)? $default, {
+    TResult Function(RetrievingTracks value)? retrieving,
+    TResult Function(RetrievedTracks value)? retrieved,
+    TResult Function(ErrorRetrievingTracks value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if ($default != null) {
       return $default(this);
     }
@@ -216,6 +209,7 @@ class _$RetrievingTracksCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$RetrievingTracks implements RetrievingTracks {
   const _$RetrievingTracks();
 
@@ -234,29 +228,24 @@ class _$RetrievingTracks implements RetrievingTracks {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(List<Track> tracks),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(List<Track> tracks) retrieved,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return retrieving();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(List<Track> tracks),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(List<Track> tracks)? retrieved,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (retrieving != null) {
       return retrieving();
     }
@@ -265,29 +254,24 @@ class _$RetrievingTracks implements RetrievingTracks {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialTrackData value), {
-    @required TResult retrieving(RetrievingTracks value),
-    @required TResult retrieved(RetrievedTracks value),
-    @required TResult error(ErrorRetrievingTracks value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialTrackData value) $default, {
+    required TResult Function(RetrievingTracks value) retrieving,
+    required TResult Function(RetrievedTracks value) retrieved,
+    required TResult Function(ErrorRetrievingTracks value) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return retrieving(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialTrackData value), {
-    TResult retrieving(RetrievingTracks value),
-    TResult retrieved(RetrievedTracks value),
-    TResult error(ErrorRetrievingTracks value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialTrackData value)? $default, {
+    TResult Function(RetrievingTracks value)? retrieving,
+    TResult Function(RetrievedTracks value)? retrieved,
+    TResult Function(ErrorRetrievingTracks value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (retrieving != null) {
       return retrieving(this);
     }
@@ -320,17 +304,21 @@ class _$RetrievedTracksCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object tracks = freezed,
+    Object? tracks = freezed,
   }) {
     return _then(RetrievedTracks(
-      tracks == freezed ? _value.tracks : tracks as List<Track>,
+      tracks == freezed
+          ? _value.tracks
+          : tracks // ignore: cast_nullable_to_non_nullable
+              as List<Track>,
     ));
   }
 }
 
 /// @nodoc
+
 class _$RetrievedTracks implements RetrievedTracks {
-  const _$RetrievedTracks(this.tracks) : assert(tracks != null);
+  const _$RetrievedTracks(this.tracks);
 
   @override
   final List<Track> tracks;
@@ -359,29 +347,24 @@ class _$RetrievedTracks implements RetrievedTracks {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(List<Track> tracks),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(List<Track> tracks) retrieved,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return retrieved(tracks);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(List<Track> tracks),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(List<Track> tracks)? retrieved,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (retrieved != null) {
       return retrieved(tracks);
     }
@@ -390,29 +373,24 @@ class _$RetrievedTracks implements RetrievedTracks {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialTrackData value), {
-    @required TResult retrieving(RetrievingTracks value),
-    @required TResult retrieved(RetrievedTracks value),
-    @required TResult error(ErrorRetrievingTracks value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialTrackData value) $default, {
+    required TResult Function(RetrievingTracks value) retrieving,
+    required TResult Function(RetrievedTracks value) retrieved,
+    required TResult Function(ErrorRetrievingTracks value) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return retrieved(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialTrackData value), {
-    TResult retrieving(RetrievingTracks value),
-    TResult retrieved(RetrievedTracks value),
-    TResult error(ErrorRetrievingTracks value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialTrackData value)? $default, {
+    TResult Function(RetrievingTracks value)? retrieving,
+    TResult Function(RetrievedTracks value)? retrieved,
+    TResult Function(ErrorRetrievingTracks value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (retrieved != null) {
       return retrieved(this);
     }
@@ -423,9 +401,10 @@ class _$RetrievedTracks implements RetrievedTracks {
 abstract class RetrievedTracks implements RetrieveTracksState {
   const factory RetrievedTracks(List<Track> tracks) = _$RetrievedTracks;
 
-  List<Track> get tracks;
+  List<Track> get tracks => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $RetrievedTracksCopyWith<RetrievedTracks> get copyWith;
+  $RetrievedTracksCopyWith<RetrievedTracks> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -433,7 +412,7 @@ abstract class $ErrorRetrievingTracksCopyWith<$Res> {
   factory $ErrorRetrievingTracksCopyWith(ErrorRetrievingTracks value,
           $Res Function(ErrorRetrievingTracks) then) =
       _$ErrorRetrievingTracksCopyWithImpl<$Res>;
-  $Res call({String message});
+  $Res call({String? message});
 }
 
 /// @nodoc
@@ -449,20 +428,24 @@ class _$ErrorRetrievingTracksCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object message = freezed,
+    Object? message = freezed,
   }) {
     return _then(ErrorRetrievingTracks(
-      message: message == freezed ? _value.message : message as String,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
+
 class _$ErrorRetrievingTracks implements ErrorRetrievingTracks {
   const _$ErrorRetrievingTracks({this.message});
 
   @override
-  final String message;
+  final String? message;
 
   @override
   String toString() {
@@ -489,29 +472,24 @@ class _$ErrorRetrievingTracks implements ErrorRetrievingTracks {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(List<Track> tracks),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(List<Track> tracks) retrieved,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return error(message);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(List<Track> tracks),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(List<Track> tracks)? retrieved,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (error != null) {
       return error(message);
     }
@@ -520,29 +498,24 @@ class _$ErrorRetrievingTracks implements ErrorRetrievingTracks {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialTrackData value), {
-    @required TResult retrieving(RetrievingTracks value),
-    @required TResult retrieved(RetrievedTracks value),
-    @required TResult error(ErrorRetrievingTracks value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialTrackData value) $default, {
+    required TResult Function(RetrievingTracks value) retrieving,
+    required TResult Function(RetrievedTracks value) retrieved,
+    required TResult Function(ErrorRetrievingTracks value) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return error(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialTrackData value), {
-    TResult retrieving(RetrievingTracks value),
-    TResult retrieved(RetrievedTracks value),
-    TResult error(ErrorRetrievingTracks value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialTrackData value)? $default, {
+    TResult Function(RetrievingTracks value)? retrieving,
+    TResult Function(RetrievedTracks value)? retrieved,
+    TResult Function(ErrorRetrievingTracks value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (error != null) {
       return error(this);
     }
@@ -551,10 +524,11 @@ class _$ErrorRetrievingTracks implements ErrorRetrievingTracks {
 }
 
 abstract class ErrorRetrievingTracks implements RetrieveTracksState {
-  const factory ErrorRetrievingTracks({String message}) =
+  const factory ErrorRetrievingTracks({String? message}) =
       _$ErrorRetrievingTracks;
 
-  String get message;
+  String? get message => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ErrorRetrievingTracksCopyWith<ErrorRetrievingTracks> get copyWith;
+  $ErrorRetrievingTracksCopyWith<ErrorRetrievingTracks> get copyWith =>
+      throw _privateConstructorUsedError;
 }

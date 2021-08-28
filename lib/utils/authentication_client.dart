@@ -13,16 +13,16 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
 // String imageUrl;
 
 class AuthenticationClient {
-  static FirebaseUser presentUser;
+  static User? presentUser;
 
   /// Checks if the user is already signed into the app using
   /// Google Sign In.
-  Future<Set<dynamic>> checkForCurrentUser() async {
+  Future<Set<dynamic>?> checkForCurrentUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool authSignedIn = prefs.getBool('auth') ?? false;
     bool isDetailsUploaded = prefs.getBool('details_uploaded') ?? false;
 
-    final FirebaseUser user = await _auth.currentUser();
+    final User? user = _auth.currentUser;
 
     presentUser = user;
 
@@ -42,50 +42,80 @@ class AuthenticationClient {
   /// from their Google account for ease of the login process.
   ///
   /// Returns user `uid`.
-  Future<FirebaseUser> signInWithGoogle() async {
-    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
+  Future<User?> signInWithGoogle() async {
+    // print('helo');
 
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
-    );
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
 
-    final AuthResult authResult = await _auth.signInWithCredential(credential);
-    final FirebaseUser user = authResult.user;
+    print(googleSignInAccount!.displayName);
 
-    // Checking if email and name is null
-    assert(user.uid != null);
-    assert(user.email != null);
-    assert(user.displayName != null);
-    assert(user.photoUrl != null);
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
 
-    // uid = user.uid;
-    // name = user.displayName;
-    // email = user.email;
-    // imageUrl = user.photoUrl;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
 
-    // // Only taking the first part of the name, i.e., First Name
-    // if (name.contains(" ")) {
-    //   name = name.substring(0, name.indexOf(" "));
-    // }
+      print('helo');
 
-    assert(!user.isAnonymous);
-    assert(await user.getIdToken() != null);
+      try {
+        final UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithCredential(credential);
 
-    final FirebaseUser currentUser = await _auth.currentUser();
+        print(userCredential.user!.uid);
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'account-exists-with-different-credential') {
+          print('The account already exists with a different credential');
+        } else if (e.code == 'invalid-credential') {
+          print('Error occurred while accessing credentials. Try again.');
+        }
+      } catch (e) {
+        print('Error occurred using Google Sign In. Try again.');
+      }
 
-    presentUser = currentUser;
+      // final UserCredential authResult =
+      //     await _auth.signInWithCredential(credential);
 
-    if (currentUser != null) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setBool('auth', true);
-      // authSignedIn = true;
-      return user;
+      // print(authResult.user!.uid);
+      // final User user = authResult.user!;
+
+      // print('${user.uid}');
+
+      // // Checking if email and name is null
+      // // assert(user.uid != null);
+      // assert(user.email != null);
+      // assert(user.displayName != null);
+      // assert(user.photoURL != null);
+
+      // // uid = user.uid;
+      // // name = user.displayName;
+      // // email = user.email;
+      // // imageUrl = user.photoUrl;
+
+      // // // Only taking the first part of the name, i.e., First Name
+      // // if (name.contains(" ")) {
+      // //   name = name.substring(0, name.indexOf(" "));
+      // // }
+
+      // assert(!user.isAnonymous);
+      // assert(await user.getIdToken() != null);
+
+      // final User? currentUser = _auth.currentUser;
+
+      // presentUser = currentUser;
+
+      // if (currentUser != null) {
+      //   SharedPreferences prefs = await SharedPreferences.getInstance();
+      //   prefs.setBool('auth', true);
+      //   // authSignedIn = true;
+      //   return user;
+      // }
     }
 
-    return null;
+    // return null;
   }
 
   /// Signs out of the current logged in Google account
@@ -104,9 +134,9 @@ class AuthenticationClient {
 
 /// Retrieves the user `uid` from the shared preference of the
 /// device.
-Future<String> getUid() async {
+Future<String?> getUid() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  String uid = prefs.getString('uid');
+  String? uid = prefs.getString('uid');
 
   return uid;
 }

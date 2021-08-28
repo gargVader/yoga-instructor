@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'retrieve_attempts_state.dart';
 
@@ -9,29 +9,28 @@ part of 'retrieve_attempts_state.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$RetrieveAttemptsStateTearOff {
   const _$RetrieveAttemptsStateTearOff();
 
-// ignore: unused_element
   InitialAttemptData call() {
     return const InitialAttemptData();
   }
 
-// ignore: unused_element
   RetrievingAttempts retrieving() {
     return const RetrievingAttempts();
   }
 
-// ignore: unused_element
   RetrievedAttempts retrieved(List<Attempt> attempts) {
     return RetrievedAttempts(
       attempts,
     );
   }
 
-// ignore: unused_element
-  ErrorRetrievingAttempts error({String message}) {
+  ErrorRetrievingAttempts error({String? message}) {
     return ErrorRetrievingAttempts(
       message: message,
     );
@@ -39,41 +38,44 @@ class _$RetrieveAttemptsStateTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $RetrieveAttemptsState = _$RetrieveAttemptsStateTearOff();
 
 /// @nodoc
 mixin _$RetrieveAttemptsState {
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(List<Attempt> attempts),
-    @required TResult error(String message),
-  });
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(List<Attempt> attempts) retrieved,
+    required TResult Function(String? message) error,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(List<Attempt> attempts),
-    TResult error(String message),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(List<Attempt> attempts)? retrieved,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialAttemptData value), {
-    @required TResult retrieving(RetrievingAttempts value),
-    @required TResult retrieved(RetrievedAttempts value),
-    @required TResult error(ErrorRetrievingAttempts value),
-  });
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialAttemptData value) $default, {
+    required TResult Function(RetrievingAttempts value) retrieving,
+    required TResult Function(RetrievedAttempts value) retrieved,
+    required TResult Function(ErrorRetrievingAttempts value) error,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialAttemptData value), {
-    TResult retrieving(RetrievingAttempts value),
-    TResult retrieved(RetrievedAttempts value),
-    TResult error(ErrorRetrievingAttempts value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialAttemptData value)? $default, {
+    TResult Function(RetrievingAttempts value)? retrieving,
+    TResult Function(RetrievedAttempts value)? retrieved,
+    TResult Function(ErrorRetrievingAttempts value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -113,6 +115,7 @@ class _$InitialAttemptDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$InitialAttemptData implements InitialAttemptData {
   const _$InitialAttemptData();
 
@@ -131,29 +134,24 @@ class _$InitialAttemptData implements InitialAttemptData {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(List<Attempt> attempts),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(List<Attempt> attempts) retrieved,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return $default();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(List<Attempt> attempts),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(List<Attempt> attempts)? retrieved,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if ($default != null) {
       return $default();
     }
@@ -162,29 +160,24 @@ class _$InitialAttemptData implements InitialAttemptData {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialAttemptData value), {
-    @required TResult retrieving(RetrievingAttempts value),
-    @required TResult retrieved(RetrievedAttempts value),
-    @required TResult error(ErrorRetrievingAttempts value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialAttemptData value) $default, {
+    required TResult Function(RetrievingAttempts value) retrieving,
+    required TResult Function(RetrievedAttempts value) retrieved,
+    required TResult Function(ErrorRetrievingAttempts value) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return $default(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialAttemptData value), {
-    TResult retrieving(RetrievingAttempts value),
-    TResult retrieved(RetrievedAttempts value),
-    TResult error(ErrorRetrievingAttempts value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialAttemptData value)? $default, {
+    TResult Function(RetrievingAttempts value)? retrieving,
+    TResult Function(RetrievedAttempts value)? retrieved,
+    TResult Function(ErrorRetrievingAttempts value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if ($default != null) {
       return $default(this);
     }
@@ -216,6 +209,7 @@ class _$RetrievingAttemptsCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$RetrievingAttempts implements RetrievingAttempts {
   const _$RetrievingAttempts();
 
@@ -234,29 +228,24 @@ class _$RetrievingAttempts implements RetrievingAttempts {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(List<Attempt> attempts),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(List<Attempt> attempts) retrieved,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return retrieving();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(List<Attempt> attempts),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(List<Attempt> attempts)? retrieved,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (retrieving != null) {
       return retrieving();
     }
@@ -265,29 +254,24 @@ class _$RetrievingAttempts implements RetrievingAttempts {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialAttemptData value), {
-    @required TResult retrieving(RetrievingAttempts value),
-    @required TResult retrieved(RetrievedAttempts value),
-    @required TResult error(ErrorRetrievingAttempts value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialAttemptData value) $default, {
+    required TResult Function(RetrievingAttempts value) retrieving,
+    required TResult Function(RetrievedAttempts value) retrieved,
+    required TResult Function(ErrorRetrievingAttempts value) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return retrieving(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialAttemptData value), {
-    TResult retrieving(RetrievingAttempts value),
-    TResult retrieved(RetrievedAttempts value),
-    TResult error(ErrorRetrievingAttempts value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialAttemptData value)? $default, {
+    TResult Function(RetrievingAttempts value)? retrieving,
+    TResult Function(RetrievedAttempts value)? retrieved,
+    TResult Function(ErrorRetrievingAttempts value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (retrieving != null) {
       return retrieving(this);
     }
@@ -320,17 +304,21 @@ class _$RetrievedAttemptsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object attempts = freezed,
+    Object? attempts = freezed,
   }) {
     return _then(RetrievedAttempts(
-      attempts == freezed ? _value.attempts : attempts as List<Attempt>,
+      attempts == freezed
+          ? _value.attempts
+          : attempts // ignore: cast_nullable_to_non_nullable
+              as List<Attempt>,
     ));
   }
 }
 
 /// @nodoc
+
 class _$RetrievedAttempts implements RetrievedAttempts {
-  const _$RetrievedAttempts(this.attempts) : assert(attempts != null);
+  const _$RetrievedAttempts(this.attempts);
 
   @override
   final List<Attempt> attempts;
@@ -360,29 +348,24 @@ class _$RetrievedAttempts implements RetrievedAttempts {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(List<Attempt> attempts),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(List<Attempt> attempts) retrieved,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return retrieved(attempts);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(List<Attempt> attempts),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(List<Attempt> attempts)? retrieved,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (retrieved != null) {
       return retrieved(attempts);
     }
@@ -391,29 +374,24 @@ class _$RetrievedAttempts implements RetrievedAttempts {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialAttemptData value), {
-    @required TResult retrieving(RetrievingAttempts value),
-    @required TResult retrieved(RetrievedAttempts value),
-    @required TResult error(ErrorRetrievingAttempts value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialAttemptData value) $default, {
+    required TResult Function(RetrievingAttempts value) retrieving,
+    required TResult Function(RetrievedAttempts value) retrieved,
+    required TResult Function(ErrorRetrievingAttempts value) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return retrieved(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialAttemptData value), {
-    TResult retrieving(RetrievingAttempts value),
-    TResult retrieved(RetrievedAttempts value),
-    TResult error(ErrorRetrievingAttempts value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialAttemptData value)? $default, {
+    TResult Function(RetrievingAttempts value)? retrieving,
+    TResult Function(RetrievedAttempts value)? retrieved,
+    TResult Function(ErrorRetrievingAttempts value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (retrieved != null) {
       return retrieved(this);
     }
@@ -424,9 +402,10 @@ class _$RetrievedAttempts implements RetrievedAttempts {
 abstract class RetrievedAttempts implements RetrieveAttemptsState {
   const factory RetrievedAttempts(List<Attempt> attempts) = _$RetrievedAttempts;
 
-  List<Attempt> get attempts;
+  List<Attempt> get attempts => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $RetrievedAttemptsCopyWith<RetrievedAttempts> get copyWith;
+  $RetrievedAttemptsCopyWith<RetrievedAttempts> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -434,7 +413,7 @@ abstract class $ErrorRetrievingAttemptsCopyWith<$Res> {
   factory $ErrorRetrievingAttemptsCopyWith(ErrorRetrievingAttempts value,
           $Res Function(ErrorRetrievingAttempts) then) =
       _$ErrorRetrievingAttemptsCopyWithImpl<$Res>;
-  $Res call({String message});
+  $Res call({String? message});
 }
 
 /// @nodoc
@@ -450,20 +429,24 @@ class _$ErrorRetrievingAttemptsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object message = freezed,
+    Object? message = freezed,
   }) {
     return _then(ErrorRetrievingAttempts(
-      message: message == freezed ? _value.message : message as String,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
+
 class _$ErrorRetrievingAttempts implements ErrorRetrievingAttempts {
   const _$ErrorRetrievingAttempts({this.message});
 
   @override
-  final String message;
+  final String? message;
 
   @override
   String toString() {
@@ -490,29 +473,24 @@ class _$ErrorRetrievingAttempts implements ErrorRetrievingAttempts {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(List<Attempt> attempts),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(List<Attempt> attempts) retrieved,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return error(message);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(List<Attempt> attempts),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(List<Attempt> attempts)? retrieved,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (error != null) {
       return error(message);
     }
@@ -521,29 +499,24 @@ class _$ErrorRetrievingAttempts implements ErrorRetrievingAttempts {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialAttemptData value), {
-    @required TResult retrieving(RetrievingAttempts value),
-    @required TResult retrieved(RetrievedAttempts value),
-    @required TResult error(ErrorRetrievingAttempts value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialAttemptData value) $default, {
+    required TResult Function(RetrievingAttempts value) retrieving,
+    required TResult Function(RetrievedAttempts value) retrieved,
+    required TResult Function(ErrorRetrievingAttempts value) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return error(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialAttemptData value), {
-    TResult retrieving(RetrievingAttempts value),
-    TResult retrieved(RetrievedAttempts value),
-    TResult error(ErrorRetrievingAttempts value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialAttemptData value)? $default, {
+    TResult Function(RetrievingAttempts value)? retrieving,
+    TResult Function(RetrievedAttempts value)? retrieved,
+    TResult Function(ErrorRetrievingAttempts value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (error != null) {
       return error(this);
     }
@@ -552,10 +525,11 @@ class _$ErrorRetrievingAttempts implements ErrorRetrievingAttempts {
 }
 
 abstract class ErrorRetrievingAttempts implements RetrieveAttemptsState {
-  const factory ErrorRetrievingAttempts({String message}) =
+  const factory ErrorRetrievingAttempts({String? message}) =
       _$ErrorRetrievingAttempts;
 
-  String get message;
+  String? get message => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ErrorRetrievingAttemptsCopyWith<ErrorRetrievingAttempts> get copyWith;
+  $ErrorRetrievingAttemptsCopyWith<ErrorRetrievingAttempts> get copyWith =>
+      throw _privateConstructorUsedError;
 }

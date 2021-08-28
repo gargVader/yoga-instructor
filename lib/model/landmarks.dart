@@ -8,7 +8,7 @@ class Landmarks {
     this.landmarks,
   });
 
-  List<Landmark> landmarks;
+  List<Landmark>? landmarks;
 
   factory Landmarks.fromJson(Map<String, dynamic> json) =>
       _$LandmarksFromJson(json);
@@ -24,9 +24,9 @@ class Landmark {
     this.y,
   });
 
-  String name;
-  double x;
-  double y;
+  String? name;
+  double? x;
+  double? y;
 
   factory Landmark.fromJson(Map<String, dynamic> json) =>
       _$LandmarkFromJson(json);

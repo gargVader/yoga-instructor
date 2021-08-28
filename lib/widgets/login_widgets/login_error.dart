@@ -6,8 +6,8 @@ class LoginError extends StatelessWidget {
   final String errorMessage;
 
   const LoginError({
-    Key key,
-    @required this.errorMessage,
+    Key? key,
+    required this.errorMessage,
   }) : super(key: key);
 
   @override
