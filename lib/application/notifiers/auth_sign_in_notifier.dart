@@ -11,7 +11,6 @@ class AuthSignInNotifier extends StateNotifier<AuthSignInState> {
     try {
       state = AuthSignInState.signingIn();
       final signedInUser = await _authentication.signInWithGoogle();
-      print('hello');
       state = AuthSignInState.signedIn(signedInUser!);
     } catch (error) {
       state = AuthSignInState.error(
