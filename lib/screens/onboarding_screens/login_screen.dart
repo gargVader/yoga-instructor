@@ -61,8 +61,8 @@ class _LoginScreenState extends State<LoginScreen> {
               semanticsLabel: 'Cover Image',
             ),
             ProviderListener(
-              provider: authSignInNotifierProvider.notifier,
-              onChange: (context, dynamic state) async {
+              provider: authSignInNotifierProvider,
+              onChange: (context, state) async {
                 if (state is SignedIn) {
                   User signedInUser = state.user;
 
@@ -90,20 +90,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   });
                 }
               },
-              child: Consumer(
-                builder: (context, watch, child) {
-                  final state = watch(
-                    authSignInNotifierProvider,
-                  );
+              child: Consumer(builder: (context, watch, child) {
+                final state = watch(
+                  authSignInNotifierProvider,
+                );
 
-                  return state.when(
-                    () => LoginInitialWidget(),
-                    signingIn: () => LoginSignningInWidget(),
-                    signedIn: (_) => LoginSignedInWidget(),
-                    error: (message) => LoginError(errorMessage: message!),
-                  );
-                } 
-              ),
+                return state.when(
+                  () => LoginInitialWidget(),
+                  signingIn: () => LoginSignningInWidget(),
+                  signedIn: (_) => LoginSignedInWidget(),
+                  error: (message) => LoginError(errorMessage: message!),
+                );
+              }),
             )
             // _googleSignInButton(),
           ],
