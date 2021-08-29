@@ -6,7 +6,7 @@ publish_to: "none"
 version: 0.9.1+34
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -46,6 +46,10 @@ dependencies:
   intl: ^0.17.0
   hive: ^2.0.4
   hive_flutter: ^1.1.0
+  google_ml_kit:
+    git:
+      url: git://github.com/sbis04/flutter-ml-kit-pose-plugin.git
+      ref: main
 
 dev_dependencies:
   flutter_test:
