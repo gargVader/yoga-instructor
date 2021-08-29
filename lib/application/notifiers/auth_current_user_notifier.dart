@@ -17,19 +17,17 @@ class AuthCurrentUserNotifier extends StateNotifier<AuthCurrentUserState> {
       state = AuthCurrentUserState.finding();
       final currentUserDetails = await _authentication.checkForCurrentUser();
 
-      if (currentUserDetails != null) {
-        final User? currentUser = currentUserDetails.elementAt(0);
-        final bool? isDetailsUploaded = currentUserDetails.elementAt(1);
+      final User? currentUser = currentUserDetails?.elementAt(0);
+      final bool? isDetailsUploaded = currentUserDetails?.elementAt(1);
 
-        if (currentUser == null) {
-          state = AuthCurrentUserState.notSignedIn();
-        } else if (isDetailsUploaded!) {
-          MyUser userData = await _database.retrieveUserInfo();
+      if (currentUser == null) {
+        state = AuthCurrentUserState.notSignedIn();
+      } else if (isDetailsUploaded!) {
+        MyUser userData = await _database.retrieveUserInfo();
 
-          state = AuthCurrentUserState.alreadySignedIn(userData);
-        } else {
-          state = AuthCurrentUserState.detailsNotUploaded(currentUser);
-        }
+        state = AuthCurrentUserState.alreadySignedIn(userData);
+      } else {
+        state = AuthCurrentUserState.detailsNotUploaded(currentUser);
       }
     } catch (error) {
       state = AuthCurrentUserState.error(
