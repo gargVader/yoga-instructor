@@ -3,7 +3,7 @@ description: AI powered yoga instructor
 
 publish_to: "none"
 
-version: 0.10.0+35
+version: 0.10.1+36
 
 environment:
   sdk: ">=2.12.0 <3.0.0"

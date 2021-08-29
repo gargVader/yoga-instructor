@@ -18,7 +18,7 @@ class _MLKitTestState extends State<MLKitTest> {
     final poses = await poseDetector.processImage(inputImage);
 
     poses.forEach((pose) {
-      print('FF_POSE: ${pose.pose}, FF_ACCURACY: ${pose.accuracy}');
+      print('FF_POSE: ${pose.name}, FF_ACCURACY: ${pose.accuracy}');
     });
 
     // print('Found ${poses.length} poses');
