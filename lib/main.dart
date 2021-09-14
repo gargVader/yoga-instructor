@@ -19,7 +19,7 @@ void main() async {
     // Opening the box
     await Hive.openBox('config');
   } catch (e) {
-    print('Hive error: e');
+    print('Hive error: $e');
   }
 
   try {
