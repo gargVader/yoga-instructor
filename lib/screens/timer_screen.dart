@@ -8,6 +8,8 @@ import 'package:sofia/res/palette.dart';
 import 'package:sofia/screens/recognizer_oak_screen.dart';
 import 'package:wakelock/wakelock.dart';
 
+import 'recognizer_mlkit_screen.dart';
+
 class TimerScreen extends StatefulWidget {
   final Pose? pose;
   final String? track;
@@ -66,8 +68,14 @@ class _TimerScreenState extends State<TimerScreen> {
       WidgetsBinding.instance!.addPostFrameCallback((_) {
         Navigator.of(context)
             .pushReplacement(
+          // MaterialPageRoute(
+          //   builder: (context) => RecognizerOakScreen(
+          //     pose: widget.pose,
+          //     trackName: widget.track,
+          //   ),
+          // ),
           MaterialPageRoute(
-            builder: (context) => RecognizerOakScreen(
+            builder: (context) => RecognizerMLKitScreen(
               pose: widget.pose,
               trackName: widget.track,
             ),
