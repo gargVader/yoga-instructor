@@ -11,6 +11,7 @@ Pose _$PoseFromJson(Map<String, dynamic> json) {
     title: json['title'] as String?,
     sub: json['sub'] as String?,
     image: json['image'] as String?,
+    hash: json['hash'] as String?,
     benefits: json['benefits'] as String?,
     videoUrl: json['video_url'] as String?,
     pausePoints:
@@ -24,6 +25,7 @@ Map<String, dynamic> _$PoseToJson(Pose instance) => <String, dynamic>{
       'sub': instance.sub,
       'benefits': instance.benefits,
       'image': instance.image,
+      'hash': instance.hash,
       'video_url': instance.videoUrl,
       'pause_points': instance.pausePoints,
       'index': instance.index,
