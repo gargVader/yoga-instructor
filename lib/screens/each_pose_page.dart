@@ -5,8 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/model/track.dart';
 import 'package:sofia/res/palette.dart';
+import 'package:sofia/screens/landmark_mlkit_screen.dart';
 import 'package:sofia/screens/landmark_oak_screen.dart';
-import 'package:sofia/screens/ml_kit_test.dart';
 import 'package:sofia/screens/preview_oak_screen.dart';
 import 'package:sofia/screens/preview_screen.dart';
 import 'package:sofia/widgets/each_pose_widgets/next_widget.dart';
@@ -161,11 +161,15 @@ class _EachPosePageState extends State<EachPosePage> {
                             //   pose: currentPose,
                             //   trackName: _trackName,
                             // ),
-                            builder: (context) => MLKitTest(),
+                            // builder: (context) => MLKitTest(),
                             // builder: (context) => LandmarkOakScreen(
                             //   pose: currentPose,
                             //   trackName: _trackName,
                             // ),
+                            builder: (context) => LandmarkMLKitScreen(
+                              pose: currentPose,
+                              trackName: _trackName,
+                            ),
                           ),
                         )
                             .then((result) {
