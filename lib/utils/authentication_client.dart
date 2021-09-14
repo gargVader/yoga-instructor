@@ -47,7 +47,8 @@ class AuthenticationClient {
   /// Returns user `uid`.
   Future<User?> signInWithGoogle() async {
     await Firebase.initializeApp();
-    final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
     final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount!.authentication;
 
