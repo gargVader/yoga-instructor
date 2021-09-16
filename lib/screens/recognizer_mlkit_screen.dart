@@ -104,6 +104,7 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen> {
   Future _stopLiveFeed() async {
     await _controller?.stopImageStream();
     await _controller?.dispose();
+    await poseDetector.close();
     _controller = null;
   }
 
@@ -202,9 +203,10 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen> {
     if (inputImage.inputImageData?.size != null &&
         inputImage.inputImageData?.imageRotation != null) {
       final painter = PosePainterMLKit(
-        poses,
-        inputImage.inputImageData!.size,
-        inputImage.inputImageData!.imageRotation,
+        poses: poses,
+        absoluteImageSize: inputImage.inputImageData!.size,
+        rotation: inputImage.inputImageData!.imageRotation,
+        onDraw: (_) {},
       );
       customPaint = CustomPaint(painter: painter);
     } else {
@@ -645,28 +647,32 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen> {
                 //   },
                 // ),
               ),
-              Align(
-                alignment: Alignment.topRight,
-                child: customPaint != null
-                    ? Transform(
-                        alignment: Alignment.center,
-                        transform: Matrix4.rotationY(math.pi),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(8),
-                          ),
-                          child: Container(
-                            // color: Colors.black,
-                            child: customPaint!,
-                            height: screenSize.height * 0.4,
-                            width: screenSize.height *
-                                0.4 *
-                                _controller!.value.aspectRatio,
-                          ),
-                        ),
-                      )
-                    : Container(),
-              ),
+              mounted && _controller != null
+                  ? _controller!.value.isInitialized
+                      ? Align(
+                          alignment: Alignment.topRight,
+                          child: customPaint != null
+                              ? Transform(
+                                  alignment: Alignment.center,
+                                  transform: Matrix4.rotationY(math.pi),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(8),
+                                    ),
+                                    child: Container(
+                                      // color: Colors.black,
+                                      child: customPaint!,
+                                      height: screenSize.height * 0.4,
+                                      width: screenSize.height *
+                                          0.4 *
+                                          _controller!.value.aspectRatio,
+                                    ),
+                                  ),
+                                )
+                              : Container(),
+                        )
+                      : Container()
+                  : Container(),
             ],
           ),
         ),
