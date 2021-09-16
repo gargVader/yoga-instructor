@@ -15,39 +15,39 @@ class LandmarkPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final List<bool> shouldDrawPointList = [
-      true, // nose
-      false, // left_eye_inner
-      true, // left_eye
-      false, // left_eye_outer
-      false, // right_eye_inner
-      true, // right_eye
-      false, // right_eye_outer
-      false, // left_ear
-      false, // right_ear
-      false, // mouth_left
-      false, // mouth_right
-      true, // left_shoulder
-      true, // right_shoulder
-      true, // left_elbow
-      true, // right_elbow
-      true, // left_wrist
-      true, // right_wrist
-      true, // left_pinky_1
-      true, // right_pinky_1
-      true, // left_index_1
-      true, // right_index_1
-      true, // left_thumb_2
-      true, // right_thumb_2
-      true, // left_hip
-      true, // right_hip
-      true, // left_knee
-      true, // right_knee
-      true, // left_ankle
-      true, // right_ankle
-      true, // left_heel
-      true, // right_heel
-      true, // left_foot_index
-      true, // right_foot_index
+      true, // nose               1
+      false, // left_eye_inner    2
+      true, // left_eye           3
+      false, // left_eye_outer    4
+      false, // right_eye_inner   5
+      true, // right_eye          6
+      false, // right_eye_outer   7
+      false, // left_ear          8
+      false, // right_ear         9
+      false, // mouth_left        10
+      false, // mouth_right       11
+      true, // left_shoulder      12
+      true, // right_shoulder     13
+      true, // left_elbow         14
+      true, // right_elbow        15
+      true, // left_wrist         16
+      true, // right_wrist        17
+      true, // left_pinky_1       18
+      true, // right_pinky_1      19
+      true, // left_index_1       20
+      true, // right_index_1      21
+      true, // left_thumb_2       22
+      true, // right_thumb_2      23
+      true, // left_hip           24
+      true, // right_hip          25
+      true, // left_knee          26
+      true, // right_knee         27
+      true, // left_ankle         28
+      true, // right_ankle        29
+      true, // left_heel          30
+      true, // right_heel         31
+      true, // left_foot_index    32
+      true, // right_foot_index   33
     ];
 
     List<Set<int>> shouldDrawLineList = [
