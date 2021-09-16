@@ -65,7 +65,7 @@ class _TimerScreenState extends State<TimerScreen> {
     Size screenSize = MediaQuery.of(context).size;
 
     if (_start == 1) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
+      WidgetsBinding.instance?.addPostFrameCallback((_) {
         Navigator.of(context)
             .pushReplacement(
           // MaterialPageRoute(
