@@ -64,3 +64,6 @@ assets/dialogflow/sofia_auth.json
 
 # Android key properties
 android/key.properties
+
+# iOS build files
+ios/build/
