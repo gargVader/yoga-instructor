@@ -187,7 +187,10 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen> {
   Future<void> processImage(InputImage inputImage) async {
     if (isBusy) return;
     isBusy = true;
-    final poses = await poseDetector.processImage(inputImage);
+    final poses = await poseDetector.processImage(
+      inputImage: inputImage,
+      useClassifier: true,
+    );
 
     poses.forEach((pose) {
       print('FF_POSE: ${pose.name}, FF_ACCURACY: ${pose.accuracy}');
