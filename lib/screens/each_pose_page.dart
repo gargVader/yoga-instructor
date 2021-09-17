@@ -9,6 +9,7 @@ import 'package:sofia/screens/landmark_mlkit_screen.dart';
 import 'package:sofia/screens/landmark_oak_screen.dart';
 import 'package:sofia/screens/preview_oak_screen.dart';
 import 'package:sofia/screens/preview_screen.dart';
+import 'package:sofia/widgets/common/custom_widgets.dart';
 import 'package:sofia/widgets/each_pose_widgets/next_widget.dart';
 import 'package:sofia/widgets/each_pose_widgets/prev_next_widget.dart';
 import 'package:sofia/widgets/each_pose_widgets/prev_widget.dart';
@@ -41,6 +42,7 @@ class _EachPosePageState extends State<EachPosePage> {
 
   List<Pose>? poses;
   String? _trackName;
+  String? videoUrl;
 
   @override
   void initState() {
@@ -50,6 +52,7 @@ class _EachPosePageState extends State<EachPosePage> {
     currentIndex = widget.currentIndex;
     currentPose = widget.poses![currentIndex!];
     poseName = currentPose!.title;
+    videoUrl = currentPose!.videoUrl;
     poseNameDisplay = poseName![0].toUpperCase() + poseName!.substring(1);
 
     poseSubtitle =
@@ -91,26 +94,50 @@ class _EachPosePageState extends State<EachPosePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: screenWidth * 0.8,
-                  // child: Image.asset(
-                  //   'assets/images/triangle.png',
-                  //   fit: BoxFit.fitHeight,
-                  // ),
-                  child: poseImageUrl != null
-                      ? CachedNetworkImage(
-                          imageUrl: poseImageUrl!,
-                          placeholder: (context, url) => Container(
-                            width: double.maxFinite,
-                            height: screenWidth * 0.8,
+                Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    SizedBox(
+                      height: screenWidth * 0.8,
+                      // child: Image.asset(
+                      //   'assets/images/triangle.png',
+                      //   fit: BoxFit.fitHeight,
+                      // ),
+                      child: poseImageUrl != null
+                          ? CachedNetworkImage(
+                              imageUrl: poseImageUrl!,
+                              placeholder: (context, url) => Container(
+                                width: double.maxFinite,
+                                height: screenWidth * 0.8,
+                              ),
+                              errorWidget: (context, url, error) => Container(),
+                              fit: BoxFit.fitHeight,
+                            )
+                          : Opacity(
+                              opacity: 0.2,
+                              child: Image.asset(
+                                'assets/images/triangle.png',
+                                fit: BoxFit.fitHeight,
+                              ),
+                            ),
+                    ),
+                    _trackName == 'beginners'
+                        ? Container()
+                        : Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'COMING SOON',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0,
+                                  letterSpacing: 1,
+                                ),
+                              ),
+                            ),
                           ),
-                          errorWidget: (context, url, error) => Container(),
-                          fit: BoxFit.fitHeight,
-                        )
-                      : Image.asset(
-                          'assets/images/triangle.png',
-                          fit: BoxFit.fitHeight,
-                        ),
+                  ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -141,60 +168,71 @@ class _EachPosePageState extends State<EachPosePage> {
                     InkWell(
                       onTap: () {
                         print('Play button tapped !');
-                        SystemChrome.setSystemUIOverlayStyle(
-                            SystemUiOverlayStyle(
-                          statusBarColor: Colors.white,
-                          statusBarIconBrightness: Brightness.dark,
-                        ));
+                        if (videoUrl!.isNotEmpty) {
+                          SystemChrome.setSystemUIOverlayStyle(
+                              SystemUiOverlayStyle(
+                            statusBarColor: Colors.white,
+                            statusBarIconBrightness: Brightness.dark,
+                          ));
 
-                        Navigator.of(context)
-                            .push(
-                          // route: Navigate to TFLite screen
-                          // MaterialPageRoute(
-                          //   builder: (context) => PreviewScreen(
-                          //     pose: currentPose,
-                          //   ),
-                          // ),
-                          // route: Navigate to OAK screen
-                          MaterialPageRoute(
-                            // builder: (context) => PreviewOakScreen(
-                            //   pose: currentPose,
-                            //   trackName: _trackName,
+                          Navigator.of(context)
+                              .push(
+                            // route: Navigate to TFLite screen
+                            // MaterialPageRoute(
+                            //   builder: (context) => PreviewScreen(
+                            //     pose: currentPose,
+                            //   ),
                             // ),
-                            // builder: (context) => MLKitTest(),
-                            // builder: (context) => LandmarkOakScreen(
-                            //   pose: currentPose,
-                            //   trackName: _trackName,
-                            // ),
-                            builder: (context) => LandmarkMLKitScreen(
-                              pose: currentPose,
-                              trackName: _trackName,
+                            // route: Navigate to OAK screen
+                            MaterialPageRoute(
+                              // builder: (context) => PreviewOakScreen(
+                              //   pose: currentPose,
+                              //   trackName: _trackName,
+                              // ),
+                              // builder: (context) => MLKitTest(),
+                              // builder: (context) => LandmarkOakScreen(
+                              //   pose: currentPose,
+                              //   trackName: _trackName,
+                              // ),
+                              builder: (context) => LandmarkMLKitScreen(
+                                pose: currentPose,
+                                trackName: _trackName,
+                              ),
                             ),
-                          ),
-                        )
-                            .then((result) {
-                          String? returnedString = result as String?;
+                          )
+                              .then((result) {
+                            String? returnedString = result as String?;
 
-                          if (returnedString != 'navigated') {
-                            Wakelock.disable();
-                            SystemChrome.setPreferredOrientations([
-                              DeviceOrientation.portraitUp,
-                              DeviceOrientation.portraitDown,
-                            ]);
+                            if (returnedString != 'navigated') {
+                              Wakelock.disable();
+                              SystemChrome.setPreferredOrientations([
+                                DeviceOrientation.portraitUp,
+                                DeviceOrientation.portraitDown,
+                              ]);
 
-                            SystemChrome.setEnabledSystemUIOverlays(
-                                SystemUiOverlay.values);
-                            SystemChrome.setSystemUIOverlayStyle(
-                                SystemUiOverlayStyle(
-                              statusBarColor: Colors.transparent,
-                              statusBarIconBrightness: Brightness.dark,
-                            ));
-                          }
-                        });
+                              SystemChrome.setEnabledSystemUIOverlays(
+                                  SystemUiOverlay.values);
+                              SystemChrome.setSystemUIOverlayStyle(
+                                  SystemUiOverlayStyle(
+                                statusBarColor: Colors.transparent,
+                                statusBarIconBrightness: Brightness.dark,
+                              ));
+                            }
+                          });
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            CustomWidget.customSnackBar(
+                              content:
+                                  'The $poseName pose is not yet available. Coming soon.',
+                            ),
+                          );
+                        }
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Palette.lightDarkShade,
+                          color: _trackName == 'beginners'
+                              ? Palette.lightDarkShade
+                              : Palette.lightDarkShade.withOpacity(0.5),
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(8.0),
                           ),
