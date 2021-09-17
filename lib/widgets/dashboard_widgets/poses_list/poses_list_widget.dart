@@ -139,7 +139,9 @@ class PosesListWidget extends StatelessWidget {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Palette.lightDarkShade,
+                            color: trackName == 'beginners'
+                                ? Palette.lightDarkShade
+                                : Palette.lightDarkShade.withOpacity(0.5),
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(8.0),
                                 bottomLeft: Radius.circular(8.0)),
