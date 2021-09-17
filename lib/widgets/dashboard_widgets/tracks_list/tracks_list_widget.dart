@@ -24,6 +24,9 @@ class TracksListWidget extends StatelessWidget {
         String trackName = track.name!;
         String trackDescription = track.desc!;
 
+        // ------------------------------------------------
+        // Track Card - START
+        // ------------------------------------------------
         return InkWell(
           onTap: () {
             Navigator.of(context).push(
@@ -45,31 +48,84 @@ class TracksListWidget extends StatelessWidget {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: trackName == 'beginners'
+                        ? CrossAxisAlignment.end
+                        : CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
-                        child: Text(
-                          trackName[0].toUpperCase() +
-                              trackName.substring(1) +
-                              ' track',
-                          maxLines: 1,
-                          softWrap: false,
-                          overflow: TextOverflow.fade,
-                          style: TextStyle(
-                            fontSize: 22.0,
-                            fontWeight: FontWeight.bold,
-                            color: Palette.black,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // ------------------------------------------------
+                          // Coming Soon banner - START
+                          // ------------------------------------------------
+                          trackName == 'beginners'
+                              ? Container()
+                              : Container(
+                                  decoration: BoxDecoration(
+                                    color: Palette.darkShade,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(8.0),
+                                      bottomRight: Radius.circular(8.0),
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                      16.0,
+                                      5.0,
+                                      16.0,
+                                      5.0,
+                                    ),
+                                    child: Text(
+                                      'COMING SOON',
+                                      style: TextStyle(
+                                        fontSize: 10.0,
+                                        color: Colors.white,
+                                        letterSpacing: 1,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                          // ------------------------------------------------
+                          // Coming Soon banner - END
+                          // ------------------------------------------------
+                          SizedBox(height: 4.0),
+                          // ------------------------------------------------
+                          // Track Name - START
+                          // ------------------------------------------------
+                          Padding(
+                            padding: const EdgeInsets.only(left: 16.0),
+                            child: Text(
+                              trackName[0].toUpperCase() +
+                                  trackName.substring(1) +
+                                  ' track',
+                              maxLines: 1,
+                              softWrap: false,
+                              overflow: TextOverflow.fade,
+                              style: TextStyle(
+                                fontSize: 22.0,
+                                fontWeight: FontWeight.bold,
+                                color: Palette.black,
+                              ),
+                            ),
                           ),
-                        ),
+                          // ------------------------------------------------
+                          // Track Name - END
+                          // ------------------------------------------------
+                        ],
                       ),
+                      // ------------------------------------------------
+                      // Play Button - START
+                      // ------------------------------------------------
                       InkWell(
                         onTap: () {
                           print('Play button tapped !');
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Palette.lightDarkShade,
+                            color: trackName == 'beginners'
+                                ? Palette.lightDarkShade
+                                : Palette.lightDarkShade.withOpacity(0.5),
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(8.0),
                                 bottomLeft: Radius.circular(8.0)),
@@ -84,9 +140,15 @@ class TracksListWidget extends StatelessWidget {
                           ),
                         ),
                       ),
+                      // ------------------------------------------------
+                      // Play Button - END
+                      // ------------------------------------------------
                     ],
                   ),
                   SizedBox(height: 8.0),
+                  // ------------------------------------------------
+                  // Track Description - START
+                  // ------------------------------------------------
                   Padding(
                     padding: const EdgeInsets.only(
                       left: 16.0,
@@ -103,11 +165,17 @@ class TracksListWidget extends StatelessWidget {
                       ),
                     ),
                   ),
+                  // ------------------------------------------------
+                  // Track Description - END
+                  // ------------------------------------------------
                 ],
               ),
             ),
           ),
         );
+        // ------------------------------------------------
+        // Track Card - END
+        // ------------------------------------------------
       },
     );
   }
