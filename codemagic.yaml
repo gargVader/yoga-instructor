@@ -7,7 +7,7 @@ workflows:
     instance_type: mac_mini
     max_build_duration: 60
     environment:
-      flutter: 1.22.6
+      flutter: 2.5.0
       xcode: latest
       cocoapods: default
       vars:
@@ -30,6 +30,10 @@ workflows:
       events:
         - push
         - pull_request
+      branch_patterns:
+        - pattern: 'ml-kit'
+          include: true
+          source: true
       branch_patterns:
         - pattern: 'oak-d'
           include: true
