@@ -83,8 +83,46 @@ class _EachTrackPageState extends State<EachTrackPage> {
             SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  Image.asset(
-                    'assets/images/${trackName![0].toUpperCase() + trackName!.substring(1)}.jpg',
+                  Stack(
+                    alignment: AlignmentDirectional.bottomStart,
+                    children: [
+                      Image.asset(
+                        'assets/images/${trackName![0].toUpperCase() + trackName!.substring(1)}.jpg',
+                      ),
+                      // ------------------------------------------------
+                      // Coming Soon banner - START
+                      // ------------------------------------------------
+                      trackName == 'beginners'
+                          ? Container()
+                          : Container(
+                              decoration: BoxDecoration(
+                                color: Palette.darkShade,
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(8.0),
+                                  // bottomRight: Radius.circular(8.0),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                  16.0,
+                                  5.0,
+                                  16.0,
+                                  5.0,
+                                ),
+                                child: Text(
+                                  'COMING SOON',
+                                  style: TextStyle(
+                                    fontSize: 12.0,
+                                    color: Colors.white,
+                                    letterSpacing: 1,
+                                  ),
+                                ),
+                              ),
+                            ),
+                      // ------------------------------------------------
+                      // Coming Soon banner - END
+                      // ------------------------------------------------
+                    ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -129,7 +167,9 @@ class _EachTrackPageState extends State<EachTrackPage> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Palette.lightDarkShade,
+                            color: trackName == 'beginners'
+                                ? Palette.lightDarkShade
+                                : Palette.lightDarkShade.withOpacity(0.5),
                             borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(8.0),
                             ),
@@ -255,7 +295,8 @@ class _EachTrackPageState extends State<EachTrackPage> {
                         () {
                           WidgetsBinding.instance!.addPostFrameCallback((_) {
                             context
-                                .read(retrievePosesNotifierProvider!(trackName).notifier)
+                                .read(retrievePosesNotifierProvider!(trackName)
+                                    .notifier)
                                 .retrievePoses();
                           });
                           return PosesListInitialWidget();
