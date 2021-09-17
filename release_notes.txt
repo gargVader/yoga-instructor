@@ -1,3 +1,7 @@
 Changes:
 
-* Fix release build
+* ML Kit release - Phase 1
+* Includes pose detector accurate - all
+* Landmark painter and within frame checker
+* With and without classifier detector
+* Fixed number of memory leak issues
