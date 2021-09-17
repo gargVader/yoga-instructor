@@ -41,7 +41,8 @@ class LandmarkMLKitScreen extends StatefulWidget {
   _LandmarkMLKitScreenState createState() => _LandmarkMLKitScreenState();
 }
 
-class _LandmarkMLKitScreenState extends State<LandmarkMLKitScreen> {
+class _LandmarkMLKitScreenState extends State<LandmarkMLKitScreen>
+    with WidgetsBindingObserver {
   // SSHConnectivity _sshConnectivity = SSHConnectivity();
   // String landmarks = '';
 
@@ -340,6 +341,7 @@ class _LandmarkMLKitScreenState extends State<LandmarkMLKitScreen> {
       statusBarColor: Colors.transparent,
     ));
 
+    WidgetsBinding.instance?.addObserver(this);
     Wakelock.enable();
     _trackName = widget.trackName;
 
@@ -353,6 +355,12 @@ class _LandmarkMLKitScreenState extends State<LandmarkMLKitScreen> {
     _startLiveFeed();
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
   }
 
   @override
