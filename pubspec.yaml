@@ -3,7 +3,7 @@ description: AI powered yoga instructor
 
 publish_to: "none"
 
-version: 0.11.4+42
+version: 0.12.1+44
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -24,7 +24,7 @@ dependencies:
   flutter_tts: ^3.2.2
   # tflite: ^1.1.2
   showcaseview: ^1.1.1
-  camera: ^0.9.3
+  camera: ^0.9.4
   video_player: ^2.1.14
   google_fonts: ^2.1.0
   # flutter_statusbarcolor: ^0.2.3

@@ -55,6 +55,7 @@ class _LandmarkMLKitScreenState extends State<LandmarkMLKitScreen>
 
   PoseDetector poseDetector = GoogleMlKit.vision.poseDetector();
   bool isBusy = false;
+  bool _isCameraAllowed = true;
 
   String _status = 'Initializing camera...';
   Color _statusColor = Colors.red;
@@ -201,10 +202,11 @@ class _LandmarkMLKitScreenState extends State<LandmarkMLKitScreen>
   }
 
   Future _stopLiveFeed() async {
-    await _controller?.stopImageStream();
-    await _controller?.dispose();
     await poseDetector.close();
-    _controller = null;
+    // await _controller?.stopImageStream();
+    await _controller?.dispose();
+    _isCameraAllowed = false;
+    // _controller = null;
   }
 
   Future _processCameraImage(CameraImage image) async {
@@ -269,7 +271,7 @@ class _LandmarkMLKitScreenState extends State<LandmarkMLKitScreen>
         poses: poses,
         absoluteImageSize: inputImage.inputImageData!.size,
         rotation: inputImage.inputImageData!.imageRotation,
-        onDraw: (value) {
+        onDraw: (value) async {
           pointsWithinFrameCount = value;
           // print('POINTS: $value');
 
@@ -287,6 +289,7 @@ class _LandmarkMLKitScreenState extends State<LandmarkMLKitScreen>
 
           if (_insideFrameCount > 20) {
             _stopLiveFeed();
+
             SchedulerBinding.instance?.addPostFrameCallback((_) {
               Navigator.of(context).pushReplacement(
                 PageRouteBuilder(
@@ -358,6 +361,84 @@ class _LandmarkMLKitScreenState extends State<LandmarkMLKitScreen>
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    final CameraController? cameraController = _controller;
+
+    // App state changed before we got the chance to initialize.
+    if (cameraController == null || !cameraController.value.isInitialized) {
+      return;
+    }
+
+    if (state == AppLifecycleState.inactive) {
+      cameraController.dispose();
+      poseDetector.close();
+
+      _isCameraAllowed = false;
+    } else if (state == AppLifecycleState.resumed) {
+      onNewCameraSelected(cameraController.description);
+    }
+  }
+
+  void onNewCameraSelected(CameraDescription cameraDescription) async {
+    if (_controller != null) {
+      await _controller!.dispose();
+    }
+
+    final camera = cameras[_cameraIndex];
+
+    ///
+    _controller = CameraController(
+      camera,
+      ResolutionPreset.low,
+      enableAudio: false,
+    );
+    _controller?.initialize().then((_) {
+      if (!mounted) {
+        return;
+      }
+      _status =
+          'You are not within the frame of the camera. Please stay in frame while it starts.';
+      _controller?.startImageStream(_processCameraImage);
+      setState(() {});
+    });
+
+    ///
+
+    final CameraController cameraController = CameraController(
+      camera,
+      ResolutionPreset.low,
+      enableAudio: false,
+    );
+
+    _controller = cameraController;
+
+    // If the controller is updated then update the UI.
+    cameraController.addListener(() {
+      if (mounted) setState(() {});
+      if (cameraController.value.hasError) {
+        print('Camera error ${cameraController.value.errorDescription}');
+      }
+    });
+
+    try {
+      await cameraController.initialize().then((_) {
+        if (!mounted) {
+          return;
+        }
+        _status =
+            'You are not within the frame of the camera. Please stay in frame while it starts.';
+        _controller?.startImageStream(_processCameraImage);
+      });
+    } on CameraException catch (e) {
+      print('CAMERA EXCEPTION: $e');
+    }
+
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  @override
   void dispose() {
     WidgetsBinding.instance?.removeObserver(this);
     super.dispose();
@@ -404,20 +485,23 @@ class _LandmarkMLKitScreenState extends State<LandmarkMLKitScreen>
         backgroundColor: Colors.black,
         body: Stack(
           children: [
-            mounted && _controller != null
-                ? _controller!.value.isInitialized
-                    ? Center(
-                        child: SizedBox(
-                          height: height,
-                          child: RotatedBox(
-                            quarterTurns: 1,
-                            child: AspectRatio(
-                              aspectRatio: 1 / _controller!.value.aspectRatio,
-                              child: _controller!.buildPreview(),
+            mounted
+                ? _controller != null
+                    ? _controller!.value.isInitialized && _isCameraAllowed
+                        ? Center(
+                            child: SizedBox(
+                              height: height,
+                              child: RotatedBox(
+                                quarterTurns: 1,
+                                child: AspectRatio(
+                                  aspectRatio:
+                                      1 / _controller!.value.aspectRatio,
+                                  child: _controller!.buildPreview(),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      )
+                          )
+                        : Container()
                     : Container()
                 : Container(),
             mounted && _controller != null && customPaint != null

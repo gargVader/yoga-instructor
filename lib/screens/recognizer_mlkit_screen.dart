@@ -43,13 +43,15 @@ class RecognizerMLKitScreen extends StatefulWidget {
   _RecognizerMLKitScreenState createState() => _RecognizerMLKitScreenState();
 }
 
-class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen> {
+class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
+    with WidgetsBindingObserver {
   CameraController? _controller;
   CustomPaint? customPaint;
   int _cameraIndex = 1;
 
   PoseDetector poseDetector = GoogleMlKit.vision.poseDetector();
   bool isBusy = false;
+  bool _isCameraAllowed = true;
 
   Timer? _recognitionTimer;
   int _start = 10;
@@ -96,16 +98,18 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen> {
       if (!mounted) {
         return;
       }
+      _controller?.lockCaptureOrientation();
       _controller?.startImageStream(_processCameraImage);
       setState(() {});
     });
   }
 
   Future _stopLiveFeed() async {
-    await _controller?.stopImageStream();
-    await _controller?.dispose();
+    // await _controller?.stopImageStream();
     await poseDetector.close();
-    _controller = null;
+    await _controller?.dispose();
+    _isCameraAllowed = false;
+    // _controller = null;
   }
 
   Future _processCameraImage(CameraImage image) async {
@@ -386,6 +390,8 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen> {
 
     SystemChrome.setEnabledSystemUIOverlays([]);
 
+    WidgetsBinding.instance?.addObserver(this);
+
     // _client = SSHClient(
     //   host: configBox.get(hiveHostName) ?? PiConfig.hostname,
     //   username: configBox.get(hiveUsername) ?? PiConfig.username,
@@ -514,7 +520,8 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen> {
           vCount++;
         });
         _stopLiveFeed();
-        await Navigator.of(context).pushReplacement(
+
+        Navigator.of(context).pushReplacement(
           PageRouteBuilder(
             opaque: false,
             pageBuilder: (context, _, __) => ScoreOverlay(
@@ -561,7 +568,9 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
     _videoController!.dispose();
+
     super.dispose();
   }
 
@@ -618,24 +627,26 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen> {
               ),
               Align(
                 alignment: Alignment.topRight,
-                child: mounted && _controller != null
-                    ? _controller!.value.isInitialized
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(8),
-                            ),
-                            child: RotatedBox(
-                              quarterTurns: 1,
-                              child: SizedBox(
-                                width: screenSize.height * 0.4,
-                                child: AspectRatio(
-                                  aspectRatio:
-                                      1 / _controller!.value.aspectRatio,
-                                  child: _controller!.buildPreview(),
+                child: mounted
+                    ? _controller != null
+                        ? _controller!.value.isInitialized && _isCameraAllowed
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(8),
                                 ),
-                              ),
-                            ),
-                          )
+                                child: RotatedBox(
+                                  quarterTurns: 1,
+                                  child: SizedBox(
+                                    width: screenSize.height * 0.4,
+                                    child: AspectRatio(
+                                      aspectRatio:
+                                          1 / _controller!.value.aspectRatio,
+                                      child: _controller!.buildPreview(),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Container()
                         : Container()
                     : Container(),
 
