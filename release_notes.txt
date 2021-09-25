@@ -3,3 +3,5 @@ Changes:
 * ML Kit release - Phase 1
 * Add Firebase Crashlytics
 * Request permission for camera before opening the detection screen
+* Fix accuracy count
+* Fix downward facing dog pose
