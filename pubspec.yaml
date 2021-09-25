@@ -3,7 +3,7 @@ description: AI powered yoga instructor
 
 publish_to: "none"
 
-version: 0.12.2+45
+version: 0.12.3+46
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -52,6 +52,7 @@ dependencies:
     git:
       url: git://github.com/sbis04/flutter-ml-kit-pose-plugin.git
       ref: main
+  permission_handler: ^8.1.6
 
 dev_dependencies:
   flutter_test:

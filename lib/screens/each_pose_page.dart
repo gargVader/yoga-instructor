@@ -14,6 +14,7 @@ import 'package:sofia/widgets/each_pose_widgets/next_widget.dart';
 import 'package:sofia/widgets/each_pose_widgets/prev_next_widget.dart';
 import 'package:sofia/widgets/each_pose_widgets/prev_widget.dart';
 import 'package:wakelock/wakelock.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class EachPosePage extends StatefulWidget {
   final List<Pose>? poses;
@@ -166,59 +167,67 @@ class _EachPosePageState extends State<EachPosePage> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {
+                      onTap: () async {
                         print('Play button tapped !');
                         if (videoUrl!.isNotEmpty) {
-                          SystemChrome.setSystemUIOverlayStyle(
-                              SystemUiOverlayStyle(
-                            statusBarColor: Colors.white,
-                            statusBarIconBrightness: Brightness.dark,
-                          ));
+                          await Permission.camera.request();
 
-                          Navigator.of(context)
-                              .push(
-                            // route: Navigate to TFLite screen
-                            // MaterialPageRoute(
-                            //   builder: (context) => PreviewScreen(
-                            //     pose: currentPose,
-                            //   ),
-                            // ),
-                            // route: Navigate to OAK screen
-                            MaterialPageRoute(
-                              // builder: (context) => PreviewOakScreen(
-                              //   pose: currentPose,
-                              //   trackName: _trackName,
+                          var status = await Permission.camera.status;
+                          if (status.isGranted) {
+                            SystemChrome.setSystemUIOverlayStyle(
+                                SystemUiOverlayStyle(
+                              statusBarColor: Colors.white,
+                              statusBarIconBrightness: Brightness.dark,
+                            ));
+
+                            Navigator.of(context)
+                                .push(
+                              // route: Navigate to TFLite screen
+                              // MaterialPageRoute(
+                              //   builder: (context) => PreviewScreen(
+                              //     pose: currentPose,
+                              //   ),
                               // ),
-                              // builder: (context) => MLKitTest(),
-                              // builder: (context) => LandmarkOakScreen(
-                              //   pose: currentPose,
-                              //   trackName: _trackName,
-                              // ),
-                              builder: (context) => LandmarkMLKitScreen(
-                                pose: currentPose,
-                                trackName: _trackName,
+                              // route: Navigate to OAK screen
+                              MaterialPageRoute(
+                                // builder: (context) => PreviewOakScreen(
+                                //   pose: currentPose,
+                                //   trackName: _trackName,
+                                // ),
+                                // builder: (context) => MLKitTest(),
+                                // builder: (context) => LandmarkOakScreen(
+                                //   pose: currentPose,
+                                //   trackName: _trackName,
+                                // ),
+                                builder: (context) => LandmarkMLKitScreen(
+                                  pose: currentPose,
+                                  trackName: _trackName,
+                                ),
                               ),
-                            ),
-                          )
-                              .then((result) {
-                            String? returnedString = result as String?;
+                            )
+                                .then((result) {
+                              String? returnedString = result as String?;
 
-                            if (returnedString != 'navigated') {
-                              Wakelock.disable();
-                              SystemChrome.setPreferredOrientations([
-                                DeviceOrientation.portraitUp,
-                                DeviceOrientation.portraitDown,
-                              ]);
+                              if (returnedString != 'navigated') {
+                                Wakelock.disable();
+                                SystemChrome.setPreferredOrientations([
+                                  DeviceOrientation.portraitUp,
+                                  DeviceOrientation.portraitDown,
+                                ]);
 
-                              SystemChrome.setEnabledSystemUIOverlays(
-                                  SystemUiOverlay.values);
-                              SystemChrome.setSystemUIOverlayStyle(
-                                  SystemUiOverlayStyle(
-                                statusBarColor: Colors.transparent,
-                                statusBarIconBrightness: Brightness.dark,
-                              ));
-                            }
-                          });
+                                SystemChrome.setEnabledSystemUIOverlays(
+                                    SystemUiOverlay.values);
+                                SystemChrome.setSystemUIOverlayStyle(
+                                    SystemUiOverlayStyle(
+                                  statusBarColor: Colors.transparent,
+                                  statusBarIconBrightness: Brightness.dark,
+                                ));
+                              }
+                            });
+                          }
+
+                          // TODO: handle the case if user denied the permission
+
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             CustomWidget.customSnackBar(
