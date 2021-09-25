@@ -1,6 +1,4 @@
-Changes (0.12.1+44):
+Changes:
 
 * ML Kit release - Phase 1
-* Fix memory leak issues
-* 2/3 leaks are surely fixed
-* 1 of the leaks is still in review
+* Add Firebase Crashlytics
