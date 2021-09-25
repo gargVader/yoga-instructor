@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'store_user_score_state.dart';
 
@@ -9,27 +9,26 @@ part of 'store_user_score_state.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$StoreUserScoreStateTearOff {
   const _$StoreUserScoreStateTearOff();
 
-// ignore: unused_element
   InitialScoreData call() {
     return const InitialScoreData();
   }
 
-// ignore: unused_element
   StoringScoreData storing() {
     return const StoringScoreData();
   }
 
-// ignore: unused_element
   StoredScoreData stored() {
     return const StoredScoreData();
   }
 
-// ignore: unused_element
-  ErrorStoringScoreData error({String message}) {
+  ErrorStoringScoreData error({String? message}) {
     return ErrorStoringScoreData(
       message: message,
     );
@@ -37,41 +36,44 @@ class _$StoreUserScoreStateTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $StoreUserScoreState = _$StoreUserScoreStateTearOff();
 
 /// @nodoc
 mixin _$StoreUserScoreState {
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult storing(),
-    @required TResult stored(),
-    @required TResult error(String message),
-  });
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() storing,
+    required TResult Function() stored,
+    required TResult Function(String? message) error,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult storing(),
-    TResult stored(),
-    TResult error(String message),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? storing,
+    TResult Function()? stored,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialScoreData value), {
-    @required TResult storing(StoringScoreData value),
-    @required TResult stored(StoredScoreData value),
-    @required TResult error(ErrorStoringScoreData value),
-  });
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialScoreData value) $default, {
+    required TResult Function(StoringScoreData value) storing,
+    required TResult Function(StoredScoreData value) stored,
+    required TResult Function(ErrorStoringScoreData value) error,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialScoreData value), {
-    TResult storing(StoringScoreData value),
-    TResult stored(StoredScoreData value),
-    TResult error(ErrorStoringScoreData value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialScoreData value)? $default, {
+    TResult Function(StoringScoreData value)? storing,
+    TResult Function(StoredScoreData value)? stored,
+    TResult Function(ErrorStoringScoreData value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -111,6 +113,7 @@ class _$InitialScoreDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$InitialScoreData implements InitialScoreData {
   const _$InitialScoreData();
 
@@ -129,29 +132,24 @@ class _$InitialScoreData implements InitialScoreData {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult storing(),
-    @required TResult stored(),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() storing,
+    required TResult Function() stored,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(storing != null);
-    assert(stored != null);
-    assert(error != null);
     return $default();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult storing(),
-    TResult stored(),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? storing,
+    TResult Function()? stored,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if ($default != null) {
       return $default();
     }
@@ -160,29 +158,24 @@ class _$InitialScoreData implements InitialScoreData {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialScoreData value), {
-    @required TResult storing(StoringScoreData value),
-    @required TResult stored(StoredScoreData value),
-    @required TResult error(ErrorStoringScoreData value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialScoreData value) $default, {
+    required TResult Function(StoringScoreData value) storing,
+    required TResult Function(StoredScoreData value) stored,
+    required TResult Function(ErrorStoringScoreData value) error,
   }) {
-    assert($default != null);
-    assert(storing != null);
-    assert(stored != null);
-    assert(error != null);
     return $default(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialScoreData value), {
-    TResult storing(StoringScoreData value),
-    TResult stored(StoredScoreData value),
-    TResult error(ErrorStoringScoreData value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialScoreData value)? $default, {
+    TResult Function(StoringScoreData value)? storing,
+    TResult Function(StoredScoreData value)? stored,
+    TResult Function(ErrorStoringScoreData value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if ($default != null) {
       return $default(this);
     }
@@ -214,6 +207,7 @@ class _$StoringScoreDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$StoringScoreData implements StoringScoreData {
   const _$StoringScoreData();
 
@@ -232,29 +226,24 @@ class _$StoringScoreData implements StoringScoreData {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult storing(),
-    @required TResult stored(),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() storing,
+    required TResult Function() stored,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(storing != null);
-    assert(stored != null);
-    assert(error != null);
     return storing();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult storing(),
-    TResult stored(),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? storing,
+    TResult Function()? stored,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (storing != null) {
       return storing();
     }
@@ -263,29 +252,24 @@ class _$StoringScoreData implements StoringScoreData {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialScoreData value), {
-    @required TResult storing(StoringScoreData value),
-    @required TResult stored(StoredScoreData value),
-    @required TResult error(ErrorStoringScoreData value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialScoreData value) $default, {
+    required TResult Function(StoringScoreData value) storing,
+    required TResult Function(StoredScoreData value) stored,
+    required TResult Function(ErrorStoringScoreData value) error,
   }) {
-    assert($default != null);
-    assert(storing != null);
-    assert(stored != null);
-    assert(error != null);
     return storing(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialScoreData value), {
-    TResult storing(StoringScoreData value),
-    TResult stored(StoredScoreData value),
-    TResult error(ErrorStoringScoreData value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialScoreData value)? $default, {
+    TResult Function(StoringScoreData value)? storing,
+    TResult Function(StoredScoreData value)? stored,
+    TResult Function(ErrorStoringScoreData value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (storing != null) {
       return storing(this);
     }
@@ -317,6 +301,7 @@ class _$StoredScoreDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$StoredScoreData implements StoredScoreData {
   const _$StoredScoreData();
 
@@ -335,29 +320,24 @@ class _$StoredScoreData implements StoredScoreData {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult storing(),
-    @required TResult stored(),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() storing,
+    required TResult Function() stored,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(storing != null);
-    assert(stored != null);
-    assert(error != null);
     return stored();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult storing(),
-    TResult stored(),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? storing,
+    TResult Function()? stored,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (stored != null) {
       return stored();
     }
@@ -366,29 +346,24 @@ class _$StoredScoreData implements StoredScoreData {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialScoreData value), {
-    @required TResult storing(StoringScoreData value),
-    @required TResult stored(StoredScoreData value),
-    @required TResult error(ErrorStoringScoreData value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialScoreData value) $default, {
+    required TResult Function(StoringScoreData value) storing,
+    required TResult Function(StoredScoreData value) stored,
+    required TResult Function(ErrorStoringScoreData value) error,
   }) {
-    assert($default != null);
-    assert(storing != null);
-    assert(stored != null);
-    assert(error != null);
     return stored(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialScoreData value), {
-    TResult storing(StoringScoreData value),
-    TResult stored(StoredScoreData value),
-    TResult error(ErrorStoringScoreData value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialScoreData value)? $default, {
+    TResult Function(StoringScoreData value)? storing,
+    TResult Function(StoredScoreData value)? stored,
+    TResult Function(ErrorStoringScoreData value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (stored != null) {
       return stored(this);
     }
@@ -405,7 +380,7 @@ abstract class $ErrorStoringScoreDataCopyWith<$Res> {
   factory $ErrorStoringScoreDataCopyWith(ErrorStoringScoreData value,
           $Res Function(ErrorStoringScoreData) then) =
       _$ErrorStoringScoreDataCopyWithImpl<$Res>;
-  $Res call({String message});
+  $Res call({String? message});
 }
 
 /// @nodoc
@@ -421,20 +396,24 @@ class _$ErrorStoringScoreDataCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object message = freezed,
+    Object? message = freezed,
   }) {
     return _then(ErrorStoringScoreData(
-      message: message == freezed ? _value.message : message as String,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
+
 class _$ErrorStoringScoreData implements ErrorStoringScoreData {
   const _$ErrorStoringScoreData({this.message});
 
   @override
-  final String message;
+  final String? message;
 
   @override
   String toString() {
@@ -461,29 +440,24 @@ class _$ErrorStoringScoreData implements ErrorStoringScoreData {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult storing(),
-    @required TResult stored(),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() storing,
+    required TResult Function() stored,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(storing != null);
-    assert(stored != null);
-    assert(error != null);
     return error(message);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult storing(),
-    TResult stored(),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? storing,
+    TResult Function()? stored,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (error != null) {
       return error(message);
     }
@@ -492,29 +466,24 @@ class _$ErrorStoringScoreData implements ErrorStoringScoreData {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialScoreData value), {
-    @required TResult storing(StoringScoreData value),
-    @required TResult stored(StoredScoreData value),
-    @required TResult error(ErrorStoringScoreData value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialScoreData value) $default, {
+    required TResult Function(StoringScoreData value) storing,
+    required TResult Function(StoredScoreData value) stored,
+    required TResult Function(ErrorStoringScoreData value) error,
   }) {
-    assert($default != null);
-    assert(storing != null);
-    assert(stored != null);
-    assert(error != null);
     return error(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialScoreData value), {
-    TResult storing(StoringScoreData value),
-    TResult stored(StoredScoreData value),
-    TResult error(ErrorStoringScoreData value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialScoreData value)? $default, {
+    TResult Function(StoringScoreData value)? storing,
+    TResult Function(StoredScoreData value)? stored,
+    TResult Function(ErrorStoringScoreData value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (error != null) {
       return error(this);
     }
@@ -523,10 +492,11 @@ class _$ErrorStoringScoreData implements ErrorStoringScoreData {
 }
 
 abstract class ErrorStoringScoreData implements StoreUserScoreState {
-  const factory ErrorStoringScoreData({String message}) =
+  const factory ErrorStoringScoreData({String? message}) =
       _$ErrorStoringScoreData;
 
-  String get message;
+  String? get message => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ErrorStoringScoreDataCopyWith<ErrorStoringScoreData> get copyWith;
+  $ErrorStoringScoreDataCopyWith<ErrorStoringScoreData> get copyWith =>
+      throw _privateConstructorUsedError;
 }

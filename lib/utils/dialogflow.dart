@@ -10,7 +10,7 @@ import 'package:audiofileplayer/audiofileplayer.dart' as af;
 
 class Dialogflow {
   static stt.SpeechToText speech = stt.SpeechToText();
-  static bool isSpeechAvailable;
+  static late bool isSpeechAvailable;
   static AudioPlayer audioPlayer = AudioPlayer();
 
   static Future<bool> initializeSpeech() async {
@@ -70,8 +70,8 @@ class Dialogflow {
   }
 
   static Future<void> poseCompletion({
-    @required String poseName,
-    @required String accuracy,
+    required String? poseName,
+    required String accuracy,
   }) async {
     final df.DialogFlowtter dialogFlowtter = await df.DialogFlowtter.fromFile(
       path: 'assets/dialogflow/sofia_auth.json',
@@ -97,7 +97,7 @@ class Dialogflow {
       ),
     );
 
-    Uint8List audioBytes = response.outputAudioBytes;
+    Uint8List audioBytes = response.outputAudioBytes!;
 
     af.Audio.loadFromByteData(ByteData.view(audioBytes.buffer))
       ..play()
@@ -105,7 +105,7 @@ class Dialogflow {
   }
 
   static Future<void> poseRecognition({
-    @required Function(bool) onComplete,
+    required Function(bool) onComplete,
   }) async {
     final df.DialogFlowtter dialogFlowtter = await df.DialogFlowtter.fromFile(
       path: 'assets/dialogflow/sofia_auth.json',
@@ -131,7 +131,7 @@ class Dialogflow {
       ),
     );
 
-    Uint8List audioBytes = response.outputAudioBytes;
+    Uint8List audioBytes = response.outputAudioBytes!;
     af.Audio.loadFromByteData(ByteData.view(audioBytes.buffer),
         onComplete: () => onComplete(true))
       ..play();
@@ -162,12 +162,12 @@ class Dialogflow {
       ),
     );
 
-    Uint8List audioBytes = response.outputAudioBytes;
+    Uint8List audioBytes = response.outputAudioBytes!;
     af.Audio.loadFromByteData(ByteData.view(audioBytes.buffer))..play();
   }
 
   static Future<df.DetectIntentResponse> getDialogflowResponse({
-    @required String questionString,
+    required String questionString,
   }) async {
     final df.DialogFlowtter dialogFlowtter = await df.DialogFlowtter.fromFile(
       path: 'assets/dialogflow/sofia_auth.json',
@@ -197,8 +197,8 @@ class Dialogflow {
   }
 
   static Future<void> playSpeech({
-    @required Uint8List audioBytes,
-    @required Function(bool) completionCallback,
+    required Uint8List audioBytes,
+    required Function(bool) completionCallback,
   }) async {
     completionCallback(false);
 

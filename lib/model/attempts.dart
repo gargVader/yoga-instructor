@@ -4,12 +4,12 @@ part 'attempts.g.dart';
 
 @JsonSerializable()
 class Attempt {
-  String pose;
-  int stars;
-  double accuracy;
-  int dateTime;
-  int duration;
-  int weekday;
+  String? pose;
+  int? stars;
+  double? accuracy;
+  int? dateTime;
+  int? duration;
+  int? weekday;
 
   Attempt({
     this.pose,

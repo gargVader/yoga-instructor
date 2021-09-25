@@ -12,12 +12,12 @@ import 'package:wakelock/wakelock.dart';
 
 class PosesListWidget extends StatelessWidget {
   final List<Pose> poses;
-  final String trackName;
+  final String? trackName;
 
   const PosesListWidget({
-    Key key,
-    @required this.poses,
-    @required this.trackName,
+    Key? key,
+    required this.poses,
+    required this.trackName,
   }) : super(key: key);
 
   @override
@@ -31,10 +31,10 @@ class PosesListWidget extends StatelessWidget {
       ),
       itemBuilder: (_, index) {
         Pose pose = poses[index];
-        String poseTitle = pose.title;
-        String poseSubtitle = pose.sub;
-        String videoUrl = pose.videoUrl;
-        String poseBenefits = pose.benefits;
+        String poseTitle = pose.title!;
+        String poseSubtitle = pose.sub!;
+        String? videoUrl = pose.videoUrl;
+        String poseBenefits = pose.benefits!;
 
         return InkWell(
           onTap: () {
@@ -87,7 +87,7 @@ class PosesListWidget extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           print('Play button tapped !');
-                          if (videoUrl.isNotEmpty) {
+                          if (videoUrl!.isNotEmpty) {
                             Navigator.of(context)
                                 .push(
                               // route: Navigate to TFLite screen
@@ -110,7 +110,7 @@ class PosesListWidget extends StatelessWidget {
                               ),
                             )
                                 .then((result) {
-                              String returnedString = result as String;
+                              String? returnedString = result as String?;
 
                               if (returnedString != 'navigated') {
                                 Wakelock.disable();
@@ -139,7 +139,9 @@ class PosesListWidget extends StatelessWidget {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Palette.lightDarkShade,
+                            color: trackName == 'beginners'
+                                ? Palette.lightDarkShade
+                                : Palette.lightDarkShade.withOpacity(0.5),
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(8.0),
                                 bottomLeft: Radius.circular(8.0)),

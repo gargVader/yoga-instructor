@@ -17,7 +17,9 @@ import 'package:sofia/utils/video_manager.dart';
 import 'package:sofia/widgets/landmark_oak_widgets/landmark_painter.dart';
 import 'package:sofia/widgets/recognizer_oak_screen/record_indicator.dart';
 import 'package:sofia/widgets/recognizer_screen/scrore_viewer_widget.dart';
-import 'package:ssh/ssh.dart';
+import 'package:ssh2/ssh2.dart';
+// import 'package:ssh/ssh.dart';
+
 import 'package:video_player/video_player.dart';
 
 import 'package:sofia/model/pose.dart';
@@ -25,15 +27,15 @@ import 'package:sofia/model/pose.dart';
 import '../secrets.dart';
 
 class RecognizerOakScreen extends StatefulWidget {
-  final Pose pose;
-  final String trackName;
+  final Pose? pose;
+  final String? trackName;
   // final CameraController cameraController;
 
   const RecognizerOakScreen({
-    Key key,
-    @required this.pose,
+    Key? key,
+    required this.pose,
     // @required this.cameraController,
-    @required this.trackName,
+    required this.trackName,
   }) : super(key: key);
 
   @override
@@ -43,27 +45,27 @@ class RecognizerOakScreen extends StatefulWidget {
 class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
   SSHConnectivity _sshConnectivity = SSHConnectivity();
 
-  Timer _recognitionTimer;
+  Timer? _recognitionTimer;
   int _start = 10;
 
-  SSHClient _client;
+  late SSHClient _client;
   final configBox = Hive.box('config');
 
-  List<Landmark> _landmarks;
+  List<Landmark>? _landmarks;
   Color _landmarkColor = Colors.white;
 
   // StreamSubscription _dataStream;
   // final FirebaseDatabase _database = FirebaseDatabase();
-  String _currentPoseName;
-  String _indexedPoseName;
-  String _trackName;
-  VideoPlayerController _videoController;
+  String? _currentPoseName;
+  String _indexedPoseName = '';
+  String? _trackName;
+  VideoPlayerController? _videoController;
   // CameraController _cameraController;
-  List<int> _pausePoints;
+  List<int>? _pausePoints;
   int _currentPauseIndex = 0;
   int _totalFramesPositive = 0;
-  double _myPoseAcuracy = 0.0;
-  double _myPoseAcuracyTotal = 0.0;
+  double? _myPoseAcuracy = 0.0;
+  double? _myPoseAcuracyTotal = 0.0;
 
   // bool _isDetecting = false;
   bool _isDetectionAllowed = false;
@@ -71,14 +73,14 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
   bool _isSSHConnectionEstablished = false;
   bool _shouldSendIndex = false;
 
-  Tween<double> _accuracyTween;
+  Tween<double>? _accuracyTween;
 
-  DateTime _startTime;
-  int _poseIndex;
+  DateTime? _startTime;
+  int _poseIndex = 0;
 
   String _status = 'Initializing OAK-D...';
   bool _isOAKAvailable = true;
-  String _processId;
+  String? _processId;
 
   // Future<void> initializeVideoController() async {
   //   _videoController = VideoPlayerController.network(
@@ -102,17 +104,17 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
             setState(() {
               _isDetectionAllowed = false;
               _start = 10;
-              _currentPauseIndex == _pausePoints.length - 1
+              _currentPauseIndex == _pausePoints!.length - 1
                   ? _currentPauseIndex = -1
                   : _currentPauseIndex++;
             });
 
-            _videoController.play();
+            _videoController!.play();
 
             if (_myPoseAcuracyTotal == 0.0) {
               _myPoseAcuracyTotal = _myPoseAcuracy;
             } else {
-              _myPoseAcuracyTotal = (_myPoseAcuracyTotal + _myPoseAcuracy) / 2;
+              _myPoseAcuracyTotal = (_myPoseAcuracyTotal! + _myPoseAcuracy!) / 2;
             }
             _totalFramesPositive = 0;
 
@@ -176,8 +178,8 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
 
         // print('PARSED: ${parsedJSON['pose']}');
 
-        String poseName = parsedJSON['pose'];
-        double poseAccuracy = parsedJSON['accuracy'];
+        String? poseName = parsedJSON['pose'];
+        double? poseAccuracy = parsedJSON['accuracy'];
 
         setOakRecognitions(poseName, poseAccuracy);
       }
@@ -202,10 +204,10 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
   //   });
   // }
 
-  setOakRecognitions(String name, double accuracy) async {
+  setOakRecognitions(String? name, double? accuracy) async {
     if (_isDetectionAllowed) {
-      String label = name;
-      double confidence = accuracy;
+      String? label = name;
+      double? confidence = accuracy;
 
       print('RECOG: $label (current: $confidence, total avg: $_myPoseAcuracy)');
 
@@ -221,10 +223,10 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
           _myPoseAcuracy = confidence;
           setState(() {});
         } else if (_totalFramesPositive > 1) {
-          _myPoseAcuracy = (_myPoseAcuracy + confidence) / 2;
+          _myPoseAcuracy = (_myPoseAcuracy! + confidence!) / 2;
         } else {
           if (_isPoseCorrectStatus) {
-            _myPoseAcuracy = (_myPoseAcuracy + confidence) / 2;
+            _myPoseAcuracy = (_myPoseAcuracy! + confidence!) / 2;
             setState(() {});
           }
         }
@@ -312,14 +314,14 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
     // _cameraController = widget.cameraController;
     _videoController = VideoManager.videoController;
 
-    _pausePoints = widget.pose.pausePoints;
-    _currentPoseName = widget.pose.title;
+    _pausePoints = widget.pose!.pausePoints;
+    _currentPoseName = widget.pose!.title;
     _trackName = widget.trackName;
     _poseIndex = 1;
 
-    if (_pausePoints.length > 1) _shouldSendIndex = true;
+    if (_pausePoints!.length > 1) _shouldSendIndex = true;
 
-    _indexedPoseName = _currentPoseName;
+    _indexedPoseName = _currentPoseName!;
 
     if (_shouldSendIndex) {
       _indexedPoseName += '$_poseIndex';
@@ -329,7 +331,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
     _sshConnectivity.startRecognitionScript(
       client: _client,
       poseName: _indexedPoseName,
-      trackName: _trackName,
+      trackName: _trackName!,
       onReceive: (String output) {
         output = output.trim();
         if (this.mounted) processSSHOutput(output);
@@ -344,23 +346,23 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
       end: _myPoseAcuracy,
     );
 
-    _videoController.play();
+    _videoController!.play();
 
     _startTime = DateTime.now();
 
-    _videoController.addListener(() async {
-      final bool isPlaying = _videoController.value.isPlaying;
+    _videoController!.addListener(() async {
+      final bool isPlaying = _videoController!.value.isPlaying;
 
       if (isPlaying) {
         int currentPositionInSeconds =
-            _videoController.value.position.inSeconds;
+            _videoController!.value.position.inSeconds;
 
         if (currentPositionInSeconds ==
                 (_currentPauseIndex == -1
                     ? 0
-                    : _pausePoints[_currentPauseIndex]) &&
+                    : _pausePoints![_currentPauseIndex]) &&
             mounted) {
-          _videoController.pause();
+          _videoController!.pause();
           setState(() {
             _isDetectionAllowed = true;
             _landmarkColor = Colors.red;
@@ -373,31 +375,31 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
               setState(() {
                 _isDetectionAllowed = false;
                 _start = 3;
-                _currentPauseIndex == _pausePoints.length - 1
+                _currentPauseIndex == _pausePoints!.length - 1
                     ? _currentPauseIndex = -1
                     : _currentPauseIndex++;
 
                 _landmarkColor = Colors.white;
 
                 if (_shouldSendIndex) {
-                  _indexedPoseName = _currentPoseName + '$_poseIndex';
+                  _indexedPoseName = _currentPoseName! + '$_poseIndex';
                 }
-                _indexedPoseName = _currentPoseName + '$_poseIndex';
+                _indexedPoseName = _currentPoseName! + '$_poseIndex';
               });
 
-              _videoController.play();
+              _videoController!.play();
               //HERE
               // _sshConnectivity.stopRecognitionScript(
               //   processId: _processId,
               //   client: _client,
               // );
 
-              if (_poseIndex <= _pausePoints.length && _shouldSendIndex) {
+              if (_poseIndex <= _pausePoints!.length && _shouldSendIndex) {
                 // Changing the SSH script
                 _sshConnectivity.changeRecognizationScript(
                   client: _client,
                   poseName: _indexedPoseName,
-                  trackName: _trackName,
+                  trackName: _trackName!,
                   processId: _processId,
                   // onReceive: (String output) {
                   //   output = output.trim();
@@ -410,7 +412,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
                 _myPoseAcuracyTotal = _myPoseAcuracy;
               } else {
                 _myPoseAcuracyTotal =
-                    (_myPoseAcuracyTotal + _myPoseAcuracy) / 2;
+                    (_myPoseAcuracyTotal! + _myPoseAcuracy!) / 2;
               }
               _totalFramesPositive = 0;
 
@@ -420,8 +422,8 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
         }
       }
 
-      if (_videoController.value.duration == _videoController.value.position &&
-          !_videoController.value.isPlaying) {
+      if (_videoController!.value.duration == _videoController!.value.position &&
+          !_videoController!.value.isPlaying) {
         if (_isOAKAvailable)
           _sshConnectivity.stopRecognitionScript(
             processId: _processId,
@@ -474,7 +476,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
 
   @override
   void dispose() {
-    _videoController.dispose();
+    _videoController!.dispose();
     super.dispose();
   }
 
@@ -507,14 +509,14 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
         body: SafeArea(
           child: Stack(
             children: [
-              _videoController.value.initialized
+              _videoController!.value.isInitialized
                   ? OverflowBox(
                       maxWidth: screenSize.width,
                       maxHeight:
-                          screenSize.width * _videoController.value.aspectRatio,
+                          screenSize.width * _videoController!.value.aspectRatio,
                       child: AspectRatio(
-                        aspectRatio: _videoController.value.aspectRatio,
-                        child: VideoPlayer(_videoController),
+                        aspectRatio: _videoController!.value.aspectRatio,
+                        child: VideoPlayer(_videoController!),
                       ),
                     )
                   : Container(),
@@ -524,7 +526,7 @@ class _RecognizerOakScreenState extends State<RecognizerOakScreen> {
                   opacity: _isDetectionAllowed ? 1.0 : 0.4,
                   child: ScroreViewerWidget(
                     accuracyTween: _accuracyTween,
-                    accuracy: double.parse(_myPoseAcuracy.toStringAsFixed(2)),
+                    accuracy: double.parse(_myPoseAcuracy!.toStringAsFixed(2)),
                   ),
                 ),
               ),

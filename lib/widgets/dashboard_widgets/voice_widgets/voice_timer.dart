@@ -1,7 +1,7 @@
 import 'dart:async';
 
 class VoiceTimer {
-  static Timer voiceTimer;
+  static late Timer voiceTimer;
   static int voiceListenedRetension = 6;
 
   static startTimer(Function(bool) callback) {

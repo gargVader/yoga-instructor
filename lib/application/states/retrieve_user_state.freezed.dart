@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'retrieve_user_state.dart';
 
@@ -9,38 +9,36 @@ part of 'retrieve_user_state.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$RetrieveUserStateTearOff {
   const _$RetrieveUserStateTearOff();
 
-// ignore: unused_element
   InitialUserData call() {
     return const InitialUserData();
   }
 
-// ignore: unused_element
   RetrievingUser retrieving() {
     return const RetrievingUser();
   }
 
-// ignore: unused_element
-  RetrievedUser retrieved(User user, List<Attempt> attempts) {
+  RetrievedUser retrieved(MyUser user, List<Attempt> attempts) {
     return RetrievedUser(
       user,
       attempts,
     );
   }
 
-// ignore: unused_element
-  RetrievedUserAccuracy hasAccuracyData(User user, List<Attempt> attempts) {
+  RetrievedUserAccuracy hasAccuracyData(MyUser user, List<Attempt> attempts) {
     return RetrievedUserAccuracy(
       user,
       attempts,
     );
   }
 
-// ignore: unused_element
-  ErrorRetrievingUser error({String message}) {
+  ErrorRetrievingUser error({String? message}) {
     return ErrorRetrievingUser(
       message: message,
     );
@@ -48,45 +46,49 @@ class _$RetrieveUserStateTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $RetrieveUserState = _$RetrieveUserStateTearOff();
 
 /// @nodoc
 mixin _$RetrieveUserState {
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(User user, List<Attempt> attempts),
-    @required TResult hasAccuracyData(User user, List<Attempt> attempts),
-    @required TResult error(String message),
-  });
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(MyUser user, List<Attempt> attempts) retrieved,
+    required TResult Function(MyUser user, List<Attempt> attempts)
+        hasAccuracyData,
+    required TResult Function(String? message) error,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(User user, List<Attempt> attempts),
-    TResult hasAccuracyData(User user, List<Attempt> attempts),
-    TResult error(String message),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(MyUser user, List<Attempt> attempts)? retrieved,
+    TResult Function(MyUser user, List<Attempt> attempts)? hasAccuracyData,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    @required TResult retrieving(RetrievingUser value),
-    @required TResult retrieved(RetrievedUser value),
-    @required TResult hasAccuracyData(RetrievedUserAccuracy value),
-    @required TResult error(ErrorRetrievingUser value),
-  });
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialUserData value) $default, {
+    required TResult Function(RetrievingUser value) retrieving,
+    required TResult Function(RetrievedUser value) retrieved,
+    required TResult Function(RetrievedUserAccuracy value) hasAccuracyData,
+    required TResult Function(ErrorRetrievingUser value) error,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    TResult retrieving(RetrievingUser value),
-    TResult retrieved(RetrievedUser value),
-    TResult hasAccuracyData(RetrievedUserAccuracy value),
-    TResult error(ErrorRetrievingUser value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialUserData value)? $default, {
+    TResult Function(RetrievingUser value)? retrieving,
+    TResult Function(RetrievedUser value)? retrieved,
+    TResult Function(RetrievedUserAccuracy value)? hasAccuracyData,
+    TResult Function(ErrorRetrievingUser value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -126,6 +128,7 @@ class _$InitialUserDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$InitialUserData implements InitialUserData {
   const _$InitialUserData();
 
@@ -144,32 +147,27 @@ class _$InitialUserData implements InitialUserData {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(User user, List<Attempt> attempts),
-    @required TResult hasAccuracyData(User user, List<Attempt> attempts),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(MyUser user, List<Attempt> attempts) retrieved,
+    required TResult Function(MyUser user, List<Attempt> attempts)
+        hasAccuracyData,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(hasAccuracyData != null);
-    assert(error != null);
     return $default();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(User user, List<Attempt> attempts),
-    TResult hasAccuracyData(User user, List<Attempt> attempts),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(MyUser user, List<Attempt> attempts)? retrieved,
+    TResult Function(MyUser user, List<Attempt> attempts)? hasAccuracyData,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if ($default != null) {
       return $default();
     }
@@ -178,32 +176,26 @@ class _$InitialUserData implements InitialUserData {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    @required TResult retrieving(RetrievingUser value),
-    @required TResult retrieved(RetrievedUser value),
-    @required TResult hasAccuracyData(RetrievedUserAccuracy value),
-    @required TResult error(ErrorRetrievingUser value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialUserData value) $default, {
+    required TResult Function(RetrievingUser value) retrieving,
+    required TResult Function(RetrievedUser value) retrieved,
+    required TResult Function(RetrievedUserAccuracy value) hasAccuracyData,
+    required TResult Function(ErrorRetrievingUser value) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(hasAccuracyData != null);
-    assert(error != null);
     return $default(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    TResult retrieving(RetrievingUser value),
-    TResult retrieved(RetrievedUser value),
-    TResult hasAccuracyData(RetrievedUserAccuracy value),
-    TResult error(ErrorRetrievingUser value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialUserData value)? $default, {
+    TResult Function(RetrievingUser value)? retrieving,
+    TResult Function(RetrievedUser value)? retrieved,
+    TResult Function(RetrievedUserAccuracy value)? hasAccuracyData,
+    TResult Function(ErrorRetrievingUser value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if ($default != null) {
       return $default(this);
     }
@@ -235,6 +227,7 @@ class _$RetrievingUserCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$RetrievingUser implements RetrievingUser {
   const _$RetrievingUser();
 
@@ -253,32 +246,27 @@ class _$RetrievingUser implements RetrievingUser {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(User user, List<Attempt> attempts),
-    @required TResult hasAccuracyData(User user, List<Attempt> attempts),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(MyUser user, List<Attempt> attempts) retrieved,
+    required TResult Function(MyUser user, List<Attempt> attempts)
+        hasAccuracyData,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(hasAccuracyData != null);
-    assert(error != null);
     return retrieving();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(User user, List<Attempt> attempts),
-    TResult hasAccuracyData(User user, List<Attempt> attempts),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(MyUser user, List<Attempt> attempts)? retrieved,
+    TResult Function(MyUser user, List<Attempt> attempts)? hasAccuracyData,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (retrieving != null) {
       return retrieving();
     }
@@ -287,32 +275,26 @@ class _$RetrievingUser implements RetrievingUser {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    @required TResult retrieving(RetrievingUser value),
-    @required TResult retrieved(RetrievedUser value),
-    @required TResult hasAccuracyData(RetrievedUserAccuracy value),
-    @required TResult error(ErrorRetrievingUser value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialUserData value) $default, {
+    required TResult Function(RetrievingUser value) retrieving,
+    required TResult Function(RetrievedUser value) retrieved,
+    required TResult Function(RetrievedUserAccuracy value) hasAccuracyData,
+    required TResult Function(ErrorRetrievingUser value) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(hasAccuracyData != null);
-    assert(error != null);
     return retrieving(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    TResult retrieving(RetrievingUser value),
-    TResult retrieved(RetrievedUser value),
-    TResult hasAccuracyData(RetrievedUserAccuracy value),
-    TResult error(ErrorRetrievingUser value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialUserData value)? $default, {
+    TResult Function(RetrievingUser value)? retrieving,
+    TResult Function(RetrievedUser value)? retrieved,
+    TResult Function(RetrievedUserAccuracy value)? hasAccuracyData,
+    TResult Function(ErrorRetrievingUser value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (retrieving != null) {
       return retrieving(this);
     }
@@ -329,7 +311,7 @@ abstract class $RetrievedUserCopyWith<$Res> {
   factory $RetrievedUserCopyWith(
           RetrievedUser value, $Res Function(RetrievedUser) then) =
       _$RetrievedUserCopyWithImpl<$Res>;
-  $Res call({User user, List<Attempt> attempts});
+  $Res call({MyUser user, List<Attempt> attempts});
 }
 
 /// @nodoc
@@ -345,24 +327,29 @@ class _$RetrievedUserCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object user = freezed,
-    Object attempts = freezed,
+    Object? user = freezed,
+    Object? attempts = freezed,
   }) {
     return _then(RetrievedUser(
-      user == freezed ? _value.user : user as User,
-      attempts == freezed ? _value.attempts : attempts as List<Attempt>,
+      user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as MyUser,
+      attempts == freezed
+          ? _value.attempts
+          : attempts // ignore: cast_nullable_to_non_nullable
+              as List<Attempt>,
     ));
   }
 }
 
 /// @nodoc
+
 class _$RetrievedUser implements RetrievedUser {
-  const _$RetrievedUser(this.user, this.attempts)
-      : assert(user != null),
-        assert(attempts != null);
+  const _$RetrievedUser(this.user, this.attempts);
 
   @override
-  final User user;
+  final MyUser user;
   @override
   final List<Attempt> attempts;
 
@@ -395,32 +382,27 @@ class _$RetrievedUser implements RetrievedUser {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(User user, List<Attempt> attempts),
-    @required TResult hasAccuracyData(User user, List<Attempt> attempts),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(MyUser user, List<Attempt> attempts) retrieved,
+    required TResult Function(MyUser user, List<Attempt> attempts)
+        hasAccuracyData,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(hasAccuracyData != null);
-    assert(error != null);
     return retrieved(user, attempts);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(User user, List<Attempt> attempts),
-    TResult hasAccuracyData(User user, List<Attempt> attempts),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(MyUser user, List<Attempt> attempts)? retrieved,
+    TResult Function(MyUser user, List<Attempt> attempts)? hasAccuracyData,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (retrieved != null) {
       return retrieved(user, attempts);
     }
@@ -429,32 +411,26 @@ class _$RetrievedUser implements RetrievedUser {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    @required TResult retrieving(RetrievingUser value),
-    @required TResult retrieved(RetrievedUser value),
-    @required TResult hasAccuracyData(RetrievedUserAccuracy value),
-    @required TResult error(ErrorRetrievingUser value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialUserData value) $default, {
+    required TResult Function(RetrievingUser value) retrieving,
+    required TResult Function(RetrievedUser value) retrieved,
+    required TResult Function(RetrievedUserAccuracy value) hasAccuracyData,
+    required TResult Function(ErrorRetrievingUser value) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(hasAccuracyData != null);
-    assert(error != null);
     return retrieved(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    TResult retrieving(RetrievingUser value),
-    TResult retrieved(RetrievedUser value),
-    TResult hasAccuracyData(RetrievedUserAccuracy value),
-    TResult error(ErrorRetrievingUser value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialUserData value)? $default, {
+    TResult Function(RetrievingUser value)? retrieving,
+    TResult Function(RetrievedUser value)? retrieved,
+    TResult Function(RetrievedUserAccuracy value)? hasAccuracyData,
+    TResult Function(ErrorRetrievingUser value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (retrieved != null) {
       return retrieved(this);
     }
@@ -463,13 +439,14 @@ class _$RetrievedUser implements RetrievedUser {
 }
 
 abstract class RetrievedUser implements RetrieveUserState {
-  const factory RetrievedUser(User user, List<Attempt> attempts) =
+  const factory RetrievedUser(MyUser user, List<Attempt> attempts) =
       _$RetrievedUser;
 
-  User get user;
-  List<Attempt> get attempts;
+  MyUser get user => throw _privateConstructorUsedError;
+  List<Attempt> get attempts => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $RetrievedUserCopyWith<RetrievedUser> get copyWith;
+  $RetrievedUserCopyWith<RetrievedUser> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -477,7 +454,7 @@ abstract class $RetrievedUserAccuracyCopyWith<$Res> {
   factory $RetrievedUserAccuracyCopyWith(RetrievedUserAccuracy value,
           $Res Function(RetrievedUserAccuracy) then) =
       _$RetrievedUserAccuracyCopyWithImpl<$Res>;
-  $Res call({User user, List<Attempt> attempts});
+  $Res call({MyUser user, List<Attempt> attempts});
 }
 
 /// @nodoc
@@ -493,24 +470,29 @@ class _$RetrievedUserAccuracyCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object user = freezed,
-    Object attempts = freezed,
+    Object? user = freezed,
+    Object? attempts = freezed,
   }) {
     return _then(RetrievedUserAccuracy(
-      user == freezed ? _value.user : user as User,
-      attempts == freezed ? _value.attempts : attempts as List<Attempt>,
+      user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as MyUser,
+      attempts == freezed
+          ? _value.attempts
+          : attempts // ignore: cast_nullable_to_non_nullable
+              as List<Attempt>,
     ));
   }
 }
 
 /// @nodoc
+
 class _$RetrievedUserAccuracy implements RetrievedUserAccuracy {
-  const _$RetrievedUserAccuracy(this.user, this.attempts)
-      : assert(user != null),
-        assert(attempts != null);
+  const _$RetrievedUserAccuracy(this.user, this.attempts);
 
   @override
-  final User user;
+  final MyUser user;
   @override
   final List<Attempt> attempts;
 
@@ -544,32 +526,27 @@ class _$RetrievedUserAccuracy implements RetrievedUserAccuracy {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(User user, List<Attempt> attempts),
-    @required TResult hasAccuracyData(User user, List<Attempt> attempts),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(MyUser user, List<Attempt> attempts) retrieved,
+    required TResult Function(MyUser user, List<Attempt> attempts)
+        hasAccuracyData,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(hasAccuracyData != null);
-    assert(error != null);
     return hasAccuracyData(user, attempts);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(User user, List<Attempt> attempts),
-    TResult hasAccuracyData(User user, List<Attempt> attempts),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(MyUser user, List<Attempt> attempts)? retrieved,
+    TResult Function(MyUser user, List<Attempt> attempts)? hasAccuracyData,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (hasAccuracyData != null) {
       return hasAccuracyData(user, attempts);
     }
@@ -578,32 +555,26 @@ class _$RetrievedUserAccuracy implements RetrievedUserAccuracy {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    @required TResult retrieving(RetrievingUser value),
-    @required TResult retrieved(RetrievedUser value),
-    @required TResult hasAccuracyData(RetrievedUserAccuracy value),
-    @required TResult error(ErrorRetrievingUser value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialUserData value) $default, {
+    required TResult Function(RetrievingUser value) retrieving,
+    required TResult Function(RetrievedUser value) retrieved,
+    required TResult Function(RetrievedUserAccuracy value) hasAccuracyData,
+    required TResult Function(ErrorRetrievingUser value) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(hasAccuracyData != null);
-    assert(error != null);
     return hasAccuracyData(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    TResult retrieving(RetrievingUser value),
-    TResult retrieved(RetrievedUser value),
-    TResult hasAccuracyData(RetrievedUserAccuracy value),
-    TResult error(ErrorRetrievingUser value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialUserData value)? $default, {
+    TResult Function(RetrievingUser value)? retrieving,
+    TResult Function(RetrievedUser value)? retrieved,
+    TResult Function(RetrievedUserAccuracy value)? hasAccuracyData,
+    TResult Function(ErrorRetrievingUser value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (hasAccuracyData != null) {
       return hasAccuracyData(this);
     }
@@ -612,13 +583,14 @@ class _$RetrievedUserAccuracy implements RetrievedUserAccuracy {
 }
 
 abstract class RetrievedUserAccuracy implements RetrieveUserState {
-  const factory RetrievedUserAccuracy(User user, List<Attempt> attempts) =
+  const factory RetrievedUserAccuracy(MyUser user, List<Attempt> attempts) =
       _$RetrievedUserAccuracy;
 
-  User get user;
-  List<Attempt> get attempts;
+  MyUser get user => throw _privateConstructorUsedError;
+  List<Attempt> get attempts => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $RetrievedUserAccuracyCopyWith<RetrievedUserAccuracy> get copyWith;
+  $RetrievedUserAccuracyCopyWith<RetrievedUserAccuracy> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -626,7 +598,7 @@ abstract class $ErrorRetrievingUserCopyWith<$Res> {
   factory $ErrorRetrievingUserCopyWith(
           ErrorRetrievingUser value, $Res Function(ErrorRetrievingUser) then) =
       _$ErrorRetrievingUserCopyWithImpl<$Res>;
-  $Res call({String message});
+  $Res call({String? message});
 }
 
 /// @nodoc
@@ -642,20 +614,24 @@ class _$ErrorRetrievingUserCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object message = freezed,
+    Object? message = freezed,
   }) {
     return _then(ErrorRetrievingUser(
-      message: message == freezed ? _value.message : message as String,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
+
 class _$ErrorRetrievingUser implements ErrorRetrievingUser {
   const _$ErrorRetrievingUser({this.message});
 
   @override
-  final String message;
+  final String? message;
 
   @override
   String toString() {
@@ -681,32 +657,27 @@ class _$ErrorRetrievingUser implements ErrorRetrievingUser {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(User user, List<Attempt> attempts),
-    @required TResult hasAccuracyData(User user, List<Attempt> attempts),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(MyUser user, List<Attempt> attempts) retrieved,
+    required TResult Function(MyUser user, List<Attempt> attempts)
+        hasAccuracyData,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(hasAccuracyData != null);
-    assert(error != null);
     return error(message);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(User user, List<Attempt> attempts),
-    TResult hasAccuracyData(User user, List<Attempt> attempts),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(MyUser user, List<Attempt> attempts)? retrieved,
+    TResult Function(MyUser user, List<Attempt> attempts)? hasAccuracyData,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (error != null) {
       return error(message);
     }
@@ -715,32 +686,26 @@ class _$ErrorRetrievingUser implements ErrorRetrievingUser {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    @required TResult retrieving(RetrievingUser value),
-    @required TResult retrieved(RetrievedUser value),
-    @required TResult hasAccuracyData(RetrievedUserAccuracy value),
-    @required TResult error(ErrorRetrievingUser value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialUserData value) $default, {
+    required TResult Function(RetrievingUser value) retrieving,
+    required TResult Function(RetrievedUser value) retrieved,
+    required TResult Function(RetrievedUserAccuracy value) hasAccuracyData,
+    required TResult Function(ErrorRetrievingUser value) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(hasAccuracyData != null);
-    assert(error != null);
     return error(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    TResult retrieving(RetrievingUser value),
-    TResult retrieved(RetrievedUser value),
-    TResult hasAccuracyData(RetrievedUserAccuracy value),
-    TResult error(ErrorRetrievingUser value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialUserData value)? $default, {
+    TResult Function(RetrievingUser value)? retrieving,
+    TResult Function(RetrievedUser value)? retrieved,
+    TResult Function(RetrievedUserAccuracy value)? hasAccuracyData,
+    TResult Function(ErrorRetrievingUser value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (error != null) {
       return error(this);
     }
@@ -749,9 +714,10 @@ class _$ErrorRetrievingUser implements ErrorRetrievingUser {
 }
 
 abstract class ErrorRetrievingUser implements RetrieveUserState {
-  const factory ErrorRetrievingUser({String message}) = _$ErrorRetrievingUser;
+  const factory ErrorRetrievingUser({String? message}) = _$ErrorRetrievingUser;
 
-  String get message;
+  String? get message => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ErrorRetrievingUserCopyWith<ErrorRetrievingUser> get copyWith;
+  $ErrorRetrievingUserCopyWith<ErrorRetrievingUser> get copyWith =>
+      throw _privateConstructorUsedError;
 }

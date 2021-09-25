@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class Helper {
-  static String generateTimeString({@required Duration duration}) {
+  static String generateTimeString({required Duration duration}) {
     String durationString;
 
     if (duration.inSeconds < 60) {

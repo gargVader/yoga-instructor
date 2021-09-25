@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class CameraPreviewWidget extends StatelessWidget {
   const CameraPreviewWidget({
-    Key key,
-    @required bool isBodyVisible,
-    @required CameraController cameraController,
+    Key? key,
+    required bool isBodyVisible,
+    required CameraController cameraController,
   })  : _isBodyVisible = isBodyVisible,
         _cameraController = cameraController,
         super(key: key);

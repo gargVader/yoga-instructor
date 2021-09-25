@@ -12,7 +12,7 @@ class RetrieveUserNotifier extends StateNotifier<RetrieveUserState> {
   Future<void> retrieveUser() async {
     try {
       state = RetrieveUserState.retrieving();
-      User user = await _database.retrieveUserInfo();
+      MyUser user = await _database.retrieveUserInfo();
       List<Attempt> attempts = await _database.retrieveAttempts();
       state = RetrieveUserState.retrieved(user, attempts);
       if (user.accuracy != null) {

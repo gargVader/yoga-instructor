@@ -21,13 +21,13 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  String imageUrl;
-  String userName;
+  String? imageUrl;
+  String? userName;
 
   @override
   void initState() {
     super.initState();
-    User userData = Database.user;
+    MyUser userData = Database.user!;
     imageUrl = userData.imageUrl;
     userName = userData.userName;
   }
@@ -63,7 +63,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: InkWell(
                       onTap: () {
                         context
-                            .read(retrieveAttemptsNotifierProvider)
+                            .read(retrieveAttemptsNotifierProvider.notifier)
                             .retrieveAttempts();
                         Navigator.of(context).push(
                           MaterialPageRoute(
@@ -78,7 +78,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 borderRadius: BorderRadius.circular(60),
                                 child: SizedBox(
                                   width: 38.0,
-                                  child: Image.network(imageUrl),
+                                  child: Image.network(imageUrl!),
                                 ),
                               ),
                             )
@@ -117,27 +117,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                   SizedBox(height: 16.0),
                   // Your favourites
-                  Consumer(
-                    builder: (context, watch, child) {
-                      final state = watch(
-                        retrieveUserNotifierProvider.state,
-                      );
+                  Consumer(builder: (context, watch, child) {
+                    final state = watch(
+                      retrieveUserNotifierProvider,
+                    );
 
-                      return state.when(
-                        () => Container(),
-                        retrieving: () => Container(),
-                        retrieved: (_, __) => Container(),
-                        hasAccuracyData: (user, attempts) {
-                          Database.user = user;
-                          return UserPerformanceWidget(
-                            user: user,
-                            attempts: attempts,
-                          );
-                        },
-                        error: (_) => Container(),
-                      );
-                    },
-                  ),
+                    return state.when(
+                      () => Container(),
+                      retrieving: () => Container(),
+                      retrieved: (_, __) => Container(),
+                      hasAccuracyData: (user, attempts) {
+                        Database.user = user;
+                        return UserPerformanceWidget(
+                          user: user,
+                          attempts: attempts,
+                        );
+                      },
+                      error: (_) => Container(),
+                    );
+                  }),
                   SizedBox(height: 16.0),
                   Padding(
                     padding: const EdgeInsets.only(left: 16.0, right: 16.0),
@@ -154,7 +152,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   Consumer(
                     builder: (context, watch, child) {
                       final state = watch(
-                        retrievePosesNotifierProvider('beginners').state,
+                        retrievePosesNotifierProvider!('beginners'),
                       );
 
                       return state.when(
@@ -191,22 +189,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   SizedBox(height: 16.0),
                   Padding(
                     padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                    child: Consumer(
-                      builder: (context, watch, child) {
-                        final state = watch(
-                          retrieveTracksNotifierProvider.state,
-                        );
+                    child: Consumer(builder: (context, watch, child) {
+                      final state = watch(
+                        retrieveTracksNotifierProvider,
+                      );
 
-                        return state.when(
-                          () => TracksInitialWidget(),
-                          retrieving: () => TracksInitialWidget(),
-                          retrieved: (tracks) => TracksListWidget(
-                            tracks: tracks,
-                          ),
-                          error: (message) => TracksInitialWidget(),
-                        );
-                      },
-                    ),
+                      return state.when(
+                        () => TracksInitialWidget(),
+                        retrieving: () => TracksInitialWidget(),
+                        retrieved: (tracks) => TracksListWidget(
+                          tracks: tracks,
+                        ),
+                        error: (message) => TracksInitialWidget(),
+                      );
+                    }),
                   ),
                   SizedBox(height: 16.0),
                   Padding(

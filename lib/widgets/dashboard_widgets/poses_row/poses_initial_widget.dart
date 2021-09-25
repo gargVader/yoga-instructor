@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class PosesInitialWidget extends StatelessWidget {
   const PosesInitialWidget({
-    Key key,
-    @required this.screeWidth,
+    Key? key,
+    required this.screeWidth,
   }) : super(key: key);
 
   final double screeWidth;

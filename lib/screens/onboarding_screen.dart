@@ -49,6 +49,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     ]);
 
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Sofia: yoga trainer',
@@ -60,36 +61,42 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         primaryColor: Colors.white,
         accentColor: Colors.white,
       ),
-      home: ProviderListener<AuthCurrentUserState>(
-        provider: authCurrentUserNotifierProvider.state,
+      home: ProviderListener(
+        provider: authCurrentUserNotifierProvider,
         onChange: (context, state) {
           if (state is SignedInUser) {
-            context.read(voiceListenNotifierProvider).speechInitialization();
-
-            context.read(retrieveTracksNotifierProvider).retrieveTracks();
+            context
+                .read(voiceListenNotifierProvider.notifier)
+                .speechInitialization();
 
             context
-                .read(retrievePosesNotifierProvider('beginners'))
+                .read(retrieveTracksNotifierProvider.notifier)
+                .retrieveTracks();
+
+            context
+                .read(retrievePosesNotifierProvider!('beginners').notifier)
                 .retrievePoses();
 
-            context.read(retrieveUserNotifierProvider).retrieveUser();
+            context.read(retrieveUserNotifierProvider.notifier).retrieveUser();
 
-            context.read(retrieveAttemptsNotifierProvider).retrieveAttempts();
+            context
+                .read(retrieveAttemptsNotifierProvider.notifier)
+                .retrieveAttempts();
           }
         },
         child: Consumer(
           builder: (context, watch, child) {
             final state = watch(
-              authCurrentUserNotifierProvider.state,
+              authCurrentUserNotifierProvider,
             );
 
             return AnimatedSwitcher(
               duration: Duration(milliseconds: 300),
               child: state.when(
                   () {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                    WidgetsBinding.instance!.addPostFrameCallback((_) {
                       context
-                          .read(authCurrentUserNotifierProvider)
+                          .read(authCurrentUserNotifierProvider.notifier)
                           .getCurrentUser();
                     });
                     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(

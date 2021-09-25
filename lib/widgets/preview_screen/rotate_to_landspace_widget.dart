@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class RotateToLandscapeWidget extends StatelessWidget {
   const RotateToLandscapeWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

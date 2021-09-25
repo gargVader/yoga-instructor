@@ -8,12 +8,12 @@ part of 'attempts.dart';
 
 Attempt _$AttemptFromJson(Map<String, dynamic> json) {
   return Attempt(
-    pose: json['pose'] as String,
-    stars: json['stars'] as int,
-    accuracy: (json['accuracy'] as num)?.toDouble(),
-    dateTime: json['dateTime'] as int,
-    duration: json['duration'] as int,
-    weekday: json['weekday'] as int,
+    pose: json['pose'] as String?,
+    stars: json['stars'] as int?,
+    accuracy: (json['accuracy'] as num?)?.toDouble(),
+    dateTime: json['dateTime'] as int?,
+    duration: json['duration'] as int?,
+    weekday: json['weekday'] as int?,
   );
 }
 

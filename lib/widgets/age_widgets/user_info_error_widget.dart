@@ -6,22 +6,22 @@ class UserInfoErrorWidget extends StatelessWidget {
   final String errorMessage;
   final Size screenSize;
   final String uid;
-  final String email;
-  final String imageUrl;
-  final String accountName;
-  final String userName;
-  final String gender;
+  final String? email;
+  final String? imageUrl;
+  final String? accountName;
+  final String? userName;
+  final String? gender;
 
   const UserInfoErrorWidget({
-    Key key,
-    @required this.errorMessage,
-    @required this.screenSize,
-    @required this.uid,
-    @required this.email,
-    @required this.imageUrl,
-    @required this.accountName,
-    @required this.userName,
-    @required this.gender,
+    Key? key,
+    required this.errorMessage,
+    required this.screenSize,
+    required this.uid,
+    required this.email,
+    required this.imageUrl,
+    required this.accountName,
+    required this.userName,
+    required this.gender,
   }) : super(key: key);
 
   @override

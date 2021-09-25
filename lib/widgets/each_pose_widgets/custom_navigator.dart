@@ -4,9 +4,9 @@ import 'package:sofia/screens/each_pose_page.dart';
 
 class CustomNavigators {
   static Route routeToNextScreen({
-    @required List<Pose> poses,
-    @required int nextIndex,
-    @required String trackName,
+    required List<Pose>? poses,
+    required int nextIndex,
+    required String? trackName,
   }) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => EachPosePage(
@@ -31,9 +31,9 @@ class CustomNavigators {
   }
 
   static Route routeToPreviousScreen({
-    @required List<Pose> poses,
-    @required int prevIndex,
-    @required String trackName,
+    required List<Pose>? poses,
+    required int prevIndex,
+    required String? trackName,
   }) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => EachPosePage(

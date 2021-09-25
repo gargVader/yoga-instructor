@@ -9,10 +9,10 @@ class SettingsTile extends StatefulWidget {
   final String textFieldSuffixString;
 
   const SettingsTile({
-    @required this.title,
-    @required this.description,
-    @required this.hiveKey,
-    @required this.hiveValue,
+    required this.title,
+    required this.description,
+    required this.hiveKey,
+    required this.hiveValue,
     this.textFieldSuffixString = '',
   });
 
@@ -21,9 +21,9 @@ class SettingsTile extends StatefulWidget {
 }
 
 class _SettingsTileState extends State<SettingsTile> {
-  TextEditingController _textController;
+  TextEditingController? _textController;
 
-  Box _configBox;
+  late Box _configBox;
   // String _value;
 
   @override
@@ -79,10 +79,10 @@ class _SettingsTileState extends State<SettingsTile> {
                             SizedBox(),
                             FlatButton(
                               onPressed: () {
-                                if (_textController.text != null &&
-                                    _textController.text != '') {
+                                if (_textController!.text != null &&
+                                    _textController!.text != '') {
                                   _configBox.put(
-                                      widget.hiveKey, _textController.text);
+                                      widget.hiveKey, _textController!.text);
                                   Navigator.of(context).pop();
                                 }
                               },

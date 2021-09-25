@@ -12,16 +12,16 @@ import 'package:sofia/utils/authentication_client.dart';
 
 /// The main Firestore collection.
 final CollectionReference mainCollection =
-    Firestore.instance.collection('sofia');
+    FirebaseFirestore.instance.collection('sofia');
 
 // Use this for production
-// final DocumentReference documentReference = mainCollection.document('prod');
+// final DocumentReference documentReference = mainCollection.doc('prod');
 
-/// The test document reference.
-final DocumentReference documentReference = mainCollection.document('test');
+/// The test doc reference.
+final DocumentReference documentReference = mainCollection.doc('test');
 
 class Database {
-  static User user;
+  static MyUser? user;
 
   List<String> tracks = [
     'beginners',
@@ -418,7 +418,7 @@ class Database {
     int id = 1;
     poses.forEach((key, value) async {
       DocumentReference documentReferencer =
-          documentReference.collection('tracks').document(key);
+          documentReference.collection('tracks').doc(key);
 
       Map<String, dynamic> name = <String, dynamic>{
         "id": id,
@@ -428,14 +428,13 @@ class Database {
       };
       id = id + 1;
 
-      await documentReferencer.setData(name).whenComplete(() {
+      await documentReferencer.set(name).whenComplete(() {
         print("$key track added to the database");
       }).catchError((e) => print(e));
 
       value.forEach((element) async {
-        DocumentReference poseDocs = documentReferencer
-            .collection('poses')
-            .document(element.elementAt(0));
+        DocumentReference poseDocs =
+            documentReferencer.collection('poses').doc(element.elementAt(0));
 
         Map<String, dynamic> data = <String, dynamic>{
           "title": element.elementAt(0),
@@ -445,7 +444,7 @@ class Database {
           "pause_points": element.elementAt(4),
         };
 
-        await poseDocs.setData(data).whenComplete(() {
+        await poseDocs.set(data).whenComplete(() {
           print("${element.elementAt(0)} added to the database");
         }).catchError((e) => print(e));
       });
@@ -453,19 +452,19 @@ class Database {
   }
 
   /// For storing user data on the database
-  Future<User> storeUserData({
-    @required String uid,
-    @required String email,
-    @required String imageUrl,
-    @required String accountName,
-    @required String userName,
-    @required String gender,
-    @required String age,
+  Future<MyUser> storeUserData({
+    required String uid,
+    required String email,
+    required String imageUrl,
+    required String accountName,
+    required String userName,
+    required String gender,
+    required String age,
   }) async {
-    User userData;
+    MyUser userData;
 
     DocumentReference documentReferencer =
-        documentReference.collection('user_info').document(uid);
+        documentReference.collection('user_info').doc(uid);
 
     DocumentSnapshot userDocSnapshot = await documentReferencer.get();
     bool doesDocumentExist = userDocSnapshot.exists;
@@ -482,17 +481,17 @@ class Database {
     };
     print('DATA:\n$data');
 
-    userData = User.fromJson(data);
+    userData = MyUser.fromJson(data);
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if (doesDocumentExist) {
-      await documentReferencer.updateData(data).whenComplete(() {
+      await documentReferencer.update(data).whenComplete(() {
         print("User Info updated in the database");
         prefs.setBool('details_uploaded', true);
       }).catchError((e) => print(e));
     } else {
-      await documentReferencer.setData(data).whenComplete(() {
+      await documentReferencer.set(data).whenComplete(() {
         print("User Info added to the database");
         prefs.setBool('details_uploaded', true);
       }).catchError((e) => print(e));
@@ -515,13 +514,13 @@ class Database {
   }
 
   updateUserData({
-    @required String name,
-    @required email,
+    required String name,
+    required email,
   }) async {
-    String uid = AuthenticationClient.presentUser.uid;
+    String uid = AuthenticationClient.presentUser!.uid;
 
     DocumentReference documentReferencer =
-        documentReference.collection('user_info').document(uid);
+        documentReference.collection('user_info').doc(uid);
 
     Map<String, dynamic> data = <String, dynamic>{
       "accountName": name,
@@ -530,25 +529,25 @@ class Database {
     };
     print('DATA:\n$data');
 
-    await documentReferencer.updateData(data).whenComplete(() {
+    await documentReferencer.update(data).whenComplete(() {
       print("User Info updated in the database");
     }).catchError((e) => print(e));
   }
 
   // Future getProducts() async {
   //   QuerySnapshot productQuery =
-  //       await documentReference.collection('departments').getDocuments();
+  //       await documentReference.collection('departments').get();
 
-  //   return productQuery.documents;
+  //   return productQuery.docs;
   // }
 
   /// For retrieving the user info from the database
-  Future<User> retrieveUserInfo() async {
-    String uid = AuthenticationClient.presentUser.uid;
+  Future<MyUser> retrieveUserInfo() async {
+    String uid = AuthenticationClient.presentUser!.uid;
     DocumentSnapshot userInfo =
-        await documentReference.collection('user_info').document(uid).get();
+        await documentReference.collection('user_info').doc(uid).get();
 
-    User userData = User.fromJson(userInfo.data);
+    MyUser userData = MyUser.fromJson(userInfo.data() as Map<String, dynamic>);
 
     return userData;
   }
@@ -558,19 +557,19 @@ class Database {
     QuerySnapshot tracksQuery = await documentReference
         .collection('tracks')
         .orderBy('id', descending: false)
-        .getDocuments();
+        .get();
 
     List<Track> tracks = [];
 
-    tracksQuery.documents.forEach((doc) {
-      tracks.add(Track.fromJson(doc.data));
+    tracksQuery.docs.forEach((doc) {
+      tracks.add(Track.fromJson(doc.data() as Map<String, dynamic>));
     });
 
     return tracks;
   }
 
   Future<List<Attempt>> retrieveAttempts() async {
-    String uid = AuthenticationClient.presentUser.uid;
+    String uid = AuthenticationClient.presentUser!.uid;
 
     DateTime currentDateTime = DateTime.now();
     int currentWeekDay = currentDateTime.weekday;
@@ -589,45 +588,45 @@ class Database {
 
     QuerySnapshot attemptsDocQuery = await documentReference
         .collection('user_info')
-        .document(uid)
+        .doc(uid)
         .collection('attempts')
         .orderBy('dateTime', descending: true)
         .where('dateTime', isGreaterThan: startOfWeekInMilliseconds)
-        .getDocuments();
+        .get();
 
     List<Attempt> attempts = [];
 
-    attemptsDocQuery.documents.forEach((doc) {
-      attempts.add(Attempt.fromJson(doc.data));
+    attemptsDocQuery.docs.forEach((doc) {
+      attempts.add(Attempt.fromJson(doc.data() as Map<String, dynamic>));
     });
 
     return attempts;
   }
 
   /// For retrieving the poses from the database
-  Future<List<Pose>> retrievePoses({@required String trackName}) async {
+  Future<List<Pose>> retrievePoses({required String trackName}) async {
     QuerySnapshot posesQuery = await documentReference
         .collection('tracks')
-        .document(trackName)
+        .doc(trackName)
         .collection('poses')
-        .getDocuments();
+        .get();
 
     List<Pose> poses = [];
 
-    posesQuery.documents.forEach((doc) {
-      poses.add(Pose.fromJson(doc.data));
+    posesQuery.docs.forEach((doc) {
+      poses.add(Pose.fromJson(doc.data() as Map<String, dynamic>));
     });
 
     return poses;
   }
 
   uploadScore({
-    @required String poseName,
-    @required int stars,
-    @required double accuracy,
-    @required int timeInMilliseconds,
+    required String poseName,
+    required int stars,
+    required double accuracy,
+    required int timeInMilliseconds,
   }) async {
-    String currentUid = AuthenticationClient.presentUser.uid;
+    String currentUid = AuthenticationClient.presentUser!.uid;
 
     DateTime currentUploadTime = DateTime.now();
     int currentUploadTimeInMilliseconds =
@@ -636,9 +635,9 @@ class Database {
     // Update attempts
     DocumentReference attemptDocReferencer = documentReference
         .collection('user_info')
-        .document(currentUid)
+        .doc(currentUid)
         .collection('attempts')
-        .document(currentUploadTimeInMilliseconds.toString());
+        .doc(currentUploadTimeInMilliseconds.toString());
 
     Map<String, dynamic> attemptData = <String, dynamic>{
       "pose": poseName,
@@ -650,21 +649,21 @@ class Database {
     };
     print('DATA:\n$attemptData');
 
-    await attemptDocReferencer.setData(attemptData).whenComplete(() {
+    await attemptDocReferencer.set(attemptData).whenComplete(() {
       print("Attempt added to the database!");
     }).catchError((e) => print(e));
 
     // Update score
-    DocumentReference scoreDocReferencer = documentReference
+    final scoreDocReferencer = documentReference
         .collection('user_info')
-        .document(currentUid)
+        .doc(currentUid)
         .collection('score')
-        .document(poseName);
+        .doc(poseName);
 
     // Only update if the stats on database is low
-    DocumentSnapshot scoreSnapshot = await scoreDocReferencer.get();
-    if (scoreSnapshot.data != null) {
-      double accuracyOnDatabase = scoreSnapshot.data['accuracy'];
+    DocumentSnapshot<Map> scoreSnapshot = await scoreDocReferencer.get();
+    if (scoreSnapshot.data() != null) {
+      double accuracyOnDatabase = scoreSnapshot.data()!['accuracy'];
       if (accuracy > accuracyOnDatabase) {
         Map<String, dynamic> scoreData = <String, dynamic>{
           "stars": stars,
@@ -673,7 +672,7 @@ class Database {
         };
         print('DATA:\n$scoreData');
 
-        await scoreDocReferencer.setData(scoreData).whenComplete(() {
+        await scoreDocReferencer.set(scoreData).whenComplete(() {
           print("Score added to the database!");
         }).catchError((e) => print(e));
       }
@@ -685,34 +684,34 @@ class Database {
       };
       print('DATA:\n$scoreData');
 
-      await scoreDocReferencer.setData(scoreData).whenComplete(() {
+      await scoreDocReferencer.set(scoreData).whenComplete(() {
         print("Score added to the database!");
       }).catchError((e) => print(e));
     }
 
     // Update total stars and total duration
-    QuerySnapshot scoreDocs = await documentReference
+    QuerySnapshot<Map> scoreDocs = await documentReference
         .collection('user_info')
-        .document(currentUid)
+        .doc(currentUid)
         .collection('score')
-        .getDocuments();
+        .get();
 
     int totalStars = 0;
-    double totalAcuracy = 0.0;
+    double? totalAcuracy = 0.0;
     int totalTimeInMilliseconds = 0;
 
-    scoreDocs.documents.forEach((doc) {
-      totalStars += doc.data['stars'];
+    scoreDocs.docs.forEach((doc) {
+      totalStars += doc.data()['stars'] as int;
       totalAcuracy = totalAcuracy == 0.0
-          ? doc.data['accuracy']
-          : double.parse(
-              ((totalAcuracy + doc.data['accuracy']) / 2).toStringAsFixed(3));
+          ? doc.data()['accuracy']
+          : double.parse(((totalAcuracy! + doc.data()['accuracy']) / 2)
+              .toStringAsFixed(3));
       // totalAcuracy = doc.data['accuracy'];
-      totalTimeInMilliseconds += doc.data['time'];
+      totalTimeInMilliseconds += doc.data()['time'] as int;
     });
 
     DocumentReference userReferencer =
-        documentReference.collection('user_info').document(currentUid);
+        documentReference.collection('user_info').doc(currentUid);
 
     Map<String, dynamic> totalScoreData = <String, dynamic>{
       "stars": totalStars,
@@ -720,7 +719,7 @@ class Database {
       "time": FieldValue.increment(totalTimeInMilliseconds),
     };
 
-    await userReferencer.updateData(totalScoreData).whenComplete(() {
+    await userReferencer.update(totalScoreData).whenComplete(() {
       print('User total score updated!');
     }).catchError((e) => print(e));
   }

@@ -11,7 +11,7 @@ class AuthSignInNotifier extends StateNotifier<AuthSignInState> {
     try {
       state = AuthSignInState.signingIn();
       final signedInUser = await _authentication.signInWithGoogle();
-      state = AuthSignInState.signedIn(signedInUser);
+      state = AuthSignInState.signedIn(signedInUser!);
     } catch (error) {
       state = AuthSignInState.error(
           message: 'Error signing in, please check your network connection');

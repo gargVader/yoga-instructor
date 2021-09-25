@@ -9,10 +9,10 @@ class StoreUserScoreNotifier extends StateNotifier<StoreUserScoreState> {
   StoreUserScoreNotifier(this._database) : super(StoreUserScoreState());
 
   Future<void> storeScore({
-    @required String poseName,
-    @required int stars,
-    @required double accuracy,
-    @required int timeInMilliseconds,
+    required String poseName,
+    required int stars,
+    required double accuracy,
+    required int timeInMilliseconds,
   }) async {
     try {
       state = StoreUserScoreState.storing();

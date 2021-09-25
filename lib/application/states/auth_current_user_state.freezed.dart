@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'auth_current_user_state.dart';
 
@@ -9,41 +9,38 @@ part of 'auth_current_user_state.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$AuthCurrentUserStateTearOff {
   const _$AuthCurrentUserStateTearOff();
 
-// ignore: unused_element
   InitialUser call() {
     return const InitialUser();
   }
 
-// ignore: unused_element
   Finding finding() {
     return const Finding();
   }
 
-// ignore: unused_element
-  SignedInUser alreadySignedIn(User user) {
+  SignedInUser alreadySignedIn(MyUser user) {
     return SignedInUser(
       user,
     );
   }
 
-// ignore: unused_element
-  DetailsNotUploaded detailsNotUploaded(FirebaseUser user) {
+  DetailsNotUploaded detailsNotUploaded(User user) {
     return DetailsNotUploaded(
       user,
     );
   }
 
-// ignore: unused_element
   NotSignedInUser notSignedIn() {
     return const NotSignedInUser();
   }
 
-// ignore: unused_element
-  Error error({String message}) {
+  Error error({String? message}) {
     return Error(
       message: message,
     );
@@ -51,49 +48,52 @@ class _$AuthCurrentUserStateTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $AuthCurrentUserState = _$AuthCurrentUserStateTearOff();
 
 /// @nodoc
 mixin _$AuthCurrentUserState {
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult finding(),
-    @required TResult alreadySignedIn(User user),
-    @required TResult detailsNotUploaded(FirebaseUser user),
-    @required TResult notSignedIn(),
-    @required TResult error(String message),
-  });
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() finding,
+    required TResult Function(MyUser user) alreadySignedIn,
+    required TResult Function(User user) detailsNotUploaded,
+    required TResult Function() notSignedIn,
+    required TResult Function(String? message) error,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult finding(),
-    TResult alreadySignedIn(User user),
-    TResult detailsNotUploaded(FirebaseUser user),
-    TResult notSignedIn(),
-    TResult error(String message),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? finding,
+    TResult Function(MyUser user)? alreadySignedIn,
+    TResult Function(User user)? detailsNotUploaded,
+    TResult Function()? notSignedIn,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialUser value), {
-    @required TResult finding(Finding value),
-    @required TResult alreadySignedIn(SignedInUser value),
-    @required TResult detailsNotUploaded(DetailsNotUploaded value),
-    @required TResult notSignedIn(NotSignedInUser value),
-    @required TResult error(Error value),
-  });
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialUser value) $default, {
+    required TResult Function(Finding value) finding,
+    required TResult Function(SignedInUser value) alreadySignedIn,
+    required TResult Function(DetailsNotUploaded value) detailsNotUploaded,
+    required TResult Function(NotSignedInUser value) notSignedIn,
+    required TResult Function(Error value) error,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialUser value), {
-    TResult finding(Finding value),
-    TResult alreadySignedIn(SignedInUser value),
-    TResult detailsNotUploaded(DetailsNotUploaded value),
-    TResult notSignedIn(NotSignedInUser value),
-    TResult error(Error value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialUser value)? $default, {
+    TResult Function(Finding value)? finding,
+    TResult Function(SignedInUser value)? alreadySignedIn,
+    TResult Function(DetailsNotUploaded value)? detailsNotUploaded,
+    TResult Function(NotSignedInUser value)? notSignedIn,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -133,6 +133,7 @@ class _$InitialUserCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$InitialUser implements InitialUser {
   const _$InitialUser();
 
@@ -151,35 +152,28 @@ class _$InitialUser implements InitialUser {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult finding(),
-    @required TResult alreadySignedIn(User user),
-    @required TResult detailsNotUploaded(FirebaseUser user),
-    @required TResult notSignedIn(),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() finding,
+    required TResult Function(MyUser user) alreadySignedIn,
+    required TResult Function(User user) detailsNotUploaded,
+    required TResult Function() notSignedIn,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(finding != null);
-    assert(alreadySignedIn != null);
-    assert(detailsNotUploaded != null);
-    assert(notSignedIn != null);
-    assert(error != null);
     return $default();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult finding(),
-    TResult alreadySignedIn(User user),
-    TResult detailsNotUploaded(FirebaseUser user),
-    TResult notSignedIn(),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? finding,
+    TResult Function(MyUser user)? alreadySignedIn,
+    TResult Function(User user)? detailsNotUploaded,
+    TResult Function()? notSignedIn,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if ($default != null) {
       return $default();
     }
@@ -188,35 +182,28 @@ class _$InitialUser implements InitialUser {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialUser value), {
-    @required TResult finding(Finding value),
-    @required TResult alreadySignedIn(SignedInUser value),
-    @required TResult detailsNotUploaded(DetailsNotUploaded value),
-    @required TResult notSignedIn(NotSignedInUser value),
-    @required TResult error(Error value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialUser value) $default, {
+    required TResult Function(Finding value) finding,
+    required TResult Function(SignedInUser value) alreadySignedIn,
+    required TResult Function(DetailsNotUploaded value) detailsNotUploaded,
+    required TResult Function(NotSignedInUser value) notSignedIn,
+    required TResult Function(Error value) error,
   }) {
-    assert($default != null);
-    assert(finding != null);
-    assert(alreadySignedIn != null);
-    assert(detailsNotUploaded != null);
-    assert(notSignedIn != null);
-    assert(error != null);
     return $default(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialUser value), {
-    TResult finding(Finding value),
-    TResult alreadySignedIn(SignedInUser value),
-    TResult detailsNotUploaded(DetailsNotUploaded value),
-    TResult notSignedIn(NotSignedInUser value),
-    TResult error(Error value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialUser value)? $default, {
+    TResult Function(Finding value)? finding,
+    TResult Function(SignedInUser value)? alreadySignedIn,
+    TResult Function(DetailsNotUploaded value)? detailsNotUploaded,
+    TResult Function(NotSignedInUser value)? notSignedIn,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if ($default != null) {
       return $default(this);
     }
@@ -246,6 +233,7 @@ class _$FindingCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$Finding implements Finding {
   const _$Finding();
 
@@ -264,35 +252,28 @@ class _$Finding implements Finding {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult finding(),
-    @required TResult alreadySignedIn(User user),
-    @required TResult detailsNotUploaded(FirebaseUser user),
-    @required TResult notSignedIn(),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() finding,
+    required TResult Function(MyUser user) alreadySignedIn,
+    required TResult Function(User user) detailsNotUploaded,
+    required TResult Function() notSignedIn,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(finding != null);
-    assert(alreadySignedIn != null);
-    assert(detailsNotUploaded != null);
-    assert(notSignedIn != null);
-    assert(error != null);
     return finding();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult finding(),
-    TResult alreadySignedIn(User user),
-    TResult detailsNotUploaded(FirebaseUser user),
-    TResult notSignedIn(),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? finding,
+    TResult Function(MyUser user)? alreadySignedIn,
+    TResult Function(User user)? detailsNotUploaded,
+    TResult Function()? notSignedIn,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (finding != null) {
       return finding();
     }
@@ -301,35 +282,28 @@ class _$Finding implements Finding {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialUser value), {
-    @required TResult finding(Finding value),
-    @required TResult alreadySignedIn(SignedInUser value),
-    @required TResult detailsNotUploaded(DetailsNotUploaded value),
-    @required TResult notSignedIn(NotSignedInUser value),
-    @required TResult error(Error value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialUser value) $default, {
+    required TResult Function(Finding value) finding,
+    required TResult Function(SignedInUser value) alreadySignedIn,
+    required TResult Function(DetailsNotUploaded value) detailsNotUploaded,
+    required TResult Function(NotSignedInUser value) notSignedIn,
+    required TResult Function(Error value) error,
   }) {
-    assert($default != null);
-    assert(finding != null);
-    assert(alreadySignedIn != null);
-    assert(detailsNotUploaded != null);
-    assert(notSignedIn != null);
-    assert(error != null);
     return finding(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialUser value), {
-    TResult finding(Finding value),
-    TResult alreadySignedIn(SignedInUser value),
-    TResult detailsNotUploaded(DetailsNotUploaded value),
-    TResult notSignedIn(NotSignedInUser value),
-    TResult error(Error value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialUser value)? $default, {
+    TResult Function(Finding value)? finding,
+    TResult Function(SignedInUser value)? alreadySignedIn,
+    TResult Function(DetailsNotUploaded value)? detailsNotUploaded,
+    TResult Function(NotSignedInUser value)? notSignedIn,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (finding != null) {
       return finding(this);
     }
@@ -346,7 +320,7 @@ abstract class $SignedInUserCopyWith<$Res> {
   factory $SignedInUserCopyWith(
           SignedInUser value, $Res Function(SignedInUser) then) =
       _$SignedInUserCopyWithImpl<$Res>;
-  $Res call({User user});
+  $Res call({MyUser user});
 }
 
 /// @nodoc
@@ -362,20 +336,24 @@ class _$SignedInUserCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object user = freezed,
+    Object? user = freezed,
   }) {
     return _then(SignedInUser(
-      user == freezed ? _value.user : user as User,
+      user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as MyUser,
     ));
   }
 }
 
 /// @nodoc
+
 class _$SignedInUser implements SignedInUser {
-  const _$SignedInUser(this.user) : assert(user != null);
+  const _$SignedInUser(this.user);
 
   @override
-  final User user;
+  final MyUser user;
 
   @override
   String toString() {
@@ -401,35 +379,28 @@ class _$SignedInUser implements SignedInUser {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult finding(),
-    @required TResult alreadySignedIn(User user),
-    @required TResult detailsNotUploaded(FirebaseUser user),
-    @required TResult notSignedIn(),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() finding,
+    required TResult Function(MyUser user) alreadySignedIn,
+    required TResult Function(User user) detailsNotUploaded,
+    required TResult Function() notSignedIn,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(finding != null);
-    assert(alreadySignedIn != null);
-    assert(detailsNotUploaded != null);
-    assert(notSignedIn != null);
-    assert(error != null);
     return alreadySignedIn(user);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult finding(),
-    TResult alreadySignedIn(User user),
-    TResult detailsNotUploaded(FirebaseUser user),
-    TResult notSignedIn(),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? finding,
+    TResult Function(MyUser user)? alreadySignedIn,
+    TResult Function(User user)? detailsNotUploaded,
+    TResult Function()? notSignedIn,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (alreadySignedIn != null) {
       return alreadySignedIn(user);
     }
@@ -438,35 +409,28 @@ class _$SignedInUser implements SignedInUser {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialUser value), {
-    @required TResult finding(Finding value),
-    @required TResult alreadySignedIn(SignedInUser value),
-    @required TResult detailsNotUploaded(DetailsNotUploaded value),
-    @required TResult notSignedIn(NotSignedInUser value),
-    @required TResult error(Error value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialUser value) $default, {
+    required TResult Function(Finding value) finding,
+    required TResult Function(SignedInUser value) alreadySignedIn,
+    required TResult Function(DetailsNotUploaded value) detailsNotUploaded,
+    required TResult Function(NotSignedInUser value) notSignedIn,
+    required TResult Function(Error value) error,
   }) {
-    assert($default != null);
-    assert(finding != null);
-    assert(alreadySignedIn != null);
-    assert(detailsNotUploaded != null);
-    assert(notSignedIn != null);
-    assert(error != null);
     return alreadySignedIn(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialUser value), {
-    TResult finding(Finding value),
-    TResult alreadySignedIn(SignedInUser value),
-    TResult detailsNotUploaded(DetailsNotUploaded value),
-    TResult notSignedIn(NotSignedInUser value),
-    TResult error(Error value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialUser value)? $default, {
+    TResult Function(Finding value)? finding,
+    TResult Function(SignedInUser value)? alreadySignedIn,
+    TResult Function(DetailsNotUploaded value)? detailsNotUploaded,
+    TResult Function(NotSignedInUser value)? notSignedIn,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (alreadySignedIn != null) {
       return alreadySignedIn(this);
     }
@@ -475,11 +439,12 @@ class _$SignedInUser implements SignedInUser {
 }
 
 abstract class SignedInUser implements AuthCurrentUserState {
-  const factory SignedInUser(User user) = _$SignedInUser;
+  const factory SignedInUser(MyUser user) = _$SignedInUser;
 
-  User get user;
+  MyUser get user => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SignedInUserCopyWith<SignedInUser> get copyWith;
+  $SignedInUserCopyWith<SignedInUser> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -487,7 +452,7 @@ abstract class $DetailsNotUploadedCopyWith<$Res> {
   factory $DetailsNotUploadedCopyWith(
           DetailsNotUploaded value, $Res Function(DetailsNotUploaded) then) =
       _$DetailsNotUploadedCopyWithImpl<$Res>;
-  $Res call({FirebaseUser user});
+  $Res call({User user});
 }
 
 /// @nodoc
@@ -503,20 +468,24 @@ class _$DetailsNotUploadedCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object user = freezed,
+    Object? user = freezed,
   }) {
     return _then(DetailsNotUploaded(
-      user == freezed ? _value.user : user as FirebaseUser,
+      user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User,
     ));
   }
 }
 
 /// @nodoc
+
 class _$DetailsNotUploaded implements DetailsNotUploaded {
-  const _$DetailsNotUploaded(this.user) : assert(user != null);
+  const _$DetailsNotUploaded(this.user);
 
   @override
-  final FirebaseUser user;
+  final User user;
 
   @override
   String toString() {
@@ -542,35 +511,28 @@ class _$DetailsNotUploaded implements DetailsNotUploaded {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult finding(),
-    @required TResult alreadySignedIn(User user),
-    @required TResult detailsNotUploaded(FirebaseUser user),
-    @required TResult notSignedIn(),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() finding,
+    required TResult Function(MyUser user) alreadySignedIn,
+    required TResult Function(User user) detailsNotUploaded,
+    required TResult Function() notSignedIn,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(finding != null);
-    assert(alreadySignedIn != null);
-    assert(detailsNotUploaded != null);
-    assert(notSignedIn != null);
-    assert(error != null);
     return detailsNotUploaded(user);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult finding(),
-    TResult alreadySignedIn(User user),
-    TResult detailsNotUploaded(FirebaseUser user),
-    TResult notSignedIn(),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? finding,
+    TResult Function(MyUser user)? alreadySignedIn,
+    TResult Function(User user)? detailsNotUploaded,
+    TResult Function()? notSignedIn,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (detailsNotUploaded != null) {
       return detailsNotUploaded(user);
     }
@@ -579,35 +541,28 @@ class _$DetailsNotUploaded implements DetailsNotUploaded {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialUser value), {
-    @required TResult finding(Finding value),
-    @required TResult alreadySignedIn(SignedInUser value),
-    @required TResult detailsNotUploaded(DetailsNotUploaded value),
-    @required TResult notSignedIn(NotSignedInUser value),
-    @required TResult error(Error value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialUser value) $default, {
+    required TResult Function(Finding value) finding,
+    required TResult Function(SignedInUser value) alreadySignedIn,
+    required TResult Function(DetailsNotUploaded value) detailsNotUploaded,
+    required TResult Function(NotSignedInUser value) notSignedIn,
+    required TResult Function(Error value) error,
   }) {
-    assert($default != null);
-    assert(finding != null);
-    assert(alreadySignedIn != null);
-    assert(detailsNotUploaded != null);
-    assert(notSignedIn != null);
-    assert(error != null);
     return detailsNotUploaded(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialUser value), {
-    TResult finding(Finding value),
-    TResult alreadySignedIn(SignedInUser value),
-    TResult detailsNotUploaded(DetailsNotUploaded value),
-    TResult notSignedIn(NotSignedInUser value),
-    TResult error(Error value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialUser value)? $default, {
+    TResult Function(Finding value)? finding,
+    TResult Function(SignedInUser value)? alreadySignedIn,
+    TResult Function(DetailsNotUploaded value)? detailsNotUploaded,
+    TResult Function(NotSignedInUser value)? notSignedIn,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (detailsNotUploaded != null) {
       return detailsNotUploaded(this);
     }
@@ -616,11 +571,12 @@ class _$DetailsNotUploaded implements DetailsNotUploaded {
 }
 
 abstract class DetailsNotUploaded implements AuthCurrentUserState {
-  const factory DetailsNotUploaded(FirebaseUser user) = _$DetailsNotUploaded;
+  const factory DetailsNotUploaded(User user) = _$DetailsNotUploaded;
 
-  FirebaseUser get user;
+  User get user => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $DetailsNotUploadedCopyWith<DetailsNotUploaded> get copyWith;
+  $DetailsNotUploadedCopyWith<DetailsNotUploaded> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -643,6 +599,7 @@ class _$NotSignedInUserCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$NotSignedInUser implements NotSignedInUser {
   const _$NotSignedInUser();
 
@@ -661,35 +618,28 @@ class _$NotSignedInUser implements NotSignedInUser {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult finding(),
-    @required TResult alreadySignedIn(User user),
-    @required TResult detailsNotUploaded(FirebaseUser user),
-    @required TResult notSignedIn(),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() finding,
+    required TResult Function(MyUser user) alreadySignedIn,
+    required TResult Function(User user) detailsNotUploaded,
+    required TResult Function() notSignedIn,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(finding != null);
-    assert(alreadySignedIn != null);
-    assert(detailsNotUploaded != null);
-    assert(notSignedIn != null);
-    assert(error != null);
     return notSignedIn();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult finding(),
-    TResult alreadySignedIn(User user),
-    TResult detailsNotUploaded(FirebaseUser user),
-    TResult notSignedIn(),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? finding,
+    TResult Function(MyUser user)? alreadySignedIn,
+    TResult Function(User user)? detailsNotUploaded,
+    TResult Function()? notSignedIn,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (notSignedIn != null) {
       return notSignedIn();
     }
@@ -698,35 +648,28 @@ class _$NotSignedInUser implements NotSignedInUser {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialUser value), {
-    @required TResult finding(Finding value),
-    @required TResult alreadySignedIn(SignedInUser value),
-    @required TResult detailsNotUploaded(DetailsNotUploaded value),
-    @required TResult notSignedIn(NotSignedInUser value),
-    @required TResult error(Error value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialUser value) $default, {
+    required TResult Function(Finding value) finding,
+    required TResult Function(SignedInUser value) alreadySignedIn,
+    required TResult Function(DetailsNotUploaded value) detailsNotUploaded,
+    required TResult Function(NotSignedInUser value) notSignedIn,
+    required TResult Function(Error value) error,
   }) {
-    assert($default != null);
-    assert(finding != null);
-    assert(alreadySignedIn != null);
-    assert(detailsNotUploaded != null);
-    assert(notSignedIn != null);
-    assert(error != null);
     return notSignedIn(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialUser value), {
-    TResult finding(Finding value),
-    TResult alreadySignedIn(SignedInUser value),
-    TResult detailsNotUploaded(DetailsNotUploaded value),
-    TResult notSignedIn(NotSignedInUser value),
-    TResult error(Error value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialUser value)? $default, {
+    TResult Function(Finding value)? finding,
+    TResult Function(SignedInUser value)? alreadySignedIn,
+    TResult Function(DetailsNotUploaded value)? detailsNotUploaded,
+    TResult Function(NotSignedInUser value)? notSignedIn,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (notSignedIn != null) {
       return notSignedIn(this);
     }
@@ -742,7 +685,7 @@ abstract class NotSignedInUser implements AuthCurrentUserState {
 abstract class $ErrorCopyWith<$Res> {
   factory $ErrorCopyWith(Error value, $Res Function(Error) then) =
       _$ErrorCopyWithImpl<$Res>;
-  $Res call({String message});
+  $Res call({String? message});
 }
 
 /// @nodoc
@@ -756,20 +699,24 @@ class _$ErrorCopyWithImpl<$Res> extends _$AuthCurrentUserStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object message = freezed,
+    Object? message = freezed,
   }) {
     return _then(Error(
-      message: message == freezed ? _value.message : message as String,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
+
 class _$Error implements Error {
   const _$Error({this.message});
 
   @override
-  final String message;
+  final String? message;
 
   @override
   String toString() {
@@ -795,35 +742,28 @@ class _$Error implements Error {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult finding(),
-    @required TResult alreadySignedIn(User user),
-    @required TResult detailsNotUploaded(FirebaseUser user),
-    @required TResult notSignedIn(),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() finding,
+    required TResult Function(MyUser user) alreadySignedIn,
+    required TResult Function(User user) detailsNotUploaded,
+    required TResult Function() notSignedIn,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(finding != null);
-    assert(alreadySignedIn != null);
-    assert(detailsNotUploaded != null);
-    assert(notSignedIn != null);
-    assert(error != null);
     return error(message);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult finding(),
-    TResult alreadySignedIn(User user),
-    TResult detailsNotUploaded(FirebaseUser user),
-    TResult notSignedIn(),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? finding,
+    TResult Function(MyUser user)? alreadySignedIn,
+    TResult Function(User user)? detailsNotUploaded,
+    TResult Function()? notSignedIn,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (error != null) {
       return error(message);
     }
@@ -832,35 +772,28 @@ class _$Error implements Error {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialUser value), {
-    @required TResult finding(Finding value),
-    @required TResult alreadySignedIn(SignedInUser value),
-    @required TResult detailsNotUploaded(DetailsNotUploaded value),
-    @required TResult notSignedIn(NotSignedInUser value),
-    @required TResult error(Error value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialUser value) $default, {
+    required TResult Function(Finding value) finding,
+    required TResult Function(SignedInUser value) alreadySignedIn,
+    required TResult Function(DetailsNotUploaded value) detailsNotUploaded,
+    required TResult Function(NotSignedInUser value) notSignedIn,
+    required TResult Function(Error value) error,
   }) {
-    assert($default != null);
-    assert(finding != null);
-    assert(alreadySignedIn != null);
-    assert(detailsNotUploaded != null);
-    assert(notSignedIn != null);
-    assert(error != null);
     return error(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialUser value), {
-    TResult finding(Finding value),
-    TResult alreadySignedIn(SignedInUser value),
-    TResult detailsNotUploaded(DetailsNotUploaded value),
-    TResult notSignedIn(NotSignedInUser value),
-    TResult error(Error value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialUser value)? $default, {
+    TResult Function(Finding value)? finding,
+    TResult Function(SignedInUser value)? alreadySignedIn,
+    TResult Function(DetailsNotUploaded value)? detailsNotUploaded,
+    TResult Function(NotSignedInUser value)? notSignedIn,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (error != null) {
       return error(this);
     }
@@ -869,9 +802,9 @@ class _$Error implements Error {
 }
 
 abstract class Error implements AuthCurrentUserState {
-  const factory Error({String message}) = _$Error;
+  const factory Error({String? message}) = _$Error;
 
-  String get message;
+  String? get message => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ErrorCopyWith<Error> get copyWith;
+  $ErrorCopyWith<Error> get copyWith => throw _privateConstructorUsedError;
 }

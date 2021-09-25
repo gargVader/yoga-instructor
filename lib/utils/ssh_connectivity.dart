@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:sofia/res/string.dart';
-import 'package:ssh/ssh.dart';
+import 'package:ssh2/ssh2.dart';
+// import 'package:ssh/ssh.dart';
 
 import '../secrets.dart';
 
@@ -10,7 +11,7 @@ class SSHConnectivity {
 
   final String rootPath = '~/yoga-instructor-oak-server';
 
-  checkAvailability({Function onReceive, @required SSHClient client}) async {
+  checkAvailability({Function? onReceive, required SSHClient client}) async {
     try {
       await client.connect();
       print("shell connected!");
@@ -21,21 +22,21 @@ class SSHConnectivity {
           callback: (dynamic res) async {
             String output = res;
             if (!output.contains("pi@raspberrypi:")) {
-              onReceive(output);
+              onReceive!(output);
             }
           },
         );
         print("shell started!");
         await client.writeToShell("cd $rootPath && ./oak_check.sh\n");
       } catch (e) {
-        onReceive("ERROR(2)");
+        onReceive!("ERROR(2)");
       }
     } catch (e) {
-      onReceive("ERROR(1)");
+      onReceive!("ERROR(1)");
     }
   }
 
-  startLandmarkScript({Function onReceive, @required SSHClient client}) async {
+  startLandmarkScript({Function? onReceive, required SSHClient client}) async {
     try {
       await client.connect();
       print("shell connected!");
@@ -47,7 +48,7 @@ class SSHConnectivity {
             String output = res;
             // print('SSH: $output');
             if (!output.contains("pi@raspberrypi:")) {
-              onReceive(output);
+              onReceive!(output);
             }
           },
         );
@@ -56,18 +57,18 @@ class SSHConnectivity {
           "cd $rootPath && ./oak_landmark.sh\n",
         );
       } catch (e) {
-        onReceive("ERROR(2)");
+        onReceive!("ERROR(2)");
       }
     } catch (e) {
-      onReceive("ERROR(1)");
+      onReceive!("ERROR(1)");
     }
   }
 
   startRecognitionScript({
-    @required String poseName,
-    @required String trackName,
-    Function onReceive,
-    @required SSHClient client,
+    required String poseName,
+    required String trackName,
+    Function? onReceive,
+    required SSHClient client,
   }) async {
     try {
       await client.connect();
@@ -88,7 +89,7 @@ class SSHConnectivity {
             //   verboseOutputDetails = output;
             // });
             if (!output.contains("pi@raspberrypi:")) {
-              onReceive(output);
+              onReceive!(output);
             }
           },
         );
@@ -97,14 +98,14 @@ class SSHConnectivity {
           "cd $rootPath && ./oak_starter.sh $poseName $trackName\n",
         );
       } catch (e) {
-        onReceive("ERROR(2)");
+        onReceive!("ERROR(2)");
       }
     } catch (e) {
-      onReceive("ERROR(1)");
+      onReceive!("ERROR(1)");
     }
   }
 
-  stopRecognitionScript({String processId, @required SSHClient client}) async {
+  stopRecognitionScript({String? processId, required SSHClient client}) async {
     await client.writeToShell(
       "cd $rootPath && ./oak_dispose.sh $processId\n",
     );
@@ -112,10 +113,10 @@ class SSHConnectivity {
   }
 
   changeRecognizationScript({
-    @required SSHClient client,
-    @required String poseName,
-    @required String trackName,
-    String processId,
+    required SSHClient client,
+    required String poseName,
+    required String trackName,
+    String? processId,
   }) async {
     poseName = poseName.replaceAll(' ', '_').trim();
     trackName = trackName.replaceAll(' ', '_').trim();

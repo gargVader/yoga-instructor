@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:sofia/res/string.dart';
-import 'package:ssh/ssh.dart';
+import 'package:ssh2/ssh2.dart';
+// import 'package:ssh/ssh.dart';
 
 import '../../secrets.dart';
 
 import 'package:supercharged/supercharged.dart';
 
 class SSHConfigButton extends StatefulWidget {
-  final Function(SSHClient client) onReceive;
+  final Function(SSHClient client)? onReceive;
 
   const SSHConfigButton({this.onReceive});
 
@@ -17,10 +18,10 @@ class SSHConfigButton extends StatefulWidget {
 }
 
 class _SSHConfigButtonState extends State<SSHConfigButton> {
-  TextEditingController _sshHostname;
-  TextEditingController _sshUsername;
-  TextEditingController _sshPort;
-  TextEditingController _sshPassword;
+  TextEditingController? _sshHostname;
+  TextEditingController? _sshUsername;
+  TextEditingController? _sshPort;
+  TextEditingController? _sshPassword;
 
   final FocusNode _hostnameFocusNode = FocusNode();
   final FocusNode _usernameFocusNode = FocusNode();
@@ -30,28 +31,28 @@ class _SSHConfigButtonState extends State<SSHConfigButton> {
   final configBox = Hive.box('config');
   final _sshFormKey = GlobalKey<FormState>();
 
-  String _hostnameValidator(value) {
+  String? _hostnameValidator(value) {
     if (value == null || value.isEmpty) {
       return 'Hostname can\'t be empty';
     }
     return null;
   }
 
-  String _usernameValidator(value) {
+  String? _usernameValidator(value) {
     if (value == null || value.isEmpty) {
       return 'Username can\'t be empty';
     }
     return null;
   }
 
-  String _portValidator(value) {
+  String? _portValidator(value) {
     if (value == null || value.isEmpty) {
       return 'Port can\'t be empty';
     }
     return null;
   }
 
-  String _passwordValidator(value) {
+  String? _passwordValidator(value) {
     if (value == null || value.isEmpty) {
       return 'Password can\'t be empty';
     }
@@ -128,15 +129,15 @@ class _SSHConfigButtonState extends State<SSHConfigButton> {
                                     _portFocusNode.unfocus();
                                     _passwordFocusNode.unfocus();
 
-                                    if (_sshFormKey.currentState.validate()) {
+                                    if (_sshFormKey.currentState!.validate()) {
                                       configBox.put(
-                                          hiveHostName, _sshHostname.text);
+                                          hiveHostName, _sshHostname!.text);
                                       configBox.put(
-                                          hiveUsername, _sshUsername.text);
+                                          hiveUsername, _sshUsername!.text);
                                       configBox.put(
-                                          hivePort, _sshPort.text.toInt());
+                                          hivePort, _sshPort!.text.toInt());
                                       configBox.put(
-                                          hivePassword, _sshPassword.text);
+                                          hivePassword, _sshPassword!.text);
 
                                       Navigator.of(context).pop();
 
@@ -148,7 +149,7 @@ class _SSHConfigButtonState extends State<SSHConfigButton> {
                                             configBox.get(hivePassword),
                                       );
 
-                                      widget.onReceive(client);
+                                      widget.onReceive!(client);
                                     }
                                   },
                                   child: Text(

@@ -8,9 +8,9 @@ class AccuracyPainter extends CustomPainter {
   final double accuracy;
 
   AccuracyPainter({
-    @required this.width,
-    @required this.height,
-    @required this.accuracy,
+    required this.width,
+    required this.height,
+    required this.accuracy,
   });
 
   @override

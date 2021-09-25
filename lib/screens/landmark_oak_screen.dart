@@ -13,19 +13,20 @@ import 'package:sofia/utils/dialogflow.dart';
 import 'package:sofia/utils/ssh_connectivity.dart';
 import 'package:sofia/utils/video_manager.dart';
 import 'package:sofia/widgets/landmark_oak_widgets/landmark_painter.dart';
-import 'package:ssh/ssh.dart';
+import 'package:ssh2/ssh2.dart';
+// import 'package:ssh/ssh.dart';
 import 'package:wakelock/wakelock.dart';
 
 import '../secrets.dart';
 
 class LandmarkOakScreen extends StatefulWidget {
-  final Pose pose;
-  final String trackName;
+  final Pose? pose;
+  final String? trackName;
 
   const LandmarkOakScreen({
-    Key key,
-    @required this.pose,
-    @required this.trackName,
+    Key? key,
+    required this.pose,
+    required this.trackName,
   }) : super(key: key);
 
   @override
@@ -41,14 +42,14 @@ class _LandmarkOakScreenState extends State<LandmarkOakScreen> {
   String _status = 'Initializing OAK-D...';
   Color _statusColor = Colors.red;
   bool _isOAKAvailable = true;
-  String _processId;
+  String? _processId;
 
   bool _isSSHConnectionEstablished = false;
-  List<Landmark> _landmarks;
+  List<Landmark>? _landmarks;
   final configBox = Hive.box('config');
 
-  String _trackName;
-  SSHClient _client;
+  String? _trackName;
+  late SSHClient _client;
 
   processSSHOutput(String output) async {
     if (output.contains("ERROR(1)")) {
@@ -86,7 +87,7 @@ class _LandmarkOakScreenState extends State<LandmarkOakScreen> {
       final data = Landmarks.fromJson(parsedJSON);
       // print('PARSED: ${data.landmarks[0].x}');
 
-      if (data.landmarks.isNotEmpty) {
+      if (data.landmarks!.isNotEmpty) {
         _insideFrameCount++;
         _status =
             "You're within the OAK-D camera frame. Please stay here until it starts";
@@ -187,7 +188,7 @@ class _LandmarkOakScreenState extends State<LandmarkOakScreen> {
     Wakelock.enable();
     _trackName = widget.trackName;
 
-    VideoManager.initializeVideoController(videoUrl: widget.pose.videoUrl);
+    VideoManager.initializeVideoController(videoUrl: widget.pose!.videoUrl);
 
     Dialogflow.bodyVisible();
 

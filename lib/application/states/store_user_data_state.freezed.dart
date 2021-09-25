@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'store_user_data_state.dart';
 
@@ -9,29 +9,28 @@ part of 'store_user_data_state.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$StoreUserDataStateTearOff {
   const _$StoreUserDataStateTearOff();
 
-// ignore: unused_element
   InitialUserData call() {
     return const InitialUserData();
   }
 
-// ignore: unused_element
   StoringUserData storing() {
     return const StoringUserData();
   }
 
-// ignore: unused_element
-  StoredUserData stored(User userData) {
+  StoredUserData stored(MyUser userData) {
     return StoredUserData(
       userData,
     );
   }
 
-// ignore: unused_element
-  ErrorStoringUserData error({String message}) {
+  ErrorStoringUserData error({String? message}) {
     return ErrorStoringUserData(
       message: message,
     );
@@ -39,41 +38,44 @@ class _$StoreUserDataStateTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $StoreUserDataState = _$StoreUserDataStateTearOff();
 
 /// @nodoc
 mixin _$StoreUserDataState {
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult storing(),
-    @required TResult stored(User userData),
-    @required TResult error(String message),
-  });
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() storing,
+    required TResult Function(MyUser userData) stored,
+    required TResult Function(String? message) error,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult storing(),
-    TResult stored(User userData),
-    TResult error(String message),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? storing,
+    TResult Function(MyUser userData)? stored,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    @required TResult storing(StoringUserData value),
-    @required TResult stored(StoredUserData value),
-    @required TResult error(ErrorStoringUserData value),
-  });
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialUserData value) $default, {
+    required TResult Function(StoringUserData value) storing,
+    required TResult Function(StoredUserData value) stored,
+    required TResult Function(ErrorStoringUserData value) error,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    TResult storing(StoringUserData value),
-    TResult stored(StoredUserData value),
-    TResult error(ErrorStoringUserData value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialUserData value)? $default, {
+    TResult Function(StoringUserData value)? storing,
+    TResult Function(StoredUserData value)? stored,
+    TResult Function(ErrorStoringUserData value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -113,6 +115,7 @@ class _$InitialUserDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$InitialUserData implements InitialUserData {
   const _$InitialUserData();
 
@@ -131,29 +134,24 @@ class _$InitialUserData implements InitialUserData {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult storing(),
-    @required TResult stored(User userData),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() storing,
+    required TResult Function(MyUser userData) stored,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(storing != null);
-    assert(stored != null);
-    assert(error != null);
     return $default();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult storing(),
-    TResult stored(User userData),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? storing,
+    TResult Function(MyUser userData)? stored,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if ($default != null) {
       return $default();
     }
@@ -162,29 +160,24 @@ class _$InitialUserData implements InitialUserData {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    @required TResult storing(StoringUserData value),
-    @required TResult stored(StoredUserData value),
-    @required TResult error(ErrorStoringUserData value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialUserData value) $default, {
+    required TResult Function(StoringUserData value) storing,
+    required TResult Function(StoredUserData value) stored,
+    required TResult Function(ErrorStoringUserData value) error,
   }) {
-    assert($default != null);
-    assert(storing != null);
-    assert(stored != null);
-    assert(error != null);
     return $default(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    TResult storing(StoringUserData value),
-    TResult stored(StoredUserData value),
-    TResult error(ErrorStoringUserData value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialUserData value)? $default, {
+    TResult Function(StoringUserData value)? storing,
+    TResult Function(StoredUserData value)? stored,
+    TResult Function(ErrorStoringUserData value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if ($default != null) {
       return $default(this);
     }
@@ -216,6 +209,7 @@ class _$StoringUserDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$StoringUserData implements StoringUserData {
   const _$StoringUserData();
 
@@ -234,29 +228,24 @@ class _$StoringUserData implements StoringUserData {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult storing(),
-    @required TResult stored(User userData),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() storing,
+    required TResult Function(MyUser userData) stored,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(storing != null);
-    assert(stored != null);
-    assert(error != null);
     return storing();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult storing(),
-    TResult stored(User userData),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? storing,
+    TResult Function(MyUser userData)? stored,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (storing != null) {
       return storing();
     }
@@ -265,29 +254,24 @@ class _$StoringUserData implements StoringUserData {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    @required TResult storing(StoringUserData value),
-    @required TResult stored(StoredUserData value),
-    @required TResult error(ErrorStoringUserData value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialUserData value) $default, {
+    required TResult Function(StoringUserData value) storing,
+    required TResult Function(StoredUserData value) stored,
+    required TResult Function(ErrorStoringUserData value) error,
   }) {
-    assert($default != null);
-    assert(storing != null);
-    assert(stored != null);
-    assert(error != null);
     return storing(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    TResult storing(StoringUserData value),
-    TResult stored(StoredUserData value),
-    TResult error(ErrorStoringUserData value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialUserData value)? $default, {
+    TResult Function(StoringUserData value)? storing,
+    TResult Function(StoredUserData value)? stored,
+    TResult Function(ErrorStoringUserData value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (storing != null) {
       return storing(this);
     }
@@ -304,7 +288,7 @@ abstract class $StoredUserDataCopyWith<$Res> {
   factory $StoredUserDataCopyWith(
           StoredUserData value, $Res Function(StoredUserData) then) =
       _$StoredUserDataCopyWithImpl<$Res>;
-  $Res call({User userData});
+  $Res call({MyUser userData});
 }
 
 /// @nodoc
@@ -320,20 +304,24 @@ class _$StoredUserDataCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object userData = freezed,
+    Object? userData = freezed,
   }) {
     return _then(StoredUserData(
-      userData == freezed ? _value.userData : userData as User,
+      userData == freezed
+          ? _value.userData
+          : userData // ignore: cast_nullable_to_non_nullable
+              as MyUser,
     ));
   }
 }
 
 /// @nodoc
+
 class _$StoredUserData implements StoredUserData {
-  const _$StoredUserData(this.userData) : assert(userData != null);
+  const _$StoredUserData(this.userData);
 
   @override
-  final User userData;
+  final MyUser userData;
 
   @override
   String toString() {
@@ -360,29 +348,24 @@ class _$StoredUserData implements StoredUserData {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult storing(),
-    @required TResult stored(User userData),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() storing,
+    required TResult Function(MyUser userData) stored,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(storing != null);
-    assert(stored != null);
-    assert(error != null);
     return stored(userData);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult storing(),
-    TResult stored(User userData),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? storing,
+    TResult Function(MyUser userData)? stored,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (stored != null) {
       return stored(userData);
     }
@@ -391,29 +374,24 @@ class _$StoredUserData implements StoredUserData {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    @required TResult storing(StoringUserData value),
-    @required TResult stored(StoredUserData value),
-    @required TResult error(ErrorStoringUserData value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialUserData value) $default, {
+    required TResult Function(StoringUserData value) storing,
+    required TResult Function(StoredUserData value) stored,
+    required TResult Function(ErrorStoringUserData value) error,
   }) {
-    assert($default != null);
-    assert(storing != null);
-    assert(stored != null);
-    assert(error != null);
     return stored(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    TResult storing(StoringUserData value),
-    TResult stored(StoredUserData value),
-    TResult error(ErrorStoringUserData value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialUserData value)? $default, {
+    TResult Function(StoringUserData value)? storing,
+    TResult Function(StoredUserData value)? stored,
+    TResult Function(ErrorStoringUserData value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (stored != null) {
       return stored(this);
     }
@@ -422,11 +400,12 @@ class _$StoredUserData implements StoredUserData {
 }
 
 abstract class StoredUserData implements StoreUserDataState {
-  const factory StoredUserData(User userData) = _$StoredUserData;
+  const factory StoredUserData(MyUser userData) = _$StoredUserData;
 
-  User get userData;
+  MyUser get userData => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $StoredUserDataCopyWith<StoredUserData> get copyWith;
+  $StoredUserDataCopyWith<StoredUserData> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -434,7 +413,7 @@ abstract class $ErrorStoringUserDataCopyWith<$Res> {
   factory $ErrorStoringUserDataCopyWith(ErrorStoringUserData value,
           $Res Function(ErrorStoringUserData) then) =
       _$ErrorStoringUserDataCopyWithImpl<$Res>;
-  $Res call({String message});
+  $Res call({String? message});
 }
 
 /// @nodoc
@@ -450,20 +429,24 @@ class _$ErrorStoringUserDataCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object message = freezed,
+    Object? message = freezed,
   }) {
     return _then(ErrorStoringUserData(
-      message: message == freezed ? _value.message : message as String,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
+
 class _$ErrorStoringUserData implements ErrorStoringUserData {
   const _$ErrorStoringUserData({this.message});
 
   @override
-  final String message;
+  final String? message;
 
   @override
   String toString() {
@@ -490,29 +473,24 @@ class _$ErrorStoringUserData implements ErrorStoringUserData {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult storing(),
-    @required TResult stored(User userData),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() storing,
+    required TResult Function(MyUser userData) stored,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(storing != null);
-    assert(stored != null);
-    assert(error != null);
     return error(message);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult storing(),
-    TResult stored(User userData),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? storing,
+    TResult Function(MyUser userData)? stored,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (error != null) {
       return error(message);
     }
@@ -521,29 +499,24 @@ class _$ErrorStoringUserData implements ErrorStoringUserData {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    @required TResult storing(StoringUserData value),
-    @required TResult stored(StoredUserData value),
-    @required TResult error(ErrorStoringUserData value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialUserData value) $default, {
+    required TResult Function(StoringUserData value) storing,
+    required TResult Function(StoredUserData value) stored,
+    required TResult Function(ErrorStoringUserData value) error,
   }) {
-    assert($default != null);
-    assert(storing != null);
-    assert(stored != null);
-    assert(error != null);
     return error(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialUserData value), {
-    TResult storing(StoringUserData value),
-    TResult stored(StoredUserData value),
-    TResult error(ErrorStoringUserData value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialUserData value)? $default, {
+    TResult Function(StoringUserData value)? storing,
+    TResult Function(StoredUserData value)? stored,
+    TResult Function(ErrorStoringUserData value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (error != null) {
       return error(this);
     }
@@ -552,9 +525,11 @@ class _$ErrorStoringUserData implements ErrorStoringUserData {
 }
 
 abstract class ErrorStoringUserData implements StoreUserDataState {
-  const factory ErrorStoringUserData({String message}) = _$ErrorStoringUserData;
+  const factory ErrorStoringUserData({String? message}) =
+      _$ErrorStoringUserData;
 
-  String get message;
+  String? get message => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ErrorStoringUserDataCopyWith<ErrorStoringUserData> get copyWith;
+  $ErrorStoringUserDataCopyWith<ErrorStoringUserData> get copyWith =>
+      throw _privateConstructorUsedError;
 }

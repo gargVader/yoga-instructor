@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,16 +14,18 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
 // String imageUrl;
 
 class AuthenticationClient {
-  static FirebaseUser presentUser;
+  static User? presentUser;
 
   /// Checks if the user is already signed into the app using
   /// Google Sign In.
-  Future<Set<dynamic>> checkForCurrentUser() async {
+  Future<Set<dynamic>?> checkForCurrentUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool authSignedIn = prefs.getBool('auth') ?? false;
     bool isDetailsUploaded = prefs.getBool('details_uploaded') ?? false;
 
-    final FirebaseUser user = await _auth.currentUser();
+    await Firebase.initializeApp();
+
+    final User? user = _auth.currentUser;
 
     presentUser = user;
 
@@ -42,24 +45,27 @@ class AuthenticationClient {
   /// from their Google account for ease of the login process.
   ///
   /// Returns user `uid`.
-  Future<FirebaseUser> signInWithGoogle() async {
-    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+  Future<User?> signInWithGoogle() async {
+    await Firebase.initializeApp();
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
     final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
+        await googleSignInAccount!.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
+    final AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
     );
 
-    final AuthResult authResult = await _auth.signInWithCredential(credential);
-    final FirebaseUser user = authResult.user;
+    final UserCredential authResult =
+        await _auth.signInWithCredential(credential);
+    final User user = authResult.user!;
 
     // Checking if email and name is null
-    assert(user.uid != null);
+    // assert(user.uid != null);
     assert(user.email != null);
     assert(user.displayName != null);
-    assert(user.photoUrl != null);
+    assert(user.photoURL != null);
 
     // uid = user.uid;
     // name = user.displayName;
@@ -72,9 +78,9 @@ class AuthenticationClient {
     // }
 
     assert(!user.isAnonymous);
-    assert(await user.getIdToken() != null);
+    // assert(await user.getIdToken() != null);
 
-    final FirebaseUser currentUser = await _auth.currentUser();
+    final User? currentUser = _auth.currentUser;
 
     presentUser = currentUser;
 
@@ -104,9 +110,9 @@ class AuthenticationClient {
 
 /// Retrieves the user `uid` from the shared preference of the
 /// device.
-Future<String> getUid() async {
+Future<String?> getUid() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  String uid = prefs.getString('uid');
+  String? uid = prefs.getString('uid');
 
   return uid;
 }

@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'retrieve_poses_state.dart';
 
@@ -9,29 +9,28 @@ part of 'retrieve_poses_state.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$RetrievePosesStateTearOff {
   const _$RetrievePosesStateTearOff();
 
-// ignore: unused_element
   InitialPoseData call() {
     return const InitialPoseData();
   }
 
-// ignore: unused_element
   RetrievingPoses retrieving() {
     return const RetrievingPoses();
   }
 
-// ignore: unused_element
   RetrievedPoses retrieved(List<Pose> poses) {
     return RetrievedPoses(
       poses,
     );
   }
 
-// ignore: unused_element
-  ErrorRetrievingPoses error({String message}) {
+  ErrorRetrievingPoses error({String? message}) {
     return ErrorRetrievingPoses(
       message: message,
     );
@@ -39,41 +38,44 @@ class _$RetrievePosesStateTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $RetrievePosesState = _$RetrievePosesStateTearOff();
 
 /// @nodoc
 mixin _$RetrievePosesState {
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(List<Pose> poses),
-    @required TResult error(String message),
-  });
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(List<Pose> poses) retrieved,
+    required TResult Function(String? message) error,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(List<Pose> poses),
-    TResult error(String message),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(List<Pose> poses)? retrieved,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialPoseData value), {
-    @required TResult retrieving(RetrievingPoses value),
-    @required TResult retrieved(RetrievedPoses value),
-    @required TResult error(ErrorRetrievingPoses value),
-  });
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialPoseData value) $default, {
+    required TResult Function(RetrievingPoses value) retrieving,
+    required TResult Function(RetrievedPoses value) retrieved,
+    required TResult Function(ErrorRetrievingPoses value) error,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialPoseData value), {
-    TResult retrieving(RetrievingPoses value),
-    TResult retrieved(RetrievedPoses value),
-    TResult error(ErrorRetrievingPoses value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialPoseData value)? $default, {
+    TResult Function(RetrievingPoses value)? retrieving,
+    TResult Function(RetrievedPoses value)? retrieved,
+    TResult Function(ErrorRetrievingPoses value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -113,6 +115,7 @@ class _$InitialPoseDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$InitialPoseData implements InitialPoseData {
   const _$InitialPoseData();
 
@@ -131,29 +134,24 @@ class _$InitialPoseData implements InitialPoseData {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(List<Pose> poses),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(List<Pose> poses) retrieved,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return $default();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(List<Pose> poses),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(List<Pose> poses)? retrieved,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if ($default != null) {
       return $default();
     }
@@ -162,29 +160,24 @@ class _$InitialPoseData implements InitialPoseData {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialPoseData value), {
-    @required TResult retrieving(RetrievingPoses value),
-    @required TResult retrieved(RetrievedPoses value),
-    @required TResult error(ErrorRetrievingPoses value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialPoseData value) $default, {
+    required TResult Function(RetrievingPoses value) retrieving,
+    required TResult Function(RetrievedPoses value) retrieved,
+    required TResult Function(ErrorRetrievingPoses value) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return $default(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialPoseData value), {
-    TResult retrieving(RetrievingPoses value),
-    TResult retrieved(RetrievedPoses value),
-    TResult error(ErrorRetrievingPoses value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialPoseData value)? $default, {
+    TResult Function(RetrievingPoses value)? retrieving,
+    TResult Function(RetrievedPoses value)? retrieved,
+    TResult Function(ErrorRetrievingPoses value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if ($default != null) {
       return $default(this);
     }
@@ -216,6 +209,7 @@ class _$RetrievingPosesCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$RetrievingPoses implements RetrievingPoses {
   const _$RetrievingPoses();
 
@@ -234,29 +228,24 @@ class _$RetrievingPoses implements RetrievingPoses {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(List<Pose> poses),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(List<Pose> poses) retrieved,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return retrieving();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(List<Pose> poses),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(List<Pose> poses)? retrieved,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (retrieving != null) {
       return retrieving();
     }
@@ -265,29 +254,24 @@ class _$RetrievingPoses implements RetrievingPoses {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialPoseData value), {
-    @required TResult retrieving(RetrievingPoses value),
-    @required TResult retrieved(RetrievedPoses value),
-    @required TResult error(ErrorRetrievingPoses value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialPoseData value) $default, {
+    required TResult Function(RetrievingPoses value) retrieving,
+    required TResult Function(RetrievedPoses value) retrieved,
+    required TResult Function(ErrorRetrievingPoses value) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return retrieving(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialPoseData value), {
-    TResult retrieving(RetrievingPoses value),
-    TResult retrieved(RetrievedPoses value),
-    TResult error(ErrorRetrievingPoses value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialPoseData value)? $default, {
+    TResult Function(RetrievingPoses value)? retrieving,
+    TResult Function(RetrievedPoses value)? retrieved,
+    TResult Function(ErrorRetrievingPoses value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (retrieving != null) {
       return retrieving(this);
     }
@@ -320,17 +304,21 @@ class _$RetrievedPosesCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object poses = freezed,
+    Object? poses = freezed,
   }) {
     return _then(RetrievedPoses(
-      poses == freezed ? _value.poses : poses as List<Pose>,
+      poses == freezed
+          ? _value.poses
+          : poses // ignore: cast_nullable_to_non_nullable
+              as List<Pose>,
     ));
   }
 }
 
 /// @nodoc
+
 class _$RetrievedPoses implements RetrievedPoses {
-  const _$RetrievedPoses(this.poses) : assert(poses != null);
+  const _$RetrievedPoses(this.poses);
 
   @override
   final List<Pose> poses;
@@ -359,29 +347,24 @@ class _$RetrievedPoses implements RetrievedPoses {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(List<Pose> poses),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(List<Pose> poses) retrieved,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return retrieved(poses);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(List<Pose> poses),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(List<Pose> poses)? retrieved,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (retrieved != null) {
       return retrieved(poses);
     }
@@ -390,29 +373,24 @@ class _$RetrievedPoses implements RetrievedPoses {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialPoseData value), {
-    @required TResult retrieving(RetrievingPoses value),
-    @required TResult retrieved(RetrievedPoses value),
-    @required TResult error(ErrorRetrievingPoses value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialPoseData value) $default, {
+    required TResult Function(RetrievingPoses value) retrieving,
+    required TResult Function(RetrievedPoses value) retrieved,
+    required TResult Function(ErrorRetrievingPoses value) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return retrieved(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialPoseData value), {
-    TResult retrieving(RetrievingPoses value),
-    TResult retrieved(RetrievedPoses value),
-    TResult error(ErrorRetrievingPoses value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialPoseData value)? $default, {
+    TResult Function(RetrievingPoses value)? retrieving,
+    TResult Function(RetrievedPoses value)? retrieved,
+    TResult Function(ErrorRetrievingPoses value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (retrieved != null) {
       return retrieved(this);
     }
@@ -423,9 +401,10 @@ class _$RetrievedPoses implements RetrievedPoses {
 abstract class RetrievedPoses implements RetrievePosesState {
   const factory RetrievedPoses(List<Pose> poses) = _$RetrievedPoses;
 
-  List<Pose> get poses;
+  List<Pose> get poses => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $RetrievedPosesCopyWith<RetrievedPoses> get copyWith;
+  $RetrievedPosesCopyWith<RetrievedPoses> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -433,7 +412,7 @@ abstract class $ErrorRetrievingPosesCopyWith<$Res> {
   factory $ErrorRetrievingPosesCopyWith(ErrorRetrievingPoses value,
           $Res Function(ErrorRetrievingPoses) then) =
       _$ErrorRetrievingPosesCopyWithImpl<$Res>;
-  $Res call({String message});
+  $Res call({String? message});
 }
 
 /// @nodoc
@@ -449,20 +428,24 @@ class _$ErrorRetrievingPosesCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object message = freezed,
+    Object? message = freezed,
   }) {
     return _then(ErrorRetrievingPoses(
-      message: message == freezed ? _value.message : message as String,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
+
 class _$ErrorRetrievingPoses implements ErrorRetrievingPoses {
   const _$ErrorRetrievingPoses({this.message});
 
   @override
-  final String message;
+  final String? message;
 
   @override
   String toString() {
@@ -489,29 +472,24 @@ class _$ErrorRetrievingPoses implements ErrorRetrievingPoses {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult retrieving(),
-    @required TResult retrieved(List<Pose> poses),
-    @required TResult error(String message),
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() retrieving,
+    required TResult Function(List<Pose> poses) retrieved,
+    required TResult Function(String? message) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return error(message);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult retrieving(),
-    TResult retrieved(List<Pose> poses),
-    TResult error(String message),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? retrieving,
+    TResult Function(List<Pose> poses)? retrieved,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (error != null) {
       return error(message);
     }
@@ -520,29 +498,24 @@ class _$ErrorRetrievingPoses implements ErrorRetrievingPoses {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(InitialPoseData value), {
-    @required TResult retrieving(RetrievingPoses value),
-    @required TResult retrieved(RetrievedPoses value),
-    @required TResult error(ErrorRetrievingPoses value),
+  TResult map<TResult extends Object?>(
+    TResult Function(InitialPoseData value) $default, {
+    required TResult Function(RetrievingPoses value) retrieving,
+    required TResult Function(RetrievedPoses value) retrieved,
+    required TResult Function(ErrorRetrievingPoses value) error,
   }) {
-    assert($default != null);
-    assert(retrieving != null);
-    assert(retrieved != null);
-    assert(error != null);
     return error(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(InitialPoseData value), {
-    TResult retrieving(RetrievingPoses value),
-    TResult retrieved(RetrievedPoses value),
-    TResult error(ErrorRetrievingPoses value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(InitialPoseData value)? $default, {
+    TResult Function(RetrievingPoses value)? retrieving,
+    TResult Function(RetrievedPoses value)? retrieved,
+    TResult Function(ErrorRetrievingPoses value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (error != null) {
       return error(this);
     }
@@ -551,9 +524,11 @@ class _$ErrorRetrievingPoses implements ErrorRetrievingPoses {
 }
 
 abstract class ErrorRetrievingPoses implements RetrievePosesState {
-  const factory ErrorRetrievingPoses({String message}) = _$ErrorRetrievingPoses;
+  const factory ErrorRetrievingPoses({String? message}) =
+      _$ErrorRetrievingPoses;
 
-  String get message;
+  String? get message => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ErrorRetrievingPosesCopyWith<ErrorRetrievingPoses> get copyWith;
+  $ErrorRetrievingPosesCopyWith<ErrorRetrievingPoses> get copyWith =>
+      throw _privateConstructorUsedError;
 }

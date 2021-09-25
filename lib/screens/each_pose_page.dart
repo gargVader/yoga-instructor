@@ -5,24 +5,27 @@ import 'package:flutter/services.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/model/track.dart';
 import 'package:sofia/res/palette.dart';
+import 'package:sofia/screens/landmark_mlkit_screen.dart';
 import 'package:sofia/screens/landmark_oak_screen.dart';
 import 'package:sofia/screens/preview_oak_screen.dart';
 import 'package:sofia/screens/preview_screen.dart';
+import 'package:sofia/widgets/common/custom_widgets.dart';
 import 'package:sofia/widgets/each_pose_widgets/next_widget.dart';
 import 'package:sofia/widgets/each_pose_widgets/prev_next_widget.dart';
 import 'package:sofia/widgets/each_pose_widgets/prev_widget.dart';
 import 'package:wakelock/wakelock.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class EachPosePage extends StatefulWidget {
-  final List<Pose> poses;
-  final String trackName;
+  final List<Pose>? poses;
+  final String? trackName;
   final int currentIndex;
 
   const EachPosePage({
-    Key key,
-    @required this.poses,
-    @required this.currentIndex,
-    @required this.trackName,
+    Key? key,
+    required this.poses,
+    required this.currentIndex,
+    required this.trackName,
   }) : super(key: key);
 
   @override
@@ -30,16 +33,17 @@ class EachPosePage extends StatefulWidget {
 }
 
 class _EachPosePageState extends State<EachPosePage> {
-  int currentIndex;
-  Pose currentPose;
-  String poseName;
-  String poseSubtitle;
-  String poseNameDisplay;
-  String poseImageUrl;
-  List<String> benefitList;
+  int? currentIndex;
+  Pose? currentPose;
+  String? poseName;
+  late String poseSubtitle;
+  late String poseNameDisplay;
+  String? poseImageUrl;
+  late List<String> benefitList;
 
-  List<Pose> poses;
-  String _trackName;
+  List<Pose>? poses;
+  String? _trackName;
+  String? videoUrl;
 
   @override
   void initState() {
@@ -47,16 +51,17 @@ class _EachPosePageState extends State<EachPosePage> {
     poses = widget.poses;
     _trackName = widget.trackName;
     currentIndex = widget.currentIndex;
-    currentPose = widget.poses[currentIndex];
-    poseName = currentPose.title;
-    poseNameDisplay = poseName[0].toUpperCase() + poseName.substring(1);
+    currentPose = widget.poses![currentIndex!];
+    poseName = currentPose!.title;
+    videoUrl = currentPose!.videoUrl;
+    poseNameDisplay = poseName![0].toUpperCase() + poseName!.substring(1);
 
     poseSubtitle =
-        currentPose.sub[0].toUpperCase() + currentPose.sub.substring(1);
+        currentPose!.sub![0].toUpperCase() + currentPose!.sub!.substring(1);
 
-    benefitList = currentPose.benefits.split('. ');
+    benefitList = currentPose!.benefits!.split('. ');
 
-    poseImageUrl = currentPose.image;
+    poseImageUrl = currentPose!.image;
   }
 
   @override
@@ -72,7 +77,7 @@ class _EachPosePageState extends State<EachPosePage> {
               poses: poses,
               currentIndex: currentIndex,
             )
-          : currentIndex == poses.length - 1
+          : currentIndex == poses!.length - 1
               ? PrevWidget(
                   poses: poses,
                   trackName: widget.trackName,
@@ -90,26 +95,50 @@ class _EachPosePageState extends State<EachPosePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: screenWidth * 0.8,
-                  // child: Image.asset(
-                  //   'assets/images/triangle.png',
-                  //   fit: BoxFit.fitHeight,
-                  // ),
-                  child: poseImageUrl != null
-                      ? CachedNetworkImage(
-                          imageUrl: poseImageUrl,
-                          placeholder: (context, url) => Container(
-                            width: double.maxFinite,
-                            height: screenWidth * 0.8,
+                Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    SizedBox(
+                      height: screenWidth * 0.8,
+                      // child: Image.asset(
+                      //   'assets/images/triangle.png',
+                      //   fit: BoxFit.fitHeight,
+                      // ),
+                      child: poseImageUrl != null
+                          ? CachedNetworkImage(
+                              imageUrl: poseImageUrl!,
+                              placeholder: (context, url) => Container(
+                                width: double.maxFinite,
+                                height: screenWidth * 0.8,
+                              ),
+                              errorWidget: (context, url, error) => Container(),
+                              fit: BoxFit.fitHeight,
+                            )
+                          : Opacity(
+                              opacity: 0.2,
+                              child: Image.asset(
+                                'assets/images/triangle.png',
+                                fit: BoxFit.fitHeight,
+                              ),
+                            ),
+                    ),
+                    _trackName == 'beginners'
+                        ? Container()
+                        : Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'COMING SOON',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0,
+                                  letterSpacing: 1,
+                                ),
+                              ),
+                            ),
                           ),
-                          errorWidget: (context, url, error) => Container(),
-                          fit: BoxFit.fitHeight,
-                        )
-                      : Image.asset(
-                          'assets/images/triangle.png',
-                          fit: BoxFit.fitHeight,
-                        ),
+                  ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,57 +167,81 @@ class _EachPosePageState extends State<EachPosePage> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {
+                      onTap: () async {
                         print('Play button tapped !');
-                        SystemChrome.setSystemUIOverlayStyle(
-                            SystemUiOverlayStyle(
-                          statusBarColor: Colors.white,
-                          statusBarIconBrightness: Brightness.dark,
-                        ));
+                        if (videoUrl!.isNotEmpty) {
+                          await Permission.camera.request();
 
-                        Navigator.of(context)
-                            .push(
-                          // route: Navigate to TFLite screen
-                          // MaterialPageRoute(
-                          //   builder: (context) => PreviewScreen(
-                          //     pose: currentPose,
-                          //   ),
-                          // ),
-                          // route: Navigate to OAK screen
-                          MaterialPageRoute(
-                            // builder: (context) => PreviewOakScreen(
-                            //   pose: currentPose,
-                            //   trackName: _trackName,
-                            // ),
-                            builder: (context) => LandmarkOakScreen(
-                              pose: currentPose,
-                              trackName: _trackName,
-                            ),
-                          ),
-                        )
-                            .then((result) {
-                          String returnedString = result as String;
-
-                          if (returnedString != 'navigated') {
-                            Wakelock.disable();
-                            SystemChrome.setPreferredOrientations([
-                              DeviceOrientation.portraitUp,
-                              DeviceOrientation.portraitDown,
-                            ]);
-
-                            SystemChrome.setEnabledSystemUIOverlays(
-                                SystemUiOverlay.values);
+                          var status = await Permission.camera.status;
+                          if (status.isGranted) {
                             SystemChrome.setSystemUIOverlayStyle(
                                 SystemUiOverlayStyle(
-                              statusBarColor: Colors.transparent,
+                              statusBarColor: Colors.white,
                               statusBarIconBrightness: Brightness.dark,
                             ));
+
+                            Navigator.of(context)
+                                .push(
+                              // route: Navigate to TFLite screen
+                              // MaterialPageRoute(
+                              //   builder: (context) => PreviewScreen(
+                              //     pose: currentPose,
+                              //   ),
+                              // ),
+                              // route: Navigate to OAK screen
+                              MaterialPageRoute(
+                                // builder: (context) => PreviewOakScreen(
+                                //   pose: currentPose,
+                                //   trackName: _trackName,
+                                // ),
+                                // builder: (context) => MLKitTest(),
+                                // builder: (context) => LandmarkOakScreen(
+                                //   pose: currentPose,
+                                //   trackName: _trackName,
+                                // ),
+                                builder: (context) => LandmarkMLKitScreen(
+                                  pose: currentPose,
+                                  trackName: _trackName,
+                                ),
+                              ),
+                            )
+                                .then((result) {
+                              String? returnedString = result as String?;
+
+                              if (returnedString != 'navigated') {
+                                Wakelock.disable();
+                                SystemChrome.setPreferredOrientations([
+                                  DeviceOrientation.portraitUp,
+                                  DeviceOrientation.portraitDown,
+                                ]);
+
+                                SystemChrome.setEnabledSystemUIOverlays(
+                                    SystemUiOverlay.values);
+                                SystemChrome.setSystemUIOverlayStyle(
+                                    SystemUiOverlayStyle(
+                                  statusBarColor: Colors.transparent,
+                                  statusBarIconBrightness: Brightness.dark,
+                                ));
+                              }
+                            });
                           }
-                        });
+
+                          // TODO: handle the case if user denied the permission
+
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            CustomWidget.customSnackBar(
+                              content:
+                                  'The $poseName pose is not yet available. Coming soon.',
+                            ),
+                          );
+                        }
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Palette.lightDarkShade,
+                          color: _trackName == 'beginners'
+                              ? Palette.lightDarkShade
+                              : Palette.lightDarkShade.withOpacity(0.5),
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(8.0),
                           ),

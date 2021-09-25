@@ -20,7 +20,7 @@ class VoiceAssistantScreen extends StatefulWidget {
 
 class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
   bool _hasLoaded = false;
-  Uint8List audioStream;
+  Uint8List? audioStream;
 
   bool _hasCompletedSpeaking = false;
 
@@ -28,7 +28,7 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
 
   List<AnimatedText> _animText = [];
 
-  startTimer({@required BuildContext context}) {
+  startTimer({required BuildContext context}) {
     const oneSec = const Duration(seconds: 1);
     Timer.periodic(
       oneSec,
@@ -62,7 +62,7 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
     super.initState();
 
     Dialogflow.initialize().then((response) {
-      List<String> responseString = response.text.split('.');
+      List<String> responseString = response.text!.split('.');
 
       List<AnimatedText> buildAnimText = [];
 
@@ -81,7 +81,7 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
         );
       });
 
-      Uint8List audioBytes = response.outputAudioBytes;
+      Uint8List audioBytes = response.outputAudioBytes!;
 
       setState(() {
         _hasLoaded = true;
@@ -145,19 +145,19 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
                         });
 
                         context
-                            .read(voiceListenNotifierProvider)
+                            .read(voiceListenNotifierProvider.notifier)
                             .speechInitialization();
 
                         context
-                            .read(retrieveTracksNotifierProvider)
+                            .read(retrieveTracksNotifierProvider.notifier)
                             .retrieveTracks();
 
                         context
-                            .read(retrievePosesNotifierProvider('beginners'))
+                            .read(retrievePosesNotifierProvider!('beginners').notifier)
                             .retrievePoses();
 
                         context
-                            .read(retrieveUserNotifierProvider)
+                            .read(retrieveUserNotifierProvider.notifier)
                             .retrieveUser();
 
                         startTimer(context: context);
