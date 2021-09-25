@@ -267,6 +267,11 @@ class _LandmarkMLKitScreenState extends State<LandmarkMLKitScreen>
 
     if (inputImage.inputImageData?.size != null &&
         inputImage.inputImageData?.imageRotation != null) {
+      // _insideFrameCount = 0;
+      // _status =
+      //     'You are not within the frame of the camera. Please stay in frame while it starts.';
+      // _statusColor = Colors.red;
+
       final painter = PosePainterMLKit(
         poses: poses,
         absoluteImageSize: inputImage.inputImageData!.size,
@@ -275,7 +280,7 @@ class _LandmarkMLKitScreenState extends State<LandmarkMLKitScreen>
           pointsWithinFrameCount = value;
           // print('POINTS: $value');
 
-          if (pointsWithinFrameCount > 20) {
+          if (pointsWithinFrameCount > 22) {
             _insideFrameCount++;
             _status =
                 "You're within the camera frame. Please stay here until it starts";
@@ -287,7 +292,7 @@ class _LandmarkMLKitScreenState extends State<LandmarkMLKitScreen>
             _statusColor = Colors.red;
           }
 
-          if (_insideFrameCount > 20) {
+          if (_insideFrameCount > 50) {
             _stopLiveFeed();
 
             SchedulerBinding.instance?.addPostFrameCallback((_) {
