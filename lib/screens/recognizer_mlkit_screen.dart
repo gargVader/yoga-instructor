@@ -30,12 +30,10 @@ import '../main.dart';
 class RecognizerMLKitScreen extends StatefulWidget {
   final Pose? pose;
   final String? trackName;
-  // final CameraController cameraController;
 
   const RecognizerMLKitScreen({
     Key? key,
     required this.pose,
-    // @required this.cameraController,
     required this.trackName,
   }) : super(key: key);
 
@@ -47,14 +45,16 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
     with WidgetsBindingObserver {
   CameraController? _controller;
   CustomPaint? customPaint;
+
+  // Using the front camera by default
   int _cameraIndex = 1;
 
   PoseDetector poseDetector = GoogleMlKit.vision.poseDetector();
   bool isBusy = false;
   bool _isCameraAllowed = true;
 
-  Timer? _recognitionTimer;
-  int _start = 10;
+  // Timer? _recognitionTimer;
+  // int _start = 10;
 
   final configBox = Hive.box('config');
 
@@ -72,10 +72,8 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
   double _myPoseAcuracy = 0.0;
   double? _myPoseAcuracyTotal = 0.0;
 
-  // bool _isDetecting = false;
   bool _isDetectionAllowed = false;
   bool _isPoseCorrectStatus = false;
-  bool _isSSHConnectionEstablished = false;
   bool _shouldSendIndex = false;
 
   Tween<double>? _accuracyTween;
@@ -83,9 +81,6 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
   DateTime? _startTime;
   int _poseIndex = 0;
   int vCount = 0;
-
-  String _status = 'Initializing OAK-D...';
-  String? _processId;
 
   Future _startLiveFeed() async {
     final camera = cameras[_cameraIndex];
@@ -122,7 +117,7 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
     final Size imageSize =
         Size(image.width.toDouble(), image.height.toDouble());
 
-    final camera = cameras[_cameraIndex];
+    // final camera = cameras[_cameraIndex];
     final imageRotation =
         // InputImageRotationMethods.fromRawValue(camera.sensorOrientation) ??
         InputImageRotation.Rotation_180deg;
@@ -154,40 +149,40 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
     processImage(inputImage);
   }
 
-  void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    _recognitionTimer = new Timer.periodic(
-      oneSec,
-      (Timer timer) {
-        if (_start == 0) {
-          setState(() {
-            timer.cancel();
-            setState(() {
-              _isDetectionAllowed = false;
-              _start = 10;
-              _currentPauseIndex == _pausePoints!.length - 1
-                  ? _currentPauseIndex = -1
-                  : _currentPauseIndex++;
-            });
+  // void _startTimer() {
+  //   const oneSec = const Duration(seconds: 1);
+  //   _recognitionTimer = new Timer.periodic(
+  //     oneSec,
+  //     (Timer timer) {
+  //       if (_start == 0) {
+  //         setState(() {
+  //           timer.cancel();
+  //           setState(() {
+  //             _isDetectionAllowed = false;
+  //             _start = 10;
+  //             _currentPauseIndex == _pausePoints!.length - 1
+  //                 ? _currentPauseIndex = -1
+  //                 : _currentPauseIndex++;
+  //           });
 
-            _videoController!.play();
+  //           _videoController!.play();
 
-            if (_myPoseAcuracyTotal == 0.0) {
-              _myPoseAcuracyTotal = _myPoseAcuracy;
-            } else {
-              _myPoseAcuracyTotal = (_myPoseAcuracyTotal! + _myPoseAcuracy) / 2;
-            }
-            _totalFramesPositive = 0;
+  //           if (_myPoseAcuracyTotal == 0.0) {
+  //             _myPoseAcuracyTotal = _myPoseAcuracy;
+  //           } else {
+  //             _myPoseAcuracyTotal = (_myPoseAcuracyTotal! + _myPoseAcuracy) / 2;
+  //           }
+  //           _totalFramesPositive = 0;
 
-            setState(() {});
-          });
-        } else {
-          _start--;
-          print(_start);
-        }
-      },
-    );
-  }
+  //           setState(() {});
+  //         });
+  //       } else {
+  //         _start--;
+  //         print(_start);
+  //       }
+  //     },
+  //   );
+  // }
 
   Future<void> processImage(InputImage inputImage) async {
     if (isBusy) return;
@@ -224,84 +219,7 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
     }
   }
 
-  // processSSHOutput(String output) async {
-  //   if (output.contains("ERROR(1)")) {
-  //     setState(() {
-  //       _status = "Couldn't find device";
-  //       _isOAKAvailable = false;
-  //     });
-  //   } else if (output.contains("ERROR(2)")) {
-  //     setState(() {
-  //       _status = "Failed to connect with device";
-  //       _isOAKAvailable = false;
-  //     });
-  //   } else if (output.contains("PID:")) {
-  //     // print(output.substring(5));
-  //     setState(() {
-  //       _status = "Initialized";
-  //       _processId = output.substring(5).trim();
-  //     });
-  //   } else if (output.contains("INFO:")) {
-  //     // print(output.substring(6));
-  //     setState(() {
-  //       _status = output.substring(6).trim();
-  //       if (_status == "Ready") {
-  //         _isSSHConnectionEstablished = true;
-  //       }
-  //     });
-  //   } else if (output.contains("LANDMARKS:")) {
-  //     // print(output.substring(12));
-
-  //     var rawJSONData = output.substring(11).replaceAll("\'", "\"");
-  //     // print('RAW: $rawJSONData');
-
-  //     Map<String, dynamic> parsedJSON = jsonDecode(rawJSONData);
-
-  //     final data = Landmarks.fromJson(parsedJSON);
-  //     // print('PARSED: ${data.landmarks[0].x}');
-
-  //     setState(() {
-  //       _landmarks = data.landmarks;
-  //     });
-  //   } else if (output.contains("RECOGNIZED:")) {
-  //     // print(output.substring(12));
-  //     if (_isDetectionAllowed == true) {
-  //       var rawJSONData =
-  //           output.substring(12).replaceAll("\"", "").replaceAll("\'", "\"");
-  //       // print('RAW: $rawJSONData');
-
-  //       Map<String, dynamic> parsedJSON = jsonDecode(rawJSONData);
-
-  //       // print('PARSED: ${parsedJSON['pose']}');
-
-  //       String? poseName = parsedJSON['pose'];
-  //       double? poseAccuracy = parsedJSON['accuracy'];
-
-  //       setOakRecognitions(poseName, poseAccuracy);
-  //     }
-  //     // setState(() {
-  //     //   _status = output.substring(12).trim();
-  //     // });
-  //   } else if (output.contains("KILL:")) {
-  //     setState(() {
-  //       _status = "Not initizlized";
-  //     });
-  //   }
-  // }
-
-  // streamListener() {
-  //   _dataStream = _database.reference().child('123').onValue.listen((event) {
-  //     print('hello');
-  //     DataSnapshot oakDataSnapshot = event.snapshot;
-  //     String poseName = oakDataSnapshot.value['pose'];
-  //     double poseAccuracy = oakDataSnapshot.value['accuracy'];
-
-  //     setOakRecognitions(poseName, poseAccuracy);
-  //   });
-  // }
-
   setOakRecognitions(String? name, double? accuracy) async {
-    print("helloo");
     if (_isDetectionAllowed) {
       String? label = name;
       double? confidence = accuracy;
@@ -335,49 +253,6 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
           _landmarkColor = Colors.red;
         });
       }
-
-      // if (_currentPoseName == label) {
-      //   _totalFramesPositive++;
-
-      //   if (_totalFramesPositive == 20) {
-      //     _isPoseCorrectStatus = true;
-      //     _myPoseAcuracy = confidence;
-      //     setState(() {});
-      //   } else if (_totalFramesPositive > 100) {
-      //     // await _cameraController?.stopImageStream();
-      //     _myPoseAcuracy = (_myPoseAcuracy + confidence) / 2;
-
-      //     setState(() {
-      //       _isDetectionAllowed = false;
-      //       _currentPauseIndex == _pausePoints.length - 1
-      //           ? _currentPauseIndex = -1
-      //           : _currentPauseIndex++;
-      //     });
-
-      //     _videoController.play();
-
-      //     if (_myPoseAcuracyTotal == 0.0) {
-      //       _myPoseAcuracyTotal = _myPoseAcuracy;
-      //     } else {
-      //       _myPoseAcuracyTotal = (_myPoseAcuracyTotal + _myPoseAcuracy) / 2;
-      //     }
-
-      //     _totalFramesPositive = 0;
-
-      //     setState(() {});
-      //   } else {
-      //     if (_isPoseCorrectStatus) {
-      //       _myPoseAcuracy = (_myPoseAcuracy + confidence) / 2;
-      //       setState(() {});
-      //     }
-      //   }
-      // } else {
-      //   _totalFramesPositive = 0;
-
-      //   setState(() {
-      //     _isPoseCorrectStatus = false;
-      //   });
-      // }
     }
   }
 
@@ -392,25 +267,6 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
 
     WidgetsBinding.instance?.addObserver(this);
 
-    // _client = SSHClient(
-    //   host: configBox.get(hiveHostName) ?? PiConfig.hostname,
-    //   username: configBox.get(hiveUsername) ?? PiConfig.username,
-    //   port: configBox.get(hivePort) ?? PiConfig.port,
-    //   passwordOrKey: configBox.get(hivePassword) ?? PiConfig.password,
-    // );
-
-    // streamListener();
-
-    // _database.reference().child('123').onValue.listen((event) {
-    //   print('hello');
-    //   DataSnapshot oakDataSnapshot = event.snapshot;
-    //   String poseName = oakDataSnapshot.value['pose'];
-    //   double poseAccuracy = oakDataSnapshot.value['accuracy'];
-
-    //   setOakRecognitions(poseName, poseAccuracy);
-    // });
-
-    // _cameraController = widget.cameraController;
     _videoController = VideoManager.videoController;
 
     _pausePoints = widget.pose!.pausePoints;
@@ -426,7 +282,6 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
       _indexedPoseName += '$_poseIndex';
     }
 
-    // _poseIndex = widget.pose.index;
     print('FIREBASE NAME: $_currentPoseName, INDEX: $_poseIndex');
 
     _accuracyTween = Tween(
@@ -455,6 +310,7 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
           _videoController!.pause();
           setState(() {
             _isDetectionAllowed = true;
+            _myPoseAcuracy = 0;
             _landmarkColor = Colors.red;
             if (_shouldSendIndex) {
               _poseIndex++;
@@ -464,7 +320,7 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
             if (isComplete) {
               setState(() {
                 _isDetectionAllowed = false;
-                _start = 3;
+
                 _currentPauseIndex == _pausePoints!.length - 1
                     ? _currentPauseIndex = -1
                     : _currentPauseIndex++;
@@ -478,27 +334,9 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
               });
 
               _videoController!.play();
-              //HERE
-              // _sshConnectivity.stopRecognitionScript(
-              //   processId: _processId,
-              //   client: _client,
-              // );
 
-              if (_poseIndex <= _pausePoints!.length && _shouldSendIndex) {
-                // Changing the SSH script
-                // _sshConnectivity.changeRecognizationScript(
-                //   client: _client,
-                //   poseName: _indexedPoseName,
-                //   trackName: _trackName!,
-                //   processId: _processId,
-                //   // onReceive: (String output) {
-                //   //   output = output.trim();
-                //   //   if (this.mounted) processSSHOutput(output);
-                //   // },
-                // );
-              }
-
-              if (_myPoseAcuracyTotal == 0.0) {
+              if (_myPoseAcuracyTotal == 0.0 &&
+                  (_poseIndex == 2 || _poseIndex == 1)) {
                 _myPoseAcuracyTotal = _myPoseAcuracy;
               } else {
                 _myPoseAcuracyTotal =
@@ -520,6 +358,7 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
           vCount++;
         });
         _stopLiveFeed();
+        print('Accuracy each: $_myPoseAcuracy, total: $_myPoseAcuracyTotal');
 
         Navigator.of(context).pushReplacement(
           PageRouteBuilder(
@@ -532,36 +371,8 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
           ),
           result: 'navigated',
         );
-        print('Accuracy each: $_myPoseAcuracy, total: $_myPoseAcuracyTotal');
       }
     });
-
-    ////...
-
-    // _cameraController.startImageStream((image) {
-    //   if (!_isDetecting && _isDetectionAllowed) {
-    //     _isDetecting = true;
-
-    //     Tflite.runModelOnFrame(
-    //       imageMean: 128,
-    //       imageStd: 128,
-    //       bytesList: image.planes.map((plane) {
-    //         return plane.bytes;
-    //       }).toList(),
-    //       imageHeight: image.height,
-    //       imageWidth: image.width,
-    //       asynch: true,
-    //       rotation: 180,
-    //       numResults: 1,
-    //       threshold: 0.2,
-    //     ).then((recognitions) async {
-    //       if (_isDetectionAllowed) {
-    //         setRecognitions(recognitions, image.height, image.width);
-    //         _isDetecting = false;
-    //       }
-    //     });
-    //   }
-    // });
 
     super.initState();
   }
@@ -583,8 +394,8 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
 
     double frac = height / camHeight;
 
-    double containerWidth = camWidth * frac;
-    double containerHeight = height;
+    // double containerWidth = camWidth * frac;
+    // double containerHeight = height;
 
     return WillPopScope(
       onWillPop: () async {
@@ -592,12 +403,6 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
           statusBarColor: Colors.transparent,
         ));
         _stopLiveFeed();
-        // if (_isOAKAvailable)
-        //   _sshConnectivity.stopRecognitionScript(
-        //     processId: _processId,
-        //     client: _client,
-        //   );
-        // FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
         return true;
       },
       child: Scaffold(
@@ -649,14 +454,6 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
                             : Container()
                         : Container()
                     : Container(),
-
-                // child: CameraView(
-                //   camWidth: screenSize.width * 0.16,
-                //   // customPaint: customPaint,
-                //   onImage: (inputImage) {
-                //     processImage(inputImage);
-                //   },
-                // ),
               ),
               mounted && _controller != null
                   ? _controller!.value.isInitialized
