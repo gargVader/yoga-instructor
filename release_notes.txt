@@ -5,3 +5,4 @@ Changes:
 * Request permission for camera before opening the detection screen
 * Fix accuracy count
 * Fix downward facing dog pose
+* Using the fixed IllegalStateException camera plugin

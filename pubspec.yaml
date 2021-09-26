@@ -3,7 +3,7 @@ description: AI powered yoga instructor
 
 publish_to: "none"
 
-version: 0.12.4+47
+version: 0.12.5+48
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -25,7 +25,12 @@ dependencies:
   flutter_tts: ^3.2.2
   # tflite: ^1.1.2
   showcaseview: ^1.1.1
-  camera: ^0.9.4
+  # camera: ^0.9.4
+  camera:
+    git:
+      url: git://github.com/Baseflow/flutter-plugins.git
+      ref: issue/89352
+      path: packages/camera/camera
   video_player: ^2.1.14
   google_fonts: ^2.1.0
   # flutter_statusbarcolor: ^0.2.3
