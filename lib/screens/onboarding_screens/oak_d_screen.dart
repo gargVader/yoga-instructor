@@ -301,7 +301,43 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
                                         ),
                                       ),
                                     )
-                                  : Container()
+                                  : Container(),
+                              SizedBox(height: 16.0),
+                              TextButton(
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  primary: Colors.transparent,
+                                ),
+                                onPressed: () async {
+                                  SystemChrome.setSystemUIOverlayStyle(
+                                    SystemUiOverlayStyle(
+                                      statusBarColor: Colors.white,
+                                      statusBarIconBrightness: Brightness.dark,
+                                    ),
+                                  );
+
+                                  SharedPreferences prefs =
+                                      await SharedPreferences.getInstance();
+                                  prefs.setBool('isOakAvailable', false);
+
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return VoiceAssistantScreen();
+                                      },
+                                    ),
+                                    (route) => false,
+                                  );
+                                },
+                                child: Text(
+                                  'Skip, use on-device camera',
+                                  style: TextStyle(
+                                    color: Palette.black.withOpacity(0.6),
+                                    fontSize: 16.0,
+                                    letterSpacing: 1,
+                                  ),
+                                ),
+                              ),
                             ],
                           )
                         : Column(
@@ -310,7 +346,7 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
                               RichText(
                                 textAlign: TextAlign.start,
                                 text: TextSpan(
-                                  text: 'Do you want to connect with the ',
+                                  text: 'Do you have access to an ',
                                   style: TextStyle(
                                     color: Palette.black,
                                     fontSize: 20.0,
@@ -328,42 +364,42 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
                                       ),
                                     ),
                                     TextSpan(
-                                      text: 'now?',
+                                      text: 'device?',
                                     ),
                                   ],
                                 ),
                               ),
                               SizedBox(height: 24.0),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  InkWell(
-                                    borderRadius: BorderRadius.circular(30),
-                                    onTap: () async {
-                                      setState(() {
-                                        _isYes = true;
-                                      });
+                              InkWell(
+                                borderRadius: BorderRadius.circular(30),
+                                onTap: () async {
+                                  setState(() {
+                                    _isYes = true;
+                                  });
 
-                                      await Future.delayed(500.milliseconds);
+                                  await Future.delayed(500.milliseconds);
 
-                                      setState(() {
-                                        _isQuestionVisible = false;
-                                      });
+                                  setState(() {
+                                    _isQuestionVisible = false;
+                                  });
 
-                                      _animationController
-                                          .forward()
-                                          .whenComplete(() {
-                                        _pulseAnimationController.forward();
-                                        _sshConnectivity.checkAvailability(
-                                          client: client,
-                                          onReceive: (String output) {
-                                            output = output.trim();
-                                            processSSHOutput(output);
-                                          },
-                                        );
-                                      });
-                                    },
-                                    child: _isYes != null && _isYes!
+                                  _animationController
+                                      .forward()
+                                      .whenComplete(() {
+                                    _pulseAnimationController.forward();
+                                    _sshConnectivity.checkAvailability(
+                                      client: client,
+                                      onReceive: (String output) {
+                                        output = output.trim();
+                                        processSSHOutput(output);
+                                      },
+                                    );
+                                  });
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    _isYes != null && _isYes!
                                         ? Icon(
                                             Icons.check_circle,
                                             color: Palette.accentGreen,
@@ -372,51 +408,50 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
                                             Icons.circle,
                                             color: Colors.black12,
                                           ),
-                                  ),
-                                  SizedBox(width: 8.0),
-                                  Text(
-                                    'Yes',
-                                    style: TextStyle(
-                                      color: Palette.black.withOpacity(0.6),
-                                      fontSize: 20.0,
-                                      letterSpacing: 1,
+                                    SizedBox(width: 8.0),
+                                    Text(
+                                      'Yes, connect with it',
+                                      style: TextStyle(
+                                        color: Palette.black.withOpacity(0.6),
+                                        fontSize: 20.0,
+                                        letterSpacing: 1,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                               SizedBox(height: 16.0),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  InkWell(
-                                    borderRadius: BorderRadius.circular(30),
-                                    onTap: () async {
-                                      setState(() {
-                                        _isYes = false;
-                                      });
+                              InkWell(
+                                borderRadius: BorderRadius.circular(30),
+                                onTap: () async {
+                                  setState(() {
+                                    _isYes = false;
+                                  });
 
-                                      SystemChrome.setSystemUIOverlayStyle(
-                                        SystemUiOverlayStyle(
-                                          statusBarColor: Colors.white,
-                                          statusBarIconBrightness:
-                                              Brightness.dark,
-                                        ),
-                                      );
+                                  SystemChrome.setSystemUIOverlayStyle(
+                                    SystemUiOverlayStyle(
+                                      statusBarColor: Colors.white,
+                                      statusBarIconBrightness: Brightness.dark,
+                                    ),
+                                  );
 
-                                      SharedPreferences prefs =
-                                          await SharedPreferences.getInstance();
-                                      prefs.setBool('isOakAvailable', false);
+                                  SharedPreferences prefs =
+                                      await SharedPreferences.getInstance();
+                                  prefs.setBool('isOakAvailable', false);
 
-                                      Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(
-                                          builder: (context) {
-                                            return VoiceAssistantScreen();
-                                          },
-                                        ),
-                                        (route) => false,
-                                      );
-                                    },
-                                    child: _isYes != null && !_isYes!
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return VoiceAssistantScreen();
+                                      },
+                                    ),
+                                    (route) => false,
+                                  );
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    _isYes != null && !_isYes!
                                         ? Icon(
                                             Icons.check_circle,
                                             color: Palette.accentGreen,
@@ -425,17 +460,17 @@ class _OAKDScreenState extends State<OAKDScreen> with TickerProviderStateMixin {
                                             Icons.circle,
                                             color: Colors.black12,
                                           ),
-                                  ),
-                                  SizedBox(width: 8.0),
-                                  Text(
-                                    'No, later',
-                                    style: TextStyle(
-                                      color: Palette.black.withOpacity(0.6),
-                                      fontSize: 20.0,
-                                      letterSpacing: 1,
+                                    SizedBox(width: 8.0),
+                                    Text(
+                                      'No, use on-device camera',
+                                      style: TextStyle(
+                                        color: Palette.black.withOpacity(0.6),
+                                        fontSize: 20.0,
+                                        letterSpacing: 1,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                               SizedBox(height: 16.0),
                               Container(
