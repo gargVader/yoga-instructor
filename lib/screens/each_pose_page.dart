@@ -7,6 +7,7 @@ import 'package:sofia/model/track.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/screens/landmark_mlkit_screen.dart';
 import 'package:sofia/screens/landmark_oak_screen.dart';
+import 'package:sofia/screens/orientation_screen.dart';
 import 'package:sofia/screens/preview_oak_screen.dart';
 import 'package:sofia/screens/preview_screen.dart';
 import 'package:sofia/widgets/common/custom_widgets.dart';
@@ -199,8 +200,12 @@ class _EachPosePageState extends State<EachPosePage> {
                                 //   pose: currentPose,
                                 //   trackName: _trackName,
                                 // ),
-                                builder: (context) => LandmarkMLKitScreen(
-                                  pose: currentPose,
+                                // builder: (context) => LandmarkMLKitScreen(
+                                //   pose: currentPose,
+                                //   trackName: _trackName,
+                                // ),
+                                builder: (context) => OrientationScreen(
+                                  currentPose: currentPose,
                                   trackName: _trackName,
                                 ),
                               ),
@@ -209,19 +214,24 @@ class _EachPosePageState extends State<EachPosePage> {
                               String? returnedString = result as String?;
 
                               if (returnedString != 'navigated') {
-                                Wakelock.disable();
+                                print('Each Pose Page -> $returnedString');
+                                // Wakelock.disable();
                                 SystemChrome.setPreferredOrientations([
                                   DeviceOrientation.portraitUp,
                                   DeviceOrientation.portraitDown,
                                 ]);
 
                                 SystemChrome.setEnabledSystemUIOverlays(
-                                    SystemUiOverlay.values);
+                                  SystemUiOverlay.values,
+                                );
                                 SystemChrome.setSystemUIOverlayStyle(
-                                    SystemUiOverlayStyle(
-                                  statusBarColor: Colors.transparent,
-                                  statusBarIconBrightness: Brightness.dark,
-                                ));
+                                  SystemUiOverlayStyle(
+                                    statusBarColor: Colors.transparent,
+                                    statusBarIconBrightness: Brightness.dark,
+                                  ),
+                                );
+                              } else {
+                                print('Each Pose Page -> $returnedString');
                               }
                             });
                           }
