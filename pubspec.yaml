@@ -53,6 +53,7 @@ dependencies:
       url: git://github.com/sbis04/flutter-ml-kit-pose-plugin.git
       ref: main
   permission_handler: ^8.1.6
+  native_device_orientation: ^1.0.0
 
 dev_dependencies:
   flutter_test:
