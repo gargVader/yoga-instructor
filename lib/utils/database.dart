@@ -503,6 +503,7 @@ class Database {
     configBox.put(hiveAsanas, 5);
     configBox.put(hiveAccuracy, 80);
     configBox.put(hiveHoldDuration, 5);
+    configBox.put(hiveScreenOrientation, defaultScreenOrientation);
     configBox.put(hiveCamera, cameraOAK);
     configBox.put(hiveRaspiPath, raspiRootPath);
     configBox.put(hiveDevMode, false);

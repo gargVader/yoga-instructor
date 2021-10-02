@@ -7,12 +7,16 @@ const String hiveAsanas = 'asanas';
 const String hiveAccuracy = 'accuracy';
 // Settings
 const String hiveHoldDuration = 'hold';
+const String hiveScreenOrientation = 'orientation';
 const String hiveCamera = 'camera';
 const String hiveRaspiPath = 'path';
 
 // Dev Mode
 const String hiveDevMode = 'dev';
 const String hiveSSHConfig = 'ssh';
+
+// App Font
+const String appFont = 'GoogleSans';
 
 // SSH
 const String hiveHostName = 'ssh_hostname';
@@ -36,3 +40,8 @@ const String raspiRootPath = '~/yoga-instructor-oak-server';
 // frame size: 1792 x 1008
 const double camHeight = 1008.0;
 const double camWidth = 1792.0;
+
+// Screen Orientation
+const String defaultScreenOrientation = 'Default';
+const String landscapeRightScreenOrientation = 'Landspace Right';
+const String landscapeLeftScreenOrientation = 'Landscape Left';

@@ -590,6 +590,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           SettingsDivider(),
                           SettingsTile(
+                            title: 'Recognizer orientation',
+                            description:
+                                'Set the default screen orientation in which the screen should be auto-rotated once the recognizer starts',
+                            hiveKey: hiveScreenOrientation,
+                            hiveValue:
+                                '${currentBox.get(hiveScreenOrientation)}',
+                            dropdownItems: [
+                              defaultScreenOrientation,
+                              landscapeRightScreenOrientation,
+                              landscapeLeftScreenOrientation,
+                            ],
+                          ),
+                          SettingsDivider(),
+                          SettingsTile(
                             title: 'Camera',
                             description:
                                 'Set which camera to use for the detection of posture accuracy. For increased precission you can use the OAK-D camera.',

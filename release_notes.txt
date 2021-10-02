@@ -1,4 +1,5 @@
 Changes:
 
 * ML Kit release - Phase 1
-* Minor bug fixes - UX
+* Introduce new orientation system
+* Add a new settings for orientation

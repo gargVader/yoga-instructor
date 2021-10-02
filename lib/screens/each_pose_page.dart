@@ -1,12 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
+import 'package:native_device_orientation/native_device_orientation.dart';
 
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/model/track.dart';
 import 'package:sofia/res/palette.dart';
+import 'package:sofia/res/string.dart';
 import 'package:sofia/screens/landmark_mlkit_screen.dart';
 import 'package:sofia/screens/landmark_oak_screen.dart';
+import 'package:sofia/screens/orientation_screen.dart';
 import 'package:sofia/screens/preview_oak_screen.dart';
 import 'package:sofia/screens/preview_screen.dart';
 import 'package:sofia/widgets/common/custom_widgets.dart';
@@ -180,50 +184,91 @@ class _EachPosePageState extends State<EachPosePage> {
                               statusBarIconBrightness: Brightness.dark,
                             ));
 
-                            Navigator.of(context)
-                                .push(
-                              // route: Navigate to TFLite screen
-                              // MaterialPageRoute(
-                              //   builder: (context) => PreviewScreen(
-                              //     pose: currentPose,
-                              //   ),
-                              // ),
-                              // route: Navigate to OAK screen
-                              MaterialPageRoute(
-                                // builder: (context) => PreviewOakScreen(
-                                //   pose: currentPose,
-                                //   trackName: _trackName,
-                                // ),
-                                // builder: (context) => MLKitTest(),
-                                // builder: (context) => LandmarkOakScreen(
-                                //   pose: currentPose,
-                                //   trackName: _trackName,
-                                // ),
-                                builder: (context) => LandmarkMLKitScreen(
-                                  pose: currentPose,
-                                  trackName: _trackName,
+                            final configBox = Hive.box('config');
+                            String screenOrientation =
+                                configBox.get(hiveScreenOrientation);
+
+                            if (screenOrientation == defaultScreenOrientation) {
+                              Navigator.of(context)
+                                  .push(
+                                MaterialPageRoute(
+                                  // builder: (context) => LandmarkMLKitScreen(
+                                  //   pose: currentPose,
+                                  //   trackName: _trackName,
+                                  // ),
+                                  builder: (context) => OrientationScreen(
+                                    currentPose: currentPose,
+                                    trackName: _trackName,
+                                  ),
                                 ),
-                              ),
-                            )
-                                .then((result) {
-                              String? returnedString = result as String?;
+                              )
+                                  .then((result) {
+                                String? returnedString = result as String?;
 
-                              if (returnedString != 'navigated') {
-                                Wakelock.disable();
-                                SystemChrome.setPreferredOrientations([
-                                  DeviceOrientation.portraitUp,
-                                  DeviceOrientation.portraitDown,
-                                ]);
+                                if (returnedString != 'navigated') {
+                                  print('Each Pose Page -> $returnedString');
+                                  // Wakelock.disable();
+                                  SystemChrome.setPreferredOrientations([
+                                    DeviceOrientation.portraitUp,
+                                    DeviceOrientation.portraitDown,
+                                  ]);
 
-                                SystemChrome.setEnabledSystemUIOverlays(
-                                    SystemUiOverlay.values);
-                                SystemChrome.setSystemUIOverlayStyle(
+                                  SystemChrome.setEnabledSystemUIOverlays(
+                                    SystemUiOverlay.values,
+                                  );
+                                  SystemChrome.setSystemUIOverlayStyle(
                                     SystemUiOverlayStyle(
-                                  statusBarColor: Colors.transparent,
-                                  statusBarIconBrightness: Brightness.dark,
-                                ));
-                              }
-                            });
+                                      statusBarColor: Colors.transparent,
+                                      statusBarIconBrightness: Brightness.dark,
+                                    ),
+                                  );
+                                } else {
+                                  print('Each Pose Page -> $returnedString');
+                                }
+                              });
+                            } else {
+                              Navigator.of(context)
+                                  .push(
+                                MaterialPageRoute(
+                                  builder: (context) => LandmarkMLKitScreen(
+                                    pose: currentPose,
+                                    trackName: _trackName,
+                                    screenRotation: screenOrientation ==
+                                            landscapeRightScreenOrientation
+                                        ? NativeDeviceOrientation.landscapeRight
+                                        : NativeDeviceOrientation.landscapeLeft,
+                                  ),
+                                  // builder: (context) => OrientationScreen(
+                                  //   currentPose: currentPose,
+                                  //   trackName: _trackName,
+                                  // ),
+                                ),
+                              )
+                                  .then((result) {
+                                String? returnedString = result as String?;
+
+                                if (returnedString != 'navigated') {
+                                  print('Each Pose Page -> $returnedString');
+                                  Wakelock.disable();
+                                  SystemChrome.setPreferredOrientations([
+                                    DeviceOrientation.portraitUp,
+                                    DeviceOrientation.portraitDown,
+                                  ]);
+
+                                  SystemChrome.setEnabledSystemUIOverlays(
+                                    SystemUiOverlay.values,
+                                  );
+                                  SystemChrome.setSystemUIOverlayStyle(
+                                    SystemUiOverlayStyle(
+                                      statusBarColor: Colors.transparent,
+                                      statusBarIconBrightness: Brightness.dark,
+                                    ),
+                                  );
+                                } else {
+                                  print('Each Pose Page -> $returnedString');
+                                }
+                              });
+                            }
                           }
 
                           // TODO: handle the case if user denied the permission
