@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
+import 'package:native_device_orientation/native_device_orientation.dart';
 import 'package:sofia/model/landmarks.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/res/string.dart';
@@ -117,6 +118,8 @@ class _LandmarkOakScreenState extends State<LandmarkOakScreen> {
             pageBuilder: (context, _, __) => TimerScreen(
               pose: widget.pose,
               track: _trackName,
+              // TODO: pass the proper orientation
+              screenRotation: NativeDeviceOrientation.landscapeRight,
             ),
           ),
           result: 'navigated',
