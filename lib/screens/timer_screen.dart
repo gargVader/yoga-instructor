@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/services.dart';
+import 'package:native_device_orientation/native_device_orientation.dart';
 import 'package:sofia/model/pose.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/screens/recognizer_oak_screen.dart';
@@ -13,11 +14,13 @@ import 'recognizer_mlkit_screen.dart';
 class TimerScreen extends StatefulWidget {
   final Pose? pose;
   final String? track;
+  final NativeDeviceOrientation screenRotation;
 
   const TimerScreen({
     Key? key,
     required this.pose,
     required this.track,
+    required this.screenRotation,
   }) : super(key: key);
 
   @override
@@ -78,6 +81,7 @@ class _TimerScreenState extends State<TimerScreen> {
             builder: (context) => RecognizerMLKitScreen(
               pose: widget.pose,
               trackName: widget.track,
+              screenRotation: widget.screenRotation,
             ),
           ),
         )
