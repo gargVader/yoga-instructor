@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:hive/hive.dart';
+import 'package:native_device_orientation/native_device_orientation.dart';
 import 'package:sofia/model/landmarks.dart';
 import 'package:sofia/res/palette.dart';
 import 'package:sofia/res/string.dart';
@@ -30,11 +31,13 @@ import '../main.dart';
 class RecognizerMLKitScreen extends StatefulWidget {
   final Pose? pose;
   final String? trackName;
+  final NativeDeviceOrientation screenRotation;
 
   const RecognizerMLKitScreen({
     Key? key,
     required this.pose,
     required this.trackName,
+    required this.screenRotation,
   }) : super(key: key);
 
   @override
@@ -48,6 +51,8 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
 
   // Using the front camera by default
   int _cameraIndex = 1;
+  int _quarterTurns = 0;
+  late final InputImageRotation _imageRotation;
 
   PoseDetector poseDetector = GoogleMlKit.vision.poseDetector();
   bool isBusy = false;
@@ -117,11 +122,6 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
     final Size imageSize =
         Size(image.width.toDouble(), image.height.toDouble());
 
-    // final camera = cameras[_cameraIndex];
-    final imageRotation =
-        // InputImageRotationMethods.fromRawValue(camera.sensorOrientation) ??
-        InputImageRotation.Rotation_180deg;
-
     final inputImageFormat =
         InputImageFormatMethods.fromRawValue(image.format.raw) ??
             InputImageFormat.NV21;
@@ -138,7 +138,7 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
 
     final inputImageData = InputImageData(
       size: imageSize,
-      imageRotation: imageRotation,
+      imageRotation: _imageRotation,
       inputImageFormat: inputImageFormat,
       planeData: planeData,
     );
@@ -258,10 +258,19 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
 
   @override
   void initState() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      // DeviceOrientation.landscapeLeft,
-    ]);
+    if (widget.screenRotation == NativeDeviceOrientation.landscapeLeft) {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeLeft,
+      ]);
+      _quarterTurns = 3;
+      _imageRotation = InputImageRotation.Rotation_0deg;
+    } else {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeRight, // was default
+      ]);
+      _quarterTurns = 1;
+      _imageRotation = InputImageRotation.Rotation_180deg;
+    }
 
     SystemChrome.setEnabledSystemUIOverlays([]);
 
@@ -440,7 +449,7 @@ class _RecognizerMLKitScreenState extends State<RecognizerMLKitScreen>
                                   bottomLeft: Radius.circular(8),
                                 ),
                                 child: RotatedBox(
-                                  quarterTurns: 1,
+                                  quarterTurns: _quarterTurns,
                                   child: SizedBox(
                                     width: screenSize.height * 0.4,
                                     child: AspectRatio(
